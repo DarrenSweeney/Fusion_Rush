@@ -44,7 +44,8 @@ int main(int argc, char* argv[])
 	glfwGetFramebufferSize(window, &width, &height);
 	glViewport(0, 0, width, height);
 
-	Shader shader = shader.LoadShader("test.vert", "test.frag");
+	Shader shader = shader.LoadShader("test.vert", "tsest.frag");
+	GLuint programID = shader.Program;
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 

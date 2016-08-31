@@ -11,6 +11,20 @@ Shader Shader::LoadShader(const GLchar *vertexPath, const GLchar *fragmentPath, 
 	if (geometryPath)
 		gShaderFile.exceptions(std::ifstream::badbit);
 
+	// Check if the file exsists
+	std::ifstream infile(vertexPath);
+	if (!infile.good())
+	{
+		std::cout << "Could not find vertex shader" << std::endl;
+		return Shader();
+	}
+	infile = std::ifstream(fragmentPath);
+	if (!infile.good())
+	{
+		std::cout << "Could not find fragment shader" << std::endl;
+		return Shader();
+	}
+
 	try
 	{
 		vShaderFile.open(vertexPath);
@@ -46,7 +60,7 @@ Shader Shader::LoadShader(const GLchar *vertexPath, const GLchar *fragmentPath, 
 
 	const GLchar *vShaderCode = vertexCode.c_str();
 	const GLchar *fShaderCode = fragmentCode.c_str();
-	const GLchar *gShaderCode = NULL;// = (geometryPath != NULL ? geometryCode.c_str() : NULL);
+	const GLchar *gShaderCode = (geometryPath != NULL ? geometryCode.c_str() : NULL);
 
 	Shader shader;
 	shader.Compile(vShaderCode, fShaderCode, gShaderCode != NULL ? gShaderCode : NULL);
@@ -121,7 +135,7 @@ void Shader::Compile(const GLchar *vShaderCode, const GLchar *fShaderCode, const
 	if (!result)
 	{
 		glGetProgramInfoLog(Program, logLength, NULL, &infoLog);
-		// TODO(Darren): Need to print out log here.
+		std::cout << "ERROR::SHADER::LINKING_FAILED" << std::endl;
 	}
 
 	glDeleteShader(vertexShader);
