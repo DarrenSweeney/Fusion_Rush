@@ -27,7 +27,6 @@ public:
 	Matrix4 &scale(Vector3 &vec3);
 	Matrix4 &translate(Vector3 &vec3);
 
-	// TODO(Darren): What if x have anxis to rotate but x change it because of the refernece.
 	Matrix4 rotate(float angle, Vector3 &vec3);
 	Matrix4 rotateX(float angle);
 	Matrix4 rotateY(float angle);
