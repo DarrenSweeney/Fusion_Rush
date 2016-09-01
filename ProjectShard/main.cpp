@@ -1,11 +1,21 @@
 #include <iostream>
-#include "Shader.h"
+
+#include "TestPlayArea.h"
+#include "Camera.h"
+
 #include <GL\gl3w.h>
 #include <GLFW\glfw3.h>
 
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
-GLuint quadVAO = 0, quadVBO = 0;
-void RenderQuad();
+void key_callback(GLFWwindow *window, int key, int scancode, int action, int mode);
+void mouse_callback(GLFWwindow *window, double xPos, double yPos);
+void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
+
+Camera camera(Vector3(0.0f, 0.0f, 3.0f));
+GLfloat lastX, lastY;
+bool keys[1024];
+bool activeCamera;
+GLfloat deltaTime = 0.0f;
+GLfloat lastFrame = 0.0f;
 
 int main(int argc, char* argv[])
 {
@@ -21,8 +31,12 @@ int main(int argc, char* argv[])
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	
-	GLFWwindow *window = glfwCreateWindow(640, 480, "Project Shard", NULL, NULL);
+	GLFWwindow *window = glfwCreateWindow(900, 600, "Project Shard", NULL, NULL);
+
+	// GLFW input callbacks.
 	glfwSetKeyCallback(window, key_callback);
+	glfwSetCursorPosCallback(window, mouse_callback);
+	glfwSetMouseButtonCallback(window, mouse_button_callback);
 
 	if (!window)
 	{
@@ -44,60 +58,70 @@ int main(int argc, char* argv[])
 	glfwGetFramebufferSize(window, &width, &height);
 	glViewport(0, 0, width, height);
 
-	Shader shader = shader.LoadShader("test.vert", "tsest.frag");
-	GLuint programID = shader.Program;
+	TestPlayArea testPlayArea;
+	testPlayArea.InitalizeScene();
 
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	while (!glfwWindowShouldClose(window))
 	{
+		// Set frame time
+		GLfloat currentFrame = glfwGetTime();
+		deltaTime = currentFrame - lastFrame;
+		lastFrame = currentFrame;
+
 		glfwPollEvents();
+		camera.KeyboardMovement(keys, deltaTime);
+		camera.ControllerMovement();
 
 		glClearColor(0.0f, 0.5f, 0.5f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		shader.Use();
-		RenderQuad();
+		testPlayArea.RenderScene(camera);
 
 		glfwSwapBuffers(window);
 	}
 
-	// De-allocate all resources
-	glDeleteVertexArrays(1, &quadVAO);
-	glDeleteBuffers(1, &quadVBO);
 	glfwTerminate();
 }
 
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) 
+void key_callback(GLFWwindow *window, int key, int scancode, int action, int mode)
 {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
+
+	if (key >= 0 && key < 1024)
+	{
+		if (action == GLFW_PRESS)
+			keys[key] = true;
+		else if (action == GLFW_RELEASE)
+			keys[key] = false;
+	}
 }
 
-void RenderQuad()
+bool first_entered_window = true;
+void mouse_callback(GLFWwindow *window, double xPos, double yPos)
 {
-	if (quadVAO == 0)
+	if (first_entered_window)
 	{
-		GLfloat quadVertices[] = {
-			// Positions			// Texture Coords
-			-0.5f,  0.5f, 0.0f,		0.0f, 1.0f,
-			-0.5f, -0.5f, 0.0f,		0.0f, 0.0f,
-			0.5f,  0.5f, 0.0f,		1.0f, 1.0f,
-			0.5f, -0.5f, 0.0f,		1.0f, 0.0f,
-		};
-
-		glGenVertexArrays(1, &quadVAO);
-		glGenBuffers(1, &quadVBO);
-		glBindVertexArray(quadVAO);
-		glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
-		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+		lastX = xPos;
+		lastY = yPos;
+		first_entered_window = false;
 	}
 
-	glBindVertexArray(quadVAO);
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-	glBindVertexArray(0);
+	GLfloat xOffset = xPos - lastX;
+	GLfloat yOffset = lastY - yPos;
+	lastX = xPos;
+	lastY = yPos;
+
+	if (activeCamera)
+		camera.MouseMovement(xOffset, yOffset);
+}
+
+void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
+{
+	if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
+		activeCamera = true;
+	else
+		activeCamera = false;
 }

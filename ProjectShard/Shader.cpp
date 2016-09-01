@@ -15,13 +15,13 @@ Shader Shader::LoadShader(const GLchar *vertexPath, const GLchar *fragmentPath, 
 	std::ifstream infile(vertexPath);
 	if (!infile.good())
 	{
-		std::cout << "Could not find vertex shader" << std::endl;
+		std::cout << "ERROR::SHADER::VERTEX_SHADER_NOT_FOUND" << std::endl;
 		return Shader();
 	}
 	infile = std::ifstream(fragmentPath);
 	if (!infile.good())
 	{
-		std::cout << "Could not find fragment shader" << std::endl;
+		std::cout << "ERROR::SHADER::FRAGMENT_SHADER_NOT_FOUND" << std::endl;
 		return Shader();
 	}
 
