@@ -1,8 +1,9 @@
 #include "TestPlayArea.h"
 
 TestPlayArea::TestPlayArea()
+	: texture("Resources/mable.jpg")
 {
-
+	glEnable(GL_CULL_FACE);
 }
 
 TestPlayArea::~TestPlayArea()
@@ -13,6 +14,8 @@ TestPlayArea::~TestPlayArea()
 void TestPlayArea::InitalizeScene()
 {
 	sceneObjects = sceneObjects.LoadShader("Shaders/EnviromentObject.vert", "Shaders/EnviromentObject.frag");
+	sceneObjects.Use();
+	glUniform1i(glGetUniformLocation(sceneObjects.Program, "diffuseTexture"), 0);
 }
 
 void TestPlayArea::UpdateScene()
@@ -32,6 +35,8 @@ void TestPlayArea::RenderScene(Camera &camera)
 	scale = scale.scale(Vector3(50.0f, 1.0f, 50.0f));
 	model = scale * translate;
 	sceneObjects.Use();
+	glActiveTexture(GL_TEXTURE0);
+	texture.Bind();
 	glUniformMatrix4fv(glGetUniformLocation(sceneObjects.Program, "projection"), 1, GL_FALSE, &projection.data[0]);
 	glUniformMatrix4fv(glGetUniformLocation(sceneObjects.Program, "view"), 1, GL_FALSE, &view.data[0]);
 	glUniformMatrix4fv(glGetUniformLocation(sceneObjects.Program, "model"), 1, GL_FALSE, &model.data[0]);

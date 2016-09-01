@@ -51,7 +51,7 @@ Shader Shader::LoadShader(const GLchar *vertexPath, const GLchar *fragmentPath, 
 		if (geometryPath != NULL)
 			geometryCode = gShaderStream.str();
 
-		std::cout << "SHADER LOADED: " << vertexPath << "\n " << fragmentPath << "\n " << (geometryPath != NULL ? geometryPath : "") << "\n" << std::endl;
+		std::cout << "SHADER_LOADED: " << vertexPath << "\n " << fragmentPath << "\n " << (geometryPath != NULL ? geometryPath : "") << "\n" << std::endl;
 	}
 	catch (std::ifstream::failure e)
 	{

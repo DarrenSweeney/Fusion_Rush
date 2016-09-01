@@ -5,12 +5,14 @@
 #include "Primitives.h"
 #include "Math\Matrix4x4.h"
 #include "Camera.h"
+#include "Texture.h"
 
 class TestPlayArea
 {
 private:
 	Shader sceneObjects;
 	Primitives primitives;
+	Texture texture;
 
 public:
 	TestPlayArea();
