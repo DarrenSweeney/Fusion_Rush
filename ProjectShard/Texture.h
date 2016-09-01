@@ -4,6 +4,7 @@
 #include "stb_image.h"
 #include <iostream>
 #include <GL\gl3w.h>
+#include <GL\glext.h>
 
 class Texture
 {

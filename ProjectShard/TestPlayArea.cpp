@@ -1,7 +1,7 @@
 #include "TestPlayArea.h"
 
 TestPlayArea::TestPlayArea()
-	: texture("Resources/mable.jpg")
+	: texture("Resources/pinkTex.png")
 {
 	glEnable(GL_CULL_FACE);
 }

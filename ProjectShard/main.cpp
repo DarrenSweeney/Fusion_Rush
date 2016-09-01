@@ -10,7 +10,7 @@ void key_callback(GLFWwindow *window, int key, int scancode, int action, int mod
 void mouse_callback(GLFWwindow *window, double xPos, double yPos);
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 
-Camera camera(Vector3(0.0f, 0.0f, 3.0f));
+Camera camera(Vector3(0.0f, 3.0f, 3.0f));
 GLfloat lastX, lastY;
 bool keys[1024];
 bool activeCamera;
