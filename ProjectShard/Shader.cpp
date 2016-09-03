@@ -1,6 +1,6 @@
 #include "Shader.h"
 
-Shader Shader::LoadShader(const GLchar *vertexPath, const GLchar *fragmentPath, const GLchar *geometryPath)
+void Shader::LoadShader(const GLchar *vertexPath, const GLchar *fragmentPath, const GLchar *geometryPath)
 {
 	std::string vertexCode, fragmentCode, geometryCode;
 	std::ifstream vShaderFile, fShaderFile, gShaderFile;
@@ -16,13 +16,13 @@ Shader Shader::LoadShader(const GLchar *vertexPath, const GLchar *fragmentPath, 
 	if (!infile.good())
 	{
 		std::cout << "ERROR::SHADER::VERTEX_SHADER_NOT_FOUND" << std::endl;
-		return Shader();
+		return;
 	}
 	infile = std::ifstream(fragmentPath);
 	if (!infile.good())
 	{
 		std::cout << "ERROR::SHADER::FRAGMENT_SHADER_NOT_FOUND" << std::endl;
-		return Shader();
+		return;
 	}
 
 	try
@@ -62,10 +62,7 @@ Shader Shader::LoadShader(const GLchar *vertexPath, const GLchar *fragmentPath, 
 	const GLchar *fShaderCode = fragmentCode.c_str();
 	const GLchar *gShaderCode = (geometryPath != NULL ? geometryCode.c_str() : NULL);
 
-	Shader shader;
-	shader.Compile(vShaderCode, fShaderCode, gShaderCode != NULL ? gShaderCode : NULL);
-
-	return shader;
+	Compile(vShaderCode, fShaderCode, gShaderCode != NULL ? gShaderCode : NULL);
 }
 
 void Shader::Compile(const GLchar *vShaderCode, const GLchar *fShaderCode, const GLchar *gShaderCode)

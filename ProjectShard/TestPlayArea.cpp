@@ -1,26 +1,26 @@
 #include "TestPlayArea.h"
 
 TestPlayArea::TestPlayArea()
-	: texture("Resources/pinkTex.png")
+	: floorTexture("Resources/grass.jpg")
 {
 	glEnable(GL_CULL_FACE);
 }
 
 TestPlayArea::~TestPlayArea()
 {
-
+	
 }
 
 void TestPlayArea::InitalizeScene()
 {
-	sceneObjects = sceneObjects.LoadShader("Shaders/EnviromentObject.vert", "Shaders/EnviromentObject.frag");
+	sceneObjects.LoadShader("Shaders/EnviromentObject.vert", "Shaders/EnviromentObject.frag");
 	sceneObjects.Use();
 	glUniform1i(glGetUniformLocation(sceneObjects.Program, "diffuseTexture"), 0);
 }
 
 void TestPlayArea::UpdateScene()
 {
-
+	
 }
 
 void TestPlayArea::RenderScene(Camera &camera)
@@ -36,7 +36,7 @@ void TestPlayArea::RenderScene(Camera &camera)
 	model = scale * translate;
 	sceneObjects.Use();
 	glActiveTexture(GL_TEXTURE0);
-	texture.Bind();
+	floorTexture.Bind();
 	glUniformMatrix4fv(glGetUniformLocation(sceneObjects.Program, "projection"), 1, GL_FALSE, &projection.data[0]);
 	glUniformMatrix4fv(glGetUniformLocation(sceneObjects.Program, "view"), 1, GL_FALSE, &view.data[0]);
 	glUniformMatrix4fv(glGetUniformLocation(sceneObjects.Program, "model"), 1, GL_FALSE, &model.data[0]);

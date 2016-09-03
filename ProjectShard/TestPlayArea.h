@@ -12,7 +12,7 @@ class TestPlayArea
 private:
 	Shader sceneObjects;
 	Primitives primitives;
-	Texture texture;
+	Texture floorTexture;
 
 public:
 	TestPlayArea();

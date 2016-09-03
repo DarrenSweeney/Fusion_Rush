@@ -14,8 +14,7 @@ public:
 	GLuint Program;
 	void Use();
 
-	Shader LoadShader(const GLchar *vertexPath, const GLchar *fragmentPath, const GLchar *geometryPath = NULL);
-
+	void LoadShader(const GLchar *vertexPath, const GLchar *fragmentPath, const GLchar *geometryPath = NULL);
 private:
 	void Compile(const GLchar *vShaderCode, const GLchar *fShaderCode, const GLchar *gShaderCode = NULL);
 };

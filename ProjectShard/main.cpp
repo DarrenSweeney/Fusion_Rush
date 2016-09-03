@@ -2,6 +2,7 @@
 
 #include "TestPlayArea.h"
 #include "Camera.h"
+#include "Text.h"
 
 #include <GL\gl3w.h>
 #include <GLFW\glfw3.h>
@@ -30,7 +31,7 @@ int main(int argc, char* argv[])
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	
+
 	GLFWwindow *window = glfwCreateWindow(900, 600, "Project Shard", NULL, NULL);
 
 	// GLFW input callbacks.
@@ -60,6 +61,20 @@ int main(int argc, char* argv[])
 
 	TestPlayArea testPlayArea;
 	testPlayArea.InitalizeScene();
+	
+	Shader shader;
+	shader.LoadShader("Shaders/Text.vert", "Shaders/Text.frag");
+	Matrix4 textProjection = Matrix4();
+	textProjection = textProjection.orthographicProjection(0.0f, 800.0f, 0.0f, 600.0f, 1.0f, 0.0f);
+	shader.Use();
+	glUniformMatrix4fv(glGetUniformLocation(shader.Program, "projection"), 1, GL_FALSE, &textProjection.data[0]);
+	Text text;
+	text.Init();
+
+	// Set OpenGL options
+	glEnable(GL_CULL_FACE);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
@@ -78,11 +93,14 @@ int main(int argc, char* argv[])
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		testPlayArea.RenderScene(camera);
+		text.RenderText(shader, "ProjectShard", 25.0f, 25.0f, 1.0f, Vector3(0.0f, 0.0f, 0.0f));
+		text.RenderText(shader, "Play", 25.0f, 570.0f, 0.5f, Vector3(0.0, 0.0f, 0.0f));
 
 		glfwSwapBuffers(window);
 	}
 
 	glfwTerminate();
+	return 0;
 }
 
 void key_callback(GLFWwindow *window, int key, int scancode, int action, int mode)
