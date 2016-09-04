@@ -4,6 +4,7 @@
 #include <GL\gl3w.h>
 #include "Math\Vector2.h"
 #include "Math\Vector3.h"
+#include "Math\Matrix4x4.h"
 #include <map>
 #include "Shader.h"
 
@@ -22,13 +23,17 @@ private:
 		Vector2 bearing;		// Offset from baseline to left/top glyph
 		GLuint advance;			// Horizontal offset to advance to next glyph
 	};
-
+	// Holds the list of pre-compiled characters
 	std::map<GLchar, Character> Characters;
-	GLuint VAO, VBO;
+
+	Shader textShader;
+	GLuint textVAO, textVBO;
 
 public:
-	void Init();
-	void RenderText(Shader &shader, std::string text, GLfloat x, GLfloat y, GLfloat scale, Vector3 color);
+	Text(GLsizei screenWidth, GLsizei screenHeight);
+	~Text();
+	void Load(const char* fontPath);
+	void RenderText(std::string text, Vector2 pos, GLfloat scale, Vector3 color);
 };
 
 #endif

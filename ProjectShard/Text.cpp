@@ -1,7 +1,35 @@
 #include "Text.h"
 
-void Text::Init()
+Text::Text(GLsizei screenWidth, GLsizei screenHeight)
 {
+	textShader.LoadShader("Shaders/Text.vert", "Shaders/Text.frag");
+	textShader.Use();
+	Matrix4 textProjection = Matrix4(); 
+	textProjection.orthographicProjection(0.0f, 800.0f, 0.0f, 600.0f, 1.0f, 0.0f);
+	glUniformMatrix4fv(glGetUniformLocation(textShader.Program, "projection"), 1, GL_FALSE, &textProjection.data[0]);
+	glUniform1i(glGetUniformLocation(textShader.Program, "text"), 0);
+
+	// Configure text VAO/VBO for texture quads
+	glGenVertexArrays(1, &textVAO);
+	glGenBuffers(1, &textVBO);
+	glBindVertexArray(textVAO);
+	glBindBuffer(GL_ARRAY_BUFFER, textVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
+}
+
+Text::~Text()
+{
+	glDeleteProgram(textShader.Program);
+}
+
+void Text::Load(const char* fontPath)
+{
+	// First clear the previously loaded Characters
+	Characters.clear();
 	// FreeType
 	FT_Library ft;
 	// All functions return a value different than 0 whenever an error occurred
@@ -10,8 +38,11 @@ void Text::Init()
 
 	// Load font as face
 	FT_Face face;
-	if (FT_New_Face(ft, "fonts/arial.ttf", 0, &face))
+	if (FT_New_Face(ft, fontPath, 0, &face))
+	{
 		std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
+		return;
+	}
 
 	// Set size to load glyphs as
 	FT_Set_Pixel_Sizes(face, 0, 48);
@@ -61,27 +92,15 @@ void Text::Init()
 	// Destroy FreeType once we're finished
 	FT_Done_Face(face);
 	FT_Done_FreeType(ft);
-
-
-	// Configure VAO/VBO for texture quads
-	glGenVertexArrays(1, &VAO);
-	glGenBuffers(1, &VBO);
-	glBindVertexArray(VAO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), 0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindVertexArray(0);
 }
 
-void Text::RenderText(Shader &shader, std::string text, GLfloat x, GLfloat y, GLfloat scale, Vector3 color)
+void Text::RenderText(std::string text, Vector2 pos, GLfloat scale, Vector3 color)
 {
 	// Activate corresponding render state	
-	shader.Use();
-	glUniform3f(glGetUniformLocation(shader.Program, "textColor"), color.x, color.y, color.z);
+	textShader.Use();
+	glUniform3f(glGetUniformLocation(textShader.Program, "textColor"), color.x, color.y, color.z);
 	glActiveTexture(GL_TEXTURE0);
-	glBindVertexArray(VAO);
+	glBindVertexArray(textVAO);
 
 	// Iterate through all characters
 	std::string::const_iterator c;
@@ -89,8 +108,8 @@ void Text::RenderText(Shader &shader, std::string text, GLfloat x, GLfloat y, GL
 	{
 		Character ch = Characters[*c];
 
-		GLfloat xpos = x + ch.bearing.x * scale;
-		GLfloat ypos = y - (ch.size.y - ch.bearing.y) * scale;
+		GLfloat xpos = pos.x + ch.bearing.x * scale;
+		GLfloat ypos = pos.y - (ch.size.y - ch.bearing.y) * scale;
 
 		GLfloat w = ch.size.x * scale;
 		GLfloat h = ch.size.y * scale;
@@ -107,14 +126,14 @@ void Text::RenderText(Shader &shader, std::string text, GLfloat x, GLfloat y, GL
 		// Render glyph texture over quad
 		glBindTexture(GL_TEXTURE_2D, ch.textureID);
 		// Update content of VBO memory
-		glBindBuffer(GL_ARRAY_BUFFER, VBO);
+		glBindBuffer(GL_ARRAY_BUFFER, textVBO);
 		glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices); // Be sure to use glBufferSubData and not glBufferData
 
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		// Render quad
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 		// Now advance cursors for next glyph (note that advance is number of 1/64 pixels)
-		x += (ch.advance >> 6) * scale; // Bitshift by 6 to get value in pixels (2^6 = 64 (divide amount of 1/64th pixels by 64 to get amount of pixels))
+		pos.x += (ch.advance >> 6) * scale; // Bitshift by 6 to get value in pixels (2^6 = 64 (divide amount of 1/64th pixels by 64 to get amount of pixels))
 	}
 	glBindVertexArray(0);
 	glBindTexture(GL_TEXTURE_2D, 0);

@@ -6,6 +6,8 @@
 #include "Math\Matrix4x4.h"
 #include "Camera.h"
 #include "Texture.h"
+#include "Text.h"
+#include <irrKlang\irrKlang.h>
 
 class TestPlayArea
 {
@@ -13,6 +15,8 @@ private:
 	Shader sceneObjects;
 	Primitives primitives;
 	Texture floorTexture;
+	Text testText;
+	irrklang::ISoundEngine* engine;
 
 public:
 	TestPlayArea();
