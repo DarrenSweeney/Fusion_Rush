@@ -155,6 +155,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Desktop\imgui-master\imgui-master\examples\libs\gl3w\GL\gl3w.c" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="DebugDrawManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Math\Matrix4x4.cpp" />
     <ClCompile Include="Math\Vector3.cpp" />
@@ -169,6 +170,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="DebugDrawManager.h" />
     <ClInclude Include="Math\MathHelper.h" />
     <ClInclude Include="Math\Matrix4x4.h" />
     <ClInclude Include="Math\Vector3.h" />
@@ -183,6 +185,9 @@
     <ClInclude Include="Math\Vector2.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Shaders\DebugDrawMgr\DebugLine.frag" />
+    <None Include="Shaders\DebugDrawMgr\DebugLine.gs" />
+    <None Include="Shaders\DebugDrawMgr\DebugLine.vert" />
     <None Include="Shaders\EnviromentObject.frag" />
     <None Include="Shaders\EnviromentObject.vert" />
     <None Include="Shaders\text.frag" />

@@ -94,7 +94,7 @@ void Text::Load(const char* fontPath)
 	FT_Done_FreeType(ft);
 }
 
-void Text::RenderText(std::string text, Vector2 pos, GLfloat scale, Vector3 color)
+void Text::RenderText(std::string text, Vector2 &pos, GLfloat scale, Vector3 &color)
 {
 	// Activate corresponding render state	
 	textShader.Use();

@@ -74,10 +74,14 @@ int main(int argc, char* argv[])
 		camera.KeyboardMovement(keys, deltaTime);
 		camera.ControllerMovement();
 
+		testPlayArea.UpdateScene();
+
 		glClearColor(0.0f, 0.5f, 0.5f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		testPlayArea.RenderScene(camera);
+
+		g_debugDrawMgr.Submit(camera);
 
 		glfwSwapBuffers(window);
 	}
@@ -85,6 +89,9 @@ int main(int argc, char* argv[])
 	glfwTerminate();
 	return 0;
 }
+
+
+#pragma region "User input"
 
 void key_callback(GLFWwindow *window, int key, int scancode, int action, int mode)
 {
@@ -126,3 +133,5 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 	else
 		activeCamera = false;
 }
+
+#pragma endregion

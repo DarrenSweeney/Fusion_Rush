@@ -8,6 +8,7 @@
 #include "Texture.h"
 #include "Text.h"
 #include <irrKlang\irrKlang.h>
+#include "DebugDrawManager.h"
 
 class TestPlayArea
 {

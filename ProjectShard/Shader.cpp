@@ -24,12 +24,21 @@ void Shader::LoadShader(const GLchar *vertexPath, const GLchar *fragmentPath, co
 		std::cout << "ERROR::SHADER::FRAGMENT_SHADER_NOT_FOUND" << std::endl;
 		return;
 	}
+	if (geometryPath != NULL)
+	{
+		infile = std::ifstream(geometryPath);
+		if (!infile.good())
+		{
+			std::cout << "ERROR::SHADER::GEOMETRY_SHADER_NOT_FOUND" << std::endl;
+			return;
+		}
+	}
 
 	try
 	{
 		vShaderFile.open(vertexPath);
 		fShaderFile.open(fragmentPath);
-		if (geometryPath)
+		if (geometryPath != NULL)
 			gShaderFile.open(geometryPath);
 
 		std::stringstream vShaderStream, fShaderStream, gShaderStream;
@@ -68,12 +77,12 @@ void Shader::LoadShader(const GLchar *vertexPath, const GLchar *fragmentPath, co
 void Shader::Compile(const GLchar *vShaderCode, const GLchar *fShaderCode, const GLchar *gShaderCode)
 {
 	GLint result;
-	int logLength;
-	GLchar infoLog;
+	const int logLength = 512;
+	GLchar infoLog[logLength];
 
 	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	GLuint geometryShader;
+	GLuint geometryShader = NULL;
 	if(gShaderCode != NULL)
 		geometryShader = glCreateShader(GL_GEOMETRY_SHADER);
 
@@ -83,11 +92,11 @@ void Shader::Compile(const GLchar *vShaderCode, const GLchar *fShaderCode, const
 
 	// Check vertex shader
 	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &result);
-	glGetShaderiv(vertexShader, GL_INFO_LOG_LENGTH, &logLength);	
 	if (!result)
 	{
-		glGetShaderInfoLog(vertexShader, logLength, NULL, &infoLog);
+		glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
 		std::cout << "ERROR::SHADER::VERTEX::COMILATION_FAILED" << std::endl;
+		return;
 	}
 
 	// Compile fragment shader
@@ -96,25 +105,23 @@ void Shader::Compile(const GLchar *vShaderCode, const GLchar *fShaderCode, const
 
 	// Check fragment shader
 	glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &result);
-	glGetShaderiv(fragmentShader, GL_INFO_LOG_LENGTH, &logLength);
 	if (!result)
 	{
-		glGetShaderInfoLog(fragmentShader, logLength, NULL, &infoLog);
+		glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
 		std::cout << "ERROR::SHADER::FRAGMENT::COMILATION_FAILED" << std::endl;
 	}
 
 	if (gShaderCode != NULL)
 	{
 		// Compile vertex shader
-		glShaderSource(geometryShader, 1, &fShaderCode, NULL);
+		glShaderSource(geometryShader, 1, &gShaderCode, NULL);
 		glCompileShader(geometryShader);
 
 		// Check vertex shader
 		glGetShaderiv(geometryShader, GL_COMPILE_STATUS, &result);
-		glGetShaderiv(geometryShader, GL_INFO_LOG_LENGTH, &logLength);
 		if (!result)
 		{
-			glGetShaderInfoLog(geometryShader, logLength, NULL, &infoLog);
+			glGetShaderInfoLog(geometryShader, 512, NULL, infoLog);
 			std::cout << "ERROR::SHADER::GEOMETRY::COMILATION_FAILED" << std::endl;
 		}
 	}
@@ -128,10 +135,9 @@ void Shader::Compile(const GLchar *vShaderCode, const GLchar *fShaderCode, const
 	glLinkProgram(Program);
 
 	glGetProgramiv(Program, GL_LINK_STATUS, &result);
-	glGetProgramiv(Program, GL_INFO_LOG_LENGTH, &logLength);
 	if (!result)
 	{
-		glGetProgramInfoLog(Program, logLength, NULL, &infoLog);
+		glGetProgramInfoLog(Program, 512, NULL, infoLog);
 		std::cout << "ERROR::SHADER::LINKING_FAILED" << std::endl;
 	}
 
