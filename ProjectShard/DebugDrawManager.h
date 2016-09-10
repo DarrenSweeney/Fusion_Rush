@@ -11,6 +11,7 @@ class DebugDrawManager
 {
 private:
 	static const unsigned int MAX_LINES = 256;
+	static const unsigned int MAX_CROSSES = 256;
 
 	struct Line
 	{
@@ -22,7 +23,14 @@ private:
 	Line line;
 	std::vector<Line> drawLines;
 	Line lines[MAX_LINES];
-	int num = 0;
+	int lineCount = 0;
+
+	struct Cross
+	{
+		GLfloat data[6];
+	};
+	Cross crosess[MAX_CROSSES];
+	int crossCount = 0;
 
 public:
 	void AddLine(const Vector3 &startPos,

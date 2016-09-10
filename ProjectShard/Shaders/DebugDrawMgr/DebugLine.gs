@@ -8,16 +8,13 @@ in VS_OUT {
 
 out vec3 fColor;
 
-void build_house()
+void main() 
 {    
     fColor = gs_in[0].color;
+
     gl_Position = gl_in[0].gl_Position;
     EmitVertex();
     gl_Position = gl_in[1].gl_Position;
     EmitVertex();
     EndPrimitive();
-}
-
-void main() {    
-    build_house();
 }
