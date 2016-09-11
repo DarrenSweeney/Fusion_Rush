@@ -3,7 +3,6 @@
 
 #include "Math\Vector3.h"
 #include "Math\Matrix4x4.h"
-#include <vector>
 #include "Shader.h"
 #include "Camera.h"
 
@@ -11,26 +10,17 @@ class DebugDrawManager
 {
 private:
 	static const unsigned int MAX_LINES = 256;
-	static const unsigned int MAX_CROSSES = 256;
+	const float LINE_WIDTH = 1.5f;
 
 	struct Line
 	{
-		GLfloat data[12];
-
-		// NOTE(Darren): Could start implementing vec3 data now since, struct 
-		// data is squential. Easier for reading and maintaining (I think).
+		Vector3 startPos;
+		Vector3 color0;
+		Vector3 endPos;
+		Vector3 color1;
 	};	
-	Line line;
-	std::vector<Line> drawLines;
 	Line lines[MAX_LINES];
 	int lineCount = 0;
-
-	struct Cross
-	{
-		GLfloat data[6];
-	};
-	Cross crosess[MAX_CROSSES];
-	int crossCount = 0;
 
 public:
 	void AddLine(const Vector3 &startPos,
@@ -39,6 +29,7 @@ public:
 				float lineWidth = 1.0f,
 				bool depthEnabled = true);
 
+	// Represents a point in 3D space.
 	void AddCross(const Vector3 &pos,
 				Vector3 &color,
 				float lineWidth = 1.0f,

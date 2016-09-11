@@ -30,11 +30,11 @@ void TestPlayArea::InitalizeScene()
 
 void TestPlayArea::UpdateScene()
 {
-	//g_debugDrawMgr.AddLine(Vector3(-55.0f, 10.0f, -20.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(1.0f, 0.0f, 0.0f));
-	//g_debugDrawMgr.AddLine(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.0f, 10.0f, 0.0f), Vector3(0.0f, 1.0f, 0.0f));
+	g_debugDrawMgr.AddLine(Vector3(-55.0f, 10.0f, -20.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(1.0f, 0.0f, 0.0f));
+	g_debugDrawMgr.AddLine(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.0f, 10.0f, 0.0f), Vector3(0.0f, 1.0f, 0.0f));
 
-	//g_debugDrawMgr.AddCross(Vector3(0.0f, 0.0f, 0.0f), Vector3(1.0f, 0.0f, 0.0f));
-	//g_debugDrawMgr.AddCross(Vector3(10.0f, 10.0f, 10.0f), Vector3(1.0f, 0.0f, 0.0f));
+	g_debugDrawMgr.AddCross(Vector3(0.0f, 0.0f, 0.0f), Vector3(1.0f, 0.0f, 0.0f));
+	g_debugDrawMgr.AddCross(Vector3(10.0f, 10.0f, 10.0f), Vector3(1.0f, 0.0f, 0.0f));
 }
 
 void TestPlayArea::RenderScene(Camera &camera)

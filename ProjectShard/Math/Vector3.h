@@ -13,8 +13,6 @@ public:
 
 		float data[3];
 	};
-private:
-	float pad;
 
 public:
 	Vector3();

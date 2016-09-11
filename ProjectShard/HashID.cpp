@@ -1,13 +1,10 @@
 #include "HashID.h"
 
 HashID::HashID(const char* str)
-	: hashID(HashStringID(str))
-{
+	: hashID(HashStringID(str)) { }
 
-}
-
-// Values based on http://isthe.com/chongo/tech/comp/fnv/
-size_t HashID::HashStringID(const char *str, size_t hash)
+// Hash a C-style string using fnv1-a
+unsigned long HashID::HashStringID(const char *str, unsigned long hash)
 {
 	assert(str);
 
@@ -20,5 +17,3 @@ size_t HashID::HashStringID(const char *str, size_t hash)
 
 	return hashID;
 }
-
-#define SID(str) HashID(str)

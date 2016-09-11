@@ -116,8 +116,5 @@
     <None Include="Shaders\DebugDrawMgr\DebugLine.frag" />
     <None Include="Shaders\DebugDrawMgr\DebugLine.gs" />
     <None Include="Shaders\DebugDrawMgr\DebugLine.vert" />
-    <None Include="Shaders\DebugDrawMgr\DebugCross.gs" />
-    <None Include="Shaders\DebugDrawMgr\DebugCross.frag" />
-    <None Include="Shaders\DebugDrawMgr\DebugCross.vert" />
   </ItemGroup>
 </Project>

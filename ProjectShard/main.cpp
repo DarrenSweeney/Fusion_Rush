@@ -19,19 +19,6 @@ bool activeCamera;
 GLfloat deltaTime = 0.0f;
 GLfloat lastFrame = 0.0f;
 
-#define SID( string ) string
-//typedef sid int; // 32bit in my case
-
-constexpr const unsigned long long StringIdHashConcat(unsigned long long base, const char *str)
-{
-	return (*str) ? (StringIdHashConcat((base ^ *str) * 0x100000001b3, str + 1)) : base;
-}
-
-constexpr const unsigned long long StringIdHash(const char *str)
-{
-	return StringIdHashConcat(0xcbf29ce484222325, str);
-}
-
 int main(int argc, char* argv[])
 {
 	std::cout << "DARREN_SWEENEY::Project Shard..." << std::endl;
@@ -78,16 +65,6 @@ int main(int argc, char* argv[])
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-	const char* name = "Darren";
-	int size = sizeof(name);
-	std::string nameString = "Darren";
-	size = sizeof(name);
-	unsigned long nameHash = StringIdHash(name);
-	size = sizeof(nameHash);
-
-	const char* name2 = "Darren";
-	unsigned long nameHash2 = StringIdHash(name2);
-
 	const HashID sid0 = SID("Darren");
 	const HashID sid1 = SID("nerraD");
 	const HashID sid3 = SID("Darren");
@@ -110,7 +87,7 @@ int main(int argc, char* argv[])
 
 		testPlayArea.RenderScene(camera);
 
-		//g_debugDrawMgr.Submit(camera);
+		g_debugDrawMgr.Submit(camera);
 
 		glfwSwapBuffers(window);
 	}
