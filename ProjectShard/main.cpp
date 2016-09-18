@@ -4,6 +4,7 @@
 #include "Camera.h"
 
 #include "HashID.h"
+#include "HashTable.h"
 
 #include <GL\gl3w.h>
 #include <GLFW\glfw3.h>
@@ -65,9 +66,19 @@ int main(int argc, char* argv[])
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-	const HashID sid0 = SID("Darren");
+	const HashID sid0 = SID("DarrenSweeney");
 	const HashID sid1 = SID("nerraD");
 	const HashID sid3 = SID("Darren");
+
+	HashTable hashTable;
+	hashTable.Insert(sid0, "Orange Juice");
+	hashTable.Insert(sid1, "Milk");
+	hashTable.Insert(sid3, "Coffee");
+	hashTable.PrintTable();
+	hashTable.PrintTableBuckets(1);
+
+	string value = hashTable.Find(SID("Darren"));
+	std::cout << value << std::endl;
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -87,7 +98,7 @@ int main(int argc, char* argv[])
 
 		testPlayArea.RenderScene(camera);
 
-		g_debugDrawMgr.Submit(camera);
+		//g_debugDrawMgr.Submit(camera);
 
 		glfwSwapBuffers(window);
 	}
@@ -95,7 +106,6 @@ int main(int argc, char* argv[])
 	glfwTerminate();
 	return 0;
 }
-
 
 #pragma region "User input"
 

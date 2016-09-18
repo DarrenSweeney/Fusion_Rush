@@ -22,13 +22,13 @@ void DebugDrawManager::AddCross(const Vector3 &pos, Vector3 &color,
 	if (lineCount + 3 > MAX_LINES)
 		return;
 
-	Vector3 l1_startPos(-LINE_WIDTH + pos.x, pos.y, pos.z), l1_endPos(+LINE_WIDTH + pos.x, pos.y, pos.z);
-	Vector3 l2_startPos(pos.x, -LINE_WIDTH + pos.y, pos.z), l2_endPos(pos.x, +LINE_WIDTH + pos.y, pos.z);
-	Vector3 l3_startPos(pos.x, pos.y, -LINE_WIDTH + pos.z), l3_endPos(pos.x, pos.y, +LINE_WIDTH + pos.z);
+	Vector3 lx_startPos(-LINE_WIDTH + pos.x, pos.y, pos.z), lx_endPos(+LINE_WIDTH + pos.x, pos.y, pos.z);
+	Vector3 ly_startPos(pos.x, -LINE_WIDTH + pos.y, pos.z), ly_endPos(pos.x, +LINE_WIDTH + pos.y, pos.z);
+	Vector3 lz_startPos(pos.x, pos.y, -LINE_WIDTH + pos.z), lz_endPos(pos.x, pos.y, +LINE_WIDTH + pos.z);
 
-	AddLine(l1_startPos, l1_endPos, color);
-	AddLine(l2_startPos, l2_endPos, color);
-	AddLine(l3_startPos, l3_endPos, color);
+	AddLine(lx_startPos, lx_endPos, color);
+	AddLine(ly_startPos, ly_endPos, color);
+	AddLine(lz_startPos, lz_endPos, color);
 }
 
 void DebugDrawManager::Submit(Camera &camera)
@@ -54,6 +54,7 @@ void DebugDrawManager::Submit(Camera &camera)
 
 		lineShader.Use();
 		Matrix4 projection = Matrix4();
+		// TODO(Darren): Remove this, it's hard coded.
 		projection = projection.perspectiveProjection(camera.zoom, 900.0f / 600.0f, 0.1f, 100.0f);
 		Matrix4 view = camera.GetViewMatrix();
 		glUniformMatrix4fv(glGetUniformLocation(lineShader.Program, "projection"), 1, GL_FALSE, &projection.data[0]);

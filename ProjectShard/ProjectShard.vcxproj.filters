@@ -60,6 +60,12 @@
     <ClCompile Include="HashID.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="HashTable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Math\Vector3.h">
@@ -107,6 +113,12 @@
     <ClInclude Include="HashID.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="HashTable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\EnviromentObject.frag" />
@@ -116,5 +128,8 @@
     <None Include="Shaders\DebugDrawMgr\DebugLine.frag" />
     <None Include="Shaders\DebugDrawMgr\DebugLine.gs" />
     <None Include="Shaders\DebugDrawMgr\DebugLine.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Todo.txt" />
   </ItemGroup>
 </Project>

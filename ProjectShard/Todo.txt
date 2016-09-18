@@ -1,0 +1,8 @@
+# Darren's todo list for road the games fleadh
+
+- Finishing implementing the hash table.
+- Create a resource manager to load textures and shaders.
+- Create an .obj file loader.
+- Create basic player controls, with smooth interpolation.
+- Add basic UI, speed, distance to check point, sound track name.
+- "Pete is cool" secret easter egg.

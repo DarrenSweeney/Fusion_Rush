@@ -157,12 +157,14 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="DebugDrawManager.cpp" />
     <ClCompile Include="HashID.cpp" />
+    <ClCompile Include="HashTable.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Math\Matrix4x4.cpp" />
     <ClCompile Include="Math\Vector3.cpp" />
     <ClCompile Include="Math\Vector4.cpp" />
     <ClCompile Include="Math\Quaternion.cpp" />
     <ClCompile Include="Primitives.cpp" />
+    <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="TestPlayArea.cpp" />
     <ClCompile Include="Text.cpp" />
@@ -173,12 +175,14 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="DebugDrawManager.h" />
     <ClInclude Include="HashID.h" />
+    <ClInclude Include="HashTable.h" />
     <ClInclude Include="Math\MathHelper.h" />
     <ClInclude Include="Math\Matrix4x4.h" />
     <ClInclude Include="Math\Vector3.h" />
     <ClInclude Include="Math\Vector4.h" />
     <ClInclude Include="Math\Quaternion.h" />
     <ClInclude Include="Primitives.h" />
+    <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="TestPlayArea.h" />
@@ -194,6 +198,9 @@
     <None Include="Shaders\EnviromentObject.vert" />
     <None Include="Shaders\text.frag" />
     <None Include="Shaders\text.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Todo.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
