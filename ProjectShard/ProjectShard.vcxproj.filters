@@ -60,9 +60,6 @@
     <ClCompile Include="HashID.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="HashTable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ResourceManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

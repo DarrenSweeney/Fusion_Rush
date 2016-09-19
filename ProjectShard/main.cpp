@@ -70,7 +70,7 @@ int main(int argc, char* argv[])
 	const HashID sid1 = SID("nerraD");
 	const HashID sid3 = SID("Darren");
 
-	HashTable hashTable;
+	HashTable<std::string> hashTable;
 	hashTable.Insert(sid0, "Orange Juice");
 	hashTable.Insert(sid1, "Milk");
 	hashTable.Insert(sid3, "Coffee");

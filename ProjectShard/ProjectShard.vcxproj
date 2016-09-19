@@ -157,7 +157,6 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="DebugDrawManager.cpp" />
     <ClCompile Include="HashID.cpp" />
-    <ClCompile Include="HashTable.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Math\Matrix4x4.cpp" />
     <ClCompile Include="Math\Vector3.cpp" />
