@@ -13,7 +13,7 @@ public:
 
 	unsigned int HashIndex(HashID hashID);
 	void Insert(HashID hashID, T value);
-	T Find(HashID hashID);
+	T* Find(HashID hashID);
 	void Remove(HashID hashID);
 	// Calculate the number of items in list giving at a index.
 	unsigned int SizeOfBucket(int index);
@@ -101,17 +101,17 @@ void HashTable<T>::Insert(HashID hashID, T value)
 }
 
 template <class T>
-T HashTable<T>::Find(HashID hashID)
+T* HashTable<T>::Find(HashID hashID)
 {
 	int index = HashIndex(hashID);
-	T value;
+	T *value = NULL;
 
 	Item *ptr = hashTable[index];
 	while (ptr != NULL)
 	{
 		if (ptr->hashID.hashID == hashID.hashID)
 		{
-			value = ptr->value;
+			*value = ptr->value;
 		}
 		ptr = ptr->next;
 	}

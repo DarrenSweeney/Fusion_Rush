@@ -1,7 +1,7 @@
 #include "TestPlayArea.h"
 
 TestPlayArea::TestPlayArea()
-	: floorTexture("Resources/grass.jpg"), testText(900.0f, 600.0f)
+	: testText(900.0f, 600.0f)
 {
 	// Set OpenGL options
 	glEnable(GL_CULL_FACE);
@@ -23,6 +23,7 @@ void TestPlayArea::InitalizeScene()
 	glUniform1i(glGetUniformLocation(sceneObjects.Program, "diffuseTexture"), 0);
 
 	testText.Load("fonts/arial.ttf");
+	floorTexture.LoadTexture("Resources/grass.jpg");
 
 	irrklang::vec3df position(-55.0f, 10.0f, -20.0f);
 	//engine->play2D("Resources/Sounds/Bodyfall_sound_effects/BF_Short_Hard_1c.ogg");

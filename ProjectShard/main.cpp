@@ -77,8 +77,8 @@ int main(int argc, char* argv[])
 	hashTable.PrintTable();
 	hashTable.PrintTableBuckets(1);
 
-	string value = hashTable.Find(SID("Darren"));
-	std::cout << value << std::endl;
+	//string *value = hashTable.Find(SID("Darren"));
+	//std::cout << value << std::endl;
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -98,7 +98,7 @@ int main(int argc, char* argv[])
 
 		testPlayArea.RenderScene(camera);
 
-		//g_debugDrawMgr.Submit(camera);
+		g_debugDrawMgr.Submit(camera);
 
 		glfwSwapBuffers(window);
 	}

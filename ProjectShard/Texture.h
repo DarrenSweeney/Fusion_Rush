@@ -12,8 +12,10 @@ private:
 	GLuint textureID;
 
 public:
-	Texture(const char* path);
+	Texture();
 	~Texture();
+
+	void LoadTexture(const char* path);
 
 	void Bind();
 };
