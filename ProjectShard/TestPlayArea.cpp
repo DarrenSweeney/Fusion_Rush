@@ -27,6 +27,9 @@ void TestPlayArea::InitalizeScene()
 
 	irrklang::vec3df position(-55.0f, 10.0f, -20.0f);
 	//engine->play2D("Resources/Sounds/Bodyfall_sound_effects/BF_Short_Hard_1c.ogg");
+
+	sceneModel.LoadModel("Resources/nanosuit/nanosuit.obj");
+	shader.LoadShader("Shaders/model.vert", "Shaders/model.frag");
 }
 
 void TestPlayArea::UpdateScene()
@@ -56,6 +59,14 @@ void TestPlayArea::RenderScene(Camera &camera)
 	glUniformMatrix4fv(glGetUniformLocation(sceneObjects.Program, "view"), 1, GL_FALSE, &view.data[0]);
 	glUniformMatrix4fv(glGetUniformLocation(sceneObjects.Program, "model"), 1, GL_FALSE, &model.data[0]);
 	primitives.RenderCube();
+	floorTexture.UnBind();
+
+	shader.Use();
+	Matrix4 modelMatrix = Matrix4();
+	glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, &modelMatrix.data[0]);
+	glUniformMatrix4fv(glGetUniformLocation(shader.Program, "view"), 1, GL_FALSE, &view.data[0]);
+	glUniformMatrix4fv(glGetUniformLocation(shader.Program, "projection"), 1, GL_FALSE, &projection.data[0]);
+	sceneModel.Draw(shader);
 
 	testText.RenderText("ProjectShard", Vector2(25.0f, 25.0f), 1.0f, Vector3(0.0f, 0.0f, 0.0f));
 	testText.RenderText("Play", Vector2(25.0f, 570.0f), 0.5f, Vector3(0.0, 0.0f, 0.0f));

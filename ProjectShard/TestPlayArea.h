@@ -9,6 +9,7 @@
 #include "Text.h"
 #include <irrKlang\irrKlang.h>
 #include "DebugDrawManager.h"
+#include "Model.h"
 
 class TestPlayArea
 {
@@ -18,6 +19,8 @@ private:
 	Texture floorTexture;
 	Text testText;
 	irrklang::ISoundEngine* engine;
+	Model sceneModel;
+	Shader shader;
 
 public:
 	TestPlayArea();

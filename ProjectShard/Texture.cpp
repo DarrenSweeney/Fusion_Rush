@@ -13,7 +13,7 @@ Texture::~Texture()
 	glDeleteTextures(1, &textureID);
 }
 
-void Texture::LoadTexture(const char* path)
+GLuint Texture::LoadTexture(const char* path)
 {
 	int width, height, numComponents;
 	unsigned char* image = stbi_load(path, &width, &height, &numComponents, 4);
@@ -46,9 +46,16 @@ void Texture::LoadTexture(const char* path)
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 	stbi_image_free(image);
+
+	return textureID;
 }
 
 void Texture::Bind()
 {
 	glBindTexture(GL_TEXTURE_2D, textureID);
+}
+
+void Texture::UnBind()
+{
+	glBindTexture(GL_TEXTURE_2D, 0);
 }

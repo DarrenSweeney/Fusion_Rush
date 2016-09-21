@@ -208,10 +208,12 @@ vector<ModelTexures>Model::loadMaterialTextures(aiMaterial *mat, aiTextureType t
 
 GLuint TextureFromFile(const char* path, std::string directory)
 {
-	//// Generate texture ID and load texture data
-	//std::string filename = std::string(path);
-	//filename = directory + '/' + filename;
-	GLuint textureID = 0;
+	// Generate texture ID and load texture data
+	std::string filename = std::string(path);
+	filename = directory + '/' + filename;
+	Texture texture;
+	GLuint textureID = texture.LoadTexture(filename.c_str());
+
 	//glGenTextures(1, &textureID);
 	//int width, height;
 	//unsigned char* image = SOIL_load_image(filename.c_str(), &width, &height, 0, SOIL_LOAD_RGB);

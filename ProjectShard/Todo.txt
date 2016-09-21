@@ -1,8 +1,11 @@
 # Darren's todo list for road the games fleadh
 
-- Implement a template for creating a hash table of different resources.
+;;	Solves these.
 - Create a resource manager to load textures and shaders.
-- Create an .obj file loader. Maybe just use Assimp for now.
+- Finish implementing assimp
+
+- Create a sound class.
 - Create basic player controls, with smooth interpolation.
 - Add basic UI, speed, distance to check point, sound track name.
 - "Pete is cool" secret easter egg.
+- Sort out application layer.

@@ -71,7 +71,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>$(LibraryPath)</LibraryPath>
+    <LibraryPath>D:\Tools\Dev\Lib\assimp\lib;$(LibraryPath)</LibraryPath>
+    <ExecutablePath>D:\Tools\Dev\Lib\assimp\include\assimp;$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -97,7 +98,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>D:\OpenGL_Wrappers\GLFW\lib-vc2013;D:\Tools\Dev\Lib\freetype;D:\Tools\Dev\Lib\irrKlang;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;freetype.lib;irrKlang.lib;legacy_stdio_definitions.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;freetype.lib;irrKlang.lib;assimpd.lib;legacy_stdio_definitions.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -194,6 +195,8 @@
     <ClInclude Include="Math\Vector2.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Shaders\model.frag" />
+    <None Include="Shaders\model.vert" />
     <None Include="Shaders\DebugDrawMgr\DebugLine.frag" />
     <None Include="Shaders\DebugDrawMgr\DebugLine.gs" />
     <None Include="Shaders\DebugDrawMgr\DebugLine.vert" />

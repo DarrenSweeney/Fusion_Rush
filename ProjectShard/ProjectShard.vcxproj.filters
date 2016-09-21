@@ -137,6 +137,8 @@
     <None Include="Shaders\DebugDrawMgr\DebugLine.frag" />
     <None Include="Shaders\DebugDrawMgr\DebugLine.gs" />
     <None Include="Shaders\DebugDrawMgr\DebugLine.vert" />
+    <None Include="Shaders\model.frag" />
+    <None Include="Shaders\model.vert" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Todo.txt" />
