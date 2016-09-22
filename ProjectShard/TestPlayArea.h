@@ -19,7 +19,7 @@ private:
 	Texture floorTexture;
 	Text testText;
 	irrklang::ISoundEngine* engine;
-	Model sceneModel;
+	Model *sceneModel;
 	Shader *modelShader;
 	Shader *sceneObjects;
 

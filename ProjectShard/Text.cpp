@@ -2,12 +2,12 @@
 
 Text::Text(GLsizei screenWidth, GLsizei screenHeight)
 {
-	textShader.LoadShader("Shaders/Text.vert", "Shaders/Text.frag");
-	textShader.Use();
+	textShader = g_resourceMgr.GetShader(SID("Text"));
+	textShader->Use();
 	Matrix4 textProjection = Matrix4(); 
 	textProjection.orthographicProjection(0.0f, 800.0f, 0.0f, 600.0f, 1.0f, 0.0f);
-	glUniformMatrix4fv(glGetUniformLocation(textShader.Program, "projection"), 1, GL_FALSE, &textProjection.data[0]);
-	glUniform1i(glGetUniformLocation(textShader.Program, "text"), 0);
+	glUniformMatrix4fv(glGetUniformLocation(textShader->Program, "projection"), 1, GL_FALSE, &textProjection.data[0]);
+	glUniform1i(glGetUniformLocation(textShader->Program, "text"), 0);
 
 	// Configure text VAO/VBO for texture quads
 	glGenVertexArrays(1, &textVAO);
@@ -23,7 +23,7 @@ Text::Text(GLsizei screenWidth, GLsizei screenHeight)
 
 Text::~Text()
 {
-	glDeleteProgram(textShader.Program);
+	glDeleteProgram(textShader->Program);
 }
 
 void Text::Load(const char* fontPath)
@@ -97,8 +97,8 @@ void Text::Load(const char* fontPath)
 void Text::RenderText(std::string text, Vector2 &pos, GLfloat scale, Vector3 &color)
 {
 	// Activate corresponding render state	
-	textShader.Use();
-	glUniform3f(glGetUniformLocation(textShader.Program, "textColor"), color.x, color.y, color.z);
+	textShader->Use();
+	glUniform3f(glGetUniformLocation(textShader->Program, "textColor"), color.x, color.y, color.z);
 	glActiveTexture(GL_TEXTURE0);
 	glBindVertexArray(textVAO);
 

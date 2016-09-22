@@ -2,28 +2,45 @@
 
 ResourceManager g_resourceMgr;
 
-Shader* ResourceManager::GetShader(HashID hashID)
+void ResourceManager::LoadShader(const char *assetName, const char *vertexPath, const char *fragmentPath, const char *geometryPath)
 {
-	return shaderResources.Find(hashID);
-}
-
-void ResourceManager::LoadShader(const char* assetName, const char *vertexPath, const char *fragmentPath, const char *geometryPath)
- {
 	Shader shader;
 	shader.LoadShader(vertexPath, fragmentPath, geometryPath);
 	shaderResources.Insert(SID(assetName), shader);
 }
 
+Shader* ResourceManager::GetShader(HashID hashID)
+{
+	return shaderResources.Find(hashID);
+}
+
+void ResourceManager::LoadModel(const char *assetName, std::string path)
+{
+	Model model;
+	model.LoadModel(path);
+	modelResources.Insert(SID(assetName), model);
+}
+
+Model* ResourceManager::GetModel(HashID hashID)
+{
+	return modelResources.Find(hashID);
+}
+
 void ResourceManager::LoadSceneShaders()
 {
 	// Model Shader
-	LoadShader("Shader_ModelShader", "Shaders/model.vert", "Shaders/model.frag");
+	LoadShader("ModelShader", "Shaders/model.vert", "Shaders/model.frag");
 	// Debug drawing line shader
-	LoadShader("Shader_DebugLine","Shaders/DebugDrawMgr/DebugLine.vert", "Shaders/DebugDrawMgr/DebugLine.frag", "Shaders/DebugDrawMgr/DebugLine.gs");
+	LoadShader("DebugLine","Shaders/DebugDrawMgr/DebugLine.vert", "Shaders/DebugDrawMgr/DebugLine.frag", "Shaders/DebugDrawMgr/DebugLine.gs");
 	// General basic scene objects
-	LoadShader("Shader_EnviromentObject", "Shaders/EnviromentObject.vert", "Shaders/EnviromentObject.frag");
+	LoadShader("Darren", "Shaders/EnviromentObject.vert", "Shaders/EnviromentObject.frag");
 	// Rendering text to screen
-	LoadShader("Shader_Text", "Shaders/text.vert", "Shaders/text.frag");
+	LoadShader("Text", "Shaders/text.vert", "Shaders/text.frag");
+}
+
+void ResourceManager::LoadSceneModels()
+{
+	LoadModel("Nanosuit", "Resources/nanosuit/nanosuit.obj");
 }
 
 void ResourceManager::PrintShaderTable()

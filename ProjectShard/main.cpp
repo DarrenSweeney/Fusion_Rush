@@ -65,19 +65,23 @@ int main(int argc, char* argv[])
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	g_resourceMgr.LoadSceneShaders();
+	g_resourceMgr.LoadSceneModels();
 	g_resourceMgr.PrintShaderTable();
 
 	HashTable<std::string> hashTable;
-	hashTable.Insert(SID("Shader_ModelShader"), "Shader_ModelShader_Item");
-	hashTable.Insert(SID("Shader_DebugLine"), "Shader_DebugLine_Item");
-	hashTable.Insert(SID("Shader_EnviromentObject"), "Shader_EnviromentObject_Item");
-	hashTable.Insert(SID("Shader_Text"), "Shader_Text_Item");
+	hashTable.Insert(SID("ModelShader"), "Shader_ModelShader_Item");
+	hashTable.Insert(SID("DebugLine"), "Shader_DebugLine_Item");
+	hashTable.Insert(SID("EnviromentObject"), "Shader_EnviromentObject_Item");
+	hashTable.Insert(SID("Text"), "Shader_Text_Item");
 	hashTable.PrintTable();
 	hashTable.PrintTableBuckets(3);
 
-	std::string *string_ptr = hashTable.Find(SID("Shader_EnviromentObject"));
+	std::string *string_ptr = hashTable.Find(SID("EnviromentObject"));
 	// TODO(Darren): Need to fix my hashtable find function.
 	std::cout << "ITEM IS::" << *string_ptr << std::endl;
+	
+	HashID hash_2 = SID("Text");
+	HashID hash_1 = SID("EnviromentObject");
 
 	TestPlayArea testPlayArea;
 	testPlayArea.InitalizeScene();

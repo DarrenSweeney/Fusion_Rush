@@ -27,7 +27,7 @@ private:
 	// Holds the list of pre-compiled characters
 	std::map<GLchar, Character> Characters;
 
-	Shader textShader;
+	Shader *textShader;
 	GLuint textVAO, textVBO;
 
 public:
