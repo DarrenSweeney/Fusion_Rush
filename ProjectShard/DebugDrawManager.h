@@ -5,6 +5,7 @@
 #include "Math\Matrix4x4.h"
 #include "Shader.h"
 #include "Camera.h"
+#include "ResourceManager.h"
 
 class DebugDrawManager
 {
@@ -21,6 +22,7 @@ private:
 	};	
 	Line lines[MAX_LINES];
 	int lineCount = 0;
+	Shader *lineShader;
 
 public:
 	void AddLine(const Vector3 &startPos,

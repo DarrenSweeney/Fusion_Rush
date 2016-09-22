@@ -7,5 +7,4 @@
 - Create a sound class.
 - Create basic player controls, with smooth interpolation.
 - Add basic UI, speed, distance to check point, sound track name.
-- "Pete is cool" secret easter egg.
 - Sort out application layer.

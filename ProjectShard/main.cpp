@@ -5,6 +5,7 @@
 
 #include "HashID.h"
 #include "HashTable.h"
+#include "ResourceManager.h"
 
 #include <GL\gl3w.h>
 #include <GLFW\glfw3.h>
@@ -61,24 +62,25 @@ int main(int argc, char* argv[])
 	glfwGetFramebufferSize(window, &width, &height);
 	glViewport(0, 0, width, height);
 
-	TestPlayArea testPlayArea;
-	testPlayArea.InitalizeScene();
-
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-	const HashID sid0 = SID("DarrenSweeney");
-	const HashID sid1 = SID("nerraD");
-	const HashID sid3 = SID("Darren");
+	g_resourceMgr.LoadSceneShaders();
+	g_resourceMgr.PrintShaderTable();
 
 	HashTable<std::string> hashTable;
-	hashTable.Insert(sid0, "Orange Juice");
-	hashTable.Insert(sid1, "Milk");
-	hashTable.Insert(sid3, "Coffee");
+	hashTable.Insert(SID("Shader_ModelShader"), "Shader_ModelShader_Item");
+	hashTable.Insert(SID("Shader_DebugLine"), "Shader_DebugLine_Item");
+	hashTable.Insert(SID("Shader_EnviromentObject"), "Shader_EnviromentObject_Item");
+	hashTable.Insert(SID("Shader_Text"), "Shader_Text_Item");
 	hashTable.PrintTable();
-	hashTable.PrintTableBuckets(1);
+	hashTable.PrintTableBuckets(3);
 
-	//string *value = hashTable.Find(SID("Darren"));
-	//std::cout << value << std::endl;
+	std::string *string_ptr = hashTable.Find(SID("Shader_EnviromentObject"));
+	// TODO(Darren): Need to fix my hashtable find function.
+	std::cout << "ITEM IS::" << *string_ptr << std::endl;
+
+	TestPlayArea testPlayArea;
+	testPlayArea.InitalizeScene();
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -91,14 +93,14 @@ int main(int argc, char* argv[])
 		camera.KeyboardMovement(keys, deltaTime);
 		camera.ControllerMovement();
 
-		//testPlayArea.UpdateScene();
+		testPlayArea.UpdateScene();
 
 		glClearColor(0.0f, 0.5f, 0.5f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		testPlayArea.RenderScene(camera);
 
-		//g_debugDrawMgr.Submit(camera);
+		g_debugDrawMgr.Submit(camera);
 
 		glfwSwapBuffers(window);
 	}

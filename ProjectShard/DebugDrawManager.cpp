@@ -35,9 +35,9 @@ void DebugDrawManager::Submit(Camera &camera)
 {
 	// Line debug drawing.
 	{
-		Shader lineShader;
-		lineShader.LoadShader("Shaders/DebugDrawMgr/DebugLine.vert", "Shaders/DebugDrawMgr/DebugLine.frag", "Shaders/DebugDrawMgr/DebugLine.gs");
-		lineShader.Use();
+		lineShader = g_resourceMgr.GetShader(SID("Shader_DebugLine"));
+		//lineShader.LoadShader("Shaders/DebugDrawMgr/DebugLine.vert", "Shaders/DebugDrawMgr/DebugLine.frag", "Shaders/DebugDrawMgr/DebugLine.gs");
+		lineShader->Use();
 
 		GLuint VBO, VAO;
 		glGenBuffers(1, &VBO);
@@ -52,13 +52,12 @@ void DebugDrawManager::Submit(Camera &camera)
 		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
 		glBindVertexArray(0);
 
-		lineShader.Use();
 		Matrix4 projection = Matrix4();
 		// TODO(Darren): Remove this, it's hard coded.
 		projection = projection.perspectiveProjection(camera.zoom, 900.0f / 600.0f, 0.1f, 100.0f);
 		Matrix4 view = camera.GetViewMatrix();
-		glUniformMatrix4fv(glGetUniformLocation(lineShader.Program, "projection"), 1, GL_FALSE, &projection.data[0]);
-		glUniformMatrix4fv(glGetUniformLocation(lineShader.Program, "view"), 1, GL_FALSE, &view.data[0]);
+		glUniformMatrix4fv(glGetUniformLocation(lineShader->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
+		glUniformMatrix4fv(glGetUniformLocation(lineShader->Program, "view"), 1, GL_FALSE, &view.data[0]);
 		glBindVertexArray(VAO);
 		glDrawArrays(GL_LINES, 0, 2 * lineCount);
 		glBindVertexArray(0);

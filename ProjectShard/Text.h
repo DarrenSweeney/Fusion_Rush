@@ -7,6 +7,7 @@
 #include "Math\Matrix4x4.h"
 #include <map>
 #include "Shader.h"
+#include "ResourceManager.h"
 
 // FreeType
 #include <ft2build.h>

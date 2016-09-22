@@ -9,18 +9,19 @@
 #include "Text.h"
 #include <irrKlang\irrKlang.h>
 #include "DebugDrawManager.h"
+#include "ResourceManager.h"
 #include "Model.h"
 
 class TestPlayArea
 {
 private:
-	Shader sceneObjects;
 	Primitives primitives;
 	Texture floorTexture;
 	Text testText;
 	irrklang::ISoundEngine* engine;
 	Model sceneModel;
-	Shader shader;
+	Shader *modelShader;
+	Shader *sceneObjects;
 
 public:
 	TestPlayArea();
