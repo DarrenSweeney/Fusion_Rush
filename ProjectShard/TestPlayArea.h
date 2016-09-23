@@ -22,6 +22,7 @@ private:
 	Model *sceneModel;
 	Shader *modelShader;
 	Shader *sceneObjects;
+	Texture *floorTextureID;
 
 public:
 	TestPlayArea();

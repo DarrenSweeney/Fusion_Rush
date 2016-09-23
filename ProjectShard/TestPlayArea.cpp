@@ -6,6 +6,7 @@ TestPlayArea::TestPlayArea()
 	// Set OpenGL options
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_BLEND);
+	glEnable(GL_DEPTH_TEST);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	engine = irrklang::createIrrKlangDevice();
@@ -23,7 +24,7 @@ void TestPlayArea::InitalizeScene()
 	glUniform1i(glGetUniformLocation(sceneObjects->Program, "diffuseTexture"), 0);
 
 	testText.Load("fonts/arial.ttf");
-	floorTexture.LoadTexture("Resources/grass.jpg");
+	floorTextureID = g_resourceMgr.GetTexture(SID("FloorTexture"));
 
 	irrklang::vec3df position(-55.0f, 10.0f, -20.0f);
 	//engine->play2D("Resources/Sounds/Bodyfall_sound_effects/BF_Short_Hard_1c.ogg");

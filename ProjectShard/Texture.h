@@ -16,7 +16,6 @@ public:
 	~Texture();
 
 	GLuint LoadTexture(const char* path);
-
 	void Bind();
 	void UnBind();
 };

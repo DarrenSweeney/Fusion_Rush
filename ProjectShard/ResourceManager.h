@@ -14,9 +14,13 @@ public:
 	void LoadModel(const char *assetName, std::string path);
 	Model* GetModel(HashID hashID);
 
+	void LoadTexture(const char *assetName, const char *path);
+	Texture* GetTexture(HashID hashID);
+
 	// TODO(Darren): Will need to change this to a batch system.
 	void LoadSceneShaders();
 	void LoadSceneModels();
+	void LoadSceneTextures();
 	
 	// TODO(Darren): Need to add this in or take it out.
 	void PrintShaderTable();
@@ -24,6 +28,7 @@ public:
 private:
 	HashTable<Shader> shaderResources;
 	HashTable<Model>  modelResources;
+	HashTable<Texture>  textureResources;
 };
 
 extern ResourceManager g_resourceMgr;

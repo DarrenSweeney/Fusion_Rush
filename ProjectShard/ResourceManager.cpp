@@ -26,6 +26,18 @@ Model* ResourceManager::GetModel(HashID hashID)
 	return modelResources.Find(hashID);
 }
 
+void ResourceManager::LoadTexture(const char *assetName, const char *path)
+{
+	Texture texture;
+	texture.LoadTexture(path);
+	textureResources.Insert(SID(assetName), texture);
+}
+
+Texture* ResourceManager::GetTexture(HashID hashID)
+{
+	return textureResources.Find(hashID);
+}
+
 void ResourceManager::LoadSceneShaders()
 {
 	// Model Shader
@@ -41,6 +53,12 @@ void ResourceManager::LoadSceneShaders()
 void ResourceManager::LoadSceneModels()
 {
 	LoadModel("Nanosuit", "Resources/nanosuit/nanosuit.obj");
+}
+
+// Loads independent textures, that excludes models textures.
+void ResourceManager::LoadSceneTextures()
+{
+	LoadTexture("FloorTexture", "Resources/floor.jpg");
 }
 
 void ResourceManager::PrintShaderTable()

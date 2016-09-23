@@ -1,8 +1,7 @@
 # Darren's todo list for road the games fleadh
 
 ;;	Solves these.
-- Create a resource manager to load textures and shaders and models.
-- Finish implementing assimp
+- Create a resource manager to load textures and shaders and models.  (IN PROGRESS)
 - Fix hash table find function because it does not resolve hash collisions.
 - Create a sound class.
 - Create basic player controls, with smooth interpolation.

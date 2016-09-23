@@ -3,10 +3,7 @@
 #include "Texture.h"
 
 Texture::Texture()
-	: textureID(0)
-{
-
-}
+	: textureID(0) { }
 
 Texture::~Texture()
 {
@@ -16,7 +13,7 @@ Texture::~Texture()
 GLuint Texture::LoadTexture(const char* path)
 {
 	int width, height, numComponents;
-	unsigned char* image = stbi_load(path, &width, &height, &numComponents, 4);
+	unsigned char* image = stbi_load(path, &width, &height, &numComponents, STBI_rgb);
 
 	if (image == NULL)
 	{
@@ -29,16 +26,17 @@ GLuint Texture::LoadTexture(const char* path)
 	else
 		std::cout << "TEXTURE_LOADED: " << path << std::endl;
 
+	GLuint textureID;
 	glGenTextures(1, &textureID);
 	glBindTexture(GL_TEXTURE_2D, textureID);
-
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
 	glGenerateMipmap(GL_TEXTURE_2D);
 
 	float aniso = 0.0f;
 	glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &aniso);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, aniso);
 
+	// Parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
