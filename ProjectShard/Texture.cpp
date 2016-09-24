@@ -7,7 +7,8 @@ Texture::Texture()
 
 Texture::~Texture()
 {
-	glDeleteTextures(1, &textureID);
+	// TODO(Darren): Maybe just have a function for calling the glDeleteTextures(...)
+	//glDeleteTextures(1, &textureID);
 }
 
 GLuint Texture::LoadTexture(const char* path)
@@ -26,9 +27,9 @@ GLuint Texture::LoadTexture(const char* path)
 	else
 		std::cout << "TEXTURE_LOADED: " << path << std::endl;
 
-	GLuint textureID;
-	glGenTextures(1, &textureID);
-	glBindTexture(GL_TEXTURE_2D, textureID);
+	GLuint texture;
+	glGenTextures(1, &texture);
+	glBindTexture(GL_TEXTURE_2D, texture);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
 	glGenerateMipmap(GL_TEXTURE_2D);
 
@@ -45,7 +46,11 @@ GLuint Texture::LoadTexture(const char* path)
 	glBindTexture(GL_TEXTURE_2D, 0);
 	stbi_image_free(image);
 
-	return textureID;
+	// Assign the memeber textureID to the currently binded texture so
+	// it can be used outside LoadTexture for binding and unbinding.
+	textureID = texture;
+
+	return texture;
 }
 
 void Texture::Bind()

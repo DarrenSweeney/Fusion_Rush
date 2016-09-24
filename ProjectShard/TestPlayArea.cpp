@@ -24,7 +24,7 @@ void TestPlayArea::InitalizeScene()
 	glUniform1i(glGetUniformLocation(sceneObjects->Program, "diffuseTexture"), 0);
 
 	testText.Load("fonts/arial.ttf");
-	floorTextureID = g_resourceMgr.GetTexture(SID("FloorTexture"));
+	floorTexture = g_resourceMgr.GetTexture(SID("FloorTexture"));
 
 	irrklang::vec3df position(-55.0f, 10.0f, -20.0f);
 	//engine->play2D("Resources/Sounds/Bodyfall_sound_effects/BF_Short_Hard_1c.ogg");
@@ -55,12 +55,12 @@ void TestPlayArea::RenderScene(Camera &camera)
 	model = scale * translate;
 	sceneObjects->Use();
 	glActiveTexture(GL_TEXTURE0);
-	floorTexture.Bind();
+	floorTexture->Bind();
 	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
 	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
 	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
 	primitives.RenderCube();
-	floorTexture.UnBind();
+	floorTexture->UnBind();
 
 	modelShader->Use();
 	Matrix4 modelMatrix = Matrix4();

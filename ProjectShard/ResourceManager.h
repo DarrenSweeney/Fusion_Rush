@@ -26,8 +26,8 @@ public:
 	void PrintShaderTable();
 
 private:
-	HashTable<Shader> shaderResources;
-	HashTable<Model>  modelResources;
+	HashTable<Shader>	shaderResources;
+	HashTable<Model>	modelResources;
 	HashTable<Texture>  textureResources;
 };
 

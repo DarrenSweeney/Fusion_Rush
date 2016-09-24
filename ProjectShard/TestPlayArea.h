@@ -16,13 +16,12 @@ class TestPlayArea
 {
 private:
 	Primitives primitives;
-	Texture floorTexture;
+	Texture *floorTexture;
 	Text testText;
 	irrklang::ISoundEngine* engine;
 	Model *sceneModel;
 	Shader *modelShader;
 	Shader *sceneObjects;
-	Texture *floorTextureID;
 
 public:
 	TestPlayArea();

@@ -66,6 +66,7 @@ int main(int argc, char* argv[])
 
 	g_resourceMgr.LoadSceneShaders();
 	g_resourceMgr.LoadSceneModels();
+	g_resourceMgr.LoadSceneTextures();
 	g_resourceMgr.PrintShaderTable();
 
 	HashTable<std::string> hashTable;
