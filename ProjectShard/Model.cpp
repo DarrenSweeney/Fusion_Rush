@@ -6,6 +6,11 @@ Model::Model()
 
 }
 
+Model::~Model()
+{
+	// TODO(Darren): Delete all the textures here.
+}
+
 void Model::Draw(Shader &shader)
 {
 	for (GLuint i = 0; i < this->meshes.size(); i++)

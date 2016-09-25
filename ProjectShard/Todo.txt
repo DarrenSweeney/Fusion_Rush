@@ -1,9 +1,10 @@
 # Darren's todo list for road the games fleadh
 
 ;;	Solves these.
-- Fix texture loading, use of structure of code for textureID is incorrect.
+- Create a method to delete texture is. glDeleteTextures(...)
 - Fix hash table find function because it does not resolve hash collisions.
 - Create a sound class.
+- Sort out application layer.
+//
 - Create basic player controls, with smooth interpolation.
 - Add basic UI, speed, distance to check point, sound track name.
-- Sort out application layer.

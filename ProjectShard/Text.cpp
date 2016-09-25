@@ -96,6 +96,8 @@ void Text::Load(const char* fontPath)
 
 void Text::RenderText(std::string text, Vector2 &pos, GLfloat scale, Vector3 &color)
 {
+	// Disable depth testing when rending text and re-enable when done.
+	glDisable(GL_DEPTH_TEST);
 	// Activate corresponding render state	
 	textShader->Use();
 	glUniform3f(glGetUniformLocation(textShader->Program, "textColor"), color.x, color.y, color.z);
@@ -137,4 +139,5 @@ void Text::RenderText(std::string text, Vector2 &pos, GLfloat scale, Vector3 &co
 	}
 	glBindVertexArray(0);
 	glBindTexture(GL_TEXTURE_2D, 0);
+	glEnable(GL_DEPTH_TEST);
 }

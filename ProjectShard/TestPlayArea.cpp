@@ -35,10 +35,10 @@ void TestPlayArea::InitalizeScene()
 
 void TestPlayArea::UpdateScene()
 {
-	g_debugDrawMgr.AddLine(Vector3(-55.0f, 10.0f, -20.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(1.0f, 0.0f, 0.0f));
-	g_debugDrawMgr.AddLine(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.0f, 10.0f, 0.0f), Vector3(0.0f, 1.0f, 0.0f));
+	g_debugDrawMgr.AddLine(Vector3(-55.0f, 10.0f, -20.0f), Vector3(-5.0f, 0.5f, 0.0f), Vector3(1.0f, 0.0f, 0.0f));
+	g_debugDrawMgr.AddLine(Vector3(-5.0f, 0.5f, 0.0f), Vector3(-5.0f, 10.0f, 0.0f), Vector3(0.0f, 1.0f, 0.0f));
 
-	g_debugDrawMgr.AddCross(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.0f, 0.0f, 1.0f));
+	g_debugDrawMgr.AddCross(Vector3(0.0f, 20.0f, 0.0f), Vector3(0.0f, 0.0f, 1.0f));
 	g_debugDrawMgr.AddCross(Vector3(10.0f, 10.0f, 10.0f), Vector3(1.0f, 1.0f, 0.0f));
 }
 
@@ -70,5 +70,5 @@ void TestPlayArea::RenderScene(Camera &camera)
 	sceneModel->Draw(*modelShader);
 
 	testText.RenderText("ProjectShard", Vector2(25.0f, 25.0f), 1.0f, Vector3(0.0f, 0.0f, 0.0f));
-	testText.RenderText("Play", Vector2(25.0f, 570.0f), 0.5f, Vector3(0.0, 0.0f, 0.0f));
+	testText.RenderText("Test font rendering, 1, 2, 3, 4, 5, # # #  { } /// - +", Vector2(25.0f, 570.0f), 0.5f, Vector3(0.0, 0.0f, 0.0f));
 }
