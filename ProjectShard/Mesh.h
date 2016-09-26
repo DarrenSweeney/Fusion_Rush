@@ -41,6 +41,7 @@ public:
 
 	// Functions
 	Mesh(vector<Vertex> &verticies, vector<GLuint> &indices, vector<ModelTexures> &textures, bool loadTangent = false);
+	~Mesh();
 	void Draw(Shader &shader);
 
 private:

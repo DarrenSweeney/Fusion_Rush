@@ -9,6 +9,19 @@ Mesh::Mesh(vector<Vertex> &vertices, vector<GLuint> &indices, vector<ModelTexure
 	this->setupMesh(); // Now that we have all the required data, set the vertex buffers and its attribute pointers.
 }
 
+Mesh::~Mesh()
+{
+	glDeleteVertexArrays(1, &VAO);
+	glDeleteBuffers(1, &VBO);
+	glDeleteBuffers(1, &EBO);
+
+	// Delete all loaded textures
+	for (std::vector<ModelTexures>::iterator it = textures.begin(); it != textures.end(); ++it)
+	{
+		glDeleteTextures(1, &it->id);
+	}
+}
+
 // Initializes all the buffer objects/arrays. To setup the appropriate buffers though and specify the vertex shader layout via vertex attribute pointers
 void Mesh::setupMesh()
 {
@@ -43,7 +56,6 @@ void Mesh::setupMesh()
 		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, Tangents));
 		glEnableVertexAttribArray(3);
 	}
-
 
 	glBindVertexArray(0);
 }

@@ -128,7 +128,7 @@ void HashTable<T>::Remove(HashID hashID)
 
 	if (!ptr)
 	{
-		std::cout << "There is no mathcing hash value to remove." << std::endl;
+		std::cout << "There is no matching hash value to remove." << std::endl;
 		return;
 	}
 

@@ -6,6 +6,7 @@
 #include "HashID.h"
 #include "HashTable.h"
 #include "ResourceManager.h"
+#include "Sound.h"
 
 #include <GL\gl3w.h>
 #include <GLFW\glfw3.h>
@@ -69,23 +70,11 @@ int main(int argc, char* argv[])
 	g_resourceMgr.LoadSceneTextures();
 	g_resourceMgr.PrintShaderTable();
 
-	HashTable<std::string> hashTable;
-	hashTable.Insert(SID("ModelShader"), "Shader_ModelShader_Item");
-	hashTable.Insert(SID("DebugLine"), "Shader_DebugLine_Item");
-	hashTable.Insert(SID("EnviromentObject"), "Shader_EnviromentObject_Item");
-	hashTable.Insert(SID("Text"), "Shader_Text_Item");
-	hashTable.PrintTable();
-	hashTable.PrintTableBuckets(3);
-
-	std::string *string_ptr = hashTable.Find(SID("EnviromentObject"));
-	// TODO(Darren): Need to fix my hashtable find function.
-	std::cout << "ITEM IS::" << *string_ptr << std::endl;
-	
-	HashID hash_2 = SID("Text");
-	HashID hash_1 = SID("EnviromentObject");
-
 	TestPlayArea testPlayArea;
 	testPlayArea.InitalizeScene();
+
+	Sound sound;
+	//sound.engine->play2D("Resources/Sounds/Bodyfall_sound_effects/BF_Short_Hard_1c.ogg");
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -105,7 +94,7 @@ int main(int argc, char* argv[])
 
 		testPlayArea.RenderScene(camera);
 
-		g_debugDrawMgr.Submit(camera);
+		//g_debugDrawMgr.Submit(camera);
 
 		glfwSwapBuffers(window);
 	}

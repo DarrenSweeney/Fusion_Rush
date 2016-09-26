@@ -9,12 +9,13 @@ TestPlayArea::TestPlayArea()
 	glEnable(GL_DEPTH_TEST);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	engine = irrklang::createIrrKlangDevice();
+	//engine = irrklang::createIrrKlangDevice();
 }
 
 TestPlayArea::~TestPlayArea()
 {
-	engine->drop();
+	//engine->drop();
+	floorTexture->DeleteTexture();
 }
 
 void TestPlayArea::InitalizeScene()
@@ -26,8 +27,10 @@ void TestPlayArea::InitalizeScene()
 	testText.Load("fonts/arial.ttf");
 	floorTexture = g_resourceMgr.GetTexture(SID("FloorTexture"));
 
-	irrklang::vec3df position(-55.0f, 10.0f, -20.0f);
+	//irrklang::vec3df position(-55.0f, 10.0f, -20.0f);
 	//engine->play2D("Resources/Sounds/Bodyfall_sound_effects/BF_Short_Hard_1c.ogg");
+
+	sound.engine->play2D("Resources/Sounds/Bodyfall_sound_effects/BF_Short_Hard_1c.ogg");
 
 	sceneModel = g_resourceMgr.GetModel(SID("Nanosuit"));
 	modelShader = g_resourceMgr.GetShader(SID("ModelShader"));

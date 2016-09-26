@@ -13,11 +13,11 @@ private:
 
 public:
 	Texture();
-	~Texture();
 
 	GLuint LoadTexture(const char* path);
 	void Bind();
 	void UnBind();
+	void DeleteTexture();
 };
 
 #endif

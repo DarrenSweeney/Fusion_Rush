@@ -158,6 +158,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="DebugDrawManager.cpp" />
     <ClCompile Include="HashID.cpp" />
+    <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Math\Matrix4x4.cpp" />
     <ClCompile Include="Math\Vector3.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="DebugDrawManager.h" />
     <ClInclude Include="HashID.h" />
     <ClInclude Include="HashTable.h" />
+    <ClInclude Include="InputManager.h" />
     <ClInclude Include="Math\MathHelper.h" />
     <ClInclude Include="Math\Matrix4x4.h" />
     <ClInclude Include="Math\Vector3.h" />
@@ -188,6 +190,7 @@
     <ClInclude Include="Primitives.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="Sound.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="TestPlayArea.h" />
     <ClInclude Include="Text.h" />

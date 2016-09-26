@@ -5,12 +5,6 @@
 Texture::Texture()
 	: textureID(0) { }
 
-Texture::~Texture()
-{
-	// TODO(Darren): Maybe just have a function for calling the glDeleteTextures(...)
-	//glDeleteTextures(1, &textureID);
-}
-
 GLuint Texture::LoadTexture(const char* path)
 {
 	int width, height, numComponents;
@@ -61,4 +55,9 @@ void Texture::Bind()
 void Texture::UnBind()
 {
 	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void Texture::DeleteTexture()
+{
+	glDeleteTextures(1, &textureID);
 }

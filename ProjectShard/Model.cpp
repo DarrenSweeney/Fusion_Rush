@@ -8,7 +8,11 @@ Model::Model()
 
 Model::~Model()
 {
-	// TODO(Darren): Delete all the textures here.
+	// Delete all loaded textures
+	for (std::vector<ModelTexures>::iterator it = texturesLoaded.begin(); it != texturesLoaded.end(); ++it)
+	{
+		glDeleteTextures(GL_TEXTURE_2D, &it->id);
+	}
 }
 
 void Model::Draw(Shader &shader)
@@ -49,7 +53,7 @@ void Model::LoadModel(string path, bool loadTangent)
 
 	this->processNode(scene->mRootNode, scene); // Process ASSIMP's root node recursively
 
-												// Everything will be clearned by the import constructor.
+												// Everything will be clearned by the import destructor.
 												// Source: http://www.assimp.org/lib_html/usage.html
 }
 

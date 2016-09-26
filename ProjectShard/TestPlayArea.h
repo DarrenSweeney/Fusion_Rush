@@ -7,10 +7,10 @@
 #include "Camera.h"
 #include "Texture.h"
 #include "Text.h"
-#include <irrKlang\irrKlang.h>
 #include "DebugDrawManager.h"
 #include "ResourceManager.h"
 #include "Model.h"
+#include "Sound.h"
 
 class TestPlayArea
 {
@@ -18,10 +18,10 @@ private:
 	Primitives primitives;
 	Texture *floorTexture;
 	Text testText;
-	irrklang::ISoundEngine* engine;
 	Model *sceneModel;
 	Shader *modelShader;
 	Shader *sceneObjects;
+	Sound sound;
 
 public:
 	TestPlayArea();
