@@ -6,7 +6,6 @@
 #include "HashID.h"
 #include "HashTable.h"
 #include "ResourceManager.h"
-#include "Sound.h"
 
 #include <GL\gl3w.h>
 #include <GLFW\glfw3.h>
@@ -72,9 +71,6 @@ int main(int argc, char* argv[])
 
 	TestPlayArea testPlayArea;
 	testPlayArea.InitalizeScene();
-
-	Sound sound;
-	//sound.engine->play2D("Resources/Sounds/Bodyfall_sound_effects/BF_Short_Hard_1c.ogg");
 
 	while (!glfwWindowShouldClose(window))
 	{

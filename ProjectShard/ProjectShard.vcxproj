@@ -157,6 +157,7 @@
     <ClCompile Include="..\..\..\..\Desktop\imgui-master\imgui-master\examples\libs\gl3w\GL\gl3w.c" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="DebugDrawManager.cpp" />
+    <ClCompile Include="GameApplication.cpp" />
     <ClCompile Include="HashID.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="main.cpp" />
@@ -177,6 +178,7 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="DebugDrawManager.h" />
+    <ClInclude Include="GameApplication.h" />
     <ClInclude Include="HashID.h" />
     <ClInclude Include="HashTable.h" />
     <ClInclude Include="InputManager.h" />

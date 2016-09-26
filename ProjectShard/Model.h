@@ -16,7 +16,7 @@ class Model
 {
 public:
 	Model();
-	~Model();
+	void DeleteModel();
 	void LoadModel(string path, bool loadTangent = false);
 	void Draw(Shader &shader);
 

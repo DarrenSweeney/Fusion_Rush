@@ -6,7 +6,7 @@ Model::Model()
 
 }
 
-Model::~Model()
+void Model::DeleteModel()
 {
 	// Delete all loaded textures
 	for (std::vector<ModelTexures>::iterator it = texturesLoaded.begin(); it != texturesLoaded.end(); ++it)

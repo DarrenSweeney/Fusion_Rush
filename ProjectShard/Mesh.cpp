@@ -9,7 +9,7 @@ Mesh::Mesh(vector<Vertex> &vertices, vector<GLuint> &indices, vector<ModelTexure
 	this->setupMesh(); // Now that we have all the required data, set the vertex buffers and its attribute pointers.
 }
 
-Mesh::~Mesh()
+void Mesh::DeleteMesh()
 {
 	glDeleteVertexArrays(1, &VAO);
 	glDeleteBuffers(1, &VBO);
