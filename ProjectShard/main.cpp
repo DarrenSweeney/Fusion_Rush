@@ -83,6 +83,8 @@ int main(int argc, char* argv[])
 	Sound sound;
 	sound.Play2D();*/
 
+	InputManager::GetInstance().SetWindow(window);
+
 	while (!glfwWindowShouldClose(window))
 	{
 		// Set frame time
@@ -95,6 +97,11 @@ int main(int argc, char* argv[])
 		camera.ControllerMovement();
 
 		testPlayArea.UpdateScene();
+
+		if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ESCAPE))
+		{
+			glfwSetWindowShouldClose(window, GL_TRUE);
+		}
 
 	/*	if (inputManager.IsKeyPressed(GLFW_KEY_ESCAPE))
 		{
