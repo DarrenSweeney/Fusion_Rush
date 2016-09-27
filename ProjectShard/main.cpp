@@ -6,6 +6,9 @@
 #include "HashID.h"
 #include "HashTable.h"
 #include "ResourceManager.h"
+#include "InputManager.h"
+
+#include "GameApplication.h"
 
 #include <GL\gl3w.h>
 #include <GLFW\glfw3.h>
@@ -72,6 +75,14 @@ int main(int argc, char* argv[])
 	TestPlayArea testPlayArea;
 	testPlayArea.InitalizeScene();
 
+	//InputManager inputManager;
+	//inputManager.SetWindow(window);
+
+	/*GameApplication gameApplication;
+
+	Sound sound;
+	sound.Play2D();*/
+
 	while (!glfwWindowShouldClose(window))
 	{
 		// Set frame time
@@ -85,10 +96,25 @@ int main(int argc, char* argv[])
 
 		testPlayArea.UpdateScene();
 
+	/*	if (inputManager.IsKeyPressed(GLFW_KEY_ESCAPE))
+		{
+			glfwSetWindowShouldClose(window, GL_TRUE);
+		}
+
+		if (inputManager.IsMouseButtonPressed(GLFW_MOUSE_BUTTON_RIGHT))
+			activeCamera = true;
+		else
+			activeCamera = false;*/
+
 		glClearColor(0.0f, 0.5f, 0.5f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		testPlayArea.RenderScene(camera);
+
+		//Vector2 cursorPos = inputManager.GetCursorPos();
+
+	/*	if (activeCamera)
+			camera.MouseMovement(cursorPos.x, cursorPos.y);*/
 
 		//g_debugDrawMgr.Submit(camera);
 
@@ -103,8 +129,8 @@ int main(int argc, char* argv[])
 
 void key_callback(GLFWwindow *window, int key, int scancode, int action, int mode)
 {
-	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-		glfwSetWindowShouldClose(window, GL_TRUE);
+	/*if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+		glfwSetWindowShouldClose(window, GL_TRUE);*/
 
 	if (key >= 0 && key < 1024)
 	{
@@ -135,11 +161,11 @@ void mouse_callback(GLFWwindow *window, double xPos, double yPos)
 }
 
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
-{
+{/*
 	if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
 		activeCamera = true;
 	else
-		activeCamera = false;
+		activeCamera = false;*/
 }
 
 #pragma endregion

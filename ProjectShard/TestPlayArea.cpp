@@ -30,7 +30,7 @@ void TestPlayArea::InitalizeScene()
 	//irrklang::vec3df position(-55.0f, 10.0f, -20.0f);
 	//engine->play2D("Resources/Sounds/Bodyfall_sound_effects/BF_Short_Hard_1c.ogg");
 
-	sound.engine->play2D("Resources/Sounds/Bodyfall_sound_effects/BF_Short_Hard_1c.ogg");
+//	sound.engine->play2D("Resources/Sounds/Bodyfall_sound_effects/BF_Short_Hard_1c.ogg");
 
 	sceneModel = g_resourceMgr.GetModel(SID("Nanosuit"));
 	modelShader = g_resourceMgr.GetShader(SID("ModelShader"));
