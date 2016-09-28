@@ -1,21 +1,15 @@
 #include <iostream>
 
-#include "TestPlayArea.h"
-#include "Camera.h"
-
-#include "HashID.h"
-#include "HashTable.h"
 #include "ResourceManager.h"
 #include "InputManager.h"
-
 #include "GameApplication.h"
 
 #include <GL\gl3w.h>
 #include <GLFW\glfw3.h>
 
-void key_callback(GLFWwindow *window, int key, int scancode, int action, int mode);
-void mouse_callback(GLFWwindow *window, double xPos, double yPos);
-void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
+//void key_callback(GLFWwindow *window, int key, int scancode, int action, int mode);
+//void mouse_callback(GLFWwindow *window, double xPos, double yPos);
+//void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 
 Camera camera(Vector3(0.0f, 3.0f, 3.0f));
 GLfloat lastX, lastY;
@@ -41,9 +35,9 @@ int main(int argc, char* argv[])
 	GLFWwindow *window = glfwCreateWindow(900, 600, "Project Shard", NULL, NULL);
 
 	// GLFW input callbacks.
-	glfwSetKeyCallback(window, key_callback);
-	glfwSetCursorPosCallback(window, mouse_callback);
-	glfwSetMouseButtonCallback(window, mouse_button_callback);
+	//glfwSetKeyCallback(window, key_callback);
+	//glfwSetCursorPosCallback(window, mouse_callback);
+	//glfwSetMouseButtonCallback(window, mouse_button_callback);
 
 	if (!window)
 	{
@@ -72,15 +66,11 @@ int main(int argc, char* argv[])
 	g_resourceMgr.LoadSceneTextures();
 	g_resourceMgr.PrintShaderTable();
 
-	TestPlayArea testPlayArea;
-	testPlayArea.InitalizeScene();
+	GameApplication gameApp;
+	gameApp.Init();
 
-	//InputManager inputManager;
-	//inputManager.SetWindow(window);
 
-	/*GameApplication gameApplication;
-
-	Sound sound;
+	/*Sound sound;
 	sound.Play2D();*/
 
 	InputManager::GetInstance().SetWindow(window);
@@ -96,32 +86,31 @@ int main(int argc, char* argv[])
 		camera.KeyboardMovement(keys, deltaTime);
 		camera.ControllerMovement();
 
-		testPlayArea.UpdateScene();
-
 		if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ESCAPE))
 		{
 			glfwSetWindowShouldClose(window, GL_TRUE);
 		}
 
-	/*	if (inputManager.IsKeyPressed(GLFW_KEY_ESCAPE))
-		{
-			glfwSetWindowShouldClose(window, GL_TRUE);
-		}
-
-		if (inputManager.IsMouseButtonPressed(GLFW_MOUSE_BUTTON_RIGHT))
+		if (InputManager::GetInstance().IsMouseButtonPressed(GLFW_MOUSE_BUTTON_RIGHT))
 			activeCamera = true;
 		else
-			activeCamera = false;*/
+			activeCamera = false;
 
 		glClearColor(0.0f, 0.5f, 0.5f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		testPlayArea.RenderScene(camera);
+		gameApp.Update();
+		gameApp.Render(camera);
 
-		//Vector2 cursorPos = inputManager.GetCursorPos();
+		Vector2 cursorPos = InputManager::GetInstance().GetCursorPos();
 
-	/*	if (activeCamera)
-			camera.MouseMovement(cursorPos.x, cursorPos.y);*/
+		GLfloat xOffset = cursorPos.x - lastX;
+		GLfloat yOffset = lastY - cursorPos.y;
+		lastX = cursorPos.x;
+		lastY = cursorPos.y;
+
+		if (activeCamera)
+			camera.MouseMovement(xOffset, yOffset);
 
 		//g_debugDrawMgr.Submit(camera);
 
@@ -133,46 +122,30 @@ int main(int argc, char* argv[])
 }
 
 #pragma region "User input"
-
-void key_callback(GLFWwindow *window, int key, int scancode, int action, int mode)
-{
-	/*if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-		glfwSetWindowShouldClose(window, GL_TRUE);*/
-
-	if (key >= 0 && key < 1024)
-	{
-		if (action == GLFW_PRESS)
-			keys[key] = true;
-		else if (action == GLFW_RELEASE)
-			keys[key] = false;
-	}
-}
-
-bool first_entered_window = true;
-void mouse_callback(GLFWwindow *window, double xPos, double yPos)
-{
-	if (first_entered_window)
-	{
-		lastX = xPos;
-		lastY = yPos;
-		first_entered_window = false;
-	}
-
-	GLfloat xOffset = xPos - lastX;
-	GLfloat yOffset = lastY - yPos;
-	lastX = xPos;
-	lastY = yPos;
-
-	if (activeCamera)
-		camera.MouseMovement(xOffset, yOffset);
-}
-
-void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
-{/*
-	if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
-		activeCamera = true;
-	else
-		activeCamera = false;*/
-}
+//
+//void key_callback(GLFWwindow *window, int key, int scancode, int action, int mode)
+//{
+//	if (key >= 0 && key < 1024)
+//	{
+//		if (action == GLFW_PRESS)
+//			keys[key] = true;
+//		else if (action == GLFW_RELEASE)
+//			keys[key] = false;
+//	}
+//}
+//
+//bool first_entered_window = true;
+//void mouse_callback(GLFWwindow *window, double xPos, double yPos)
+//{
+//	if (first_entered_window)
+//	{
+//		first_entered_window = false;
+//	}
+//}
+//
+//void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
+//{
+//
+//}
 
 #pragma endregion

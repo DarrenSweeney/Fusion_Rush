@@ -4,6 +4,8 @@
 #include <irrKlang\irrKlang.h>
 #include "GameApplication.h"
 
+#include "Sound.h"
+
 class Sound
 {
 public:

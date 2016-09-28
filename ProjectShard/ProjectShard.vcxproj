@@ -179,6 +179,7 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="DebugDrawManager.h" />
+    <ClInclude Include="EngineComonents.h" />
     <ClInclude Include="GameApplication.h" />
     <ClInclude Include="HashID.h" />
     <ClInclude Include="HashTable.h" />

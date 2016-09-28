@@ -10,7 +10,7 @@
 #include "DebugDrawManager.h"
 #include "ResourceManager.h"
 #include "Model.h"
-#include "Sound.h"
+//#include "Sound.h"
 
 class TestPlayArea
 {
@@ -21,7 +21,7 @@ private:
 	Model *sceneModel;
 	Shader *modelShader;
 	Shader *sceneObjects;
-	Sound sound;
+//	Sound sound;
 
 public:
 	TestPlayArea();
