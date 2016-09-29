@@ -175,6 +175,7 @@
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Math\Vector2.cpp" />
+    <ClCompile Include="WindowManagement.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -200,6 +201,7 @@
     <ClInclude Include="Text.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Math\Vector2.h" />
+    <ClInclude Include="WindowManagement.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\model.frag" />

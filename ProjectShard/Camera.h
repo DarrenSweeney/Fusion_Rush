@@ -6,7 +6,7 @@
 #include "Math\matrix4x4.h"
 #include "Math\MathHelper.h"
 #include <GL/gl3w.h>
-#include <GLFW/glfw3.h>
+#include "InputManager.h"
 
 using namespace std;
 

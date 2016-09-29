@@ -22,22 +22,22 @@ void Camera::KeyboardMovement(bool keys[], GLfloat deltaTime)
 	bool moving = false;
 
 	GLfloat velocity = (movementSpeed * 1.0f) * deltaTime;
-	if (keys[GLFW_KEY_W])
+	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_W))
 	{
 		position += (frontVec * velocity);
 		moving = true;
 	}
-	if (keys[GLFW_KEY_S])
+	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_S))
 	{
 		position -= (frontVec * velocity);
 		moving = true;
 	}
-	if (keys[GLFW_KEY_A])
+	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_A))
 	{
 		position -= (frontVec.VectorProduct(upVec).normalise() * velocity);
 		moving = true;
 	}
-	if (keys[GLFW_KEY_D])
+	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_D))
 	{
 		position += (frontVec.VectorProduct(upVec).normalise() * velocity);
 		moving = true;

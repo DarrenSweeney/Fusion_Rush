@@ -21,7 +21,7 @@ private:
 	Model *sceneModel;
 	Shader *modelShader;
 	Shader *sceneObjects;
-//	Sound sound;
+	//Sound sound;
 
 public:
 	TestPlayArea();
