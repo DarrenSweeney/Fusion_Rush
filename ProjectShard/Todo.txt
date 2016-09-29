@@ -1,7 +1,7 @@
 # Darren's todo list for road the games fleadh
 
 ;;	Solves these before starting gameplay
-- Sort out application layer.		~GameApplication (IN PROGRESS) ~Window management is the question?
+- Finish application layer
 - Fix warnings.
 - Fix hash table find function because it does not resolve hash collisions.
 - Fix has find due to memory leak (Silly me!)

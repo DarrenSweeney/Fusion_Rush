@@ -4,62 +4,19 @@
 #include "InputManager.h"
 #include "GameApplication.h"
 
-#include <GL\gl3w.h>
-#include <GLFW\glfw3.h>
-
-//void key_callback(GLFWwindow *window, int key, int scancode, int action, int mode);
-//void mouse_callback(GLFWwindow *window, double xPos, double yPos);
-//void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
-
-Camera camera(Vector3(0.0f, 3.0f, 3.0f));
-GLfloat lastX, lastY;
-bool keys[1024];
-bool activeCamera;
-GLfloat deltaTime = 0.0f;
-GLfloat lastFrame = 0.0f;
+#include "WindowManagement.h"
 
 int main(int argc, char* argv[])
 {
-	std::cout << "DARREN_SWEENEY::Project Shard..." << std::endl;
+	WindowManagement window;
+	window.StartUp();
 
-	if (!glfwInit())
-	{
-		printf("Failed to inialize opengl");
-		return -1;
-	}
-
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-	GLFWwindow *window = glfwCreateWindow(900, 600, "Project Shard", NULL, NULL);
-
-	// GLFW input callbacks.
-	//glfwSetKeyCallback(window, key_callback);
-	//glfwSetCursorPosCallback(window, mouse_callback);
-	//glfwSetMouseButtonCallback(window, mouse_button_callback);
-
-	if (!window)
-	{
-		glfwTerminate();
-		return -1;
-	}
-
-	glfwMakeContextCurrent(window);
-
-	if (gl3wInit())
-	{
-		printf("Failed to inialize opengl");
-		return -1;
-	}
-
-	printf("OpenGL %s, GLSL %s\n", glGetString(GL_VERSION), glGetString(GL_SHADING_LANGUAGE_VERSION));
-
-	int width, height;
-	glfwGetFramebufferSize(window, &width, &height);
-	glViewport(0, 0, width, height);
-
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	Camera camera(Vector3(0.0f, 3.0f, 3.0f));
+	GLfloat lastX = 0.0f;
+	GLfloat lastY = 0.0f;
+	bool activeCamera;
+	GLfloat deltaTime = 0.0f;
+	GLfloat lastFrame = 0.0f;
 
 	g_resourceMgr.LoadSceneShaders();
 	g_resourceMgr.LoadSceneModels();
@@ -69,27 +26,24 @@ int main(int argc, char* argv[])
 	GameApplication gameApp;
 	gameApp.Init();
 
+	InputManager::GetInstance().SetWindow(window.GetWindow());
 
-	/*Sound sound;
-	sound.Play2D();*/
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-	InputManager::GetInstance().SetWindow(window);
-
-	while (!glfwWindowShouldClose(window))
+	while (!window.CloseState())
 	{
 		// Set frame time
+		// TODO(Darren): May create a time class with limited frame
 		GLfloat currentFrame = glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
 
-		glfwPollEvents();
-		camera.KeyboardMovement(keys, deltaTime);
+		window.PollEvents();
+		camera.KeyboardMovement(deltaTime);
 		camera.ControllerMovement();
 
 		if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ESCAPE))
-		{
-			glfwSetWindowShouldClose(window, GL_TRUE);
-		}
+			window.SetCloseState(GL_TRUE);
 
 		if (InputManager::GetInstance().IsMouseButtonPressed(GLFW_MOUSE_BUTTON_RIGHT))
 			activeCamera = true;
@@ -114,38 +68,9 @@ int main(int argc, char* argv[])
 
 		//g_debugDrawMgr.Submit(camera);
 
-		glfwSwapBuffers(window);
+		window.SwapBuffers();
 	}
 
-	glfwTerminate();
+	window.ShutDown();
 	return 0;
 }
-
-#pragma region "User input"
-//
-//void key_callback(GLFWwindow *window, int key, int scancode, int action, int mode)
-//{
-//	if (key >= 0 && key < 1024)
-//	{
-//		if (action == GLFW_PRESS)
-//			keys[key] = true;
-//		else if (action == GLFW_RELEASE)
-//			keys[key] = false;
-//	}
-//}
-//
-//bool first_entered_window = true;
-//void mouse_callback(GLFWwindow *window, double xPos, double yPos)
-//{
-//	if (first_entered_window)
-//	{
-//		first_entered_window = false;
-//	}
-//}
-//
-//void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
-//{
-//
-//}
-
-#pragma endregion

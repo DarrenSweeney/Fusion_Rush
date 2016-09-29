@@ -10,12 +10,18 @@ class WindowManagement
 {
 private:
 	GLFWwindow *window;
+	int width, height;
 
 public:
 	GLFWwindow *GetWindow();
+	int GetWidth();
+	int GetHeight();
 	bool CloseState();
 	void SetCloseState(int state);
+	void GetFrameBufferSize(int *width, int *height);
+	void PollEvents();
 	void StartUp();
+	void SwapBuffers();
 	void ShutDown();
 };
 

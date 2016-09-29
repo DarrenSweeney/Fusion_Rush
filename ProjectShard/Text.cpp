@@ -28,6 +28,12 @@ Text::~Text()
 
 void Text::Load(const char* fontPath)
 {
+	// Check if Load was never called or fontPath is null
+	if (fontPath == NULL)
+	{
+		std::cout << "ERROR::FREETYPE: Font Path is null" << std::endl;
+		return;
+	}
 	// First clear the previously loaded Characters
 	Characters.clear();
 	// FreeType

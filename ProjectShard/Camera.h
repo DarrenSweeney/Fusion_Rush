@@ -29,7 +29,7 @@ public:
 	// Returns the view martrix calculated using Euler Angles and the LookAt matrix
 	Matrix4 &GetViewMatrix();
 
-	void KeyboardMovement(bool keys[], GLfloat deltaTime);
+	void KeyboardMovement(GLfloat deltaTime);
 	void ControllerMovement();
 	void MouseMovement(GLfloat xOffset, GLfloat yOffset);
 

@@ -17,7 +17,7 @@ Matrix4 &Camera::Camera::GetViewMatrix()
 	return view.lookAt(position, position + frontVec, upVec);
 }
 
-void Camera::KeyboardMovement(bool keys[], GLfloat deltaTime)
+void Camera::KeyboardMovement(GLfloat deltaTime)
 {
 	bool moving = false;
 

@@ -5,6 +5,16 @@ GLFWwindow *WindowManagement::GetWindow()
 	return window;
 }
 
+int WindowManagement::GetWidth()
+{
+	return width;
+}
+
+int WindowManagement::GetHeight()
+{
+	return height;
+}
+
 bool WindowManagement::CloseState()
 {
 	if (glfwWindowShouldClose(window))
@@ -18,13 +28,23 @@ void WindowManagement::SetCloseState(int state)
 	glfwSetWindowShouldClose(window, state);
 }
 
+void WindowManagement::GetFrameBufferSize(int *width, int *height)
+{
+	glfwGetFramebufferSize(window, width, height);
+}
+
+void WindowManagement::PollEvents()
+{
+	glfwPollEvents();
+}
+
 void WindowManagement::StartUp()
 {
 	std::cout << "DARREN_SWEENEY::Project Shard..." << std::endl;
 
 	if (!glfwInit())
 	{
-		std::cout << "Failed to inialize opengl" << std::endl;
+		std::cout << "Failed to initialize OpenGL" << std::endl;
 		return;
 	}
 
@@ -45,15 +65,19 @@ void WindowManagement::StartUp()
 
 	if (gl3wInit())
 	{
-		std::cout << "Failed to inialize opengl" << std::endl;
+		std::cout << "Failed to initialize OpenGL" << std::endl;
 		return;
 	}
 
 	printf("OpenGL %s, GLSL %s\n", glGetString(GL_VERSION), glGetString(GL_SHADING_LANGUAGE_VERSION));
 
-	int width, height;
 	glfwGetFramebufferSize(window, &width, &height);
 	glViewport(0, 0, width, height);
+}
+
+void WindowManagement::SwapBuffers()
+{
+	glfwSwapBuffers(window);
 }
 
 void WindowManagement::ShutDown()
