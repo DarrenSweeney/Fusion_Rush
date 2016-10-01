@@ -12,7 +12,11 @@ TestPlayArea::TestPlayArea()
 
 TestPlayArea::~TestPlayArea()
 {
+	delete sceneModel;
+	delete modelShader;
+	delete sceneObjects;
 	floorTexture->DeleteTexture();
+	delete floorTexture;
 }
 
 void TestPlayArea::InitalizeScene()
@@ -39,10 +43,10 @@ void TestPlayArea::UpdateScene()
 	g_debugDrawMgr.AddCross(Vector3(10.0f, 10.0f, 10.0f), Vector3(1.0f, 1.0f, 0.0f));
 }
 
-void TestPlayArea::RenderScene(Camera &camera)
+void TestPlayArea::RenderScene(Camera &camera, GLsizei screenWidth, GLsizei screenHeight)
 {
 	Matrix4 projection = Matrix4();
-	projection = projection.perspectiveProjection(camera.zoom, 900.0f / 600.0f, 0.1f, 100.0f);
+	projection = projection.perspectiveProjection(camera.zoom, (GLfloat)screenWidth / (GLfloat)screenHeight, 0.1f, 100.0f);
 	Matrix4 view = camera.GetViewMatrix();
 	Matrix4 model = Matrix4();
 	Matrix4 translate = Matrix4();
@@ -79,6 +83,6 @@ void TestPlayArea::RenderScene(Camera &camera)
 	glUniformMatrix4fv(glGetUniformLocation(modelShader->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
 	sceneModel->Draw(*modelShader);
 
-	testText.RenderText("ProjectShard", Vector2(25.0f, 25.0f), 1.0f, Vector3(0.0f, 0.0f, 0.0f));
-	testText.RenderText("Test font rendering, 1, 2, 3, 4, 5, # # #  { } /// - +", Vector2(25.0f, 570.0f), 0.5f, Vector3(0.0, 0.0f, 0.0f));
+	testText.RenderText("ProjectShard", Vector2(0.0f, 0.0f), 1.0f, Vector3(0.0f, 0.0f, 0.0f), screenWidth, screenHeight);
+	testText.RenderText("Test font rendering, 1, 2, 3, 4, 5, # # #  { } /// - +", Vector2(25.0f, 570.0f), 0.5f, Vector3(0.0, 0.0f, 0.0f), screenWidth, screenHeight);
 }

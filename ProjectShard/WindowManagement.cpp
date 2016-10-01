@@ -81,6 +81,12 @@ void WindowManagement::StartUp()
 	glViewport(0, 0, width, height);
 }
 
+void WindowManagement::UpdateSize()
+{
+	glfwGetWindowSize(window, &width, &height);
+	glViewport(0, 0, width, height);
+}
+
 void WindowManagement::SwapBuffers()
 {
 	glfwSwapBuffers(window);

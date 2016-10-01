@@ -4,9 +4,6 @@ Text::Text(GLsizei screenWidth, GLsizei screenHeight)
 {
 	textShader = g_resourceMgr.GetShader(SID("Text"));
 	textShader->Use();
-	Matrix4 textProjection = Matrix4(); 
-	textProjection.orthographicProjection(0.0f, 800.0f, 0.0f, 600.0f, 1.0f, 0.0f);
-	glUniformMatrix4fv(glGetUniformLocation(textShader->Program, "projection"), 1, GL_FALSE, &textProjection.data[0]);
 	glUniform1i(glGetUniformLocation(textShader->Program, "text"), 0);
 
 	// Configure text VAO/VBO for texture quads
@@ -100,8 +97,12 @@ void Text::Load(const char* fontPath)
 	FT_Done_FreeType(ft);
 }
 
-void Text::RenderText(std::string text, Vector2 &pos, GLfloat scale, Vector3 &color)
+void Text::RenderText(std::string text, Vector2 &pos, GLfloat scale, Vector3 &color, GLsizei screenWidth, GLsizei screenHeight)
 {
+	Matrix4 textProjection = Matrix4();
+	textProjection.orthographicProjection(0.0f, screenWidth, 0.0f, screenHeight, 1.0f, 0.0f);
+	glUniformMatrix4fv(glGetUniformLocation(textShader->Program, "projection"), 1, GL_FALSE, &textProjection.data[0]);
+
 	// Disable depth testing when rending text and re-enable when done.
 	glDisable(GL_DEPTH_TEST);
 	// Activate corresponding render state	

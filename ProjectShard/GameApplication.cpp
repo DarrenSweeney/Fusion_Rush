@@ -37,11 +37,11 @@ void GameApplication::Update(GLfloat deltaTime)
 		camera.MouseMovement(xOffset, yOffset);
 }
 
-void GameApplication::Render()
+void GameApplication::Render(GLsizei screenWidth, GLsizei screenHeight)
 {
 	glClearColor(0.0f, 0.5f, 0.5f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	testPlayArea->RenderScene(camera);
+	testPlayArea->RenderScene(camera, screenWidth, screenHeight);
 	//g_debugDrawMgr.Submit(camera);
 }

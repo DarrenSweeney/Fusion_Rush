@@ -29,7 +29,7 @@ public:
 
 	void InitalizeScene();
 	void UpdateScene();
-	void RenderScene(Camera &camera);
+	void RenderScene(Camera &camera, GLsizei screenWidth, GLsizei screenHeight);
 };
 
 #endif

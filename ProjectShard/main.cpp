@@ -37,12 +37,16 @@ int main(int argc, char* argv[])
 		lastFrame = currentFrame;
 
 		window.PollEvents();
+		window.UpdateSize();
+
+		std::cout << "Width: " << window.GetWidth() << std::endl;
+		std::cout << "Height " << window.GetHeight() << std::endl;
 
 		if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ESCAPE))
 			window.SetCloseState(GL_TRUE);
 
 		gameApp.Update(deltaTime);
-		gameApp.Render();
+		gameApp.Render(window.GetWidth(), window.GetHeight());
 
 		window.SwapBuffers();
 	}

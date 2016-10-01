@@ -34,7 +34,7 @@ public:
 	Text(GLsizei screenWidth, GLsizei screenHeight);
 	~Text();
 	void Load(const char* fontPath);
-	void RenderText(std::string text, Vector2 &pos, GLfloat scale, Vector3 &color);
+	void RenderText(std::string text, Vector2 &pos, GLfloat scale, Vector3 &color, GLsizei screenWidth, GLsizei screenHeight);
 };
 
 #endif

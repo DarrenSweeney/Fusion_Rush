@@ -18,7 +18,7 @@ public:
 	~GameApplication();
 	void Init();
 	void Update(GLfloat deltaTime);
-	void Render();
+	void Render(GLsizei screenWidth, GLsizei screenHeight);
 };
 
 #endif
