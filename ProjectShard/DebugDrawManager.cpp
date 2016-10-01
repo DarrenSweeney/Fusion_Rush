@@ -36,7 +36,6 @@ void DebugDrawManager::Submit(Camera &camera)
 	// Line debug drawing.
 	{
 		lineShader = g_resourceMgr.GetShader(SID("DebugLine"));
-		//lineShader.LoadShader("Shaders/DebugDrawMgr/DebugLine.vert", "Shaders/DebugDrawMgr/DebugLine.frag", "Shaders/DebugDrawMgr/DebugLine.gs");
 		lineShader->Use();
 
 		GLuint VBO, VAO;

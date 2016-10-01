@@ -8,13 +8,10 @@ TestPlayArea::TestPlayArea()
 	glEnable(GL_BLEND);
 	glEnable(GL_DEPTH_TEST);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	//engine = irrklang::createIrrKlangDevice();
 }
 
 TestPlayArea::~TestPlayArea()
 {
-	//engine->drop();
 	floorTexture->DeleteTexture();
 }
 
@@ -27,10 +24,7 @@ void TestPlayArea::InitalizeScene()
 	testText.Load("fonts/arial.ttf");
 	floorTexture = g_resourceMgr.GetTexture(SID("FloorTexture"));
 
-	//irrklang::vec3df position(-55.0f, 10.0f, -20.0f);
-	//engine->play2D("Resources/Sounds/Bodyfall_sound_effects/BF_Short_Hard_1c.ogg");
-
-//	sound.engine->play2D("Resources/Sounds/Bodyfall_sound_effects/BF_Short_Hard_1c.ogg");
+	//sound.soundEngine->play2D("Resources/Sounds/Bodyfall_sound_effects/BF_Short_Hard_1c.ogg");
 
 	sceneModel = g_resourceMgr.GetModel(SID("Nanosuit"));
 	modelShader = g_resourceMgr.GetShader(SID("ModelShader"));
@@ -67,6 +61,19 @@ void TestPlayArea::RenderScene(Camera &camera)
 
 	modelShader->Use();
 	Matrix4 modelMatrix = Matrix4();
+	Matrix4 modelScale = Matrix4();
+	modelScale = modelScale.scale(Vector3(0.04f, 0.04f, 0.04f));
+	modelMatrix = modelScale;
+	glUniformMatrix4fv(glGetUniformLocation(modelShader->Program, "model"), 1, GL_FALSE, &modelMatrix.data[0]);
+	glUniformMatrix4fv(glGetUniformLocation(modelShader->Program, "view"), 1, GL_FALSE, &view.data[0]);
+	glUniformMatrix4fv(glGetUniformLocation(modelShader->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
+	sceneModel->Draw(*modelShader);
+
+	modelScale = Matrix4();
+	translate = Matrix4();
+	translate = translate.translate(Vector3(30.0f, 0.0f, 0.0f));
+	modelScale = modelScale.scale(Vector3(0.04f, 0.04f, 0.04f));
+	modelMatrix = modelScale * translate;
 	glUniformMatrix4fv(glGetUniformLocation(modelShader->Program, "model"), 1, GL_FALSE, &modelMatrix.data[0]);
 	glUniformMatrix4fv(glGetUniformLocation(modelShader->Program, "view"), 1, GL_FALSE, &view.data[0]);
 	glUniformMatrix4fv(glGetUniformLocation(modelShader->Program, "projection"), 1, GL_FALSE, &projection.data[0]);

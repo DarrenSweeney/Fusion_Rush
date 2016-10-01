@@ -3,7 +3,7 @@
 #include "ResourceManager.h"
 #include "InputManager.h"
 #include "GameApplication.h"
-
+#include "EngineComponents.h"
 #include "WindowManagement.h"
 
 int main(int argc, char* argv[])
@@ -11,10 +11,8 @@ int main(int argc, char* argv[])
 	WindowManagement window;
 	window.StartUp();
 
-	Camera camera(Vector3(0.0f, 3.0f, 3.0f));
-	GLfloat lastX = 0.0f;
-	GLfloat lastY = 0.0f;
-	bool activeCamera;
+	EngineComponents engineComp;
+
 	GLfloat deltaTime = 0.0f;
 	GLfloat lastFrame = 0.0f;
 
@@ -39,34 +37,12 @@ int main(int argc, char* argv[])
 		lastFrame = currentFrame;
 
 		window.PollEvents();
-		camera.KeyboardMovement(deltaTime);
-		camera.ControllerMovement();
 
 		if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ESCAPE))
 			window.SetCloseState(GL_TRUE);
 
-		if (InputManager::GetInstance().IsMouseButtonPressed(GLFW_MOUSE_BUTTON_RIGHT))
-			activeCamera = true;
-		else
-			activeCamera = false;
-
-		glClearColor(0.0f, 0.5f, 0.5f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-		gameApp.Update();
-		gameApp.Render(camera);
-
-		Vector2 cursorPos = InputManager::GetInstance().GetCursorPos();
-
-		GLfloat xOffset = cursorPos.x - lastX;
-		GLfloat yOffset = lastY - cursorPos.y;
-		lastX = cursorPos.x;
-		lastY = cursorPos.y;
-
-		if (activeCamera)
-			camera.MouseMovement(xOffset, yOffset);
-
-		//g_debugDrawMgr.Submit(camera);
+		gameApp.Update(deltaTime);
+		gameApp.Render();
 
 		window.SwapBuffers();
 	}

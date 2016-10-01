@@ -2,7 +2,7 @@
 
 Sound::Sound()
 {
-	soundEngine = GameApplication::GetSoundEngine();
+	soundEngine = EngineComponents::GetSoundEngine();
 }
 
 Sound::~Sound()

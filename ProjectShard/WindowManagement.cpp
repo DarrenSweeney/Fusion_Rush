@@ -52,7 +52,13 @@ void WindowManagement::StartUp()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	window = glfwCreateWindow(900, 600, "Project Shard", NULL, NULL);
+	// Get the desktop resolution.
+	GLFWmonitor *monitor = glfwGetPrimaryMonitor();
+	const GLFWvidmode* vidMode = glfwGetVideoMode(monitor);
+	width = vidMode->width;
+	height = vidMode->height;
+
+	window = glfwCreateWindow(width, height, "Project Shard", NULL, NULL);
 
 	if (!window)
 	{

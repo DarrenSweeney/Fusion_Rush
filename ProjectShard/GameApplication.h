@@ -1,23 +1,24 @@
 #ifndef GAME_APPLICATION_H
 #define GAME_APPLICATION_H
 
-#include <irrKlang\irrKlang.h>
 #include "TestPlayArea.h"
+#include "Camera.h"
 
 class GameApplication
 {
 private:
 	TestPlayArea *testPlayArea;
+	Camera camera;
+	GLfloat lastX;
+	GLfloat lastY;
+	bool activeCamera;
 
 public:
-	static irrklang::ISoundEngine* engine;
-
 	GameApplication();
 	~GameApplication();
 	void Init();
-	void Update();
-	void Render(Camera &camera);
-	static irrklang::ISoundEngine* GetSoundEngine();
+	void Update(GLfloat deltaTime);
+	void Render();
 };
 
 #endif
