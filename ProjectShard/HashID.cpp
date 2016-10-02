@@ -10,16 +10,15 @@ const unsigned long HashID::GetValue() const
 	return hashID;
 }
 
-// Hash a C-style string using fnv1-a
-unsigned long HashID::HashStringID(const char *str, unsigned long hash)
+// Hash a C-style string using fnv-1a
+unsigned long HashID::HashStringID(const char *str)
 {
 	assert(str);
 
-	const unsigned char *ptr = (const unsigned char*)str;
-		
-	while (*ptr)
+	hashID = FNV_offset_basis;
+	while (*str)
 	{
-		hashID = (*ptr++ ^ hash) * Prime;
+		hashID = (hashID ^ *str++) * FNV_prime;
 	}
 
 	return hashID;

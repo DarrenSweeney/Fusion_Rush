@@ -21,11 +21,11 @@ TestPlayArea::~TestPlayArea()
 
 void TestPlayArea::InitalizeScene()
 {
-	sceneObjects = g_resourceMgr.GetShader(SID("Darren"));
+	sceneObjects = g_resourceMgr.GetShader(SID("EnviromentObject"));
 	sceneObjects->Use();
 	glUniform1i(glGetUniformLocation(sceneObjects->Program, "diffuseTexture"), 0);
 
-	testText.Load("fonts/arial.ttf");
+	testText.Load("Resources/Fonts/arial.ttf");
 	floorTexture = g_resourceMgr.GetTexture(SID("FloorTexture"));
 
 	//sound.soundEngine->play2D("Resources/Sounds/Bodyfall_sound_effects/BF_Short_Hard_1c.ogg");

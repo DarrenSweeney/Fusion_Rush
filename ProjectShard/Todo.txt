@@ -2,7 +2,5 @@
 
 ;;	Solves these before starting gameplay
 
-- Fix hash table find function because it does not resolve hash collisions.
 - Fix has find due to memory leak (Silly me!)
-- Get the screen with and height.
 - sort out project folders.

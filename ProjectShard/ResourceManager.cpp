@@ -45,7 +45,7 @@ void ResourceManager::LoadSceneShaders()
 	// Debug drawing line shader
 	LoadShader("DebugLine","Shaders/DebugDrawMgr/DebugLine.vert", "Shaders/DebugDrawMgr/DebugLine.frag", "Shaders/DebugDrawMgr/DebugLine.gs");
 	// General basic scene objects
-	LoadShader("Darren", "Shaders/EnviromentObject.vert", "Shaders/EnviromentObject.frag");
+	LoadShader("EnviromentObject", "Shaders/EnviromentObject.vert", "Shaders/EnviromentObject.frag");
 	// Rendering text to screen
 	LoadShader("Text", "Shaders/text.vert", "Shaders/text.frag");
 }
