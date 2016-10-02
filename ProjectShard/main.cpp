@@ -1,17 +1,17 @@
 #include <iostream>
 
-#include "ResourceManager.h"
-#include "InputManager.h"
-#include "GameApplication.h"
-#include "EngineComponents.h"
-#include "WindowManagement.h"
+#include "Core\ResourceManager.h"
+#include "Input\InputManager.h"
+#include "Game\GameApplication.h"
+#include "Audio\SoundEngine.h"
+#include "Platform\WindowManagement.h"
 
 int main(int argc, char* argv[])
 {
 	WindowManagement window;
 	window.StartUp();
 
-	EngineComponents engineComp;
+	SoundEngine soundEngine;
 
 	GLfloat deltaTime = 0.0f;
 	GLfloat lastFrame = 0.0f;
@@ -38,9 +38,6 @@ int main(int argc, char* argv[])
 
 		window.PollEvents();
 		window.UpdateSize();
-
-		std::cout << "Width: " << window.GetWidth() << std::endl;
-		std::cout << "Height " << window.GetHeight() << std::endl;
 
 		if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ESCAPE))
 			window.SetCloseState(GL_TRUE);

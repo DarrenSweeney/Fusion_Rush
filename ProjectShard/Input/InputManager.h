@@ -2,7 +2,7 @@
 #define INPUT_MANAGER_H
 
 #include <GLFW\glfw3.h>
-#include "Math\Vector2.h"
+#include "..\Math\Vector2.h"
 
 // A singleton Input Manager class
 class InputManager

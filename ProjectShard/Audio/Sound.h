@@ -2,7 +2,7 @@
 #define SOUND_H
 
 #include <irrKlang\irrKlang.h>
-#include "EngineComponents.h"
+#include "SoundEngine.h"
 #include "Sound.h"
 
 class Sound

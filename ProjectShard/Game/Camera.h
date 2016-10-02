@@ -2,11 +2,11 @@
 #define CAMERA_H
 
 #include <math.h>
-#include "Math\vector3.h"
-#include "Math\matrix4x4.h"
-#include "Math\MathHelper.h"
+#include "..\Math\Vector3.h"
+#include "..\Math\matrix4x4.h"
+#include "..\Math\MathHelper.h"
 #include <GL/gl3w.h>
-#include "InputManager.h"
+#include "..\Input\InputManager.h"
 
 using namespace std;
 

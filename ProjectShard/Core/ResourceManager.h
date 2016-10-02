@@ -2,8 +2,8 @@
 #define RESOURCE_MANAGER_H
 
 #include "HashTable.h"
-#include "Shader.h"
-#include "Model.h"
+#include "..\Renderer\Shader.h"
+#include "..\Renderer\Model.h"
 
 class ResourceManager
 {

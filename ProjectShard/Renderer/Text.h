@@ -2,12 +2,12 @@
 #define TEXT_H
 
 #include <GL\gl3w.h>
-#include "Math\Vector2.h"
-#include "Math\Vector3.h"
-#include "Math\Matrix4x4.h"
+#include "..\Math\Vector2.h"
+#include "..\Math\Vector3.h"
+#include "..\Math\Matrix4x4.h"
 #include <map>
 #include "Shader.h"
-#include "ResourceManager.h"
+#include "..\Core\ResourceManager.h"
 
 // FreeType
 #include <ft2build.h>

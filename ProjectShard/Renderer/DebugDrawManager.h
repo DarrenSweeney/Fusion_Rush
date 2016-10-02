@@ -1,11 +1,11 @@
 #ifndef DEBUG_DRAW_MANAGER_H
 #define DEBUG_DRAW_MANAGER_H
 
-#include "Math\Vector3.h"
-#include "Math\Matrix4x4.h"
+#include "..\Math\Vector3.h"
+#include "..\Math\Matrix4x4.h"
 #include "Shader.h"
-#include "Camera.h"
-#include "ResourceManager.h"
+#include "..\Game\Camera.h"
+#include "..\Core\ResourceManager.h"
 
 class DebugDrawManager
 {

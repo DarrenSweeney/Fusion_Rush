@@ -3,14 +3,14 @@
 
 #include <irrKlang\irrKlang.h>
 
-class EngineComponents
+class SoundEngine
 {
 private:
 	static irrklang::ISoundEngine* engine;
 
 public:
-	EngineComponents();
-	~EngineComponents();
+	SoundEngine();
+	~SoundEngine();
 
 	static irrklang::ISoundEngine* GetSoundEngine();
 };

@@ -1,16 +1,16 @@
 #ifndef TEST_PLAY_AREA_H
 #define TEST_PLAY_AREA_H
 
-#include "Shader.h"
-#include "Primitives.h"
-#include "Math\Matrix4x4.h"
+#include "..\Renderer\Shader.h"
+#include "..\Renderer\Primitives.h"
+#include "..\Math\Matrix4x4.h"
 #include "Camera.h"
-#include "Texture.h"
-#include "Text.h"
-#include "DebugDrawManager.h"
-#include "ResourceManager.h"
-#include "Model.h"
-#include "Sound.h"
+#include "..\Renderer\Texture.h"
+#include "..\Renderer\Text.h"
+#include "..\Renderer\DebugDrawManager.h"
+#include "..\Core\ResourceManager.h"
+#include "..\Renderer\Model.h"
+#include "..\Audio\Sound.h"
 
 class TestPlayArea
 {
