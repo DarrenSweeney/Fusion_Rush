@@ -52,7 +52,7 @@ void ResourceManager::LoadSceneShaders()
 
 void ResourceManager::LoadSceneModels()
 {
-	LoadModel("Nanosuit", "Resources/Wraith_Raider_Starship/Wraith Raider Starship.obj");
+	LoadModel("PlayerShip", "Resources/Ship/Shard_Ship.obj");
 }
 
 // Loads independent textures, that excludes models textures.

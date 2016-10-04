@@ -11,6 +11,7 @@
 #include "..\Core\ResourceManager.h"
 #include "..\Renderer\Model.h"
 #include "..\Audio\Sound.h"
+#include "Player.h"
 
 class TestPlayArea
 {
@@ -18,17 +19,16 @@ private:
 	Primitives primitives;
 	Texture *floorTexture;
 	Text testText;
-	Model *sceneModel;
-	Shader *modelShader;
 	Shader *sceneObjects;
 	Sound sound;
+	Player player;
 
 public:
 	TestPlayArea();
 	~TestPlayArea();
 
 	void InitalizeScene();
-	void UpdateScene();
+	void UpdateScene(float deltaTime);
 	void RenderScene(Camera &camera, GLsizei screenWidth, GLsizei screenHeight);
 };
 

@@ -3,7 +3,9 @@
 Quaternion::Quaternion()
 {
 	w = 1;
-	x, y, z = 0;
+	x = 0;
+	y = 0;
+	z = 0;
 }
 
 Quaternion::Quaternion(float _w, float _x, float _y, float _z)
@@ -127,4 +129,67 @@ Quaternion Quaternion::RotateAboutAxis(Vector3 axis, float angle)
 	z = axis.z * sinAngleOver2;
 
 	return *this;
+}
+
+float Quaternion::Dot(const Quaternion q0, const Quaternion q1)
+{
+	float result = q0.w * q1.w + q0.x * q1.x + q0.y * q1.y + q0.z * q1.z;
+
+	return result;
+}
+
+Quaternion Quaternion::Slerp(const Quaternion &q0, const Quaternion &q1, float t)
+{
+	// Check for out-of range parameter and return edge points if so
+	if (t <= 0.0f) return q0;
+	if (t >= 1.0f) return q1;
+	// Compute "cosine of angle between quaternions" using dot product
+		float cosOmega = Dot(q0, q1);
+	// If negative dot, use –q1. Two quaternions q and –q
+	// represent the same rotation, but may produce
+	// different slerp. We chose q or –q to rotate using
+	// the acute angle.
+	float q1w = q1.w;
+	float q1x = q1.x;
+	float q1y = q1.y;
+	float q1z = q1.z;
+	if (cosOmega < 0.0f) {
+		q1w = -q1w;
+		q1x = -q1x;
+		q1y = -q1y;
+		q1z = -q1z;
+		cosOmega = -cosOmega;
+	}
+	// We should have two unit quaternions, so dot should be <= 1.0
+	assert(cosOmega < 1.1f);
+	// Compute interpolation fraction, checking for quaternions
+	// almost exactly the same
+	float k0, k1;
+	if (cosOmega > 0.9999f) {
+		// Very close - just use linear interpolation,
+		// which will protect againt a divide by zero
+		k0 = 1.0f-t;
+		k1 = t;
+	}
+	else {
+		// Compute the sin of the angle using the
+		// trig identity sin^2(omega) + cos^2(omega) = 1
+		float sinOmega = sqrt(1.0f - cosOmega*cosOmega);
+		// Compute the angle from its sin and cosine
+		float omega = atan2(sinOmega, cosOmega);
+		// Compute inverse of denominator, so we only have
+		// to divide once
+		float oneOverSinOmega = 1.0f / sinOmega;
+		// Compute interpolation parameters
+		k0 = sin((1.0f - t) * omega) * oneOverSinOmega;
+		k1 = sin(t * omega) * oneOverSinOmega;
+	}
+
+	Quaternion result;
+	result.x = k0*q0.x + k1*q1x;
+	result.y = k0*q0.y + k1*q1y;
+	result.z = k0*q0.z + k1*q1z;
+	result.w = k0*q0.w + k1*q1w;
+	// Return it
+	return result;
 }

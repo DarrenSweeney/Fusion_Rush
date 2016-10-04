@@ -12,8 +12,6 @@ TestPlayArea::TestPlayArea()
 
 TestPlayArea::~TestPlayArea()
 {
-	delete sceneModel;
-	delete modelShader;
 	delete sceneObjects;
 	floorTexture->DeleteTexture();
 	delete floorTexture;
@@ -29,18 +27,17 @@ void TestPlayArea::InitalizeScene()
 	floorTexture = g_resourceMgr.GetTexture(SID("FloorTexture"));
 
 	//sound.soundEngine->play2D("Resources/Sounds/Bodyfall_sound_effects/BF_Short_Hard_1c.ogg");
-
-	sceneModel = g_resourceMgr.GetModel(SID("Nanosuit"));
-	modelShader = g_resourceMgr.GetShader(SID("ModelShader"));
 }
 
-void TestPlayArea::UpdateScene()
+void TestPlayArea::UpdateScene(float deltaTime)
 {
 	g_debugDrawMgr.AddLine(Vector3(-55.0f, 10.0f, -20.0f), Vector3(-5.0f, 0.5f, 0.0f), Vector3(1.0f, 0.0f, 0.0f));
 	g_debugDrawMgr.AddLine(Vector3(-5.0f, 0.5f, 0.0f), Vector3(-5.0f, 10.0f, 0.0f), Vector3(0.0f, 1.0f, 0.0f));
 
 	g_debugDrawMgr.AddCross(Vector3(0.0f, 20.0f, 0.0f), Vector3(0.0f, 0.0f, 1.0f));
 	g_debugDrawMgr.AddCross(Vector3(10.0f, 10.0f, 10.0f), Vector3(1.0f, 1.0f, 0.0f));
+
+	player.Update(deltaTime);
 }
 
 void TestPlayArea::RenderScene(Camera &camera, GLsizei screenWidth, GLsizei screenHeight)
@@ -51,8 +48,8 @@ void TestPlayArea::RenderScene(Camera &camera, GLsizei screenWidth, GLsizei scre
 	Matrix4 model = Matrix4();
 	Matrix4 translate = Matrix4();
 	Matrix4 scale = Matrix4();
-	translate = translate.translate(Vector3(0.0f, 0.0f, 0.0f));
-	scale = scale.scale(Vector3(50.0f, 1.0f, 50.0f));
+	translate = translate.translate(Vector3(0.0f, -4.0f, 0.0f));
+	scale = scale.scale(Vector3(150.0f, 1.0f, 150.0f));
 	model = scale * translate;
 	sceneObjects->Use();
 	glActiveTexture(GL_TEXTURE0);
@@ -63,26 +60,8 @@ void TestPlayArea::RenderScene(Camera &camera, GLsizei screenWidth, GLsizei scre
 	primitives.RenderCube();
 	floorTexture->UnBind();
 
-	modelShader->Use();
-	Matrix4 modelMatrix = Matrix4();
-	Matrix4 modelScale = Matrix4();
-	modelScale = modelScale.scale(Vector3(0.04f, 0.04f, 0.04f));
-	modelMatrix = modelScale;
-	glUniformMatrix4fv(glGetUniformLocation(modelShader->Program, "model"), 1, GL_FALSE, &modelMatrix.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(modelShader->Program, "view"), 1, GL_FALSE, &view.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(modelShader->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
-	sceneModel->Draw(*modelShader);
+	player.Render(camera, screenWidth, screenHeight);
 
-	modelScale = Matrix4();
-	translate = Matrix4();
-	translate = translate.translate(Vector3(30.0f, 0.0f, 0.0f));
-	modelScale = modelScale.scale(Vector3(0.04f, 0.04f, 0.04f));
-	modelMatrix = modelScale * translate;
-	glUniformMatrix4fv(glGetUniformLocation(modelShader->Program, "model"), 1, GL_FALSE, &modelMatrix.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(modelShader->Program, "view"), 1, GL_FALSE, &view.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(modelShader->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
-	sceneModel->Draw(*modelShader);
-
-	testText.RenderText("ProjectShard", Vector2(0.0f, 0.0f), 1.0f, Vector3(0.0f, 0.0f, 0.0f), screenWidth, screenHeight);
-	testText.RenderText("Test font rendering, 1, 2, 3, 4, 5, # # #  { } /// - +", Vector2(25.0f, 570.0f), 0.5f, Vector3(0.0, 0.0f, 0.0f), screenWidth, screenHeight);
+	//testText.RenderText("ProjectShard", Vector2(0.0f, 0.0f), 1.0f, Vector3(0.0f, 0.0f, 0.0f), screenWidth, screenHeight);
+	//testText.RenderText("Test font rendering, 1, 2, 3, 4, 5, # # #  { } /// - +", Vector2(25.0f, 570.0f), 0.5f, Vector3(0.0, 0.0f, 0.0f), screenWidth, screenHeight);
 }

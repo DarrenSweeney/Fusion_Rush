@@ -314,3 +314,23 @@ Matrix4 Matrix4::transpose(Matrix4 &matrix)
 
 	return *this;
 }
+
+Matrix4 Matrix4::QuaternionToMatrix4(const Quaternion &q)
+{
+	float ww = 2.0f * q.w;
+	float xx = 2.0f * q.x;
+	float yy = 2.0f * q.y;
+	float zz = 2.0f * q.z;
+
+	data[0] = 1.0f - yy*q.y - zz*q.z;
+	data[1] = xx*q.y + ww*q.z;
+	data[2] = xx*q.z - ww*q.y;
+	data[4] = xx*q.y - ww*q.z;
+	data[5] = 1.0f - xx*q.x - zz*q.z;
+	data[6] = yy*q.z + ww*q.x;
+	data[8] = xx*q.z + ww*q.y;
+	data[9] = yy*q.z - ww*q.x;
+	data[10] = 1.0f - xx*q.x - yy*q.y;
+
+	return *this;
+}

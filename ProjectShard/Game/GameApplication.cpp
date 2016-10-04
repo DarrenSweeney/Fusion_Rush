@@ -20,7 +20,7 @@ void GameApplication::Update(GLfloat deltaTime)
 {
 	camera.KeyboardMovement(deltaTime);
 	camera.ControllerMovement();
-	testPlayArea->UpdateScene();
+	testPlayArea->UpdateScene(deltaTime);
 
 	Vector2 cursorPos = InputManager::GetInstance().GetCursorPos();
 	GLfloat xOffset = cursorPos.x - lastX;

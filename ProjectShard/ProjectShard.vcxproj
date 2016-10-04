@@ -156,6 +156,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Desktop\imgui-master\imgui-master\examples\libs\gl3w\GL\gl3w.c" />
     <ClCompile Include="Game\Camera.cpp" />
+    <ClCompile Include="Game\Player.cpp" />
     <ClCompile Include="Renderer\DebugDrawManager.cpp" />
     <ClCompile Include="Audio\SoundEngine.cpp" />
     <ClCompile Include="Game\GameApplication.cpp" />
@@ -180,6 +181,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Camera.h" />
+    <ClInclude Include="Game\Player.h" />
     <ClInclude Include="Renderer\DebugDrawManager.h" />
     <ClInclude Include="Audio\SoundEngine.h" />
     <ClInclude Include="Game\GameApplication.h" />

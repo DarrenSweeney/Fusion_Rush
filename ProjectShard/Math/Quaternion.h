@@ -3,6 +3,7 @@
 
 #include "Vector3.h"
 #include <assert.h>
+#include <algorithm>
 
 class Quaternion
 {
@@ -28,6 +29,8 @@ public:
 	Quaternion RotateY(float angle);
 	Quaternion RotateZ(float angle);
 	Quaternion RotateAboutAxis(const Vector3 axis, float angle);
+	float Dot(const Quaternion q0, const Quaternion q1);
+	Quaternion Slerp(const Quaternion &q0, const Quaternion &q1, float t);
 };
 
 #endif

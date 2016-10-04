@@ -2,5 +2,8 @@
 
 ;;	Solves these before starting gameplay
 
-- Fix has find due to memory leak (Silly me!)
-- sort out project folders.
+Create quaternion slerping.		// ~DONE
+Create quaternion to matrix.	// ~DONE
+Make the player move left, right and up with smooth velocity and (NEXT)->acceleration.
+Add the camera to the player. Will this effect splitscreen?
+Add rotation movement using quaternion slerping. // ~DONE

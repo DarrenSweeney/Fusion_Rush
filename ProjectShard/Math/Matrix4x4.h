@@ -4,6 +4,7 @@
 #include "MathHelper.h"
 #include "Vector3.h"
 #include "Vector4.h"
+#include "Quaternion.h"
 
 // This is a column-major 4x4 matrix.
 class Matrix4
@@ -37,6 +38,7 @@ public:
 	Matrix4 orthographicProjection(float left, float right, float bottom, float top, float near, float far);
 	Matrix4 lookAt(Vector3 &position, Vector3 &target, Vector3 &worldUp);
 	Matrix4 transpose(Matrix4 &matrix);
+	Matrix4 QuaternionToMatrix4(const Quaternion &q);
 };
 
 Matrix4 operator*(Matrix4 &matrixA, Matrix4 &matrixB);
