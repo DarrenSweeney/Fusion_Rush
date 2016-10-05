@@ -1,7 +1,7 @@
 #include "Player.h"
 
 Player::Player()
-	: rotationSpeed(0.0f)
+	: rotationSpeed(2.0f)
 {
 	model = g_resourceMgr.GetModel(SID("PlayerShip"));
 	shaderModel = g_resourceMgr.GetShader(SID("ModelShader"));
@@ -15,33 +15,41 @@ Player::~Player()
 
 void Player::Update(float deltaTime)
 {
-	position += linearVelocity;
+	position += linearVelocity * deltaTime;
 
 	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_UP))
 	{
-		linearVelocity.z -= 0.0001f;
+		linearVelocity.z -= 0.08f;
 	}
 
 	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_LEFT))
 	{
-		linearVelocity.x -= 0.0001f;
-		rotationSpeed += 0.001f;
+		linearVelocity.x -= 0.08f;
 
 		Quaternion from = Quaternion();
 		Quaternion to = Quaternion();
-		to = to.RotateZ(MathHelper::DegressToRadians(15.0f));
+		to = to.RotateZ(MathHelper::DegressToRadians(90.0f));
 		orientation = orientation.Slerp(orientation, to, deltaTime * rotationSpeed);
+	}
+	else
+	{
+		Quaternion from = Quaternion();
+		orientation = orientation.Slerp(orientation, from, deltaTime * rotationSpeed);
 	}
 	
 	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_RIGHT))
 	{
-		linearVelocity.x += 0.0001f;
-		rotationSpeed += 0.001f;
+		linearVelocity.x += 0.08f;
 
 		Quaternion from = Quaternion();
 		Quaternion to = Quaternion();
-		to = to.RotateZ(MathHelper::DegressToRadians(-15.0f));
+		to = to.RotateZ(MathHelper::DegressToRadians(-90.0f));
 		orientation = orientation.Slerp(orientation, to, deltaTime * rotationSpeed);
+	}
+	else
+	{
+		Quaternion from = Quaternion();
+		orientation = orientation.Slerp(orientation, from, deltaTime * rotationSpeed);
 	}
 }
 

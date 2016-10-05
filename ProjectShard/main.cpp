@@ -37,7 +37,7 @@ int main(int argc, char* argv[])
 		lastFrame = currentFrame;
 
 		window.PollEvents();
-		window.UpdateSize();
+		window.UpdateViewport();
 
 		if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ESCAPE))
 			window.SetCloseState(GL_TRUE);

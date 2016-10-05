@@ -21,7 +21,7 @@ public:
 	void GetFrameBufferSize(int *width, int *height);
 	void PollEvents();
 	void StartUp();
-	void UpdateSize();
+	void UpdateViewport();
 	void SwapBuffers();
 	void ShutDown();
 };
