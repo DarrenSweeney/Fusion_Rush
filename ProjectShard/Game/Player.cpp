@@ -1,7 +1,7 @@
 #include "Player.h"
 
 Player::Player()
-	: rotationSpeed(2.0f), camera(Vector3(3.0f, 0.0f, 2.0))
+	: rotationSpeed(2.0f), camera(Vector3(3.0f, 0.0f, 2.0)), position(Vector3(0.0f, 0.0f, 150.0f))
 {
 	model = g_resourceMgr.GetModel(SID("PlayerShip"));
 	shaderModel = g_resourceMgr.GetShader(SID("ModelShader"));
@@ -16,41 +16,43 @@ Player::~Player()
 void Player::Update(float deltaTime)
 {
 	position += linearVelocity * deltaTime;
-	camera.position = position - Vector3(0.0f, -4.0f, -35.0f);
+	camera.position = position - Vector3(0.0f, -15.0f, -40.0f);
+
+	Quaternion from = Quaternion();
 
 	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_UP))
-	{
-		linearVelocity.z -= 0.08f;
-	}
+		linearVelocity.z -= 0.30f;
+	else if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN))
+		linearVelocity.z += 0.30f;
 
 	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_LEFT))
 	{
-		linearVelocity.x -= 0.08f;
+		linearVelocity.x -= 0.20f;
 
-		Quaternion from = Quaternion();
 		Quaternion to = Quaternion();
 		to = to.RotateZ(MathHelper::DegressToRadians(90.0f));
 		orientation = orientation.Slerp(orientation, to, deltaTime * rotationSpeed);
 	}
 	else
-	{
-		Quaternion from = Quaternion();
 		orientation = orientation.Slerp(orientation, from, deltaTime * rotationSpeed);
-	}
 	
 	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_RIGHT))
 	{
-		linearVelocity.x += 0.08f;
+		linearVelocity.x += 0.20f;
 
-		Quaternion from = Quaternion();
 		Quaternion to = Quaternion();
 		to = to.RotateZ(MathHelper::DegressToRadians(-90.0f));
 		orientation = orientation.Slerp(orientation, to, deltaTime * rotationSpeed);
 	}
 	else
-	{
-		Quaternion from = Quaternion();
 		orientation = orientation.Slerp(orientation, from, deltaTime * rotationSpeed);
+
+	if (linearVelocity.x != 0)
+	{
+		Vector3 i = linearVelocity;
+		float friction = 0.003f;
+
+		linearVelocity -= i * friction;
 	}
 }
 
@@ -60,9 +62,8 @@ void Player::Render(GLsizei screenWidth, GLsizei screenHeight)
 	Matrix4 modelMatrix = Matrix4();
 	Matrix4 viewMatrix = camera.GetViewMatrix();
 	Matrix4 projection = Matrix4();
-	projection = projection.perspectiveProjection(camera.zoom, (GLfloat)screenWidth / (GLfloat)screenHeight, 0.1f, 100.0f);
+	projection = projection.perspectiveProjection(camera.zoom, (GLfloat)screenWidth / (GLfloat)screenHeight, 0.1f, 1000.0f);
 	Matrix4 modelScale = Matrix4();
-	//modelScale = modelScale.scale(Vector3(0.04f, 0.04f, 0.04f));
 	Matrix4 modelRotate = Matrix4();
 	modelRotate = modelRotate.QuaternionToMatrix4(orientation);
 	Matrix4 modelTranslate = Matrix4();

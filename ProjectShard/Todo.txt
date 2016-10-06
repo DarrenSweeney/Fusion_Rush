@@ -1,6 +1,7 @@
 # Darren's todo list for road the games fleadh
 
-;;	Solves these before starting gameplay
-
 Add player deceleration for linear motion.
-Add small rotation to camera class.
+Add small rotation to camera when player rotates. (Maybe this after? polish?)
+
+// Start this after player controls.
+Add shadow mapping and lighting.

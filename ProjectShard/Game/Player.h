@@ -26,6 +26,7 @@ private:
 	Shader *shaderModel;
 	Vector3 position;
 	Vector3 linearVelocity;	
+	Vector3 acceleration;
 	Quaternion orientation;
 	float rotationSpeed;
 };

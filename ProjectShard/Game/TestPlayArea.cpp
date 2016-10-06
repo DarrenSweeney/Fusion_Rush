@@ -43,7 +43,7 @@ void TestPlayArea::UpdateScene(float deltaTime)
 void TestPlayArea::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 {
 	Matrix4 projection = Matrix4();
-	projection = projection.perspectiveProjection(player.camera.zoom, (GLfloat)screenWidth / (GLfloat)screenHeight, 0.1f, 100.0f);
+	projection = projection.perspectiveProjection(player.camera.zoom, (GLfloat)screenWidth / (GLfloat)screenHeight, 0.1f, 1000.0f);
 	Matrix4 view = player.camera.GetViewMatrix();
 	Matrix4 model = Matrix4();
 	Matrix4 translate = Matrix4();
@@ -52,6 +52,20 @@ void TestPlayArea::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	scale = scale.scale(Vector3(150.0f, 1.0f, 150.0f));
 	model = scale * translate;
 	sceneObjects->Use();
+	glActiveTexture(GL_TEXTURE0);
+	floorTexture->Bind();
+	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
+	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
+	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
+	primitives.RenderCube();
+	floorTexture->UnBind();
+
+	model = Matrix4();
+	translate = Matrix4();
+	translate = translate.translate(Vector3(0.0f, 2.0f, 0.0f));
+	scale = Matrix4();
+	scale = scale.scale(Vector3(15.0f, 15.0f, 15.0f));
+	model = scale * translate;
 	glActiveTexture(GL_TEXTURE0);
 	floorTexture->Bind();
 	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
