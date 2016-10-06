@@ -54,6 +54,44 @@ void Player::Update(float deltaTime)
 
 		linearVelocity -= i * friction;
 	}
+
+	int present = glfwJoystickPresent(GLFW_JOYSTICK_1);
+	const float *axis = NULL;
+	int count;
+	if (1 == present)
+	{
+		axis = glfwGetJoystickAxes(GLFW_JOYSTICK_1, &count);
+
+		// Movement - Left Stick
+		if (axis[0] < -0.2)
+		{
+			linearVelocity.x -= 0.20f;
+
+			Quaternion to = Quaternion();
+			to = to.RotateZ(MathHelper::DegressToRadians(90.0f));
+			orientation = orientation.Slerp(orientation, to, deltaTime * rotationSpeed);
+		}
+
+		if (axis[0] > 0.2)
+		{
+			linearVelocity.x += 0.20f;
+
+			Quaternion to = Quaternion();
+			to = to.RotateZ(MathHelper::DegressToRadians(-90.0f));
+			orientation = orientation.Slerp(orientation, to, deltaTime * rotationSpeed);
+		}
+
+		if (axis[4] > 0.2)
+		{
+			linearVelocity.z -= 0.30f;
+		}
+
+		if (axis[5] > 0.2)
+		{
+			linearVelocity.z += 0.30f;
+		}
+	}
+
 }
 
 void Player::Render(GLsizei screenWidth, GLsizei screenHeight)

@@ -1,6 +1,5 @@
 # Darren's todo list for road the games fleadh
 
-Add player deceleration for linear motion.
 Add small rotation to camera when player rotates. (Maybe this after? polish?)
 
 // Start this after player controls.
