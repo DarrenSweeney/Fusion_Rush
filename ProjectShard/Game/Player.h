@@ -6,8 +6,8 @@
 #include "..\Core\ResourceManager.h"
 #include "..\Math\Matrix4x4.h"
 #include "..\Math\Quaternion.h"
-#include "Camera.h"
 #include "..\Input\InputManager.h"
+#include "Camera.h"
 
 class Player
 {
@@ -16,7 +16,10 @@ public:
 	~Player();
 
 	void Update(float deltaTime);
-	void Render(Camera &camera, GLsizei screenWidth, GLsizei screenHeight);
+	void Render(GLsizei screenWidth, GLsizei screenHeight);
+
+	// TODO(Darren): Take this out.
+	Camera camera;
 
 private:
 	Model *model;

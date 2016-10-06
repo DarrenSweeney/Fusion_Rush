@@ -1,7 +1,7 @@
 #include "Player.h"
 
 Player::Player()
-	: rotationSpeed(2.0f)
+	: rotationSpeed(2.0f), camera(Vector3(3.0f, 0.0f, 2.0))
 {
 	model = g_resourceMgr.GetModel(SID("PlayerShip"));
 	shaderModel = g_resourceMgr.GetShader(SID("ModelShader"));
@@ -16,6 +16,7 @@ Player::~Player()
 void Player::Update(float deltaTime)
 {
 	position += linearVelocity * deltaTime;
+	camera.position = position - Vector3(0.0f, -4.0f, -35.0f);
 
 	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_UP))
 	{
@@ -53,7 +54,7 @@ void Player::Update(float deltaTime)
 	}
 }
 
-void Player::Render(Camera &camera, GLsizei screenWidth, GLsizei screenHeight)
+void Player::Render(GLsizei screenWidth, GLsizei screenHeight)
 {
 	shaderModel->Use();
 	Matrix4 modelMatrix = Matrix4();

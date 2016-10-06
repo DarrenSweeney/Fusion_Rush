@@ -25,6 +25,8 @@ private:
 	Shader *lineShader;
 
 public:
+	DebugDrawManager();
+
 	void AddLine(const Vector3 &startPos,
 				const Vector3 &endPos,
 				Vector3 &color,

@@ -40,11 +40,11 @@ void TestPlayArea::UpdateScene(float deltaTime)
 	player.Update(deltaTime);
 }
 
-void TestPlayArea::RenderScene(Camera &camera, GLsizei screenWidth, GLsizei screenHeight)
+void TestPlayArea::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 {
 	Matrix4 projection = Matrix4();
-	projection = projection.perspectiveProjection(camera.zoom, (GLfloat)screenWidth / (GLfloat)screenHeight, 0.1f, 100.0f);
-	Matrix4 view = camera.GetViewMatrix();
+	projection = projection.perspectiveProjection(player.camera.zoom, (GLfloat)screenWidth / (GLfloat)screenHeight, 0.1f, 100.0f);
+	Matrix4 view = player.camera.GetViewMatrix();
 	Matrix4 model = Matrix4();
 	Matrix4 translate = Matrix4();
 	Matrix4 scale = Matrix4();
@@ -60,7 +60,7 @@ void TestPlayArea::RenderScene(Camera &camera, GLsizei screenWidth, GLsizei scre
 	primitives.RenderCube();
 	floorTexture->UnBind();
 
-	player.Render(camera, screenWidth, screenHeight);
+	player.Render(screenWidth, screenHeight);
 
 	//testText.RenderText("ProjectShard", Vector2(0.0f, 0.0f), 1.0f, Vector3(0.0f, 0.0f, 0.0f), screenWidth, screenHeight);
 	//testText.RenderText("Test font rendering, 1, 2, 3, 4, 5, # # #  { } /// - +", Vector2(25.0f, 570.0f), 0.5f, Vector3(0.0, 0.0f, 0.0f), screenWidth, screenHeight);

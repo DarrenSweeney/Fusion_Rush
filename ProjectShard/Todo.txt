@@ -2,8 +2,5 @@
 
 ;;	Solves these before starting gameplay
 
-Create quaternion slerping.		// ~DONE
-Create quaternion to matrix.	// ~DONE
-Make the player move left, right and up with smooth velocity and (NEXT)->acceleration.
-Add the camera to the player. Will this effect splitscreen?
-Add rotation movement using quaternion slerping. // ~DONE
+Add player deceleration for linear motion.
+Add small rotation to camera class.

@@ -1,7 +1,7 @@
 #include "GameApplication.h"
 
 GameApplication::GameApplication()
-	: camera(Vector3(0.0f, 3.0f, 3.0f)), lastX(0.0f), lastY(0.0f), activeCamera(false)
+	: lastX(0.0f), lastY(0.0f), activeCamera(false)
 {
 	testPlayArea = new TestPlayArea();
 }
@@ -18,8 +18,6 @@ void GameApplication::Init()
 
 void GameApplication::Update(GLfloat deltaTime)
 {
-	camera.KeyboardMovement(deltaTime);
-	camera.ControllerMovement();
 	testPlayArea->UpdateScene(deltaTime);
 
 	Vector2 cursorPos = InputManager::GetInstance().GetCursorPos();
@@ -32,9 +30,6 @@ void GameApplication::Update(GLfloat deltaTime)
 		activeCamera = true;
 	else
 		activeCamera = false;
-
-	if (activeCamera)
-		camera.MouseMovement(xOffset, yOffset);
 }
 
 void GameApplication::Render(GLsizei screenWidth, GLsizei screenHeight)
@@ -42,6 +37,6 @@ void GameApplication::Render(GLsizei screenWidth, GLsizei screenHeight)
 	glClearColor(0.0f, 0.5f, 0.5f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	testPlayArea->RenderScene(camera, screenWidth, screenHeight);
-	//g_debugDrawMgr.Submit(camera);
+	testPlayArea->RenderScene(screenWidth, screenHeight);
+	//g_debugDrawMgr.Submit(player.camera);
 }

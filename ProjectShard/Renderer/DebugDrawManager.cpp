@@ -2,6 +2,11 @@
 
 DebugDrawManager g_debugDrawMgr;
 
+DebugDrawManager::DebugDrawManager()
+{
+	lineShader = g_resourceMgr.GetShader(SID("DebugLine"));
+}
+
 void DebugDrawManager::AddLine(const Vector3 &startPos, const Vector3 &endPos, Vector3 &color,
 	float lineWidth, bool depthEnabled)
 {
@@ -35,7 +40,6 @@ void DebugDrawManager::Submit(Camera &camera)
 {
 	// Line debug drawing.
 	{
-		lineShader = g_resourceMgr.GetShader(SID("DebugLine"));
 		lineShader->Use();
 
 		GLuint VBO, VAO;

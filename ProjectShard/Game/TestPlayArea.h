@@ -29,7 +29,7 @@ public:
 
 	void InitalizeScene();
 	void UpdateScene(float deltaTime);
-	void RenderScene(Camera &camera, GLsizei screenWidth, GLsizei screenHeight);
+	void RenderScene(GLsizei screenWidth, GLsizei screenHeight);
 };
 
 #endif
