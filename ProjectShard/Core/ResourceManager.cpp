@@ -59,6 +59,7 @@ void ResourceManager::LoadSceneModels()
 void ResourceManager::LoadSceneTextures()
 {
 	LoadTexture("FloorTexture", "Resources/floor.jpg");
+	LoadTexture("GroundTexture", "Resources/ground.jpg");
 }
 
 void ResourceManager::PrintShaderTable()

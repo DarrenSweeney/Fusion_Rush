@@ -12,7 +12,7 @@ using namespace std;
 
 /*
 	This Camera does not allow pich value higher than 90 degress.
-	Will be good enough for a simple camera to look around in scene.
+	Will be good enough for a simple camera to attach to the player.
 */
 class Camera
 {
@@ -25,8 +25,6 @@ public:
 	GLfloat deltaTime;
 	GLfloat cameraSpeed, movementSpeed;
 	GLfloat zoom;
-	GLfloat pitch;
-	void UpdateCameraVectors();
 
 	// Returns the view martrix calculated using Euler Angles and the LookAt matrix
 	Matrix4 &GetViewMatrix();
@@ -40,11 +38,10 @@ private:
 	Vector3 upVec;
 	Vector3 rightVec;
 	Vector3 worldUp;
-
 	GLfloat yaw;
-
+	GLfloat pitch;
 	GLfloat mouseSensitivity;
-
+	void UpdateCameraVectors();
 	void Roll(GLfloat angle);
 };
 

@@ -42,3 +42,22 @@ void InputManager::SetWindow(GLFWwindow *currentWindow)
 {
 	window = currentWindow;
 }
+
+bool InputManager::IsJoyStickPresent(int joystick)
+{
+	int present = glfwJoystickPresent(joystick);
+
+	return present == 1 ? true : false;
+}
+
+const float *InputManager::GetJoyStickAxis(int joystick)
+{
+	const float *axis = NULL;
+
+	if (IsJoyStickPresent(joystick))
+	{
+		axis = glfwGetJoystickAxes(joystick, &count);
+	}
+
+	return axis;
+}

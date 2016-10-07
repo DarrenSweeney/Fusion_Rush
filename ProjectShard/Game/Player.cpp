@@ -18,34 +18,36 @@ void Player::Update(float deltaTime)
 	position += linearVelocity * deltaTime;
 	camera.position = position - Vector3(0.0f, -15.0f, -40.0f);
 
-	Quaternion from = Quaternion();
+	Quaternion targetRotation = Quaternion();
+	Quaternion initalRotation = Quaternion();
 
-	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_UP))
-		linearVelocity.z -= 0.30f;
-	else if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN))
-		linearVelocity.z += 0.30f;
+	// Input for controller 1
+	const float *axis = InputManager::GetInstance().GetJoyStickAxis(GLFW_JOYSTICK_1);
 
-	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_LEFT))
+	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_UP) || axis[LEFT_TRIGGER] > 0.2)
+		linearVelocity.z -= 0.9f;
+	else if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN) || axis[RIGHT_TRIGGER] > 0.2)
+		linearVelocity.z += 0.9f;
+
+	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_LEFT) || axis[LEFT_STICK_X] < -0.2)
 	{
-		linearVelocity.x -= 0.20f;
+		linearVelocity.x -= 0.9f;
 
-		Quaternion to = Quaternion();
-		to = to.RotateZ(MathHelper::DegressToRadians(90.0f));
-		orientation = orientation.Slerp(orientation, to, deltaTime * rotationSpeed);
+		targetRotation = targetRotation.RotateZ(MathHelper::DegressToRadians(90.0f));
+		orientation = orientation.Slerp(orientation, targetRotation, deltaTime * rotationSpeed);
 	}
 	else
-		orientation = orientation.Slerp(orientation, from, deltaTime * rotationSpeed);
+		orientation = orientation.Slerp(orientation, initalRotation, deltaTime * rotationSpeed);
 	
-	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_RIGHT))
+	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_RIGHT) || axis[LEFT_STICK_X] > 0.2)
 	{
-		linearVelocity.x += 0.20f;
+		linearVelocity.x += 0.9f;
 
-		Quaternion to = Quaternion();
-		to = to.RotateZ(MathHelper::DegressToRadians(-90.0f));
-		orientation = orientation.Slerp(orientation, to, deltaTime * rotationSpeed);
+		targetRotation = targetRotation.RotateZ(MathHelper::DegressToRadians(-90.0f));
+		orientation = orientation.Slerp(orientation, targetRotation, deltaTime * rotationSpeed);
 	}
 	else
-		orientation = orientation.Slerp(orientation, from, deltaTime * rotationSpeed);
+		orientation = orientation.Slerp(orientation, initalRotation, deltaTime * rotationSpeed);
 
 	if (linearVelocity.x != 0)
 	{
@@ -54,44 +56,6 @@ void Player::Update(float deltaTime)
 
 		linearVelocity -= i * friction;
 	}
-
-	int present = glfwJoystickPresent(GLFW_JOYSTICK_1);
-	const float *axis = NULL;
-	int count;
-	if (1 == present)
-	{
-		axis = glfwGetJoystickAxes(GLFW_JOYSTICK_1, &count);
-
-		// Movement - Left Stick
-		if (axis[0] < -0.2)
-		{
-			linearVelocity.x -= 0.20f;
-
-			Quaternion to = Quaternion();
-			to = to.RotateZ(MathHelper::DegressToRadians(90.0f));
-			orientation = orientation.Slerp(orientation, to, deltaTime * rotationSpeed);
-		}
-
-		if (axis[0] > 0.2)
-		{
-			linearVelocity.x += 0.20f;
-
-			Quaternion to = Quaternion();
-			to = to.RotateZ(MathHelper::DegressToRadians(-90.0f));
-			orientation = orientation.Slerp(orientation, to, deltaTime * rotationSpeed);
-		}
-
-		if (axis[4] > 0.2)
-		{
-			linearVelocity.z -= 0.30f;
-		}
-
-		if (axis[5] > 0.2)
-		{
-			linearVelocity.z += 0.30f;
-		}
-	}
-
 }
 
 void Player::Render(GLsizei screenWidth, GLsizei screenHeight)

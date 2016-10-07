@@ -18,6 +18,7 @@ class TestPlayArea
 private:
 	Primitives primitives;
 	Texture *floorTexture;
+	Texture *groundTexture;
 	Text testText;
 	Shader *sceneObjects;
 	Sound sound;

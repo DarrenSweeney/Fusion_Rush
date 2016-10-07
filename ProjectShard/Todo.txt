@@ -1,6 +1,3 @@
 # Darren's todo list for road the games fleadh
 
-Add small rotation to camera when player rotates. (Maybe this after? polish?)
-
-// Start this after player controls.
-Add shadow mapping and lighting.
+Add directional shadow mapping and lighting.

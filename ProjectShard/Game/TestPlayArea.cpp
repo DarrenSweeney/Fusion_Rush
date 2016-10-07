@@ -25,6 +25,7 @@ void TestPlayArea::InitalizeScene()
 
 	testText.Load("Resources/Fonts/arial.ttf");
 	floorTexture = g_resourceMgr.GetTexture(SID("FloorTexture"));
+	groundTexture = g_resourceMgr.GetTexture(SID("GroundTexture"));
 
 	//sound.soundEngine->play2D("Resources/Sounds/Bodyfall_sound_effects/BF_Short_Hard_1c.ogg");
 }
@@ -49,16 +50,16 @@ void TestPlayArea::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	Matrix4 translate = Matrix4();
 	Matrix4 scale = Matrix4();
 	translate = translate.translate(Vector3(0.0f, -4.0f, 0.0f));
-	scale = scale.scale(Vector3(150.0f, 1.0f, 150.0f));
+	scale = scale.scale(Vector3(100.0f, 1.0f, 10000.0f));
 	model = scale * translate;
 	sceneObjects->Use();
 	glActiveTexture(GL_TEXTURE0);
-	floorTexture->Bind();
+	groundTexture->Bind();
 	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
 	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
 	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
 	primitives.RenderCube();
-	floorTexture->UnBind();
+	groundTexture->UnBind();
 
 	model = Matrix4();
 	translate = Matrix4();
