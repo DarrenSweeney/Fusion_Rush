@@ -24,7 +24,6 @@ public:
 	void Identity();
 	void Normalize();
 	Quaternion Conjugate();
-	
 	Quaternion RotateX(float angle);
 	Quaternion RotateY(float angle);
 	Quaternion RotateZ(float angle);

@@ -58,6 +58,6 @@ const float *InputManager::GetJoyStickAxis(int joystick)
 	{
 		axis = glfwGetJoystickAxes(joystick, &count);
 	}
-
+	                                                                              
 	return axis;
 }

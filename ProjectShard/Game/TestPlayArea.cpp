@@ -19,6 +19,11 @@ TestPlayArea::~TestPlayArea()
 
 void TestPlayArea::InitalizeScene()
 {
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE);
+	glDepthFunc(GL_LESS);
+	glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
+
 	sceneObjects = g_resourceMgr.GetShader(SID("EnviromentObject"));
 	sceneObjects->Use();
 	glUniform1i(glGetUniformLocation(sceneObjects->Program, "diffuseTexture"), 0);
@@ -49,21 +54,12 @@ void TestPlayArea::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	Matrix4 model = Matrix4();
 	Matrix4 translate = Matrix4();
 	Matrix4 scale = Matrix4();
-	translate = translate.translate(Vector3(0.0f, -4.0f, 0.0f));
-	scale = scale.scale(Vector3(100.0f, 1.0f, 10000.0f));
-	model = scale * translate;
-	sceneObjects->Use();
-	glActiveTexture(GL_TEXTURE0);
-	groundTexture->Bind();
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
-	primitives.RenderCube();
-	groundTexture->UnBind();
 
+	glDisable(GL_BLEND);
+	glDisable(GL_STENCIL_TEST);
 	model = Matrix4();
 	translate = Matrix4();
-	translate = translate.translate(Vector3(0.0f, 2.0f, 0.0f));
+	translate = translate.translate(Vector3(0.0f, 4.0f, 0.0f));
 	scale = Matrix4();
 	scale = scale.scale(Vector3(15.0f, 15.0f, 15.0f));
 	model = scale * translate;
@@ -76,6 +72,50 @@ void TestPlayArea::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	floorTexture->UnBind();
 
 	player.Render(screenWidth, screenHeight);
+
+	// Draw Floor
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_COLOR, GL_DST_COLOR);
+	glEnable(GL_STENCIL_TEST);
+	glStencilFunc(GL_ALWAYS, 1, 0xFF);
+	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+	glStencilMask(0xFF);
+	glDepthMask(GL_FALSE);
+	glClear(GL_STENCIL_BUFFER_BIT);
+	translate = translate.translate(Vector3(0.0f, -4.0f, 0.0f));
+	scale = scale.scale(Vector3(100.0f, 0.0f, 10000.0f));
+	model = scale * translate;
+	sceneObjects->Use();
+	glActiveTexture(GL_TEXTURE0);
+	groundTexture->Bind();
+	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
+	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
+	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
+	primitives.RenderCube();
+	groundTexture->UnBind();
+
+	// Draw cube reflection
+	glStencilFunc(GL_EQUAL, 1, 0xFF);
+	glStencilMask(0x00);
+	glDepthMask(GL_TRUE);
+
+	model = Matrix4();
+	translate = Matrix4();
+	translate = translate.translate(Vector3(0.0f, -10.0f, 0.0f));
+	scale = Matrix4();
+	scale = scale.scale(Vector3(15.0f, 15.0f, 15.0f));
+	model = scale * translate;
+	glActiveTexture(GL_TEXTURE0);
+	floorTexture->Bind();
+	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
+	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
+	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
+	primitives.RenderCube();
+	floorTexture->UnBind();
+
+	player.Reflection(screenWidth, screenHeight);
+
+	glDisable(GL_STENCIL_TEST);
 
 	//testText.RenderText("ProjectShard", Vector2(0.0f, 0.0f), 1.0f, Vector3(0.0f, 0.0f, 0.0f), screenWidth, screenHeight);
 	//testText.RenderText("Test font rendering, 1, 2, 3, 4, 5, # # #  { } /// - +", Vector2(25.0f, 570.0f), 0.5f, Vector3(0.0, 0.0f, 0.0f), screenWidth, screenHeight);

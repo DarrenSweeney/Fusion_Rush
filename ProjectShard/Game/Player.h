@@ -17,6 +17,7 @@ public:
 
 	void Update(float deltaTime);
 	void Render(GLsizei screenWidth, GLsizei screenHeight);
+	void Reflection(GLsizei screenWidth, GLsizei screenHeight);
 
 	// TODO(Darren): Take this out.
 	Camera camera;

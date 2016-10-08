@@ -1,3 +1,6 @@
 # Darren's todo list for road the games fleadh
 
-Add directional shadow mapping and lighting.
+Add stencil reflection.
+Add lighting.
+Is shadow mapping any use then?
+Create a debug camera which is free to move around.
