@@ -30,6 +30,8 @@ int main(int argc, char* argv[])
 
 	while (!window.CloseState())
 	{
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+
 		// Set frame time
 		// TODO(Darren): May create a time class with limited frame
 		GLfloat currentFrame = glfwGetTime();

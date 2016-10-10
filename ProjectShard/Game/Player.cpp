@@ -22,22 +22,16 @@ void Player::Update(float deltaTime)
 	Quaternion initalRotation = Quaternion();
 
 	// Input for controller 1
-//	const float *axis = InputManager::GetInstance().GetJoyStickAxis(GLFW_JOYSTICK_1); 
-	//bool connected = InputManager::GetInstance().IsJoyStickPresent(GLFW_JOYSTICK_1);
+	const float *axis = InputManager::GetInstance().GetJoyStickAxis(GLFW_JOYSTICK_1); 
+	bool connected = InputManager::GetInstance().IsJoyStickPresent(GLFW_JOYSTICK_1);
 
-	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_UP))
+	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_UP) || (connected && axis[LEFT_TRIGGER] > 0.2f))
 		linearVelocity.z -= 0.9f;
 
-	//if (connected)
-	//{
-	//	if (axis[LEFT_TRIGGER] > 0.2)
-	//		linearVelocity.z -= 0.9f;
-	//}
-
-	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN))// || connected ? axis[RIGHT_TRIGGER] > 0.2f : 0)
+	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN) || (connected && axis[RIGHT_TRIGGER] > 0.2f))
 		linearVelocity.z += 0.9f;
 
-	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_LEFT))// || connected ? axis[LEFT_STICK_X] < -0.2f : 0)
+	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_LEFT) || (connected && axis[LEFT_STICK_X] < -0.2f))
 	{
 		linearVelocity.x -= 0.9f;
 
@@ -47,7 +41,7 @@ void Player::Update(float deltaTime)
 	else
 		orientation = orientation.Slerp(orientation, initalRotation, deltaTime * rotationSpeed);
 	
-	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_RIGHT))// || connected ? axis[LEFT_STICK_X] > 0.2f : 0)
+	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_RIGHT) || (connected && axis[LEFT_STICK_X] > 0.2f))
 	{
 		linearVelocity.x += 0.9f;
 

@@ -4,10 +4,10 @@ TestPlayArea::TestPlayArea()
 	: testText(900.0f, 600.0f)
 {
 	// Set OpenGL options
-	glEnable(GL_CULL_FACE);
+	/*glEnable(GL_CULL_FACE);
 	glEnable(GL_BLEND);
 	glEnable(GL_DEPTH_TEST);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);*/
 }
 
 TestPlayArea::~TestPlayArea()
@@ -15,6 +15,7 @@ TestPlayArea::~TestPlayArea()
 	delete sceneObjects;
 	floorTexture->DeleteTexture();
 	delete floorTexture;
+	delete raceTrack;
 }
 
 void TestPlayArea::InitalizeScene()
@@ -31,6 +32,9 @@ void TestPlayArea::InitalizeScene()
 	testText.Load("Resources/Fonts/arial.ttf");
 	floorTexture = g_resourceMgr.GetTexture(SID("FloorTexture"));
 	groundTexture = g_resourceMgr.GetTexture(SID("GroundTexture"));
+	raceTrack = g_resourceMgr.GetModel(SID("RaceTrack"));
+	barrier = g_resourceMgr.GetModel(SID("Barrier"));
+	building = g_resourceMgr.GetModel(SID("Building"));
 
 	//sound.soundEngine->play2D("Resources/Sounds/Bodyfall_sound_effects/BF_Short_Hard_1c.ogg");
 }
@@ -48,6 +52,8 @@ void TestPlayArea::UpdateScene(float deltaTime)
 
 void TestPlayArea::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 {
+	glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
+
 	Matrix4 projection = Matrix4();
 	projection = projection.perspectiveProjection(player.camera.zoom, (GLfloat)screenWidth / (GLfloat)screenHeight, 0.1f, 1000.0f);
 	Matrix4 view = player.camera.GetViewMatrix();
@@ -61,15 +67,54 @@ void TestPlayArea::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	translate = Matrix4();
 	translate = translate.translate(Vector3(0.0f, 4.0f, 0.0f));
 	scale = Matrix4();
-	scale = scale.scale(Vector3(15.0f, 15.0f, 15.0f));
-	model = scale * translate;
-	glActiveTexture(GL_TEXTURE0);
-	floorTexture->Bind();
+	//scale = scale.scale(Vector3(15.0f, 15.0f, 15.0f));
+	//model = scale * translate;
+	//glActiveTexture(GL_TEXTURE0);
+	//floorTexture->Bind();
+	//glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
+	//glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
+	//glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
+	//primitives.RenderCube();
+	//floorTexture->UnBind();	
+
+	model = Matrix4();
+	translate = Matrix4();
+	translate = translate.translate(Vector3(60.0f, 1.0f, .0f));
+	scale = Matrix4();
+	scale = scale.scale(Vector3(3.0f, 5.0f, 3.0f));
+	Matrix4 rotate = Matrix4();
+	rotate = rotate.rotateY(MathHelper::DegressToRadians(90.0f));
+	model = scale * rotate * translate;
 	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
 	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
 	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
-	primitives.RenderCube();
-	floorTexture->UnBind();
+	barrier->Draw(*sceneObjects);
+
+	model = Matrix4();
+	translate = Matrix4();
+	translate = translate.translate(Vector3(-60.0f, 1.0f, 0.0f));
+	scale = Matrix4();
+	scale = scale.scale(Vector3(3.0f, 5.0f, 3.0f));
+	rotate = Matrix4();
+	rotate = rotate.rotateY(MathHelper::DegressToRadians(-90.0f));
+	model = scale * rotate * translate;
+	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
+	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
+	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
+	barrier->Draw(*sceneObjects);
+
+	model = Matrix4();
+	translate = Matrix4();
+	translate = translate.translate(Vector3(90.0f, -20.0f, -80.0f));
+	scale = Matrix4();
+	scale = scale.scale(Vector3(20.0f, 20.0f, 20.0f));
+	rotate = Matrix4();
+//	rotate = rotate.rotateY(MathHelper::DegressToRadians(-90.0f));
+	model = scale * rotate * translate;
+	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
+	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
+	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
+	building->Draw(*sceneObjects);
 
 	player.Render(screenWidth, screenHeight);
 
@@ -82,38 +127,87 @@ void TestPlayArea::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	glStencilMask(0xFF);
 	glDepthMask(GL_FALSE);
 	glClear(GL_STENCIL_BUFFER_BIT);
+	model = Matrix4();
+	translate = Matrix4();
 	translate = translate.translate(Vector3(0.0f, -4.0f, 0.0f));
-	scale = scale.scale(Vector3(100.0f, 0.0f, 10000.0f));
+	scale = scale.scale(Vector3(3.0f, 0.0f, 3.0f));
 	model = scale * translate;
 	sceneObjects->Use();
-	glActiveTexture(GL_TEXTURE0);
-	groundTexture->Bind();
 	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
 	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
 	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
-	primitives.RenderCube();
-	groundTexture->UnBind();
+	raceTrack->Draw(*sceneObjects);
+
+	/*model = Matrix4();
+	translate = Matrix4();
+	translate = translate.translate(Vector3(0.0f, -4.0f, -120.0f));
+	scale = scale.scale(Vector3(3.0f, 0.0f, 3.0f));
+	model = scale * translate;
+	sceneObjects->Use();
+	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
+	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
+	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
+	raceTrack->Draw(*sceneObjects);*/
 
 	// Draw cube reflection
 	glStencilFunc(GL_EQUAL, 1, 0xFF);
 	glStencilMask(0x00);
 	glDepthMask(GL_TRUE);
 
+	//model = Matrix4();
+	//translate = Matrix4();
+	//translate = translate.translate(Vector3(0.0f, -10.0f, 0.0f));
+	//scale = Matrix4();
+	//scale = scale.scale(Vector3(15.0f, 15.0f, 15.0f));
+	//model = scale * translate;
+	//glActiveTexture(GL_TEXTURE0);
+	//floorTexture->Bind();
+	//glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
+	//glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
+	//glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
+	//primitives.RenderCube();
+	//floorTexture->UnBind();
+
+	player.Reflection(screenWidth, screenHeight);
+
 	model = Matrix4();
 	translate = Matrix4();
-	translate = translate.translate(Vector3(0.0f, -10.0f, 0.0f));
+	translate = translate.translate(Vector3(90.0f, -90.0f, -80.0f));
 	scale = Matrix4();
-	scale = scale.scale(Vector3(15.0f, 15.0f, 15.0f));
-	model = scale * translate;
-	glActiveTexture(GL_TEXTURE0);
-	floorTexture->Bind();
+	scale = scale.scale(Vector3(20.05f, 20.05f, 20.05f));
+	rotate = Matrix4();
+	//	rotate = rotate.rotateY(MathHelper::DegressToRadians(-90.0f));
+	model = scale * rotate * translate;
 	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
 	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
 	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
-	primitives.RenderCube();
-	floorTexture->UnBind();
+	building->Draw(*sceneObjects);
 
-	player.Reflection(screenWidth, screenHeight);
+	model = Matrix4();
+	translate = Matrix4();
+	translate = translate.translate(Vector3(60.0f, -8.0f, .0f));
+	scale = Matrix4();
+	scale = scale.scale(Vector3(3.0f, 5.0f, 3.0f));
+	rotate = Matrix4();
+	rotate = rotate.rotateY(MathHelper::DegressToRadians(90.0f));
+	model = scale * rotate * translate;
+	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
+	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
+	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
+	barrier->Draw(*sceneObjects);
+
+	model = Matrix4();
+	translate = Matrix4();
+	translate = translate.translate(Vector3(-60.0f, -8.0f, .0f));
+	scale = Matrix4();
+	scale = scale.scale(Vector3(3.0f, 5.0f, 3.0f));
+	rotate = Matrix4();
+	rotate = rotate.rotateY(MathHelper::DegressToRadians(-90.0f));
+	model = scale * rotate * translate;
+	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
+	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
+	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
+	barrier->Draw(*sceneObjects);
 
 	glDisable(GL_STENCIL_TEST);
 

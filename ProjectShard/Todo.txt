@@ -1,6 +1,13 @@
 # Darren's todo list for road the games fleadh
 
-Add stencil reflection.
 Add lighting.
-Is shadow mapping any use then?
 Create a debug camera which is free to move around.
+
+Art:
+	- Ship		(DONE)
+	- Track		(DONE)
+	- Barrier	(DONE)
+	- Building  (DONE)
+	- Blocks
+	- Sky box
+	- 80's Sun

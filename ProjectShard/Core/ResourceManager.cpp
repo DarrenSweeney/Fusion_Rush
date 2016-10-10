@@ -53,13 +53,15 @@ void ResourceManager::LoadSceneShaders()
 void ResourceManager::LoadSceneModels()
 {
 	LoadModel("PlayerShip", "Resources/Ship/Shard_Ship.obj");
+	LoadModel("RaceTrack", "Resources/Track/Race_Track.obj");
+	LoadModel("Barrier", "Resources/Barrier/Barrier.obj");
+	LoadModel("Building", "Resources/Building/Building.obj");
 }
 
 // Loads independent textures, that excludes models textures.
 void ResourceManager::LoadSceneTextures()
 {
 	LoadTexture("FloorTexture", "Resources/floor.jpg");
-	LoadTexture("GroundTexture", "Resources/ground.jpg");
 }
 
 void ResourceManager::PrintShaderTable()

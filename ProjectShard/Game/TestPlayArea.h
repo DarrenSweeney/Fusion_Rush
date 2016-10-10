@@ -23,6 +23,9 @@ private:
 	Shader *sceneObjects;
 	Sound sound;
 	Player player;
+	Model *raceTrack;
+	Model *barrier;
+	Model *building;
 
 public:
 	TestPlayArea();
