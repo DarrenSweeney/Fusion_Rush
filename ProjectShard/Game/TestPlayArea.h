@@ -12,6 +12,7 @@
 #include "..\Renderer\Model.h"
 #include "..\Audio\Sound.h"
 #include "Player.h"
+#include "Track.h"
 
 class TestPlayArea
 {
@@ -26,6 +27,8 @@ private:
 	Model *raceTrack;
 	Model *barrier;
 	Model *building;
+	Model *block;
+	Track racingTrack;
 
 public:
 	TestPlayArea();

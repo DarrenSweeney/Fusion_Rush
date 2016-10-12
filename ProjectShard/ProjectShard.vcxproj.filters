@@ -87,6 +87,9 @@
     <ClCompile Include="Game\Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Track.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Math\Vector3.h">
@@ -164,6 +167,9 @@
     <ClInclude Include="Game\Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Track.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\EnviromentObject.frag" />
@@ -175,6 +181,7 @@
     <None Include="Shaders\DebugDrawMgr\DebugLine.vert" />
     <None Include="Shaders\model.frag" />
     <None Include="Shaders\model.vert" />
+    <None Include="Shaders\Instancing.vert" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Todo.txt" />

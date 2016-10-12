@@ -1,13 +1,14 @@
 # Darren's todo list for road the games fleadh
 
-Add lighting.
+Create a track class with instancing.
+Add lighting for player.
 Create a debug camera which is free to move around.
 
-Art:
+Art: (Basic art to achieve the look and feel of the game)
 	- Ship		(DONE)
 	- Track		(DONE)
 	- Barrier	(DONE)
 	- Building  (DONE)
-	- Blocks
+	- Blocks	(DONE)
 	- Sky box
 	- 80's Sun

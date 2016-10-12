@@ -178,6 +178,7 @@
     <ClCompile Include="Renderer\Texture.cpp" />
     <ClCompile Include="Math\Vector2.cpp" />
     <ClCompile Include="Platform\WindowManagement.cpp" />
+    <ClCompile Include="Game\Track.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Camera.h" />
@@ -205,8 +206,10 @@
     <ClInclude Include="Renderer\Texture.h" />
     <ClInclude Include="Math\Vector2.h" />
     <ClInclude Include="Platform\WindowManagement.h" />
+    <ClInclude Include="Game\Track.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Shaders\Instancing.vert" />
     <None Include="Shaders\model.frag" />
     <None Include="Shaders\model.vert" />
     <None Include="Shaders\DebugDrawMgr\DebugLine.frag" />
