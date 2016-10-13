@@ -9,38 +9,60 @@ Track::Track()
 Track::~Track()
 {
 	delete raceTrack;
-	delete[] modelMatrices;
+	delete[] trackModelMatrices;
+	delete[] barrierModelMatrices;
 }
 
 void Track::Init()
 {
 	raceTrack = g_resourceMgr.GetModel(SID("RaceTrack"));
+	trackBarrier = g_resourceMgr.GetModel(SID("Barrier"));
 	instancingShader = g_resourceMgr.GetShader(SID("Instancing"));
 
-	modelMatrices = new Matrix4[amount];
+	trackModelMatrices = new Matrix4[amount];
+	barrierModelMatrices = new Matrix4[amount];
 
-	// Set model matrices
+	// Set the model matrices for the track
 	Matrix4 scaleMatrix = Matrix4();
 	scaleMatrix = scaleMatrix.scale(Vector3(3.0f, 0.0f, 3.0f));
 	for (GLuint i = 0; i < amount; i++)
 	{
-		Matrix4 model = Matrix4();
 		Matrix4 transMatrix = Matrix4();
-
+		 
 		transMatrix = transMatrix.translate(Vector3(0.0f, -4.0f, (120.0f * i)));
-		modelMatrices[i] = scaleMatrix * transMatrix;
+		trackModelMatrices[i] = scaleMatrix * transMatrix;
 	}
 
 	for (GLuint i = 0; i < raceTrack->meshes.size(); i++)
-		SetUpBuffers(raceTrack->meshes[i].VAO, modelMatrices);
+		SetUpBuffers(raceTrack->meshes[i].VAO, trackModelMatrices);
+
+	// Set the model matrices for the barrier
+	scaleMatrix = Matrix4();
+	scaleMatrix = scaleMatrix.scale(Vector3(3.0f, 5.0f, 3.0f));
+	for (GLuint i = 0; i < amount; i++)
+	{
+		Matrix4 transMatrix = Matrix4();
+		Matrix4 rotate = Matrix4();
+		
+		int rotateDeg = i % 2 == 0 ? 90.0f : -90.0f;
+		rotate = rotate.rotateY(MathHelper::DegressToRadians(rotateDeg));
+
+		int barrierXPos = i % 2 == 0 ? 60.0f : -60.0f;
+		transMatrix = transMatrix.translate(Vector3(barrierXPos, -8.0f, (120.0f * i)));
+		barrierModelMatrices[i] = scaleMatrix * rotate * transMatrix;
+	}
+
+	for (GLuint i = 0; i < trackBarrier->meshes.size(); i++)
+		SetUpBuffers(trackBarrier->meshes[i].VAO, barrierModelMatrices);
 }
 
 void Track::SetUpBuffers(GLuint &vao, Matrix4 *matrices)
 {
+	GLuint buffer;
 	glBindVertexArray(vao);
 	glGenBuffers(1, &buffer);
 	glBindBuffer(GL_ARRAY_BUFFER, buffer);
-	glBufferData(GL_ARRAY_BUFFER, amount * sizeof(Matrix4), &modelMatrices[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, amount * sizeof(Matrix4), &matrices[0], GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	// Vertex Attributes
@@ -82,6 +104,16 @@ void Track::Render(Camera &camera, GLsizei screenWidth, GLsizei screenHeight)
 	{
 		glBindVertexArray(raceTrack->meshes[i].VAO);
 		glDrawElementsInstanced(GL_TRIANGLES, raceTrack->meshes[i].vertices.size(), GL_UNSIGNED_INT, 0, amount);
+		glBindVertexArray(0);
+	}
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	// Render the barriers for the tracks
+	glBindTexture(GL_TEXTURE_2D, trackBarrier->texturesLoaded[0].id);
+	for (GLuint i = 0; i < trackBarrier->meshes.size(); i++)
+	{
+		glBindVertexArray(trackBarrier->meshes[i].VAO);
+		glDrawElementsInstanced(GL_TRIANGLES, trackBarrier->meshes[i].vertices.size(), GL_UNSIGNED_INT, 0, amount);
 		glBindVertexArray(0);
 	}
 	glBindTexture(GL_TEXTURE_2D, 0);

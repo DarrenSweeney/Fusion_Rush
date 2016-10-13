@@ -199,68 +199,11 @@ void TestPlayArea::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	glDepthMask(GL_FALSE);
 	glClear(GL_STENCIL_BUFFER_BIT);
 	racingTrack.Render(player.camera, screenWidth, screenHeight);
-	//model = Matrix4();
-	//translate = Matrix4();
-	//translate = translate.translate(Vector3(0.0f, -4.0f, 0.0f));
-	//scale = scale.scale(Vector3(3.0f, 0.0f, 3.0f));
-	//model = scale * translate;
-	//sceneObjects->Use();
-	//glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
-	//glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
-	//glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
-	//raceTrack->Draw(*sceneObjects);
-
-	//model = Matrix4();
-	//translate = Matrix4();
-	//translate = translate.translate(Vector3(0.0f, -4.0f, 120.0f));
-	//scale = scale.scale(Vector3(3.0f, 0.0f, 3.0f));
-	//model = scale * translate;
-	//sceneObjects->Use();
-	//glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
-	//glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
-	//glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
-	//raceTrack->Draw(*sceneObjects);
-
-	//model = Matrix4();
-	//translate = Matrix4();
-	//translate = translate.translate(Vector3(0.0f, -4.0f, 240.0f));
-	//scale = scale.scale(Vector3(3.0f, 0.0f, 3.0f));
-	//model = scale * translate;
-	//sceneObjects->Use();
-	//glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
-	//glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
-	//glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
-	//raceTrack->Draw(*sceneObjects);
-
-	/*model = Matrix4();
-	translate = Matrix4();
-	translate = translate.translate(Vector3(0.0f, -4.0f, -120.0f));
-	scale = scale.scale(Vector3(3.0f, 0.0f, 3.0f));
-	model = scale * translate;
-	sceneObjects->Use();
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
-	raceTrack->Draw(*sceneObjects);*/
 
 	// Draw cube reflection
 	glStencilFunc(GL_EQUAL, 1, 0xFF);
 	glStencilMask(0x00);
 	glDepthMask(GL_TRUE);
-
-	//model = Matrix4();
-	//translate = Matrix4();
-	//translate = translate.translate(Vector3(0.0f, -10.0f, 0.0f));
-	//scale = Matrix4();
-	//scale = scale.scale(Vector3(15.0f, 15.0f, 15.0f));
-	//model = scale * translate;
-	//glActiveTexture(GL_TEXTURE0);
-	//floorTexture->Bind();
-	//glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
-	//glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
-	//glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
-	//primitives.RenderCube();
-	//floorTexture->UnBind();
 
 	model = Matrix4();
 	translate = Matrix4();

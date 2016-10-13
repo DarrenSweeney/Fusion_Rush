@@ -17,10 +17,11 @@ public:
 
 private:
 	Model *raceTrack;
+	Model *trackBarrier;
 	Shader *instancingShader;
 	GLuint amount;
-	Matrix4 *modelMatrices;
-	GLuint buffer;
+	Matrix4 *trackModelMatrices;
+	Matrix4 *barrierModelMatrices;
 };
 
 #endif
