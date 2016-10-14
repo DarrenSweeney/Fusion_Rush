@@ -33,6 +33,13 @@ void ResourceManager::LoadTexture(const char *assetName, const char *path)
 	textureResources.Insert(SID(assetName), texture);
 }
 
+void ResourceManager::LoadCubeMap(const char* assetName, std::vector<const char *> faces)
+{
+	Texture texture;
+	texture.LoadCubeMap(faces);
+	textureResources.Insert(SID(assetName), texture);
+}
+
 Texture* ResourceManager::GetTexture(HashID hashID)
 {
 	return textureResources.Find(hashID);
@@ -50,6 +57,8 @@ void ResourceManager::LoadSceneShaders()
 	LoadShader("Text", "Shaders/text.vert", "Shaders/text.frag");
 	// Shader for instancing rendering
 	LoadShader("Instancing", "Shaders/instancing.vert", "Shaders/EnviromentObject.frag");
+	// Skybox shader
+	LoadShader("SkyboxShader", "Shaders/Skybox.vert", "Shaders/Skybox.frag");
 }
 
 void ResourceManager::LoadSceneModels()
@@ -67,6 +76,14 @@ void ResourceManager::LoadSceneModels()
 void ResourceManager::LoadSceneTextures()
 {
 	LoadTexture("FloorTexture", "Resources/floor.jpg");
+	std::vector<const GLchar*> faces;
+	faces.push_back("Resources/skybox/posx.jpg");
+	faces.push_back("Resources/skybox/negx.jpg");
+	faces.push_back("Resources/skybox/posy.jpg");
+	faces.push_back("Resources/skybox/negy.jpg");
+	faces.push_back("Resources/skybox/posz.jpg");
+	faces.push_back("Resources/skybox/negz.jpg");
+	LoadCubeMap("GameSkybox", faces);
 }
 
 void ResourceManager::PrintShaderTable()

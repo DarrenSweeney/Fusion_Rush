@@ -13,8 +13,6 @@ TestPlayArea::TestPlayArea()
 TestPlayArea::~TestPlayArea()
 {
 	delete sceneObjects;
-	floorTexture->DeleteTexture();
-	delete floorTexture;
 	delete raceTrack;
 	delete building;
 	delete block;
@@ -32,8 +30,6 @@ void TestPlayArea::InitalizeScene()
 	glUniform1i(glGetUniformLocation(sceneObjects->Program, "diffuseTexture"), 0);
 
 	testText.Load("Resources/Fonts/arial.ttf");
-	floorTexture = g_resourceMgr.GetTexture(SID("FloorTexture"));
-	groundTexture = g_resourceMgr.GetTexture(SID("GroundTexture"));
 	raceTrack = g_resourceMgr.GetModel(SID("RaceTrack"));
 	barrier = g_resourceMgr.GetModel(SID("Barrier"));
 	building = g_resourceMgr.GetModel(SID("Building"));
@@ -80,6 +76,8 @@ void TestPlayArea::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
 	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
 	block->Draw(*sceneObjects);
+
+	skybox.Render(player.camera, screenWidth, screenHeight);
 
 	player.Render(screenWidth, screenHeight);
 	racingTrack.RenderSceneObjects(player.camera, screenWidth, screenHeight);

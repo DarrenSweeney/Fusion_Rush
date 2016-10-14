@@ -169,7 +169,6 @@
     <ClCompile Include="Math\Quaternion.cpp" />
     <ClCompile Include="Renderer\Mesh.cpp" />
     <ClCompile Include="Renderer\Model.cpp" />
-    <ClCompile Include="Renderer\Primitives.cpp" />
     <ClCompile Include="Core\ResourceManager.cpp" />
     <ClCompile Include="Renderer\Shader.cpp" />
     <ClCompile Include="Audio\Sound.cpp" />
@@ -179,6 +178,7 @@
     <ClCompile Include="Math\Vector2.cpp" />
     <ClCompile Include="Platform\WindowManagement.cpp" />
     <ClCompile Include="Game\Track.cpp" />
+    <ClCompile Include="Renderer\Skybox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Camera.h" />
@@ -196,7 +196,6 @@
     <ClInclude Include="Math\Quaternion.h" />
     <ClInclude Include="Renderer\Mesh.h" />
     <ClInclude Include="Renderer\Model.h" />
-    <ClInclude Include="Renderer\Primitives.h" />
     <ClInclude Include="Core\ResourceManager.h" />
     <ClInclude Include="Renderer\Shader.h" />
     <ClInclude Include="Audio\Sound.h" />
@@ -207,6 +206,7 @@
     <ClInclude Include="Math\Vector2.h" />
     <ClInclude Include="Platform\WindowManagement.h" />
     <ClInclude Include="Game\Track.h" />
+    <ClInclude Include="Renderer\Skybox.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\Instancing.vert" />
@@ -219,6 +219,8 @@
     <None Include="Shaders\EnviromentObject.vert" />
     <None Include="Shaders\text.frag" />
     <None Include="Shaders\text.vert" />
+    <None Include="Shaders\Skybox.frag" />
+    <None Include="Shaders\Skybox.vert" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Todo.txt" />

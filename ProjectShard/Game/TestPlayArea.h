@@ -2,7 +2,6 @@
 #define TEST_PLAY_AREA_H
 
 #include "..\Renderer\Shader.h"
-#include "..\Renderer\Primitives.h"
 #include "..\Math\Matrix4x4.h"
 #include "Camera.h"
 #include "..\Renderer\Texture.h"
@@ -13,13 +12,11 @@
 #include "..\Audio\Sound.h"
 #include "Player.h"
 #include "Track.h"
+#include "..\Renderer\Skybox.h"
 
 class TestPlayArea
 {
 private:
-	Primitives primitives;
-	Texture *floorTexture;
-	Texture *groundTexture;
 	Text testText;
 	Shader *sceneObjects;
 	Sound sound;
@@ -29,6 +26,7 @@ private:
 	Model *building;
 	Model *block;
 	Track racingTrack;
+	Skybox skybox;
 
 public:
 	TestPlayArea();

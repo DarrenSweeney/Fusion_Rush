@@ -15,6 +15,7 @@ public:
 	Model* GetModel(HashID hashID);
 
 	void LoadTexture(const char *assetName, const char *path);
+	void LoadCubeMap(const char* assetName, std::vector<const char *> faces);
 	Texture* GetTexture(HashID hashID);
 
 	// TODO(Darren): Will need to change this to a batch system.
