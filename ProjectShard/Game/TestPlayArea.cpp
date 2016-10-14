@@ -70,127 +70,22 @@ void TestPlayArea::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	glDisable(GL_STENCIL_TEST);
 	model = Matrix4();
 	translate = Matrix4();
-	translate = translate.translate(Vector3(0.0f, 4.0f, 0.0f));
-	scale = Matrix4();
-	//scale = scale.scale(Vector3(15.0f, 15.0f, 15.0f));
-	//model = scale * translate;
-	//glActiveTexture(GL_TEXTURE0);
-	//floorTexture->Bind();
-	//glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
-	//glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
-	//glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
-	//primitives.RenderCube();
-	//floorTexture->UnBind();	
-
-	model = Matrix4();
-	translate = Matrix4();
-	translate = translate.translate(Vector3(60.0f, 1.0f, .0f));
-	scale = Matrix4();
-	scale = scale.scale(Vector3(3.0f, 5.0f, 3.0f));
-	Matrix4 rotate = Matrix4();
-	rotate = rotate.rotateY(MathHelper::DegressToRadians(90.0f));
-	model = scale * rotate * translate;
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
-	barrier->Draw(*sceneObjects);
-
-	model = Matrix4();
-	translate = Matrix4();
-	translate = translate.translate(Vector3(-60.0f, 1.0f, 0.0f));
-	scale = Matrix4();
-	scale = scale.scale(Vector3(3.0f, 5.0f, 3.0f));
-	rotate = Matrix4();
-	rotate = rotate.rotateY(MathHelper::DegressToRadians(-90.0f));
-	model = scale * rotate * translate;
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
-	barrier->Draw(*sceneObjects);
-
-	model = Matrix4();
-	translate = Matrix4();
-	translate = translate.translate(Vector3(60.0f, 1.0f, 120.0f));
-	scale = Matrix4();
-	scale = scale.scale(Vector3(3.0f, 5.0f, 3.0f));
-	rotate = Matrix4();
-	rotate = rotate.rotateY(MathHelper::DegressToRadians(90.0f));
-	model = scale * rotate * translate;
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
-	barrier->Draw(*sceneObjects);
-
-	model = Matrix4();
-	translate = Matrix4();
-	translate = translate.translate(Vector3(-60.0f, 1.0f, 120.0f));
-	scale = Matrix4();
-	scale = scale.scale(Vector3(3.0f, 5.0f, 3.0f));
-	rotate = Matrix4();
-	rotate = rotate.rotateY(MathHelper::DegressToRadians(-90.0f));
-	model = scale * rotate * translate;
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
-	barrier->Draw(*sceneObjects);
-
-	model = Matrix4();
-	translate = Matrix4();
-	translate = translate.translate(Vector3(60.0f, 1.0f, 240.0f));
-	scale = Matrix4();
-	scale = scale.scale(Vector3(3.0f, 5.0f, 3.0f));
-	rotate = Matrix4();
-	rotate = rotate.rotateY(MathHelper::DegressToRadians(90.0f));
-	model = scale * rotate * translate;
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
-	barrier->Draw(*sceneObjects);
-
-	model = Matrix4();
-	translate = Matrix4();
-	translate = translate.translate(Vector3(-60.0f, 1.0f, 240.0f));
-	scale = Matrix4();
-	scale = scale.scale(Vector3(3.0f, 5.0f, 3.0f));
-	rotate = Matrix4();
-	rotate = rotate.rotateY(MathHelper::DegressToRadians(-90.0f));
-	model = scale * rotate * translate;
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
-	barrier->Draw(*sceneObjects);
-
-
-	model = Matrix4();
-	translate = Matrix4();
-	translate = translate.translate(Vector3(90.0f, -20.0f, -80.0f));
-	scale = Matrix4();
-	scale = scale.scale(Vector3(20.0f, 20.0f, 20.0f));
-	rotate = Matrix4();
-//	rotate = rotate.rotateY(MathHelper::DegressToRadians(-90.0f));
-	model = scale * rotate * translate;
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
-	building->Draw(*sceneObjects);
-
-	model = Matrix4();
-	translate = Matrix4();
-	translate = translate.translate(Vector3(7.5f, 3.0f, 7.5f));
+	translate = translate.translate(Vector3(7.5f, 3.0f, -50.0f));
 	scale = Matrix4();
 	scale = scale.scale(Vector3(7.0f, 7.0f, 7.0f));
-	rotate = Matrix4();
-	//	rotate = rotate.rotateY(MathHelper::DegressToRadians(-90.0f));
-	model = scale * rotate * translate;
+	Matrix4 rotate = Matrix4();
+	model = scale * translate;
+	sceneObjects->Use();
 	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
 	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
 	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
 	block->Draw(*sceneObjects);
 
 	player.Render(screenWidth, screenHeight);
+	racingTrack.RenderSceneObjects(player.camera, screenWidth, screenHeight);
 
 	// Draw Floor
-	glEnable(GL_BLEND);
+	glEnable(GL_BLEND);//map_Kd Building_Side.png
 	glBlendFunc(GL_SRC_COLOR, GL_DST_COLOR);
 	glEnable(GL_STENCIL_TEST);
 	glStencilFunc(GL_ALWAYS, 1, 0xFF);
@@ -198,7 +93,7 @@ void TestPlayArea::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	glStencilMask(0xFF);
 	glDepthMask(GL_FALSE);
 	glClear(GL_STENCIL_BUFFER_BIT);
-	racingTrack.Render(player.camera, screenWidth, screenHeight);
+	racingTrack.RenderTrack(player.camera, screenWidth, screenHeight);
 
 	// Draw cube reflection
 	glStencilFunc(GL_EQUAL, 1, 0xFF);
@@ -207,111 +102,18 @@ void TestPlayArea::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 
 	model = Matrix4();
 	translate = Matrix4();
-	translate = translate.translate(Vector3(7.5f, -9.0f, 7.5f));
+	translate = translate.translate(Vector3(7.5f, -9.0f, -50.0f));
 	scale = Matrix4();
 	scale = scale.scale(Vector3(7.0f, 7.0f, 7.0f));
-	rotate = Matrix4();
-	//	rotate = rotate.rotateY(MathHelper::DegressToRadians(-90.0f));
-	model = scale * rotate * translate;
+	model = scale * translate;
+	sceneObjects->Use();
 	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
 	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
 	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
 	block->Draw(*sceneObjects);
 
-
 	player.Reflection(screenWidth, screenHeight);
-
-	model = Matrix4();
-	translate = Matrix4();
-	translate = translate.translate(Vector3(90.0f, -90.0f, -80.0f));
-	scale = Matrix4();
-	scale = scale.scale(Vector3(20.05f, 20.05f, 20.05f));
-	rotate = Matrix4();
-	//	rotate = rotate.rotateY(MathHelper::DegressToRadians(-90.0f));
-	model = scale * rotate * translate;
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
-	building->Draw(*sceneObjects);
-
-	model = Matrix4();
-	translate = Matrix4();
-	translate = translate.translate(Vector3(60.0f, -8.0f, .0f));
-	scale = Matrix4();
-	scale = scale.scale(Vector3(3.0f, 5.0f, 3.0f));
-	rotate = Matrix4();
-	rotate = rotate.rotateY(MathHelper::DegressToRadians(90.0f));
-	model = scale * rotate * translate;
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
-	barrier->Draw(*sceneObjects);
-
-	model = Matrix4();
-	translate = Matrix4();
-	translate = translate.translate(Vector3(-60.0f, -8.0f, .0f));
-	scale = Matrix4();
-	scale = scale.scale(Vector3(3.0f, 5.0f, 3.0f));
-	rotate = Matrix4();
-	rotate = rotate.rotateY(MathHelper::DegressToRadians(-90.0f));
-	model = scale * rotate * translate;
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
-	barrier->Draw(*sceneObjects);
-
-
-	model = Matrix4();
-	translate = Matrix4();
-	translate = translate.translate(Vector3(60.0f, -8.0f, 120.0f));
-	scale = Matrix4();
-	scale = scale.scale(Vector3(3.0f, 5.0f, 3.0f));
-	rotate = Matrix4();
-	rotate = rotate.rotateY(MathHelper::DegressToRadians(90.0f));
-	model = scale * rotate * translate;
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
-	barrier->Draw(*sceneObjects);
-
-	model = Matrix4();
-	translate = Matrix4();
-	translate = translate.translate(Vector3(-60.0f, -8.0f, 120.0f));
-	scale = Matrix4();
-	scale = scale.scale(Vector3(3.0f, 5.0f, 3.0f));
-	rotate = Matrix4();
-	rotate = rotate.rotateY(MathHelper::DegressToRadians(-90.0f));
-	model = scale * rotate * translate;
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
-	barrier->Draw(*sceneObjects);
-
-	model = Matrix4();
-	translate = Matrix4();
-	translate = translate.translate(Vector3(60.0f, -8.0f, 240.0f));
-	scale = Matrix4();
-	scale = scale.scale(Vector3(3.0f, 5.0f, 3.0f));
-	rotate = Matrix4();
-	rotate = rotate.rotateY(MathHelper::DegressToRadians(90.0f));
-	model = scale * rotate * translate;
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
-	barrier->Draw(*sceneObjects);
-
-	model = Matrix4();
-	translate = Matrix4();
-	translate = translate.translate(Vector3(-60.0f, -8.0f, 240.0f));
-	scale = Matrix4();
-	scale = scale.scale(Vector3(3.0f, 5.0f, 3.0f));
-	rotate = Matrix4();
-	rotate = rotate.rotateY(MathHelper::DegressToRadians(-90.0f));
-	model = scale * rotate * translate;
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
-	barrier->Draw(*sceneObjects);
+	racingTrack.RenderTrackReflection(player.camera, screenWidth, screenHeight);
 
 	glDisable(GL_STENCIL_TEST);
 

@@ -57,7 +57,9 @@ void ResourceManager::LoadSceneModels()
 	LoadModel("PlayerShip", "Resources/Ship/Shard_Ship.obj");
 	LoadModel("RaceTrack", "Resources/Track_new/Race_Track.obj");
 	LoadModel("Barrier", "Resources/Barrier/Barrier.obj");
+	LoadModel("BarrierReflection", "Resources/Barrier/Barrier.obj");
 	LoadModel("Building", "Resources/Building/Building.obj");
+	LoadModel("BuildingReflection", "Resources/Building/Building.obj");
 	LoadModel("Block", "Resources/Obstacle/Obstacle.obj");
 }
 

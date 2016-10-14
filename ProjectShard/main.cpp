@@ -26,6 +26,13 @@ int main(int argc, char* argv[])
 
 	InputManager::GetInstance().SetWindow(window.GetWindow());
 
+	int num = 0;
+	int *ptr_num = &num;
+	int num_1 = *ptr_num;
+	int num_2 = *ptr_num;
+	num_1 = 10;
+	num_2 = 15;
+
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	while (!window.CloseState())

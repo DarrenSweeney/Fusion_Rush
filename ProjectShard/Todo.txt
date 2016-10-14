@@ -1,8 +1,10 @@
 # Darren's todo list for road the games fleadh
 
-Create a track class with instancing.
+Create a track class with instancing for the 
+track floor, barriers top and bottom and buidlings.
 Add lighting for player.
 Create a debug camera which is free to move around.
+Do CPU and GPU timings.
 
 Art: (Basic art to achieve the look and feel of the game)
 	- Ship		(DONE)

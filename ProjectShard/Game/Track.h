@@ -12,16 +12,22 @@ public:
 	Track();
 	~Track();
 	void Init();
-	void SetUpBuffers(GLuint &vao, Matrix4 *matrices);
-	void Render(Camera &camera, GLsizei screenWidth, GLsizei screenHeight);
+	void RenderSceneObjects(Camera &camera, GLsizei screenWidth, GLsizei screenHeight);
+	void RenderTrack(Camera &camera, GLsizei screenWidth, GLsizei screenHeight);
+	void RenderTrackReflection(Camera &camera, GLsizei screenWidth, GLsizei screenHeight);
 
 private:
 	Model *raceTrack;
-	Model *trackBarrier;
+	Model *trackBarrier, *reflecTrackBarrier;
+	Model *building, *reflecBuilding;
 	Shader *instancingShader;
-	GLuint amount;
+	GLuint trackAmount, barrierAmount, buildingAmount;
 	Matrix4 *trackModelMatrices;
-	Matrix4 *barrierModelMatrices;
+	Matrix4 *barrierModelMatrices, *barrierRefleMatrices;
+	Matrix4 *buildingModelMatrices, *buildingRefleMatrices;
+
+	void SetUpBuffers(GLuint &vao, Matrix4 *matrices, GLuint amount);
+	void RenderInstance(Model *model, GLuint amount);
 };
 
 #endif
