@@ -75,14 +75,13 @@ void ResourceManager::LoadSceneModels()
 // Loads independent textures, that excludes models textures.
 void ResourceManager::LoadSceneTextures()
 {
-	LoadTexture("FloorTexture", "Resources/floor.jpg");
 	std::vector<const GLchar*> faces;
-	faces.push_back("Resources/skybox/posx.jpg");
-	faces.push_back("Resources/skybox/negx.jpg");
-	faces.push_back("Resources/skybox/posy.jpg");
-	faces.push_back("Resources/skybox/negy.jpg");
-	faces.push_back("Resources/skybox/posz.jpg");
-	faces.push_back("Resources/skybox/negz.jpg");
+	faces.push_back("Resources/skybox/galaxy+X.png");
+	faces.push_back("Resources/skybox/galaxy-X.png");
+	faces.push_back("Resources/skybox/galaxy+Y.png");
+	faces.push_back("Resources/skybox/galaxy-Y.png");
+	faces.push_back("Resources/skybox/galaxy+Z.png");
+	faces.push_back("Resources/skybox/galaxy-Z.png");
 	LoadCubeMap("GameSkybox", faces);
 }
 

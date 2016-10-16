@@ -64,7 +64,7 @@ void TestPlayArea::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 
 	glDisable(GL_BLEND);
 	glDisable(GL_STENCIL_TEST);
-	model = Matrix4();
+	/*model = Matrix4();
 	translate = Matrix4();
 	translate = translate.translate(Vector3(7.5f, 3.0f, -50.0f));
 	scale = Matrix4();
@@ -75,7 +75,8 @@ void TestPlayArea::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
 	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
 	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
-	block->Draw(*sceneObjects);
+	block->Draw(*sceneObjects);*/
+	trackBlock.Render(player.camera, screenWidth, screenHeight);
 
 	skybox.Render(player.camera, screenWidth, screenHeight);
 
@@ -100,7 +101,7 @@ void TestPlayArea::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 
 	model = Matrix4();
 	translate = Matrix4();
-	translate = translate.translate(Vector3(7.5f, -9.0f, -50.0f));
+	translate = translate.translate(Vector3(7.5f, -9.0f, -550.0f));
 	scale = Matrix4();
 	scale = scale.scale(Vector3(7.0f, 7.0f, 7.0f));
 	model = scale * translate;

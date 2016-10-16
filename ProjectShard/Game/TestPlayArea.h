@@ -13,6 +13,7 @@
 #include "Player.h"
 #include "Track.h"
 #include "..\Renderer\Skybox.h"
+#include "TrackBlock.h"
 
 class TestPlayArea
 {
@@ -27,6 +28,7 @@ private:
 	Model *block;
 	Track racingTrack;
 	Skybox skybox;
+	TrackBlock trackBlock;
 
 public:
 	TestPlayArea();

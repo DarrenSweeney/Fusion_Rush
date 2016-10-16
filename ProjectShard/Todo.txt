@@ -1,7 +1,6 @@
 # Darren's todo list for road the games fleadh
 
-Create a track class with instancing for the 
-track floor, barriers top and bottom and buidlings.
+Add a TrackBlock class and start doing collision.
 Add lighting for player.
 Create a debug camera which is free to move around.
 Do CPU and GPU timings.
@@ -12,5 +11,5 @@ Art: (Basic art to achieve the look and feel of the game)
 	- Barrier	(DONE)
 	- Building  (DONE)
 	- Blocks	(DONE)
-	- Sky box
+	- Sky box	(DONE)
 	- 80's Sun

@@ -179,6 +179,7 @@
     <ClCompile Include="Platform\WindowManagement.cpp" />
     <ClCompile Include="Game\Track.cpp" />
     <ClCompile Include="Renderer\Skybox.cpp" />
+    <ClCompile Include="Game\TrackBlock.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Camera.h" />
@@ -207,6 +208,7 @@
     <ClInclude Include="Platform\WindowManagement.h" />
     <ClInclude Include="Game\Track.h" />
     <ClInclude Include="Renderer\Skybox.h" />
+    <ClInclude Include="Game\TrackBlock.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\Instancing.vert" />

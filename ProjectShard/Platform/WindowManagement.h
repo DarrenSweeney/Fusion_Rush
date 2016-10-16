@@ -5,6 +5,8 @@
 #include <GL\gl3w.h>
 #include <GLFW\glfw3.h>
 
+#define FULLSCREEN false
+
 // Sets up OpenGL context and GLFW window managment
 class WindowManagement
 {
