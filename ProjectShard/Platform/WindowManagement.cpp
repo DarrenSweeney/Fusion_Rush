@@ -1,5 +1,7 @@
 #include "WindowManagement.h"
 
+#define FULLSCREEN false
+
 GLFWwindow *WindowManagement::GetWindow()
 {
 	return window;
@@ -55,8 +57,8 @@ void WindowManagement::StartUp()
 	// Get the desktop resolution.
 	GLFWmonitor *monitor = glfwGetPrimaryMonitor();
 	const GLFWvidmode* vidMode = glfwGetVideoMode(monitor);
-	width  = vidMode->width;
-	height = vidMode->height;
+	width = 800;// vidMode->width;
+	height = 600;// vidMode->height;
 
 	window = glfwCreateWindow(width, height, "Project Shard", FULLSCREEN ? glfwGetPrimaryMonitor() : NULL, NULL);
 

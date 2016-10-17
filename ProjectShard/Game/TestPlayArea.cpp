@@ -3,11 +3,7 @@
 TestPlayArea::TestPlayArea()
 	: testText(900.0f, 600.0f)
 {
-	// Set OpenGL options
-	/*glEnable(GL_CULL_FACE);
-	glEnable(GL_BLEND);
-	glEnable(GL_DEPTH_TEST);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);*/
+
 }
 
 TestPlayArea::~TestPlayArea()
@@ -99,17 +95,17 @@ void TestPlayArea::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	glStencilMask(0x00);
 	glDepthMask(GL_TRUE);
 
-	model = Matrix4();
-	translate = Matrix4();
-	translate = translate.translate(Vector3(7.5f, -9.0f, -550.0f));
-	scale = Matrix4();
-	scale = scale.scale(Vector3(7.0f, 7.0f, 7.0f));
-	model = scale * translate;
-	sceneObjects->Use();
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
-	block->Draw(*sceneObjects);
+	//model = Matrix4();
+	//translate = Matrix4();
+	//translate = translate.translate(Vector3(7.5f, -9.0f, -550.0f));
+	//scale = Matrix4();
+	//scale = scale.scale(Vector3(7.0f, 7.0f, 7.0f));
+	//model = scale * translate;
+	//sceneObjects->Use();
+	//glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
+	//glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
+	//glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
+	//block->Draw(*sceneObjects);
 
 	player.Reflection(screenWidth, screenHeight);
 	racingTrack.RenderTrackReflection(player.camera, screenWidth, screenHeight);

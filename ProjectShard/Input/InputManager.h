@@ -30,6 +30,7 @@ public:
 	void SetWindow(GLFWwindow *currentWindow);
 	bool IsJoyStickPresent(int joyStick); // NOTE(Darren): support for 16 joysticks?
 	const float *GetJoyStickAxis(int joystick);
+	const unsigned char *GetJoyStickButtons(int joystick);
 };
 
 #endif

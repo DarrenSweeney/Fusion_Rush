@@ -21,17 +21,22 @@ void Player::Update(float deltaTime)
 	Quaternion targetRotation = Quaternion();
 	Quaternion initalRotation = Quaternion();
 
+	// TODO(Darren): Need to implement the defines for a 360 controller and create 
+	// a correct input button method where i don't need to check if a controller is connected
 	// Input for controller 1
-	const float *axis = InputManager::GetInstance().GetJoyStickAxis(GLFW_JOYSTICK_1); 
-	bool connected = InputManager::GetInstance().IsJoyStickPresent(GLFW_JOYSTICK_1);
+	//bool connected = InputManager::GetInstance().IsJoyStickPresent(GLFW_JOYSTICK_1);
+	//const float *axis = InputManager::GetInstance().GetJoyStickAxis(GLFW_JOYSTICK_1); 
+	//const unsigned char* buttons = InputManager::GetInstance().GetJoyStickButtons(GLFW_JOYSTICK_1);
 
-	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_UP) || (connected && axis[LEFT_TRIGGER] > 0.2f))
+	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_UP))// || (connected && axis[LEFT_TRIGGER] > 0.2f))
+		//|| buttons[5] == GLFW_PRESS)
 		linearVelocity.z -= 0.9f;
 
-	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN) || (connected && axis[RIGHT_TRIGGER] > 0.2f))
+	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN))// || (connected && axis[RIGHT_TRIGGER] > 0.2f))
+		//|| buttons[4] == GLFW_PRESS)
 		linearVelocity.z += 0.9f;
 
-	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_LEFT) || (connected && axis[LEFT_STICK_X] < -0.2f))
+	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_LEFT))// || (connected && axis[LEFT_STICK_X] < -0.2f))
 	{
 		linearVelocity.x -= 0.9f;
 
@@ -41,7 +46,7 @@ void Player::Update(float deltaTime)
 	else
 		orientation = orientation.Slerp(orientation, initalRotation, deltaTime * rotationSpeed);
 	
-	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_RIGHT) || (connected && axis[LEFT_STICK_X] > 0.2f))
+	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_RIGHT))// || (connected && axis[LEFT_STICK_X] > 0.2f))
 	{
 		linearVelocity.x += 0.9f;
 

@@ -61,3 +61,15 @@ const float *InputManager::GetJoyStickAxis(int joystick)
 	                                                                              
 	return axis;
 }
+
+const unsigned char *InputManager::GetJoyStickButtons(int joystick)
+{
+	const unsigned char* buttons = NULL;
+
+	if (IsJoyStickPresent(joystick))
+	{
+		buttons = glfwGetJoystickButtons(GLFW_JOYSTICK_1, &count);
+	}
+
+	return buttons;
+}
