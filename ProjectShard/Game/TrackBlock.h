@@ -11,7 +11,7 @@ class TrackBlock
 private:
 	Model *modelBlock;
 	Shader *shaderBlock;
-	OBB b1, b2;
+	CollisionBox b1, b2;
 
 public:
 	TrackBlock();

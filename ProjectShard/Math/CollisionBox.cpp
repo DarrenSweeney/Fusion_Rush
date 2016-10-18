@@ -1,12 +1,28 @@
 #include "CollisionBox.h"
 
-CollisionBox::CollisionBox()
+CollisionBox::CollisionBox(Vector3 c, Matrix4 &rotateMat, Vector3 e)
 {
-
+	boundingBox.c = c;
+	boundingBox.u[0] = Vector3(rotateMat.data[0], rotateMat.data[1], rotateMat.data[2]);
+	boundingBox.u[1] = Vector3(rotateMat.data[4], rotateMat.data[5], rotateMat.data[6]);
+	boundingBox.u[2] = Vector3(rotateMat.data[8], rotateMat.data[9], rotateMat.data[10]);
+	boundingBox.e = e;
 }
 
-int CollisionBox::TestOBBOBB(OBB &a, OBB &b)
+CollisionBox::CollisionBox()
 {
+	boundingBox.c = Vector3();
+	boundingBox.u[0] = Vector3();
+	boundingBox.u[1] = Vector3();
+	boundingBox.u[2] = Vector3();
+	boundingBox.e = Vector3();
+}
+
+int CollisionBox::Intersects(CollisionBox &collisionBox)
+{
+	OBB a = this->boundingBox;
+	OBB b = collisionBox.boundingBox;
+
 	float ra, rb;
 	Matrix33 R, AbsR;
 	// Compute rotation matrix expressing b in a’s coordinate frame
@@ -75,4 +91,13 @@ int CollisionBox::TestOBBOBB(OBB &a, OBB &b)
 	if (std::abs(t[1] * R.data[0][2] - t[0] * R.data[1][2]) > ra + rb) return 0;
 	// Since no separating axis is found, the OBBs must be intersecting
 	return 1;
+}
+
+void CollisionBox::UpdateBoundingBox(Vector3 c, Matrix4 &rotateMat, Vector3 e)
+{
+	boundingBox.c = c;
+	boundingBox.u[0] = Vector3(rotateMat.data[0], rotateMat.data[1], rotateMat.data[2]);
+	boundingBox.u[1] = Vector3(rotateMat.data[4], rotateMat.data[5], rotateMat.data[6]);
+	boundingBox.u[2] = Vector3(rotateMat.data[8], rotateMat.data[9], rotateMat.data[10]);
+	boundingBox.e = e;
 }

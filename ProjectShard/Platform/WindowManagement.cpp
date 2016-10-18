@@ -57,7 +57,7 @@ void WindowManagement::StartUp()
 	// Get the desktop resolution.
 	GLFWmonitor *monitor = glfwGetPrimaryMonitor();
 	const GLFWvidmode* vidMode = glfwGetVideoMode(monitor);
-	width = 800;// vidMode->width;
+	width = 1100;// vidMode->width;
 	height = 600;// vidMode->height;
 
 	window = glfwCreateWindow(width, height, "Project Shard", FULLSCREEN ? glfwGetPrimaryMonitor() : NULL, NULL);
@@ -80,6 +80,7 @@ void WindowManagement::StartUp()
 	printf("OpenGL %s, GLSL %s\n", glGetString(GL_VERSION), glGetString(GL_SHADING_LANGUAGE_VERSION));
 
 	glfwGetFramebufferSize(window, &width, &height);
+	glfwSetWindowPos(window, 0, 0);
 	glViewport(0, 0, width, height);
 }
 

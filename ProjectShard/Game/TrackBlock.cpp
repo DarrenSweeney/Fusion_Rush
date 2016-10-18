@@ -36,11 +36,7 @@ void TrackBlock::Render(Camera &camera, GLsizei screenWidth, GLsizei screenHeigh
 	glUniformMatrix4fv(glGetUniformLocation(shaderBlock->Program, "model"), 1, GL_FALSE, &model.data[0]);
 	modelBlock->Draw(*shaderBlock);
 
-	b1.c = translation;
-	b1.u[0] = Vector3(rotate.data[0], rotate.data[1], rotate.data[2]);
-	b1.u[1] = Vector3(rotate.data[4], rotate.data[5], rotate.data[6]);
-	b1.u[2] = Vector3(rotate.data[8], rotate.data[9], rotate.data[10]);
-	b1.e = scaleVec;
+	b1.UpdateBoundingBox(translation, rotate, scaleVec);
 
 	translation = Vector3();
 	translation = Vector3(-9.5f, 7.5f, -550.0f);
@@ -61,14 +57,9 @@ void TrackBlock::Render(Camera &camera, GLsizei screenWidth, GLsizei screenHeigh
 	glUniformMatrix4fv(glGetUniformLocation(shaderBlock->Program, "model"), 1, GL_FALSE, &model.data[0]);
 	modelBlock->Draw(*shaderBlock);
 
-	b2.c = translation;
-	b2.u[0] = Vector3(rotate.data[0], rotate.data[1], rotate.data[2]);
-	b2.u[1] = Vector3(rotate.data[4], rotate.data[5], rotate.data[6]);
-	b2.u[2] = Vector3(rotate.data[8], rotate.data[9], rotate.data[10]);
-	b2.e = scaleVec;
+	b2.UpdateBoundingBox(translation, rotate, scaleVec);
 
-	CollisionBox test;
-	int answer = test.TestOBBOBB(b1, b2);
+	int answer = b1.Intersects(b2);
 
 	if (answer == 1)
 	{
