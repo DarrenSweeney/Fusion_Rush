@@ -45,6 +45,12 @@ void TestPlayArea::UpdateScene(float deltaTime)
 	g_debugDrawMgr.AddCross(Vector3(10.0f, 10.0f, 10.0f), Vector3(1.0f, 1.0f, 0.0f));
 
 	player.Update(deltaTime);
+	trackBlock.Update();
+
+	if (player.boundingBox.Intersects(trackBlock.b1))
+	{
+		std::cout << "Player has intersected with trackblock" << std::endl;
+	}
 }
 
 void TestPlayArea::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
@@ -58,29 +64,16 @@ void TestPlayArea::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	Matrix4 translate = Matrix4();
 	Matrix4 scale = Matrix4();
 
+	// Render gameplay assets
 	glDisable(GL_BLEND);
 	glDisable(GL_STENCIL_TEST);
-	/*model = Matrix4();
-	translate = Matrix4();
-	translate = translate.translate(Vector3(7.5f, 3.0f, -50.0f));
-	scale = Matrix4();
-	scale = scale.scale(Vector3(7.0f, 7.0f, 7.0f));
-	Matrix4 rotate = Matrix4();
-	model = scale * translate;
-	sceneObjects->Use();
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
-	block->Draw(*sceneObjects);*/
 	trackBlock.Render(player.camera, screenWidth, screenHeight);
-
 	skybox.Render(player.camera, screenWidth, screenHeight);
-
 	player.Render(screenWidth, screenHeight);
 	racingTrack.RenderSceneObjects(player.camera, screenWidth, screenHeight);
 
-	// Draw Floor
-	glEnable(GL_BLEND);//map_Kd Building_Side.png
+	// Render the track floor and barriers
+	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_COLOR, GL_DST_COLOR);
 	glEnable(GL_STENCIL_TEST);
 	glStencilFunc(GL_ALWAYS, 1, 0xFF);
@@ -90,23 +83,10 @@ void TestPlayArea::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	glClear(GL_STENCIL_BUFFER_BIT);
 	racingTrack.RenderTrack(player.camera, screenWidth, screenHeight);
 
-	// Draw cube reflection
+	// Render reflections
 	glStencilFunc(GL_EQUAL, 1, 0xFF);
 	glStencilMask(0x00);
 	glDepthMask(GL_TRUE);
-
-	//model = Matrix4();
-	//translate = Matrix4();
-	//translate = translate.translate(Vector3(7.5f, -9.0f, -550.0f));
-	//scale = Matrix4();
-	//scale = scale.scale(Vector3(7.0f, 7.0f, 7.0f));
-	//model = scale * translate;
-	//sceneObjects->Use();
-	//glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
-	//glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "view"), 1, GL_FALSE, &view.data[0]);
-	//glUniformMatrix4fv(glGetUniformLocation(sceneObjects->Program, "model"), 1, GL_FALSE, &model.data[0]);
-	//block->Draw(*sceneObjects);
-
 	player.Reflection(screenWidth, screenHeight);
 	racingTrack.RenderTrackReflection(player.camera, screenWidth, screenHeight);
 

@@ -8,6 +8,7 @@
 #include "..\Math\Quaternion.h"
 #include "..\Input\InputManager.h"
 #include "Camera.h"
+#include "..\Math\CollisionBox.h"
 
 class Player
 {
@@ -18,6 +19,8 @@ public:
 	void Update(float deltaTime);
 	void Render(GLsizei screenWidth, GLsizei screenHeight);
 	void Reflection(GLsizei screenWidth, GLsizei screenHeight);
+
+	CollisionBox boundingBox;
 
 	// TODO(Darren): Take this out.
 	Camera camera;
@@ -30,6 +33,7 @@ private:
 	Vector3 acceleration;
 	Quaternion orientation;
 	float rotationSpeed;
+	Matrix4 modelRotate;
 };
 
 #endif

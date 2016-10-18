@@ -63,6 +63,10 @@ void Player::Update(float deltaTime)
 
 		linearVelocity -= i * friction;
 	}
+
+	modelRotate = Matrix4();
+	modelRotate = modelRotate.QuaternionToMatrix4(orientation);
+	boundingBox.UpdateBoundingBox(position, modelRotate, Vector3());
 }
 
 void Player::Render(GLsizei screenWidth, GLsizei screenHeight)
@@ -72,12 +76,11 @@ void Player::Render(GLsizei screenWidth, GLsizei screenHeight)
 	Matrix4 viewMatrix = camera.GetViewMatrix();
 	Matrix4 projection = Matrix4();
 	projection = projection.perspectiveProjection(camera.zoom, (GLfloat)screenWidth / (GLfloat)screenHeight, 0.1f, 1000.0f);
-	Matrix4 modelScale = Matrix4();
 	Matrix4 modelRotate = Matrix4();
 	modelRotate = modelRotate.QuaternionToMatrix4(orientation);
 	Matrix4 modelTranslate = Matrix4();
 	modelTranslate = modelTranslate.translate(position);
-	modelMatrix = modelScale * modelRotate * modelTranslate;
+	modelMatrix = modelRotate * modelTranslate;
 	glUniformMatrix4fv(glGetUniformLocation(shaderModel->Program, "model"), 1, GL_FALSE, &modelMatrix.data[0]);
 	glUniformMatrix4fv(glGetUniformLocation(shaderModel->Program, "view"), 1, GL_FALSE, &viewMatrix.data[0]);
 	glUniformMatrix4fv(glGetUniformLocation(shaderModel->Program, "projection"), 1, GL_FALSE, &projection.data[0]);

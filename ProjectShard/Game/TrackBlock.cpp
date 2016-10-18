@@ -12,6 +12,20 @@ TrackBlock::~TrackBlock()
 	delete shaderBlock;
 }
 
+void TrackBlock::Update()
+{
+	Vector3 translation = Vector3(10.5f, 7.5f, -550.0f);
+	rotate = Matrix4();
+	rotate = rotate.rotate(MathHelper::DegressToRadians(45.0f), Vector3(-0.9f, 0.2f, -0.5f));
+	Vector3 scaleVec = Vector3(7.0f, 7.0f, 7.0f);
+	b1.UpdateBoundingBox(translation, rotate, scaleVec);
+
+	translation = Vector3(-9.5f, 7.5f, -550.0f);
+	rotate = rotate.rotate(MathHelper::DegressToRadians(45.0f), Vector3(0.9f, 1.0f, 0.5f));
+	scaleVec = Vector3(7.0f, 7.0f, 7.0f);
+	b2.UpdateBoundingBox(translation, rotate, scaleVec);
+}
+
 void TrackBlock::Render(Camera &camera, GLsizei screenWidth, GLsizei screenHeight)
 {
 	Matrix4 projection = Matrix4();
@@ -20,7 +34,6 @@ void TrackBlock::Render(Camera &camera, GLsizei screenWidth, GLsizei screenHeigh
 	Matrix4 model = Matrix4();
 	Matrix4 translate = Matrix4();
 	Matrix4 scale = Matrix4();
-	Matrix4 rotate = Matrix4();
 
 	Vector3 translation = Vector3(10.5f, 7.5f, -550.0f);
 	Vector3 scaleVec = Vector3(7.0f, 7.0f, 7.0f);
@@ -35,8 +48,6 @@ void TrackBlock::Render(Camera &camera, GLsizei screenWidth, GLsizei screenHeigh
 	glUniformMatrix4fv(glGetUniformLocation(shaderBlock->Program, "view"), 1, GL_FALSE, &view.data[0]);
 	glUniformMatrix4fv(glGetUniformLocation(shaderBlock->Program, "model"), 1, GL_FALSE, &model.data[0]);
 	modelBlock->Draw(*shaderBlock);
-
-	b1.UpdateBoundingBox(translation, rotate, scaleVec);
 
 	translation = Vector3();
 	translation = Vector3(-9.5f, 7.5f, -550.0f);
@@ -56,19 +67,11 @@ void TrackBlock::Render(Camera &camera, GLsizei screenWidth, GLsizei screenHeigh
 	glUniformMatrix4fv(glGetUniformLocation(shaderBlock->Program, "view"), 1, GL_FALSE, &view.data[0]);
 	glUniformMatrix4fv(glGetUniformLocation(shaderBlock->Program, "model"), 1, GL_FALSE, &model.data[0]);
 	modelBlock->Draw(*shaderBlock);
+}
 
-	b2.UpdateBoundingBox(translation, rotate, scaleVec);
+void TrackBlock::RenderReflection(Camera &camera, GLsizei screenWidth, GLsizei screenHeight)
+{
 
-	int answer = b1.Intersects(b2);
-
-	if (answer == 1)
-	{
-		std::cout << "Collided" << std::endl;
-	}
-	else if (answer == 0)
-	{
-		std::cout << "Not collided" << std::endl;
-	}
 }
 
 bool TrackBlock::HitPlayer()
