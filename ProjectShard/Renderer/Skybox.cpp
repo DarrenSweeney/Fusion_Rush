@@ -18,8 +18,7 @@ void Skybox::Render(Camera &camera, GLsizei screenWidth, GLsizei screenHeight)
 	shaderSkybox->Use();
 	Matrix4 view = Matrix4();
 	view = camera.GetViewMatrix();
-	Matrix4 projection = Matrix4();
-	projection = projection.perspectiveProjection(camera.zoom, (GLfloat)screenWidth / (GLfloat)screenHeight, 0.1f, 100.0f);
+	Matrix4 projection = camera.GetProjectionMatrix(screenWidth, screenHeight);
 	view.data[12] = 0; view.data[13] = 0; view.data[14] = 0;	// Take away the translation component.
 	glUniformMatrix4fv(glGetUniformLocation(shaderSkybox->Program, "view"), 1, GL_FALSE, &view.data[0]);
 	glUniformMatrix4fv(glGetUniformLocation(shaderSkybox->Program, "projection"), 1, GL_FALSE, &projection.data[0]);

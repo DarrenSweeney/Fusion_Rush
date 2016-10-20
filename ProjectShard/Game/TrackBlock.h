@@ -17,7 +17,7 @@ public:
 	TrackBlock();
 	~TrackBlock();
 
-	CollisionBox b1, b2;
+	CollisionBox boundingBox;
 
 	void Update();
 	void Render(Camera &camera, GLsizei screenWidth, GLsizei screenHeight);

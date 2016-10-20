@@ -21,6 +21,7 @@ public:
 	void Reflection(GLsizei screenWidth, GLsizei screenHeight);
 
 	CollisionBox boundingBox;
+	Vector3 position;
 
 	// TODO(Darren): Take this out.
 	Camera camera;
@@ -28,7 +29,6 @@ public:
 private:
 	Model *model;
 	Shader *shaderModel;
-	Vector3 position;
 	Vector3 linearVelocity;	
 	Vector3 acceleration;
 	Quaternion orientation;

@@ -16,7 +16,7 @@ Player::~Player()
 void Player::Update(float deltaTime)
 {
 	position += linearVelocity * deltaTime;
-	camera.position = position - Vector3(0.0f, -15.0f, -40.0f);
+	camera.SetPosition(position - Vector3(0.0f, -15.0f, -40.0f));
 
 	Quaternion targetRotation = Quaternion();
 	Quaternion initalRotation = Quaternion();
@@ -28,15 +28,15 @@ void Player::Update(float deltaTime)
 	//const float *axis = InputManager::GetInstance().GetJoyStickAxis(GLFW_JOYSTICK_1); 
 	//const unsigned char* buttons = InputManager::GetInstance().GetJoyStickButtons(GLFW_JOYSTICK_1);
 
-	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_UP))// || (connected && axis[LEFT_TRIGGER] > 0.2f))
+	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_UP))// || (connected && axis[LEFT_TRIGGER] > 0.1f)
 		//|| buttons[5] == GLFW_PRESS)
 		linearVelocity.z -= 0.9f;
 
-	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN))// || (connected && axis[RIGHT_TRIGGER] > 0.2f))
+	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN))// || (connected && axis[RIGHT_TRIGGER] > 0.1f)
 		//|| buttons[4] == GLFW_PRESS)
 		linearVelocity.z += 0.9f;
 
-	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_LEFT))// || (connected && axis[LEFT_STICK_X] < -0.2f))
+	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_LEFT))// || (connected && axis[LEFT_STICK_X] < -0.1f))
 	{
 		linearVelocity.x -= 0.9f;
 
@@ -46,7 +46,7 @@ void Player::Update(float deltaTime)
 	else
 		orientation = orientation.Slerp(orientation, initalRotation, deltaTime * rotationSpeed);
 	
-	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_RIGHT))// || (connected && axis[LEFT_STICK_X] > 0.2f))
+	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_RIGHT)) //|| (connected && axis[LEFT_STICK_X] > 0.1f))
 	{
 		linearVelocity.x += 0.9f;
 
@@ -74,8 +74,7 @@ void Player::Render(GLsizei screenWidth, GLsizei screenHeight)
 	shaderModel->Use();
 	Matrix4 modelMatrix = Matrix4();
 	Matrix4 viewMatrix = camera.GetViewMatrix();
-	Matrix4 projection = Matrix4();
-	projection = projection.perspectiveProjection(camera.zoom, (GLfloat)screenWidth / (GLfloat)screenHeight, 0.1f, 1000.0f);
+	Matrix4 projection = camera.GetProjectionMatrix(screenWidth, screenHeight);
 	Matrix4 modelRotate = Matrix4();
 	modelRotate = modelRotate.QuaternionToMatrix4(orientation);
 	Matrix4 modelTranslate = Matrix4();
@@ -92,8 +91,7 @@ void Player::Reflection(GLsizei screenWidth, GLsizei screenHeight)
 	shaderModel->Use();
 	Matrix4 modelMatrix = Matrix4();
 	Matrix4 viewMatrix = camera.GetViewMatrix();
-	Matrix4 projection = Matrix4();
-	projection = projection.perspectiveProjection(camera.zoom, (GLfloat)screenWidth / (GLfloat)screenHeight, 0.1f, 1000.0f);
+	Matrix4 projection = camera.GetProjectionMatrix(screenWidth, screenHeight);
 	Matrix4 modelScale = Matrix4();
 	Matrix4 modelRotate = Matrix4();
 	Quaternion rotateRef = Quaternion();

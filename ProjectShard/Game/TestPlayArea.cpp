@@ -47,9 +47,10 @@ void TestPlayArea::UpdateScene(float deltaTime)
 	player.Update(deltaTime);
 	trackBlock.Update();
 
-	if (player.boundingBox.Intersects(trackBlock.b1))
+	if (player.boundingBox.Intersects(trackBlock.boundingBox))
 	{
 		std::cout << "Player has intersected with trackblock" << std::endl;
+		player.position = Vector3(0.0f, 0.0f, 150.0f);
 	}
 }
 
@@ -57,8 +58,7 @@ void TestPlayArea::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 {
 	glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
 
-	Matrix4 projection = Matrix4();
-	projection = projection.perspectiveProjection(player.camera.zoom, (GLfloat)screenWidth / (GLfloat)screenHeight, 0.1f, 1000.0f);
+	Matrix4 projection = player.camera.GetProjectionMatrix(screenWidth, screenHeight);
 	Matrix4 view = player.camera.GetViewMatrix();
 	Matrix4 model = Matrix4();
 	Matrix4 translate = Matrix4();
@@ -89,7 +89,7 @@ void TestPlayArea::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	glDepthMask(GL_TRUE);
 	player.Reflection(screenWidth, screenHeight);
 	racingTrack.RenderTrackReflection(player.camera, screenWidth, screenHeight);
-
+	trackBlock.RenderReflection(player.camera, screenWidth, screenHeight);
 	glDisable(GL_STENCIL_TEST);
 
 	//testText.RenderText("ProjectShard", Vector2(0.0f, 0.0f), 1.0f, Vector3(0.0f, 0.0f, 0.0f), screenWidth, screenHeight);

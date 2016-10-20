@@ -12,9 +12,21 @@ Camera::Camera(Vector3 &_position, Vector3 &worldUp, GLfloat _yaw, GLfloat _pitc
 	movementSpeed = 15.0f;
 }
 
-Matrix4 &Camera::Camera::GetViewMatrix()
+Matrix4 &Camera::GetViewMatrix()
 {
 	return view.lookAt(position, position + frontVec, upVec);
+}
+
+Matrix4 &Camera::GetProjectionMatrix(GLsizei screenWidth, GLsizei screenHeight)
+{
+	Matrix4 projection = Matrix4();
+
+	return projection.perspectiveProjection(zoom, (GLfloat)screenWidth / (GLfloat)screenHeight, 0.1f, 1000.0f);
+}
+
+void Camera::SetPosition(Vector3 pos)
+{
+	position = pos;
 }
 
 void Camera::KeyboardMovement(GLfloat deltaTime)
@@ -42,45 +54,6 @@ void Camera::KeyboardMovement(GLfloat deltaTime)
 		position += (frontVec.VectorProduct(upVec).normalise() * velocity);
 		moving = true;
 	}
-
-	UpdateCameraVectors();
-}
-
-void Camera::ControllerMovement()
-{
-	bool moving = false;
-	// PlayStation Controller
-	int present = glfwJoystickPresent(GLFW_JOYSTICK_1);
-	const float *axis = NULL;
-	int count;
-	if (1 == present)
-	{
-		axis = glfwGetJoystickAxes(GLFW_JOYSTICK_1, &count);
-
-		// Movement - Left Stick
-		if (axis[0] > 0.2 || axis[0] < -0.2)
-		{
-			moving = true;
-			position += ((frontVec.VectorProduct(upVec)).normalise()  * (axis[0]) * movementSpeed) * deltaTime;
-		}
-
-		if (axis[1] > 0.2 || axis[1] < -0.2)
-		{
-			moving = true;
-			position -= (frontVec * (axis[1]) * movementSpeed) * deltaTime;
-		}
-
-		// Camera - Right Stick.
-		if (axis[2] > 0.3 || axis[2] < -0.3)
-			yaw += (axis[2] * (cameraSpeed)) * deltaTime;
-		if (axis[3] > 0.3 || axis[3] < -0.3)
-			pitch -= (axis[3] * (cameraSpeed)) * deltaTime;
-	}
-
-	if (pitch > 89.0f)
-		pitch = 89.0f;
-	if (pitch < -89.0f)
-		pitch = -89.0f;
 
 	UpdateCameraVectors();
 }

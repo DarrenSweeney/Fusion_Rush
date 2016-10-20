@@ -20,17 +20,14 @@ public:
 	Camera(Vector3 &position, Vector3 &worldUp = Vector3(0.0f, 1.0f, 0.0f), GLfloat yaw = -90.0f,
 		GLfloat pitch = -5.0f, GLfloat speed = 2.0f, GLfloat sensitivity = 0.1f, GLfloat zoom = 45.0f);
 
-	Vector3 position;
-	Matrix4 view;
-	GLfloat deltaTime;
-	GLfloat cameraSpeed, movementSpeed;
-	GLfloat zoom;
-
 	// Returns the view martrix calculated using Euler Angles and the LookAt matrix
 	Matrix4 &GetViewMatrix();
+	// Returns the projection matrix of the camera
+	Matrix4 &GetProjectionMatrix(GLsizei screenWidth, GLsizei screenHeight);
+
+	void SetPosition(Vector3 pos);
 
 	void KeyboardMovement(GLfloat deltaTime);
-	void ControllerMovement();
 	void MouseMovement(GLfloat xOffset, GLfloat yOffset);
 
 private:
@@ -41,6 +38,11 @@ private:
 	GLfloat yaw;
 	GLfloat pitch;
 	GLfloat mouseSensitivity;
+	Vector3 position;
+	Matrix4 view;
+	GLfloat cameraSpeed, movementSpeed;
+	GLfloat zoom;
+
 	void UpdateCameraVectors();
 	void Roll(GLfloat angle);
 };

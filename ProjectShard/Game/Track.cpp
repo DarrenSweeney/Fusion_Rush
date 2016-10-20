@@ -166,8 +166,7 @@ void Track::SetUpBuffers(GLuint &vao, Matrix4 *matrices, GLuint amount)
 
 void Track::RenderSceneObjects(Camera &camera, GLsizei screenWidth, GLsizei screenHeight)
 {
-	Matrix4 projection = Matrix4();
-	projection = projection.perspectiveProjection(camera.zoom, (GLfloat)screenWidth / (GLfloat)screenHeight, 0.1f, 1000.0f);
+	Matrix4 projection = camera.GetProjectionMatrix(screenWidth, screenHeight);
 	Matrix4 view;
 	view = camera.GetViewMatrix();
 
@@ -183,8 +182,7 @@ void Track::RenderSceneObjects(Camera &camera, GLsizei screenWidth, GLsizei scre
 
 void Track::RenderTrack(Camera &camera, GLsizei screenWidth, GLsizei screenHeight)
 {
-	Matrix4 projection = Matrix4();
-	projection = projection.perspectiveProjection(camera.zoom, (GLfloat)screenWidth / (GLfloat)screenHeight, 0.1f, 1000.0f);
+	Matrix4 projection = camera.GetProjectionMatrix(screenWidth, screenHeight);
 	Matrix4 view;
 	view = camera.GetViewMatrix();
 
@@ -198,8 +196,7 @@ void Track::RenderTrack(Camera &camera, GLsizei screenWidth, GLsizei screenHeigh
 
 void Track::RenderTrackReflection(Camera &camera, GLsizei screenWidth, GLsizei screenHeight)
 {
-	Matrix4 projection = Matrix4();
-	projection = projection.perspectiveProjection(camera.zoom, (GLfloat)screenWidth / (GLfloat)screenHeight, 0.1f, 1000.0f);
+	Matrix4 projection = camera.GetProjectionMatrix(screenWidth, screenHeight);
 	Matrix4 view;
 	view = camera.GetViewMatrix();
 

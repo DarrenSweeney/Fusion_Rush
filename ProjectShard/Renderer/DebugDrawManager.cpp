@@ -57,7 +57,7 @@ void DebugDrawManager::Submit(Camera &camera)
 
 		Matrix4 projection = Matrix4();
 		// TODO(Darren): Remove this, it's hard coded.
-		projection = projection.perspectiveProjection(camera.zoom, 900.0f / 600.0f, 0.1f, 100.0f);
+		projection = projection.perspectiveProjection(45.0f, 900.0f / 600.0f, 0.1f, 100.0f);
 		Matrix4 view = camera.GetViewMatrix();
 		glUniformMatrix4fv(glGetUniformLocation(lineShader->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
 		glUniformMatrix4fv(glGetUniformLocation(lineShader->Program, "view"), 1, GL_FALSE, &view.data[0]);
