@@ -28,7 +28,6 @@ private:
 	Model *block;
 	Track racingTrack;
 	Skybox skybox;
-	TrackBlock trackBlock;
 
 public:
 	TestPlayArea();

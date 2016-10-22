@@ -19,6 +19,7 @@ private:
 	{
 		float data[3][3];
 	};
+	bool ZeroMatrix3(Matrix33 &m);
 
 public:
 	CollisionBox(Vector3 c, Matrix4 &rotateMat, Vector3 e);

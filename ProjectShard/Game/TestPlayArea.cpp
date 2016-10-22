@@ -3,7 +3,7 @@
 TestPlayArea::TestPlayArea()
 	: testText(900.0f, 600.0f)
 {
-
+	
 }
 
 TestPlayArea::~TestPlayArea()
@@ -45,18 +45,18 @@ void TestPlayArea::UpdateScene(float deltaTime)
 	g_debugDrawMgr.AddCross(Vector3(10.0f, 10.0f, 10.0f), Vector3(1.0f, 1.0f, 0.0f));
 
 	player.Update(deltaTime);
-	trackBlock.Update();
 
-	if (player.boundingBox.Intersects(trackBlock.boundingBox))
+	if (racingTrack.TrackBlockCollision(player.boundingBox))
 	{
-		std::cout << "Player has intersected with trackblock" << std::endl;
-		player.position = Vector3(0.0f, 0.0f, 150.0f);
+		player.position = Vector3(0, 0, 100);
 	}
+
+	racingTrack.Update();
 }
 
 void TestPlayArea::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 {
-	glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
+	glClearColor(0.4f, 0.4f, 0.15f, 1.0f);
 
 	Matrix4 projection = player.camera.GetProjectionMatrix(screenWidth, screenHeight);
 	Matrix4 view = player.camera.GetViewMatrix();
@@ -67,7 +67,7 @@ void TestPlayArea::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	// Render gameplay assets
 	glDisable(GL_BLEND);
 	glDisable(GL_STENCIL_TEST);
-	trackBlock.Render(player.camera, screenWidth, screenHeight);
+
 	skybox.Render(player.camera, screenWidth, screenHeight);
 	player.Render(screenWidth, screenHeight);
 	racingTrack.RenderSceneObjects(player.camera, screenWidth, screenHeight);
@@ -87,9 +87,9 @@ void TestPlayArea::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	glStencilFunc(GL_EQUAL, 1, 0xFF);
 	glStencilMask(0x00);
 	glDepthMask(GL_TRUE);
+
 	player.Reflection(screenWidth, screenHeight);
 	racingTrack.RenderTrackReflection(player.camera, screenWidth, screenHeight);
-	trackBlock.RenderReflection(player.camera, screenWidth, screenHeight);
 	glDisable(GL_STENCIL_TEST);
 
 	//testText.RenderText("ProjectShard", Vector2(0.0f, 0.0f), 1.0f, Vector3(0.0f, 0.0f, 0.0f), screenWidth, screenHeight);

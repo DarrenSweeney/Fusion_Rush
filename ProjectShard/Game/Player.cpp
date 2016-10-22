@@ -46,7 +46,7 @@ void Player::Update(float deltaTime)
 	else
 		orientation = orientation.Slerp(orientation, initalRotation, deltaTime * rotationSpeed);
 	
-	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_RIGHT)) //|| (connected && axis[LEFT_STICK_X] > 0.1f))
+	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_RIGHT))// || (connected && axis[LEFT_STICK_X] > 0.1f))
 	{
 		linearVelocity.x += 0.9f;
 
@@ -92,7 +92,6 @@ void Player::Reflection(GLsizei screenWidth, GLsizei screenHeight)
 	Matrix4 modelMatrix = Matrix4();
 	Matrix4 viewMatrix = camera.GetViewMatrix();
 	Matrix4 projection = camera.GetProjectionMatrix(screenWidth, screenHeight);
-	Matrix4 modelScale = Matrix4();
 	Matrix4 modelRotate = Matrix4();
 	Quaternion rotateRef = Quaternion();
 	rotateRef = rotateRef.RotateZ(MathHelper::DegressToRadians(-180.0f));
@@ -100,7 +99,7 @@ void Player::Reflection(GLsizei screenWidth, GLsizei screenHeight)
 		Quaternion(orientation.w, -orientation.x, -orientation.y, -orientation.z));
 	Matrix4 modelTranslate = Matrix4();
 	modelTranslate = modelTranslate.translate(position + Vector3(0.0f, -3.0f, 0.0));
-	modelMatrix = modelScale * modelRotate * modelTranslate;
+	modelMatrix = modelRotate * modelTranslate;
 	glUniformMatrix4fv(glGetUniformLocation(shaderModel->Program, "model"), 1, GL_FALSE, &modelMatrix.data[0]);
 	glUniformMatrix4fv(glGetUniformLocation(shaderModel->Program, "view"), 1, GL_FALSE, &viewMatrix.data[0]);
 	glUniformMatrix4fv(glGetUniformLocation(shaderModel->Program, "projection"), 1, GL_FALSE, &projection.data[0]);

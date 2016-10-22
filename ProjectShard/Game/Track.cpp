@@ -1,7 +1,7 @@
 #include "Track.h"
 
 Track::Track()
-	: trackAmount(100), barrierAmount(200), buildingAmount(100)
+	: trackAmount(100), barrierAmount(200), buildingAmount(100), blockAmount(10)
 {
 	raceTrack = g_resourceMgr.GetModel(SID("RaceTrack"));
 	trackBarrier = g_resourceMgr.GetModel(SID("Barrier"));
@@ -17,6 +17,8 @@ Track::Track()
 	barrierRefleMatrices = new Matrix4[barrierAmount];
 	buildingModelMatrices = new Matrix4[buildingAmount];
 	buildingRefleMatrices = new Matrix4[buildingAmount];
+
+	trackBlock = new TrackBlock[blockAmount];
 }
 
 Track::~Track()
@@ -29,10 +31,24 @@ Track::~Track()
 	delete[] barrierModelMatrices;
 	delete[] buildingModelMatrices;
 	delete[] barrierRefleMatrices;
+	delete[] trackBlock;
 }
 
 void Track::Init()
 {
+	// Set up the track blocks
+	for (int i = 0; i < blockAmount; i++)
+	{
+		if (i >= 0 && i < 5)
+		{
+			trackBlock[i].blockType = TrackBlock::BlockType::oscillation;
+			trackBlock[i].position = Vector3(40.0f - (i * 20.0f), 15.0f, 0);
+
+		}
+		else
+			trackBlock[i].position = Vector3(0.0f, 5.0f, (i * -80));
+	}
+
 	// Set the model matrices for the track
 	Matrix4 scaleMatrix = Matrix4();
 	scaleMatrix = scaleMatrix.scale(Vector3(3.0f, 0.0f, 3.0f));
@@ -133,6 +149,32 @@ void Track::Init()
 		SetUpBuffers(reflecBuilding->meshes[i].VAO, buildingRefleMatrices, buildingAmount);
 }
 
+void Track::Update()
+{
+	for (unsigned int i = 0; i < blockAmount; i++)
+	{
+		trackBlock[i].Update();
+	}
+
+	if (trackBlock[3].boundingBox.Intersects(trackBlock[4].boundingBox))
+	{
+		std::cout << "Collided!!!!!!" << std::endl;
+	}
+}
+
+bool Track::TrackBlockCollision(CollisionBox &playerBoundingBox)
+{
+	for (unsigned int i = 0; i < blockAmount; i++)
+	{
+		if (trackBlock[i].boundingBox.Intersects(playerBoundingBox))
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
 void Track::SetUpBuffers(GLuint &vao, Matrix4 *matrices, GLuint amount)
 {
 	GLuint buffer;
@@ -178,6 +220,9 @@ void Track::RenderSceneObjects(Camera &camera, GLsizei screenWidth, GLsizei scre
 	RenderInstance(reflecTrackBarrier, barrierAmount);
 	// Render the building along the track
 	RenderInstance(reflecBuilding, buildingAmount);
+
+	for (unsigned int i = 0; i < blockAmount; i++)
+		trackBlock[i].Render(camera, screenWidth, screenHeight);
 }
 
 void Track::RenderTrack(Camera &camera, GLsizei screenWidth, GLsizei screenHeight)
@@ -208,6 +253,9 @@ void Track::RenderTrackReflection(Camera &camera, GLsizei screenWidth, GLsizei s
 	RenderInstance(trackBarrier, barrierAmount);
 	// Render the building along the track
 	RenderInstance(building, buildingAmount);
+
+	for (unsigned int i = 0; i < blockAmount; i++)
+		trackBlock[i].RenderReflection(camera, screenWidth, screenHeight);
 }
 
 void Track::RenderInstance(Model *model, GLuint amount)
