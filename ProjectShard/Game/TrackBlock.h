@@ -31,7 +31,6 @@ public:
 
 	void Update();
 	void OscillationUpdate();
-	void StationaryUpdate();
 	void RotatingUpdate();
 	void Render(Camera &camera, GLsizei screenWidth, GLsizei screenHeight);
 	void RenderReflection(Camera &camera, GLsizei screenWidth, GLsizei screenHeight);

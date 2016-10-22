@@ -48,7 +48,7 @@ void TestPlayArea::UpdateScene(float deltaTime)
 
 	if (racingTrack.TrackBlockCollision(player.boundingBox))
 	{
-		player.position = Vector3(0, 0, 100);
+		player.Spawn();
 	}
 
 	racingTrack.Update();

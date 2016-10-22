@@ -6,6 +6,8 @@
 #include "..\Math\Vector4.h"
 #include "Camera.h"
 #include "TrackBlock.h"
+#include <stdlib.h>
+#include <time.h>
 
 class Track
 {

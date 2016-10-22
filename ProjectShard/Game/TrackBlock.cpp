@@ -1,7 +1,7 @@
 #include "TrackBlock.h"
 
 TrackBlock::TrackBlock()
-	:	position(10.5f, 15.5f, -550.0f)
+	:	position(10.5f, 0.5f, -550.0f)
 {
 	modelBlock = g_resourceMgr.GetModel("Block");
 	shaderBlock = g_resourceMgr.GetShader("ModelShader");
@@ -16,17 +16,13 @@ TrackBlock::~TrackBlock()
 
 void TrackBlock::Update()
 {
-	// Generate a sector ID here based on z position
+	// Generate a sector ID here based on z position 
 	sectorID = int(fabs(position.z) / 100.0f);
 
 	switch (blockType)
 	{
 	case oscillation:
 		OscillationUpdate();
-		break;
-
-	case stationary:
-		StationaryUpdate();
 		break;
 
 	case rotating:
@@ -39,17 +35,15 @@ void TrackBlock::Update()
 
 	//rotate = rotate.rotate(MathHelper::DegressToRadians(45.0f), Vector3(-0.9f, 0.2f, -0.5f));
 	Vector3 scaleVec = Vector3(7.0f, 7.0f, 7.0f);
-	boundingBox.UpdateBoundingBox(position, rotate, scaleVec);
+
+	// Only update the collison if it's not moving in the scene
+	//if(!blockType == BlockType::stationary)		// TODO(Darren): Implement this
+		boundingBox.UpdateBoundingBox(position, rotate, scaleVec);
 }
 
 void TrackBlock::OscillationUpdate()
 {
 	position.y = 11.0f + cos(glfwGetTime()) * 5.0f;
-}
-
-void TrackBlock::StationaryUpdate()
-{
-
 }
 
 void TrackBlock::RotatingUpdate()
@@ -88,7 +82,7 @@ void TrackBlock::RenderReflection(Camera &camera, GLsizei screenWidth, GLsizei s
 
 	Vector3 scaleVec = Vector3(7.0f, 7.0f, 7.0f);
 	shaderBlock->Use();
-	translate = translate.translate(Vector3(position.x, -position.y, position.z));
+	translate = translate.translate(Vector3(position.x, -position.y - 5.0f, position.z));
 	scale = Matrix4();
 	scale = scale.scale(scaleVec);
 	// TODO(Darren): Create a rotation reflection (look into this)

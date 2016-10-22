@@ -17,11 +17,11 @@ public:
 	~Player();
 
 	void Update(float deltaTime);
+	void Spawn();
 	void Render(GLsizei screenWidth, GLsizei screenHeight);
 	void Reflection(GLsizei screenWidth, GLsizei screenHeight);
 
 	CollisionBox boundingBox;
-	Vector3 position;
 
 	// TODO(Darren): Take this out.
 	Camera camera;
@@ -34,6 +34,7 @@ private:
 	Quaternion orientation;
 	float rotationSpeed;
 	Matrix4 modelRotate;
+	Vector3 position;
 };
 
 #endif

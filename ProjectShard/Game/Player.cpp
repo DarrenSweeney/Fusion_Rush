@@ -69,6 +69,12 @@ void Player::Update(float deltaTime)
 	boundingBox.UpdateBoundingBox(position, modelRotate, Vector3());
 }
 
+void Player::Spawn()
+{
+	position = Vector3(0.0f, 0.0f, 100.0f);
+	linearVelocity = Vector3();
+}
+
 void Player::Render(GLsizei screenWidth, GLsizei screenHeight)
 {
 	shaderModel->Use();

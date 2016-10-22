@@ -36,17 +36,54 @@ Track::~Track()
 
 void Track::Init()
 {
+	srand(time(NULL));
+
 	// Set up the track blocks
 	for (int i = 0; i < blockAmount; i++)
 	{
-		if (i >= 0 && i < 5)
-		{
-			trackBlock[i].blockType = TrackBlock::BlockType::oscillation;
-			trackBlock[i].position = Vector3(40.0f - (i * 20.0f), 15.0f, 0);
+		bool oscillationBlock = ((rand() % 100) < 10) && (i + 5 < blockAmount);
+		bool rotatingBlock = ((rand() % 100) < 30);
+		//bool stationaryBlock = ((rand() % 100) < 70);
 
+		// NOTE(Darren): Need to check the less chance ones first.
+		if (oscillationBlock)
+		{
+			int firstIndex = i;
+			int blockIndent = 0;
+
+			for (; i < firstIndex + 5; i++)
+			{
+				trackBlock[i].blockType = TrackBlock::BlockType::oscillation;
+				trackBlock[i].position = Vector3(40.0f - (blockIndent * 20.0f), 15.0f, -firstIndex * 80);
+				blockIndent++;
+			}
+
+			i--;		// NOTE(Darren): When going back to the top of the loop
+						// decrement by 1 so a block index is not skipped
+
+			continue;	// Go back to the top of the loop
 		}
-		else
-			trackBlock[i].position = Vector3(0.0f, 5.0f, (i * -80));
+		else if (rotatingBlock)
+		{
+			trackBlock[i].blockType = TrackBlock::BlockType::rotating;
+			trackBlock[i].position = Vector3(0.0f, 7.0f, (i * -80));
+			trackBlock[i].rotate.rotate(MathHelper::DegressToRadians(45.0f), Vector3(1.0f, 1.0f, 1.0f));
+
+			continue;
+		}
+		else// if (stationaryBlock)
+		{
+			float blockIndent = (rand() % 100);
+			if (blockIndent > 50)
+				blockIndent /= 2;
+			else if (blockIndent <= 50)
+				blockIndent = -blockIndent;
+
+			trackBlock[i].blockType = TrackBlock::BlockType::stationary;
+			trackBlock[i].position = Vector3(blockIndent, 4.0f, (i * -80));
+
+			continue;
+		}
 	}
 
 	// Set the model matrices for the track
@@ -154,11 +191,6 @@ void Track::Update()
 	for (unsigned int i = 0; i < blockAmount; i++)
 	{
 		trackBlock[i].Update();
-	}
-
-	if (trackBlock[3].boundingBox.Intersects(trackBlock[4].boundingBox))
-	{
-		std::cout << "Collided!!!!!!" << std::endl;
 	}
 }
 
