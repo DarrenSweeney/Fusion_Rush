@@ -51,7 +51,7 @@ void TestPlayArea::UpdateScene(float deltaTime)
 		player.Spawn();
 	}
 
-	racingTrack.Update();
+	racingTrack.Update(deltaTime);
 }
 
 void TestPlayArea::RenderScene(GLsizei screenWidth, GLsizei screenHeight)

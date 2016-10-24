@@ -28,10 +28,11 @@ public:
 		rotating
 	};
 	BlockType blockType;
+	bool moveToTarget;
 
-	void Update();
-	void OscillationUpdate();
-	void RotatingUpdate();
+	void Update(float deltaTime);
+	void OscillationUpdate(float deltaTime);
+	void RotatingUpdate(float deltaTime);
 	void Render(Camera &camera, GLsizei screenWidth, GLsizei screenHeight);
 	void RenderReflection(Camera &camera, GLsizei screenWidth, GLsizei screenHeight);
 };

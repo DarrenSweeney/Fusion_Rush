@@ -75,6 +75,16 @@ Vector3 &Vector3::operator*=(float value)
 	return *this;
 }
 
+bool Vector3::operator==(Vector3 &vec3)
+{
+	if (x == vec3.x && y == vec3.y && z == vec3.z)
+	{
+		return true;
+	}
+
+	return false;
+}
+
 float Vector3::DotProduct(Vector3 &vec3)
 {
 	return x * vec3.x + y * vec3.y + z * vec3.z;
@@ -89,6 +99,13 @@ Vector3 Vector3::CrossProduct(Vector3 &vec3_One, Vector3 &vec3_Two)
 {
 	return Vector3(vec3_Two.y*vec3_One.z - vec3_Two.z*vec3_One.y, vec3_Two.z*vec3_One.x
 		- vec3_Two.x*vec3_One.z, vec3_Two.x*vec3_One.y - vec3_Two.y*vec3_One.x);
+}
+
+Vector3 Vector3::Lerp(Vector3 &start, Vector3 &end, float interpolator)
+{
+	return Vector3(	(1.0f - interpolator) * start.x + (interpolator * end.x),
+					(1.0f - interpolator) * start.y + (interpolator * end.y),
+					(1.0f - interpolator) * start.z + (interpolator * end.z));
 }
 
 void Vector3::MakeOrthinormalBasis(Vector3 &a, Vector3 &b, Vector3 &c)

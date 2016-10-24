@@ -1,6 +1,5 @@
 # Darren's todo list for road the games fleadh
 
-Create cube movements, and see how i will architect this.
 Need to spawn a lot of cubes which have different movement patterns.
 
 Create a debug camera which is free to move around.

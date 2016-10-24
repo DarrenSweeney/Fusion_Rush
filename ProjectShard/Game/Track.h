@@ -30,7 +30,7 @@ public:
 	Track();
 	~Track();
 	void Init();
-	void Update();
+	void Update(float deltaTime);
 	bool TrackBlockCollision(CollisionBox &playerBoundingBox);
 	void RenderSceneObjects(Camera &camera, GLsizei screenWidth, GLsizei screenHeight);
 	void RenderTrack(Camera &camera, GLsizei screenWidth, GLsizei screenHeight);

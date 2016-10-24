@@ -1,7 +1,7 @@
 #include "Track.h"
 
 Track::Track()
-	: trackAmount(100), barrierAmount(200), buildingAmount(100), blockAmount(10)
+	: trackAmount(100), barrierAmount(200), buildingAmount(100), blockAmount(20)
 {
 	raceTrack = g_resourceMgr.GetModel(SID("RaceTrack"));
 	trackBarrier = g_resourceMgr.GetModel(SID("Barrier"));
@@ -41,8 +41,8 @@ void Track::Init()
 	// Set up the track blocks
 	for (int i = 0; i < blockAmount; i++)
 	{
-		bool oscillationBlock = ((rand() % 100) < 10) && (i + 5 < blockAmount);
-		bool rotatingBlock = ((rand() % 100) < 30);
+		bool oscillationBlock = ((rand() % 100) < 20) && (i + 5 < blockAmount);
+		bool rotatingBlock = ((rand() % 100) < 40);
 		//bool stationaryBlock = ((rand() % 100) < 70);
 
 		// NOTE(Darren): Need to check the less chance ones first.
@@ -54,7 +54,7 @@ void Track::Init()
 			for (; i < firstIndex + 5; i++)
 			{
 				trackBlock[i].blockType = TrackBlock::BlockType::oscillation;
-				trackBlock[i].position = Vector3(40.0f - (blockIndent * 20.0f), 15.0f, -firstIndex * 80);
+				trackBlock[i].position = Vector3(40.0f - (blockIndent * 14.0f), 35.0f - (8.0f * blockIndent), -firstIndex * 80);
 				blockIndent++;
 			}
 
@@ -65,8 +65,20 @@ void Track::Init()
 		}
 		else if (rotatingBlock)
 		{
+			float blockIndent = (rand() % 100);
+			if (blockIndent > 50)
+			{
+				blockIndent /= 2;
+				trackBlock[i].moveToTarget = false;
+			}
+			else if (blockIndent <= 50)
+			{
+				blockIndent = -blockIndent;
+				trackBlock[i].moveToTarget = true;
+			}
+
 			trackBlock[i].blockType = TrackBlock::BlockType::rotating;
-			trackBlock[i].position = Vector3(0.0f, 7.0f, (i * -80));
+			trackBlock[i].position = Vector3(blockIndent, 7.0f, (i * -80));
 			trackBlock[i].rotate.rotate(MathHelper::DegressToRadians(45.0f), Vector3(1.0f, 1.0f, 1.0f));
 
 			continue;
@@ -186,11 +198,11 @@ void Track::Init()
 		SetUpBuffers(reflecBuilding->meshes[i].VAO, buildingRefleMatrices, buildingAmount);
 }
 
-void Track::Update()
+void Track::Update(float deltaTime)
 {
 	for (unsigned int i = 0; i < blockAmount; i++)
 	{
-		trackBlock[i].Update();
+		trackBlock[i].Update(deltaTime);
 	}
 }
 

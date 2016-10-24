@@ -27,10 +27,12 @@ public:
 	Vector3 operator*(float value);
 	Vector3 &operator*=(Vector3 &vec3);
 	Vector3 &operator*=(float value);
+	bool operator==(Vector3 &vec3);
 
 	float DotProduct(Vector3 &vec3);
 	Vector3 VectorProduct(Vector3 &vec3);
 	Vector3 CrossProduct(Vector3 &vec3_one, Vector3 &vec3_two);
+	Vector3 Lerp(Vector3 &start, Vector3 &end, float interpolator);
 
 	void MakeOrthinormalBasis(Vector3 &a, Vector3 &b, Vector3 &c);
 

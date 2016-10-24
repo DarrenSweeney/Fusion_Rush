@@ -14,7 +14,7 @@ TrackBlock::~TrackBlock()
 	delete shaderBlock;
 }
 
-void TrackBlock::Update()
+void TrackBlock::Update(float deltaTime)
 {
 	// Generate a sector ID here based on z position 
 	sectorID = int(fabs(position.z) / 100.0f);
@@ -22,11 +22,11 @@ void TrackBlock::Update()
 	switch (blockType)
 	{
 	case oscillation:
-		OscillationUpdate();
+		OscillationUpdate(deltaTime);
 		break;
 
 	case rotating:
-		RotatingUpdate();
+		RotatingUpdate(deltaTime);
 		break;
 
 	default:
@@ -38,17 +38,61 @@ void TrackBlock::Update()
 
 	// Only update the collison if it's not moving in the scene
 	//if(!blockType == BlockType::stationary)		// TODO(Darren): Implement this
-		boundingBox.UpdateBoundingBox(position, rotate, scaleVec);
+	boundingBox.UpdateBoundingBox(position, rotate, scaleVec);
 }
 
-void TrackBlock::OscillationUpdate()
+void TrackBlock::OscillationUpdate(float deltaTime)
 {
-	position.y = 11.0f + cos(glfwGetTime()) * 5.0f;
+	float movementSpeed = 2.0f;
+	Vector3 targetUp(position.x, 2.0f, position.z);
+	Vector3 targetDown(position.x, 45.0f, position.z);
+
+	if (!moveToTarget)
+	{
+		position = position.Lerp(position, targetUp, movementSpeed * deltaTime);
+	}
+	else if (moveToTarget)
+	{
+		position = position.Lerp(position, targetDown, movementSpeed * deltaTime);
+	}
+
+	if (position.y >= targetDown.y - 1)
+		moveToTarget = false;
+
+	if (position.y <= targetUp.y + 1)
+		moveToTarget = true;
 }
 
-void TrackBlock::RotatingUpdate()
+void TrackBlock::RotatingUpdate(float deltaTime)
 {
+	Vector3 targetLeft(-45.0f, position.y, position.z);
+	Vector3 targetRight(45.0f, position.y, position.z);
+	float movementSpeed = 2.0f;
+	Quaternion rotation = Quaternion();
+	Quaternion targetRotation = Quaternion();
 
+	if (!moveToTarget)
+	{
+		targetRotation = targetRotation.RotateZ(MathHelper::DegressToRadians(90.0f));
+		position = position.Lerp(position, targetLeft, movementSpeed * deltaTime);
+		rotation = rotation.Slerp(rotation, targetRotation, deltaTime * 1.0f);
+	}
+	else if (moveToTarget)
+	{
+		targetRotation = targetRotation.RotateZ(MathHelper::DegressToRadians(-90.0f));
+		position = position.Lerp(position, targetRight, movementSpeed * deltaTime);
+		rotation = rotation.Slerp(rotation, targetRotation, deltaTime * 1.0f);
+	}
+
+	if (position.x >= targetRight.x - 1)
+		moveToTarget = false;
+
+	if (position.x <= targetLeft.x + 1)
+		moveToTarget = true;
+
+	Matrix4 modelRotate = Matrix4();
+	modelRotate = modelRotate.QuaternionToMatrix4(rotation);
+	rotate = rotate * modelRotate;
 }
 
 void TrackBlock::Render(Camera &camera, GLsizei screenWidth, GLsizei screenHeight)
