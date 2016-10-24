@@ -29,11 +29,11 @@ void Player::Update(float deltaTime)
 	const unsigned char* buttons = InputManager::GetInstance().GetJoyStickButtons(GLFW_JOYSTICK_1);
 
 	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_UP) || (connected && axis[LEFT_TRIGGER] > 0.1f)
-		|| buttons[5] == GLFW_PRESS)
+		|| (connected && buttons[5] == GLFW_PRESS))
 		linearVelocity.z -= 0.9f;
 
 	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN) || (connected && axis[RIGHT_TRIGGER] > 0.1f)
-		|| buttons[4] == GLFW_PRESS)
+		|| (connected && buttons[4] == GLFW_PRESS))
 		linearVelocity.z += 0.9f;
 
 	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_LEFT) || (connected && axis[LEFT_STICK_X] < -0.1f))
