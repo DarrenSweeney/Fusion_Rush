@@ -22,6 +22,7 @@ private:
 	Matrix4 *buildingModelMatrices, *buildingRefleMatrices;
 	unsigned int blockAmount;
 	TrackBlock *trackBlock;
+	Vector3 skyColour;
 
 	void SetUpBuffers(GLuint &vao, Matrix4 *matrices, GLuint amount);
 	void RenderInstance(Model *model, GLuint amount);

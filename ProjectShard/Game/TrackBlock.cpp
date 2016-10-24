@@ -3,8 +3,12 @@
 TrackBlock::TrackBlock()
 	:	position(10.5f, 0.5f, -550.0f)
 {
+	Vector3 skyColour(0.149f, 0.121f, 0.219f);
+
 	modelBlock = g_resourceMgr.GetModel("Block");
 	shaderBlock = g_resourceMgr.GetShader("ModelShader");
+	shaderBlock->Use();
+	glUniform3f(glGetUniformLocation(shaderBlock->Program, "skyColour"), skyColour.x, skyColour.y, skyColour.z);
 	rotate = Matrix4();
 }
 

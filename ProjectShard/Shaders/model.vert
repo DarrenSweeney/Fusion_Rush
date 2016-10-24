@@ -9,9 +9,19 @@ uniform mat4 view;
 uniform mat4 model;
 
 out vec2 TexCoords;
+out float visibility;
+
+const float density = 0.0015;
+const float gradient = 1.5;
 
 void main()
 {
-	gl_Position = projection * view * model * vec4(position, 1.0f);
+	vec4 worldPosition = model * vec4(position, 1.0f);
+	vec4 positionRelativeToCam = view * worldPosition;
+	gl_Position = projection * positionRelativeToCam;
 	TexCoords = texCoords;
+
+	float distance = length(positionRelativeToCam.xyz);
+	visibility = exp(-pow((distance * density), gradient));
+	visibility = clamp(visibility, 0.0, 1.0);
 }

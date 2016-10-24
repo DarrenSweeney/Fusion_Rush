@@ -21,7 +21,7 @@ Matrix4 &Camera::GetProjectionMatrix(GLsizei screenWidth, GLsizei screenHeight)
 {
 	Matrix4 projection = Matrix4();
 
-	return projection.perspectiveProjection(zoom, (GLfloat)screenWidth / (GLfloat)screenHeight, 0.1f, 1000.0f);
+	return projection.perspectiveProjection(zoom, (GLfloat)screenWidth / (GLfloat)screenHeight, 0.1f, 2000.0f);
 }
 
 void Camera::SetPosition(Vector3 pos)

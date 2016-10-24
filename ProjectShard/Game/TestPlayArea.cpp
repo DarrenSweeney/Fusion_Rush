@@ -56,7 +56,7 @@ void TestPlayArea::UpdateScene(float deltaTime)
 
 void TestPlayArea::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 {
-	glClearColor(0.4f, 0.4f, 0.15f, 1.0f);
+	glClearColor(0.149f, 0.121f, 0.219f, 1.0f);
 
 	Matrix4 projection = player.camera.GetProjectionMatrix(screenWidth, screenHeight);
 	Matrix4 view = player.camera.GetViewMatrix();
@@ -68,7 +68,7 @@ void TestPlayArea::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	glDisable(GL_BLEND);
 	glDisable(GL_STENCIL_TEST);
 
-	skybox.Render(player.camera, screenWidth, screenHeight);
+	//skybox.Render(player.camera, screenWidth, screenHeight);
 	player.Render(screenWidth, screenHeight);
 	racingTrack.RenderSceneObjects(player.camera, screenWidth, screenHeight);
 

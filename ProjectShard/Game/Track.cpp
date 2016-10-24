@@ -1,7 +1,7 @@
 #include "Track.h"
 
 Track::Track()
-	: trackAmount(100), barrierAmount(200), buildingAmount(100), blockAmount(20)
+	: trackAmount(100), barrierAmount(200), buildingAmount(100), blockAmount(20), skyColour(0.149f, 0.121f, 0.219f)
 {
 	raceTrack = g_resourceMgr.GetModel(SID("RaceTrack"));
 	trackBarrier = g_resourceMgr.GetModel(SID("Barrier"));
@@ -11,6 +11,8 @@ Track::Track()
 	building = g_resourceMgr.GetModel(SID("Building"));
 	reflecBuilding = g_resourceMgr.GetModel(SID("BuildingReflection"));
 	instancingShader = g_resourceMgr.GetShader(SID("Instancing"));
+	instancingShader->Use();
+	glUniform3f(glGetUniformLocation(instancingShader->Program, "skyColour"), skyColour.x, skyColour.y, skyColour.z);
 
 	trackModelMatrices = new Matrix4[trackAmount];
 	barrierModelMatrices = new Matrix4[barrierAmount];
