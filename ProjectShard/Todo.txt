@@ -1,6 +1,10 @@
 # Darren's todo list for road the games fleadh
 
-Need to spawn a lot of cubes which have different movement patterns.
+// Things that need to be done.
+2. Create a rotation reflection
+3. Need to fix the reflection matrices, wrong order!
+4. May create a InstanceEntity class and seperate tracks and barriers
+5. Implement geometry exploding shader.
 
 Create a debug camera which is free to move around.
 Do CPU and GPU timings.
@@ -13,3 +17,5 @@ Art: (Basic art to achieve the look and feel of the game)
 	- Blocks	(DONE)
 	- Sky box	(DONE)
 	- 80's Sun
+
+// Scan 3D (Phil)

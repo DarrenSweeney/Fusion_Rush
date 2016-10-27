@@ -1,7 +1,7 @@
 #include "Track.h"
 
 Track::Track()
-	: trackAmount(100), barrierAmount(200), buildingAmount(100), blockAmount(20), skyColour(0.149f, 0.121f, 0.219f)
+	: trackAmount(100), barrierAmount(200), buildingAmount(100), blockAmount(50), skyColour(0.5f, 0.5f, 0.5f)
 {
 	raceTrack = g_resourceMgr.GetModel(SID("RaceTrack"));
 	trackBarrier = g_resourceMgr.GetModel(SID("Barrier"));
@@ -116,13 +116,14 @@ void Track::Init()
 
 	// Set the model matrices for the barrier
 	scaleMatrix = Matrix4();
-	scaleMatrix = scaleMatrix.scale(Vector3(3.0f, 5.0f, 3.0f));
+	Vector3 scaleVec(3.0f, 5.0f, 3.0f);
+	scaleMatrix = scaleMatrix.scale(scaleVec);
 	for (GLuint i = 0; i < barrierAmount; i++)
 	{
 		Matrix4 transMatrix = Matrix4();
 		Matrix4 rotate = Matrix4();
-		
-		int rotateDeg = i % 2 == 0 ? 90.0f : -90.0f;
+
+		int rotateDeg = i % 2 == 0 ? 0.0f : -180.0f;
 		rotate = rotate.rotateY(MathHelper::DegressToRadians(rotateDeg));
 
 		int barrierZPos = i;
@@ -166,19 +167,35 @@ void Track::Init()
 		Matrix4 transMatrix = Matrix4();
 		Matrix4 rotate = Matrix4();
 
-		int rotateDeg = i % 2 == 0 ? 90.0f : -90.0f;
+		int rotateDeg = i % 2 == 0 ? 0.0f : -180.0f;
 		rotate = rotate.rotateY(MathHelper::DegressToRadians(rotateDeg));
 
 		int barrierZPos = i;
 		if (barrierZPos % 2 == 0)
-			barrierZPos = -60.0f * i;
+			barrierZPos = (-60.0f) * i;
 		else if (barrierZPos % 2 == 1)
-			barrierZPos = -60.0f * (i - 1);
+			barrierZPos = (-60.0f) * (i - 1);
 
 		int barrierXPos = i % 2 == 0 ? 60.0f : -60.0f;
 		transMatrix = transMatrix.translate(Vector3(barrierXPos, 1.0f, barrierZPos));
 		barrierRefleMatrices[i] = scaleMatrix * rotate * transMatrix;
 	}
+
+	/*
+		TODO(Darren): Need to fix the reflection matrices, wrong order!
+
+		TODO(Darren): May create a InstanceEntity class and seperate tracks and barriers
+	*/
+
+	Matrix4 rotate = Matrix4();
+	scaleVec = Vector3(3.0f, 5.0f, 60.0f);
+	debug_block.position = Vector3(-60.0f, 0.0f, 0.0f);
+	debug_block.rotate = rotate;
+	debug_block.scaleVec = scaleVec;
+	leftB_BoundingBox.UpdateBoundingBox(Vector3(-60.0f, 0.0f, 0.0f), rotate, scaleVec);
+	//rotate = Matrix4();
+	//rotate = rotate.rotateY(MathHelper::DegressToRadians(-90.0f));
+	//rightB_BoundingBox.UpdateBoundingBox(Vector3(60.0f, -9.0f, -60.0f), rotate, scaleVec);
 
 	for (GLuint i = 0; i < reflecTrackBarrier->meshes.size(); i++)
 		SetUpBuffers(reflecTrackBarrier[0].meshes[i].VAO, barrierRefleMatrices, barrierAmount);
@@ -208,7 +225,7 @@ void Track::Update(float deltaTime)
 	}
 }
 
-bool Track::TrackBlockCollision(CollisionBox &playerBoundingBox)
+bool Track::TrackCollision(CollisionBox &playerBoundingBox)
 {
 	for (unsigned int i = 0; i < blockAmount; i++)
 	{
@@ -216,6 +233,11 @@ bool Track::TrackBlockCollision(CollisionBox &playerBoundingBox)
 		{
 			return true;
 		}
+	}
+
+	if (leftB_BoundingBox.Intersects(playerBoundingBox))// || rightB_BoundingBox.Intersects(playerBoundingBox))
+	{
+		return true;
 	}
 
 	return false;
@@ -266,6 +288,8 @@ void Track::RenderSceneObjects(Camera &camera, GLsizei screenWidth, GLsizei scre
 	RenderInstance(reflecTrackBarrier, barrierAmount);
 	// Render the building along the track
 	RenderInstance(reflecBuilding, buildingAmount);
+
+	debug_block.Render(camera, screenWidth, screenHeight);
 
 	for (unsigned int i = 0; i < blockAmount; i++)
 		trackBlock[i].Render(camera, screenWidth, screenHeight);

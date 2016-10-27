@@ -4,8 +4,8 @@ Matrix4::Matrix4()
 {
 	data[1] = data[2] = data[3] = data[4] = data[6] =
 		data[7] = data[8] = data[9] = data[11] =
-		data[12] = data[13] = data[14] = 0;
-	data[0] = data[5] = data[10] = data[15] = 1;
+		data[12] = data[13] = data[14] = 0.0f;
+	data[0] = data[5] = data[10] = data[15] = 1.0f;
 }
 
 Matrix4::Matrix4(int m11, int m12, int m13, int m14,

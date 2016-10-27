@@ -23,6 +23,9 @@ private:
 	unsigned int blockAmount;
 	TrackBlock *trackBlock;
 	Vector3 skyColour;
+	// Collision boxes for the barriers on the track
+	CollisionBox leftB_BoundingBox, rightB_BoundingBox;
+	TrackBlock debug_block;
 
 	void SetUpBuffers(GLuint &vao, Matrix4 *matrices, GLuint amount);
 	void RenderInstance(Model *model, GLuint amount);
@@ -32,7 +35,7 @@ public:
 	~Track();
 	void Init();
 	void Update(float deltaTime);
-	bool TrackBlockCollision(CollisionBox &playerBoundingBox);
+	bool TrackCollision(CollisionBox &playerBoundingBox);
 	void RenderSceneObjects(Camera &camera, GLsizei screenWidth, GLsizei screenHeight);
 	void RenderTrack(Camera &camera, GLsizei screenWidth, GLsizei screenHeight);
 	void RenderTrackReflection(Camera &camera, GLsizei screenWidth, GLsizei screenHeight);

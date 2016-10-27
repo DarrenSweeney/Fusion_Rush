@@ -38,7 +38,7 @@ Vector2 InputManager::GetCursorPos()
 	return cursorPos;
 }
 
-void InputManager::SetWindow(GLFWwindow *currentWindow)
+void InputManager::SetWindowContext(GLFWwindow *currentWindow)
 {
 	window = currentWindow;
 }

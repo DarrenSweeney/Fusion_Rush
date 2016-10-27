@@ -25,11 +25,12 @@ public:
 
 	// TODO(Darren): Take this out.
 	Camera camera;
+	Vector3 linearVelocity;
 
 private:
 	Model *model;
 	Shader *shaderModel;
-	Vector3 linearVelocity;	
+	//Vector3 linearVelocity;	
 	Vector3 acceleration;
 	Quaternion orientation;
 	float rotationSpeed;

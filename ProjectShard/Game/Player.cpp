@@ -66,7 +66,7 @@ void Player::Update(float deltaTime)
 
 	modelRotate = Matrix4();
 	modelRotate = modelRotate.QuaternionToMatrix4(orientation);
-	boundingBox.UpdateBoundingBox(position, modelRotate, Vector3(2.0f, 2.0f, 2.0f));
+	boundingBox.UpdateBoundingBox(position, modelRotate, Vector3(1.0f, 1.0f, 1.0f));
 }
 
 void Player::Spawn()

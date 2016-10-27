@@ -18,18 +18,6 @@ CollisionBox::CollisionBox()
 	boundingBox.e = Vector3();
 }
 
-bool CollisionBox::ZeroMatrix3(Matrix33 &m)
-{
-	if (m.data[0][0] == 0.0f && m.data[0][1] == 0.0f && m.data[0][2] == 0.0f &&
-		m.data[1][0] == 0.0f && m.data[1][1] == 0.0f && m.data[1][2] == 0.0f &&
-		m.data[2][0] == 0.0f && m.data[2][1] == 0.0f && m.data[2][2] == 0.0f)
-	{
-		return true;
-	}
-
-	return false;
-}
-
 int CollisionBox::Intersects(CollisionBox &collisionBox)
 {
 	OBB a = this->boundingBox;
@@ -42,8 +30,8 @@ int CollisionBox::Intersects(CollisionBox &collisionBox)
 		for (int j = 0; j < 3; j++)
 			R.data[i][j] = a.u[i].DotProduct(b.u[j]);
 
-	// Check for matrix33 idenity, if it's deafult then not rotation so go here.
-	//if(ZeroMatrix3(R))
+	// Check for identity rotation matrix in a's frame.
+	//if(a.u[0] == Vector3(1.0f, 0.0f, 0.0f) && a.u[1] == Vector3(0.0f, 1.0f, 0.0f) && a.u[2] == Vector3(0.0f, 0.0f, 1.0f))
 	{
 		if (std::abs(a.c[0] - b.c[0]) >(a.e[0] + b.e[0])) return 0;
 		if (std::abs(a.c[1] - b.c[1]) >(a.e[1] + b.e[1])) return 0;

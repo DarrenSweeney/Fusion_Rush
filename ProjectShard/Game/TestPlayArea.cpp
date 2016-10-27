@@ -46,7 +46,13 @@ void TestPlayArea::UpdateScene(float deltaTime)
 
 	player.Update(deltaTime);
 
-	if (racingTrack.TrackBlockCollision(player.boundingBox))
+	if (racingTrack.TrackCollision(player.boundingBox))
+	{
+		//player.linearVelocity = Vector3();
+		player.Spawn();
+	}
+
+	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_P))
 	{
 		player.Spawn();
 	}
@@ -56,7 +62,7 @@ void TestPlayArea::UpdateScene(float deltaTime)
 
 void TestPlayArea::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 {
-	glClearColor(0.149f, 0.121f, 0.219f, 1.0f);
+	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 
 	Matrix4 projection = player.camera.GetProjectionMatrix(screenWidth, screenHeight);
 	Matrix4 view = player.camera.GetViewMatrix();

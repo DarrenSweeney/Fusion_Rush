@@ -1,9 +1,9 @@
 #include "TrackBlock.h"
 
 TrackBlock::TrackBlock()
-	:	position(10.5f, 0.5f, -550.0f)
+	:	position(10.5f, 0.5f, -550.0f), scaleVec(7.0f, 7.0f, 7.0f)
 {
-	Vector3 skyColour(0.149f, 0.121f, 0.219f);
+	Vector3 skyColour(0.5f, 0.5f, 0.5f);
 
 	modelBlock = g_resourceMgr.GetModel("Block");
 	shaderBlock = g_resourceMgr.GetShader("ModelShader");
@@ -38,7 +38,7 @@ void TrackBlock::Update(float deltaTime)
 	}
 
 	//rotate = rotate.rotate(MathHelper::DegressToRadians(45.0f), Vector3(-0.9f, 0.2f, -0.5f));
-	Vector3 scaleVec = Vector3(7.0f, 7.0f, 7.0f);
+	//Vector3 scaleVec = Vector3(7.0f, 7.0f, 7.0f);
 
 	// Only update the collison if it's not moving in the scene
 	//if(!blockType == BlockType::stationary)		// TODO(Darren): Implement this
@@ -107,7 +107,6 @@ void TrackBlock::Render(Camera &camera, GLsizei screenWidth, GLsizei screenHeigh
 	Matrix4 translate = Matrix4();
 	Matrix4 scale = Matrix4();
 
-	Vector3 scaleVec = Vector3(7.0f, 7.0f, 7.0f);
 	shaderBlock->Use();
 	translate = translate.translate(position);
 	scale = Matrix4();
@@ -128,7 +127,6 @@ void TrackBlock::RenderReflection(Camera &camera, GLsizei screenWidth, GLsizei s
 	Matrix4 translate = Matrix4();
 	Matrix4 scale = Matrix4();
 
-	Vector3 scaleVec = Vector3(7.0f, 7.0f, 7.0f);
 	shaderBlock->Use();
 	translate = translate.translate(Vector3(position.x, -position.y - 5.0f, position.z));
 	scale = Matrix4();

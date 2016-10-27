@@ -11,8 +11,8 @@ uniform mat4 model;
 out vec2 TexCoords;
 out float visibility;
 
-const float density = 0.0015;
-const float gradient = 1.5;
+const float density = 0.0030;
+const float gradient = 2.0;
 
 void main()
 {

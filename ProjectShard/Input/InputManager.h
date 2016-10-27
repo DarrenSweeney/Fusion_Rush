@@ -27,7 +27,7 @@ public:
 	bool IsKeyPressed(int key);
 	bool IsMouseButtonPressed(int key);
 	Vector2 GetCursorPos();
-	void SetWindow(GLFWwindow *currentWindow);
+	void SetWindowContext(GLFWwindow *currentWindow);
 	bool IsJoyStickPresent(int joyStick); // NOTE(Darren): support for 16 joysticks?
 	const float *GetJoyStickAxis(int joystick);
 	const unsigned char *GetJoyStickButtons(int joystick);

@@ -24,7 +24,7 @@ int main(int argc, char* argv[])
 	GameApplication gameApp;
 	gameApp.Init();
 
-	InputManager::GetInstance().SetWindow(window.GetWindow());
+	InputManager::GetInstance().SetWindowContext(window.GetWindow());
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 

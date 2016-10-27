@@ -20,7 +20,8 @@ public:
 
 	CollisionBox boundingBox;
 	Vector3 position;
-	Matrix4 rotate;
+	Matrix4 rotate; 
+	Vector3 scaleVec;
 	enum BlockType
 	{
 		oscillation,
