@@ -25,12 +25,16 @@ int main(int argc, char* argv[])
 	gameApp.Init();
 
 	InputManager::GetInstance().SetWindowContext(window.GetWindow());
-
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	bool polygonMode = false;
 
 	while (!window.CloseState())
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+
+		if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_F1))
+			polygonMode = !polygonMode;
+
+		glPolygonMode(GL_FRONT_AND_BACK, polygonMode ? GL_LINE : GL_FILL);
 
 		// Set frame time
 		// TODO(Darren): May create a time class with limited frame
