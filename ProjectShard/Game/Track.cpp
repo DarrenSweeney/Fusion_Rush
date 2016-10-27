@@ -40,6 +40,8 @@ void Track::Init()
 {
 	srand(time(NULL));
 
+	buildings.Init();
+
 	// Set up the track blocks
 	for (int i = 0; i < blockAmount; i++)
 	{
@@ -314,6 +316,8 @@ void Track::RenderTrackReflection(Camera &camera, GLsizei screenWidth, GLsizei s
 	Matrix4 projection = camera.GetProjectionMatrix(screenWidth, screenHeight);
 	Matrix4 view;
 	view = camera.GetViewMatrix();
+	
+	buildings.RenderReflection(camera, screenWidth, screenHeight);
 
 	instancingShader->Use();
 	glUniformMatrix4fv(glGetUniformLocation(instancingShader->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
@@ -322,7 +326,7 @@ void Track::RenderTrackReflection(Camera &camera, GLsizei screenWidth, GLsizei s
 	// Render the barriers for the tracks
 	RenderInstance(trackBarrier, barrierAmount);
 	// Render the building along the track
-	RenderInstance(building, buildingAmount);
+	//RenderInstance(building, buildingAmount);
 
 	for (unsigned int i = 0; i < blockAmount; i++)
 		trackBlock[i].RenderReflection(camera, screenWidth, screenHeight);

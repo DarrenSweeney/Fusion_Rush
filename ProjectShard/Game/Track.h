@@ -8,6 +8,7 @@
 #include "TrackBlock.h"
 #include <stdlib.h>
 #include <time.h>
+#include "Buildings.h"
 
 class Track
 {
@@ -22,10 +23,12 @@ private:
 	Matrix4 *buildingModelMatrices, *buildingRefleMatrices;
 	unsigned int blockAmount;
 	TrackBlock *trackBlock;
+	// TODO(Darren): What to only have one skycolor in the track class
 	Vector3 skyColour;
 	// Collision boxes for the barriers on the track
 	CollisionBox leftB_BoundingBox, rightB_BoundingBox;
 	TrackBlock debug_block;
+	Buildings buildings;
 
 	void SetUpBuffers(GLuint &vao, Matrix4 *matrices, GLuint amount);
 	void RenderInstance(Model *model, GLuint amount);

@@ -96,6 +96,15 @@
     <ClCompile Include="Math\CollisionBox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Renderer\InstancingEntity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Buildings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BUILDINGS.CPP">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Math\Vector3.h">
@@ -182,7 +191,10 @@
     <ClInclude Include="Math\CollisionBox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="InstancingEntity.h">
+    <ClInclude Include="Renderer\InstancingEntity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Buildings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
