@@ -11,7 +11,7 @@
 #include "..\Renderer\Model.h"
 #include "..\Audio\Sound.h"
 #include "Player.h"
-#include "Track.h"
+#include "RacingTrack.h"
 #include "..\Renderer\Skybox.h"
 #include "TrackBlock.h"
 
@@ -26,7 +26,7 @@ private:
 	Model *barrier;
 	Model *building;
 	Model *block;
-	Track racingTrack;
+	RacingTrack racingTrack;
 	Skybox skybox;
 
 public:

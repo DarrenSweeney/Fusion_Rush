@@ -84,9 +84,6 @@
     <ClCompile Include="Game\Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Track.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Renderer\Skybox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -103,6 +100,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Game\Barriers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\RacingTrack.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TrackSections.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -179,9 +182,6 @@
     <ClInclude Include="Game\Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Track.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Renderer\Skybox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -200,7 +200,10 @@
     <ClInclude Include="Game\Barriers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Tracks.h">
+    <ClInclude Include="Game\RacingTrack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TrackSections.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

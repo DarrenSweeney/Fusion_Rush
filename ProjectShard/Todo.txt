@@ -2,7 +2,6 @@
 
 // Things that need to be done.
 2. Create a rotation reflection
-3. Need to fix the reflection matrices, wrong order!
 4. May create a InstanceEntity class and seperate tracks and barriers
 5. Implement geometry exploding shader.
 

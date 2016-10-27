@@ -1,25 +1,20 @@
-#ifndef TRACK_H
-#define TRACK_H
+#ifndef RACING_TRACK_H
+#define RACING_TRACK_H
 
 #include "..\Core\ResourceManager.h"
 #include "..\Math\Matrix4x4.h"
 #include "..\Math\Vector4.h"
 #include "Camera.h"
+#include "Buildings.h"
+#include "Barriers.h"
+#include "TrackSections.h"
 #include "TrackBlock.h"
 #include <stdlib.h>
 #include <time.h>
-#include "Buildings.h"
-#include "Barriers.h"
 
-class Track
+class RacingTrack
 {
 private:
-	Model *raceTrack;
-	Model *trackBarrier, *reflecTrackBarrier;
-	Model *building, *reflecBuilding;
-	Shader *instancingShader;
-	GLuint trackAmount, barrierAmount, buildingAmount;
-	Matrix4 *trackModelMatrices;
 	unsigned int blockAmount;
 	TrackBlock *trackBlock;
 	// TODO(Darren): What to only have one skycolor in the track class
@@ -27,15 +22,15 @@ private:
 	// Collision boxes for the barriers on the track
 	CollisionBox leftB_BoundingBox, rightB_BoundingBox;
 	TrackBlock debug_block;
+
 	Buildings buildings;
 	Barriers barriers;
-
-	void SetUpBuffers(GLuint &vao, Matrix4 *matrices, GLuint amount);
-	void RenderInstance(Model *model, GLuint amount);
+	TrackSections trackSections;
 
 public:
-	Track();
-	~Track();
+	RacingTrack();
+	~RacingTrack();
+
 	void Init();
 	void Update(float deltaTime);
 	bool TrackCollision(CollisionBox &playerBoundingBox);

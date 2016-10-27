@@ -181,9 +181,10 @@
     <ClCompile Include="Renderer\Texture.cpp" />
     <ClCompile Include="Math\Vector2.cpp" />
     <ClCompile Include="Platform\WindowManagement.cpp" />
-    <ClCompile Include="Game\Track.cpp" />
+    <ClCompile Include="Game\RacingTrack.cpp" />
     <ClCompile Include="Renderer\Skybox.cpp" />
     <ClCompile Include="Game\TrackBlock.cpp" />
+    <ClCompile Include="Game\TrackSections.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Barriers.h" />
@@ -214,10 +215,10 @@
     <ClInclude Include="Renderer\Texture.h" />
     <ClInclude Include="Math\Vector2.h" />
     <ClInclude Include="Platform\WindowManagement.h" />
-    <ClInclude Include="Game\Track.h" />
+    <ClInclude Include="Game\RacingTrack.h" />
     <ClInclude Include="Renderer\Skybox.h" />
     <ClInclude Include="Game\TrackBlock.h" />
-    <ClInclude Include="Tracks.h" />
+    <ClInclude Include="Game\TrackSections.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\Instancing.vert" />
