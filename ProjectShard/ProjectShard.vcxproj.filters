@@ -102,7 +102,7 @@
     <ClCompile Include="Game\Buildings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BUILDINGS.CPP">
+    <ClCompile Include="Game\Barriers.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -195,6 +195,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game\Buildings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Barriers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tracks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

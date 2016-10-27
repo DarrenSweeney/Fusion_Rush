@@ -1,20 +1,20 @@
-#ifndef BUILDINGS_H
-#define BUILDINGS_H
+#ifndef BARRIERS_H
+#define BARRIERS_H
 
 #include "..\Renderer\InstancingEntity.h"
 #include "..\Renderer\Model.h"
 #include "Camera.h"
 
-class Buildings : public InstancingEntity
+class Barriers : public InstancingEntity
 {
 public:
-	Buildings();
-	~Buildings();
+	Barriers();
+	~Barriers();
 	void Render(Camera &camera, GLsizei screenWidth, GLsizei screenHeight);
 	void RenderReflection(Camera &camera, GLsizei screenWidth, GLsizei screenHeight);
 
 private:
-	Model *buildingModel, *reflecBuildingModel;
+	Model *barrierModel, *reflecBarrierModel;
 	Matrix4 *modelMatrices, *refleModelMatrices;
 	Matrix4 scaleMatrix;
 };

@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "Buildings.h"
+#include "Barriers.h"
 
 class Track
 {
@@ -19,8 +20,6 @@ private:
 	Shader *instancingShader;
 	GLuint trackAmount, barrierAmount, buildingAmount;
 	Matrix4 *trackModelMatrices;
-	Matrix4 *barrierModelMatrices, *barrierRefleMatrices;
-	Matrix4 *buildingModelMatrices, *buildingRefleMatrices;
 	unsigned int blockAmount;
 	TrackBlock *trackBlock;
 	// TODO(Darren): What to only have one skycolor in the track class
@@ -29,6 +28,7 @@ private:
 	CollisionBox leftB_BoundingBox, rightB_BoundingBox;
 	TrackBlock debug_block;
 	Buildings buildings;
+	Barriers barriers;
 
 	void SetUpBuffers(GLuint &vao, Matrix4 *matrices, GLuint amount);
 	void RenderInstance(Model *model, GLuint amount);

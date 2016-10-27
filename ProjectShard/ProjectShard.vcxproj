@@ -155,7 +155,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Desktop\imgui-master\imgui-master\examples\libs\gl3w\GL\gl3w.c" />
-    <ClCompile Include="BUILDINGS.CPP" />
+    <ClCompile Include="Game\Barriers.cpp" />
     <ClCompile Include="Game\Buildings.cpp" />
     <ClCompile Include="Renderer\InstancingEntity.cpp" />
     <ClCompile Include="Math\CollisionBox.cpp" />
@@ -186,6 +186,7 @@
     <ClCompile Include="Game\TrackBlock.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Game\Barriers.h" />
     <ClInclude Include="Game\Buildings.h" />
     <ClInclude Include="Renderer\InstancingEntity.h" />
     <ClInclude Include="Math\CollisionBox.h" />
@@ -216,6 +217,7 @@
     <ClInclude Include="Game\Track.h" />
     <ClInclude Include="Renderer\Skybox.h" />
     <ClInclude Include="Game\TrackBlock.h" />
+    <ClInclude Include="Tracks.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\Instancing.vert" />

@@ -15,11 +15,6 @@ Track::Track()
 	glUniform3f(glGetUniformLocation(instancingShader->Program, "skyColour"), skyColour.x, skyColour.y, skyColour.z);
 
 	trackModelMatrices = new Matrix4[trackAmount];
-	barrierModelMatrices = new Matrix4[barrierAmount];
-	barrierRefleMatrices = new Matrix4[barrierAmount];
-	buildingModelMatrices = new Matrix4[buildingAmount];
-	buildingRefleMatrices = new Matrix4[buildingAmount];
-
 	trackBlock = new TrackBlock[blockAmount];
 }
 
@@ -30,17 +25,12 @@ Track::~Track()
 	delete reflecTrackBarrier;
 	delete building;
 	delete[] trackModelMatrices;
-	delete[] barrierModelMatrices;
-	delete[] buildingModelMatrices;
-	delete[] barrierRefleMatrices;
 	delete[] trackBlock;
 }
 
 void Track::Init()
 {
 	srand(time(NULL));
-
-	buildings.Init();
 
 	// Set up the track blocks
 	for (int i = 0; i < blockAmount; i++)
@@ -117,80 +107,10 @@ void Track::Init()
 		SetUpBuffers(raceTrack->meshes[i].VAO, trackModelMatrices, trackAmount);
 
 	// Set the model matrices for the barrier
-	scaleMatrix = Matrix4();
-	Vector3 scaleVec(3.0f, 5.0f, 3.0f);
-	scaleMatrix = scaleMatrix.scale(scaleVec);
-	for (GLuint i = 0; i < barrierAmount; i++)
-	{
-		Matrix4 transMatrix = Matrix4();
-		Matrix4 rotate = Matrix4();
 
-		int rotateDeg = i % 2 == 0 ? 0.0f : -180.0f;
-		rotate = rotate.rotateY(MathHelper::DegressToRadians(rotateDeg));
-
-		int barrierZPos = i;
-		if (barrierZPos % 2 == 0)
-			barrierZPos = -60.0f * i;
-		else if (barrierZPos % 2 == 1)
-			barrierZPos = -60.0f * (i - 1);
-
-		int barrierXPos = i % 2 == 0 ? 60.0f : -60.0f;
-		transMatrix = transMatrix.translate(Vector3(barrierXPos, -9.0f, barrierZPos));
-		barrierModelMatrices[i] = scaleMatrix * rotate * transMatrix;
-	}
-
-	for (GLuint i = 0; i < trackBarrier->meshes.size(); i++)
-		SetUpBuffers(trackBarrier[0].meshes[i].VAO, barrierModelMatrices, barrierAmount);
-
-	// Set the model matrices for the buildings
-	scaleMatrix = Matrix4();
-	scaleMatrix = scaleMatrix.scale(Vector3(19.9f, 19.9f, 19.9f));
-	for (GLuint i = 0; i < buildingAmount; i++)
-	{
-		Matrix4 transMatrix = Matrix4();
-		Matrix4 rotate = Matrix4();
-
-		int buildingXPos = i % 2 == 0 ? 90.0f : -90.0f;
-		transMatrix = transMatrix.translate(Vector3(buildingXPos, -100.0f, -80.0f * i));
-		buildingModelMatrices[i] = scaleMatrix * transMatrix;
-	}
-
-	for (GLuint i = 0; i < building->meshes.size(); i++)
-		SetUpBuffers(building->meshes[i].VAO, buildingModelMatrices, buildingAmount);
-
-	/*
-		Track Scene objects
-	*/
-	// - Render barriers
-	scaleMatrix = Matrix4();
-	scaleMatrix = scaleMatrix.scale(Vector3(3.0f, 5.0f, 3.0f));
-	for (GLuint i = 0; i < barrierAmount; i++)
-	{
-		Matrix4 transMatrix = Matrix4();
-		Matrix4 rotate = Matrix4();
-
-		int rotateDeg = i % 2 == 0 ? 0.0f : -180.0f;
-		rotate = rotate.rotateY(MathHelper::DegressToRadians(rotateDeg));
-
-		int barrierZPos = i;
-		if (barrierZPos % 2 == 0)
-			barrierZPos = (-60.0f) * i;
-		else if (barrierZPos % 2 == 1)
-			barrierZPos = (-60.0f) * (i - 1);
-
-		int barrierXPos = i % 2 == 0 ? 60.0f : -60.0f;
-		transMatrix = transMatrix.translate(Vector3(barrierXPos, 1.0f, barrierZPos));
-		barrierRefleMatrices[i] = scaleMatrix * rotate * transMatrix;
-	}
-
-	/*
-		TODO(Darren): Need to fix the reflection matrices, wrong order!
-
-		TODO(Darren): May create a InstanceEntity class and seperate tracks and barriers
-	*/
 
 	Matrix4 rotate = Matrix4();
-	scaleVec = Vector3(3.0f, 5.0f, 60.0f);
+	Vector3 scaleVec = Vector3(3.0f, 5.0f, 60.0f);
 	debug_block.position = Vector3(-60.0f, 0.0f, 0.0f);
 	debug_block.rotate = rotate;
 	debug_block.scaleVec = scaleVec;
@@ -198,25 +118,6 @@ void Track::Init()
 	//rotate = Matrix4();
 	//rotate = rotate.rotateY(MathHelper::DegressToRadians(-90.0f));
 	//rightB_BoundingBox.UpdateBoundingBox(Vector3(60.0f, -9.0f, -60.0f), rotate, scaleVec);
-
-	for (GLuint i = 0; i < reflecTrackBarrier->meshes.size(); i++)
-		SetUpBuffers(reflecTrackBarrier[0].meshes[i].VAO, barrierRefleMatrices, barrierAmount);
-
-	// - Render buildings
-	scaleMatrix = Matrix4();
-	scaleMatrix = scaleMatrix.scale(Vector3(20.0f, 20.0f, 20.0f));
-	for (GLuint i = 0; i < buildingAmount; i++)
-	{
-		Matrix4 transMatrix = Matrix4();
-		Matrix4 rotate = Matrix4();
-
-		int buildingXPos = i % 2 == 0 ? 90.0f : -90.0f;
-		transMatrix = transMatrix.translate(Vector3(buildingXPos, -25.0f, -80.0f * i));
-		buildingRefleMatrices[i] = scaleMatrix * transMatrix;
-	}
-
-	for (GLuint i = 0; i < reflecBuilding->meshes.size(); i++)
-		SetUpBuffers(reflecBuilding->meshes[i].VAO, buildingRefleMatrices, buildingAmount);
 }
 
 void Track::Update(float deltaTime)
@@ -276,27 +177,6 @@ void Track::SetUpBuffers(GLuint &vao, Matrix4 *matrices, GLuint amount)
 	glDeleteBuffers(1, &buffer);
 }
 
-void Track::RenderSceneObjects(Camera &camera, GLsizei screenWidth, GLsizei screenHeight)
-{
-	Matrix4 projection = camera.GetProjectionMatrix(screenWidth, screenHeight);
-	Matrix4 view;
-	view = camera.GetViewMatrix();
-
-	instancingShader->Use();
-	glUniformMatrix4fv(glGetUniformLocation(instancingShader->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(instancingShader->Program, "view"), 1, GL_FALSE, &view.data[0]);
-
-	// Render the barriers for the tracks
-	RenderInstance(reflecTrackBarrier, barrierAmount);
-	// Render the building along the track
-	RenderInstance(reflecBuilding, buildingAmount);
-
-	debug_block.Render(camera, screenWidth, screenHeight);
-
-	for (unsigned int i = 0; i < blockAmount; i++)
-		trackBlock[i].Render(camera, screenWidth, screenHeight);
-}
-
 void Track::RenderTrack(Camera &camera, GLsizei screenWidth, GLsizei screenHeight)
 {
 	Matrix4 projection = camera.GetProjectionMatrix(screenWidth, screenHeight);
@@ -311,22 +191,29 @@ void Track::RenderTrack(Camera &camera, GLsizei screenWidth, GLsizei screenHeigh
 	RenderInstance(raceTrack, trackAmount);
 }
 
+void Track::RenderSceneObjects(Camera &camera, GLsizei screenWidth, GLsizei screenHeight)
+{
+	Matrix4 projection = camera.GetProjectionMatrix(screenWidth, screenHeight);
+	Matrix4 view = camera.GetViewMatrix();
+
+	
+	buildings.Render(camera, screenWidth, screenHeight);
+	barriers.Render(camera, screenWidth, screenHeight);
+
+	debug_block.Render(camera, screenWidth, screenHeight);
+
+	for (unsigned int i = 0; i < blockAmount; i++)
+		trackBlock[i].Render(camera, screenWidth, screenHeight);
+}
+
 void Track::RenderTrackReflection(Camera &camera, GLsizei screenWidth, GLsizei screenHeight)
 {
 	Matrix4 projection = camera.GetProjectionMatrix(screenWidth, screenHeight);
 	Matrix4 view;
 	view = camera.GetViewMatrix();
-	
-	buildings.RenderReflection(camera, screenWidth, screenHeight);
 
-	instancingShader->Use();
-	glUniformMatrix4fv(glGetUniformLocation(instancingShader->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(instancingShader->Program, "view"), 1, GL_FALSE, &view.data[0]);
-
-	// Render the barriers for the tracks
-	RenderInstance(trackBarrier, barrierAmount);
-	// Render the building along the track
-	//RenderInstance(building, buildingAmount);
+	buildings.RenderReflection(camera, screenWidth, screenHeight); 
+	barriers.RenderReflection(camera, screenWidth, screenHeight);
 
 	for (unsigned int i = 0; i < blockAmount; i++)
 		trackBlock[i].RenderReflection(camera, screenWidth, screenHeight);

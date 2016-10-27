@@ -10,7 +10,6 @@ public:
 	InstancingEntity();
 	~InstancingEntity();
 	GLuint amount;
-	Matrix4 *modelMatrices;
 
 protected:
 	void SetUpBuffers(GLuint &vao, Matrix4 *matrices, GLuint amount);
