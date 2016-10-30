@@ -9,10 +9,26 @@
 // Testing out GameSparks SDK
 #include <GameSparks/GS.h>
 #include <GameSparks/IGSPlatform.h>
-
+#include <GameSparks/generated/GSRequests.h>
+#include <GameSparks/generated\GSResponses.h>
 #include "GameSparksConfiguration.h"
+#include "GameSparks\GSOptional.h"
 
 using namespace GameSparks::Core;
+using namespace GameSparks::Api::Responses;
+using namespace GameSparks::Api::Requests;
+using namespace GameSparks::Optional;
+using namespace GameSparks::Api::Types;
+
+void LeaderboardDataRequest_Response(GS& gsInstance, const LeaderboardDataResponse& response) 
+{
+	t_StringOptional challengeInstanceId = response.GetChallengeInstanceId();
+	gsstl:vector<LeaderboardData> data = response.GetData();
+	gsstl::vector<LeaderboardData> first = response.GetFirst();
+	gsstl::vector<LeaderboardData> last = response.GetLast();
+	t_StringOptional leaderboardShortCode = response.GetLeaderboardShortCode();
+	GSData::t_Optional scriptData = response.GetScriptData();
+}
 
 int main(int argc, char* argv[])
 {
@@ -24,6 +40,15 @@ int main(int argc, char* argv[])
 	gsstl::string message;
 	platform.DebugMsg(message);
 	gs.Initialise(&platform);
+
+	LeaderboardDataRequest request(gs);
+	long _entryCount = 10;
+	// Request parameters
+	request.SetEntryCount(_entryCount);
+	request.Send(LeaderboardDataRequest_Response);
+
+	// Responce parameters
+	// ---
 
 	SoundEngine soundEngine;
 
