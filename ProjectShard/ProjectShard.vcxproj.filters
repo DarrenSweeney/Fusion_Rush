@@ -228,6 +228,8 @@
     <None Include="Shaders\Skybox.vert" />
     <None Include="GameSparks\GSIosHelper.mm" />
     <None Include="Shaders\ExplodeGeometry.gs" />
+    <None Include="Shaders\Player.vert" />
+    <None Include="Shaders\Player.frag" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Todo.txt" />

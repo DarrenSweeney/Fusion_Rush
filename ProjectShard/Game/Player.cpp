@@ -4,7 +4,7 @@ Player::Player()
 	: rotationSpeed(2.0f), camera(Vector3(3.0f, 0.0f, 2.0)), position(Vector3(0.0f, 0.0f, 150.0f))
 {
 	model = g_resourceMgr.GetModel(SID("PlayerShip"));
-	shaderModel = g_resourceMgr.GetShader(SID("ModelShader"));
+	shaderModel = g_resourceMgr.GetShader(SID("PlayerShader"));
 }
 
 Player::~Player()
@@ -15,6 +15,10 @@ Player::~Player()
 
 void Player::Update(float deltaTime)
 {
+	// Add time component to geometry shader in the form of a uniform
+	shaderModel->Use();
+	glUniform1f(glGetUniformLocation(shaderModel->Program, "time"), glfwGetTime());
+
 	position += linearVelocity * deltaTime;
 	camera.SetPosition(position - Vector3(0.0f, -15.0f, -40.0f));
 

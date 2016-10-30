@@ -224,6 +224,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="GameSparks\GSIosHelper.mm" />
+    <None Include="Shaders\Player.frag" />
+    <None Include="Shaders\Player.vert" />
     <None Include="Shaders\ExplodeGeometry.gs" />
     <None Include="Shaders\Instancing.vert" />
     <None Include="Shaders\model.frag" />

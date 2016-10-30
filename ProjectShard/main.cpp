@@ -48,7 +48,7 @@ int main(int argc, char* argv[])
 	request.Send(LeaderboardDataRequest_Response);
 
 	// Responce parameters
-	// ---
+	//LeaderboardDataResponse responce(,);
 
 	SoundEngine soundEngine;
 

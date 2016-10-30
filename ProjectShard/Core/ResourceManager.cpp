@@ -59,6 +59,8 @@ void ResourceManager::LoadSceneShaders()
 	LoadShader("Instancing", "Shaders/instancing.vert", "Shaders/EnviromentObject.frag");
 	// Skybox shader
 	LoadShader("SkyboxShader", "Shaders/Skybox.vert", "Shaders/Skybox.frag");
+	// Player shader
+	LoadShader("PlayerShader", "Shaders/Player.vert", "Shaders/Player.frag", "Shaders/ExplodeGeometry.gs");
 }
 
 void ResourceManager::LoadSceneModels()
