@@ -79,10 +79,7 @@ void RacingTrack::Init()
 	debug_block.position = Vector3(-60.0f, 0.0f, 0.0f);
 	debug_block.rotate = rotate;
 	debug_block.scaleVec = scaleVec;
-	leftB_BoundingBox.UpdateBoundingBox(Vector3(-60.0f, 0.0f, 0.0f), rotate, scaleVec);
-	//rotate = Matrix4();
-	//rotate = rotate.rotateY(MathHelper::DegressToRadians(-90.0f));
-	//rightB_BoundingBox.UpdateBoundingBox(Vector3(60.0f, -9.0f, -60.0f), rotate, scaleVec);
+	debug_BoundingBox.UpdateBoundingBox(Vector3(-60.0f, 0.0f, 0.0f), rotate, scaleVec);
 }
 
 void RacingTrack::Update(float deltaTime)
@@ -103,7 +100,7 @@ bool RacingTrack::TrackCollision(CollisionBox &playerBoundingBox)
 		}
 	}
 
-	if (leftB_BoundingBox.Intersects(playerBoundingBox))// || rightB_BoundingBox.Intersects(playerBoundingBox))
+	if (debug_BoundingBox.Intersects(playerBoundingBox))
 	{
 		return true;
 	}

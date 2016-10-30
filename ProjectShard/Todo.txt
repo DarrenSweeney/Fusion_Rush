@@ -2,19 +2,9 @@
 
 // Things that need to be done.
 2. Create a rotation reflection
-4. May create a InstanceEntity class and seperate tracks and barriers
 5. Implement geometry exploding shader.
+
+// NEED TO FIX: Hash ID memory leak in hash table.
 
 Create a debug camera which is free to move around.
 Do CPU and GPU timings.
-
-Art: (Basic art to achieve the look and feel of the game)
-	- Ship		(DONE)
-	- Track		(DONE)
-	- Barrier	(DONE)
-	- Building  (DONE)
-	- Blocks	(DONE)
-	- Sky box	(DONE)
-	- 80's Sun
-
-// Scan 3D (Phil)

@@ -6,10 +6,24 @@
 #include "Audio\SoundEngine.h"
 #include "Platform\WindowManagement.h"
 
+// Testing out GameSparks SDK
+#include <GameSparks/GS.h>
+#include <GameSparks/IGSPlatform.h>
+
+#include "GameSparksConfiguration.h"
+
+using namespace GameSparks::Core;
+
 int main(int argc, char* argv[])
 {
 	WindowManagement window;
 	window.StartUp();
+
+	GS gs;
+	GameSparksConfiguration::NativePlatformDescription platform;
+	gsstl::string message;
+	platform.DebugMsg(message);
+	gs.Initialise(&platform);
 
 	SoundEngine soundEngine;
 
@@ -54,6 +68,7 @@ int main(int argc, char* argv[])
 		window.SwapBuffers();
 	}
 
+	gs.ShutDown();
 	window.ShutDown();
 	return 0;
 }

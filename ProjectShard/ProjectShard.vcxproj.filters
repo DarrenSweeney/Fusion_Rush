@@ -99,13 +99,16 @@
     <ClCompile Include="Game\Buildings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Barriers.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Game\RacingTrack.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Game\TrackSections.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Barriers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSparksAll.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -206,6 +209,9 @@
     <ClInclude Include="Game\TrackSections.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GameSparksConfiguration.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\EnviromentObject.frag" />
@@ -220,6 +226,8 @@
     <None Include="Shaders\Instancing.vert" />
     <None Include="Shaders\Skybox.frag" />
     <None Include="Shaders\Skybox.vert" />
+    <None Include="GameSparks\GSIosHelper.mm" />
+    <None Include="Shaders\ExplodeGeometry.gs" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Todo.txt" />
