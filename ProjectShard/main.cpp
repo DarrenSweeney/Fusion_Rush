@@ -22,24 +22,6 @@ using namespace GameSparks::Api::Types;
 
 gsstl::vector<LeaderboardData> givemedata;
 
-void RegistrationRequest_Response(GS& gsInstance, const RegistrationResponse& response) 
-{
-	t_StringOptional authToken = response.GetAuthToken();
-	t_StringOptional displayName = response.GetDisplayName();
-	t_BoolOptional newPlayer = response.GetNewPlayer();
-	GSData::t_Optional scriptData = response.GetScriptData();
-	GameSparks::Api::Types::Player switchSummary = response.GetSwitchSummary();
-	t_StringOptional userId = response.GetUserId();
-}
-
-void LeaderboardDataRequest_Response(GS& gsInstance, const LeaderboardDataResponse& response) 
-{
-	gsstl::vector<LeaderboardData> data = response.GetData();
-	givemedata = response.GetFirst();
-	gsstl::vector<LeaderboardData> last = response.GetLast();
-	t_StringOptional leaderboardShortCode = response.GetLeaderboardShortCode();
-}
-
 void AuthenticationRequest_Response(GameSparks::Core::GS&, const GameSparks::Api::Responses::AuthenticationResponse& response)
 {
 	if (response.GetHasErrors())
@@ -54,23 +36,49 @@ void AuthenticationRequest_Response(GameSparks::Core::GS&, const GameSparks::Api
 	}
 }
 
+void RegistrationRequest_Response(GS& gsInstance, const GameSparks::Api::Responses::RegistrationResponse& response)
+{
+	if (response.GetHasErrors() && response.GetErrors().GetValue().GetString("USERNAME").GetValue() != "TAKEN")
+	{
+		std::cout << "something went wrong during the registration" << std::endl;
+		std::cout << response.GetErrors().GetValue().GetJSON().c_str() << std::endl;
+	}
+	else
+	{
+		// login immediately when gamesparks is available
+		GameSparks::Api::Requests::AuthenticationRequest request(gsInstance);
+		request.SetUserName("Johnny");
+		request.SetPassword("password");
+		request.Send(AuthenticationRequest_Response);
+	}
+}
+
+void LeaderboardDataRequest_Response(GS& gsInstance, const LeaderboardDataResponse& response) 
+{
+	gsstl::vector<LeaderboardData> data = response.GetData();
+	givemedata = response.GetFirst();
+	gsstl::vector<LeaderboardData> last = response.GetLast();
+	t_StringOptional leaderboardShortCode = response.GetLeaderboardShortCode();
+}
+
 void GameSparksAvailable(GameSparks::Core::GS& gsInstance, bool available)
 {
 	std::cout << "\nGameSparks is " << (available ? "available" : "not available") << std::endl;
 
 	if (available)
 	{
-		// try with wrong credentials
-		GameSparks::Api::Requests::AuthenticationRequest requestWrong(gsInstance);
-		requestWrong.SetUserName("TOTALLYWRONGUSER");
-		requestWrong.SetPassword("TOTALLYWRONGPASSWORD");
-		requestWrong.Send(AuthenticationRequest_Response);
-
-		// try with right credentials
+		// Try with right credentials
 		GameSparks::Api::Requests::AuthenticationRequest requestRight(gsInstance);
 		requestRight.SetUserName("SpyroTheDragon");
 		requestRight.SetPassword("password");
 		requestRight.Send(AuthenticationRequest_Response);
+
+		// Try with an account created
+		GameSparks::Api::Requests::RegistrationRequest req(gsInstance);
+		req.SetUserName("Johnny");
+		req.SetPassword("password");
+		req.SetDisplayName("SuperPlayerJohnny");
+		req.Send(RegistrationRequest_Response);
 	}
 }
 
@@ -86,18 +94,6 @@ int main(int argc, char* argv[])
 	platform.DebugMsg(message);
 	gs.Initialise(&platform);
 	gs.GameSparksAvailable = GameSparksAvailable;
-
-	RegistrationRequest registrationRequest(gs);
-	registrationRequest.SetDisplayName("DarrenSweeney");
-	registrationRequest.SetPassword("password");
-	registrationRequest.SetUserName("SpyroTheDragon");
-	registrationRequest.Send(RegistrationRequest_Response);
-
-	// Responce parameters
-	LeaderboardDataRequest request(gs);
-	request.SetEntryCount(5);
-	request.SetLeaderboardShortCode("Race_Times");
-	request.Send(LeaderboardDataRequest_Response);
 	std::cout << "--- End GameSparks ---" << std::endl;
 
 	SoundEngine soundEngine;
