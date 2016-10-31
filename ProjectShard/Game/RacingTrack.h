@@ -18,7 +18,7 @@ private:
 	unsigned int blockAmount;
 	TrackBlock *trackBlock;
 	// TODO(Darren): What to only have one skycolor in the track class
-	Vector3 skyColour;
+	// ---
 	// Collision boxes for the barriers on the track
 	CollisionBox debug_BoundingBox;
 	TrackBlock debug_block;

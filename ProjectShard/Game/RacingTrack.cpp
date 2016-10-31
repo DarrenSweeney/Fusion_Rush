@@ -1,7 +1,7 @@
 #include "RacingTrack.h"
 
 RacingTrack::RacingTrack()
-	: blockAmount(50), skyColour(0.5f, 0.5f, 0.5f)
+	: blockAmount(50)
 {
 	trackBlock = new TrackBlock[blockAmount];
 }

@@ -17,7 +17,7 @@ void Player::Update(float deltaTime)
 {
 	// Add time component to geometry shader in the form of a uniform
 	shaderModel->Use();
-	glUniform1f(glGetUniformLocation(shaderModel->Program, "time"), glfwGetTime());
+	glUniform1f(glGetUniformLocation(shaderModel->Program, "time"), glfwGetTime() * 5.0f);
 
 	position += linearVelocity * deltaTime;
 	camera.SetPosition(position - Vector3(0.0f, -15.0f, -40.0f));

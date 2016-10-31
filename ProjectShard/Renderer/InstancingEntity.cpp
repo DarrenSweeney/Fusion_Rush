@@ -4,7 +4,7 @@ InstancingEntity::InstancingEntity()
 {
 	instancingShader = g_resourceMgr.GetShader(SID("Instancing"));
 	instancingShader->Use();
-	glUniform3f(glGetUniformLocation(instancingShader->Program, "skyColour"), 0.5f, 0.5f, 0.5f);
+	glUniform3f(glGetUniformLocation(instancingShader->Program, "skyColour"), 0.8f, 0.45f, 0.4f);
 }
 
 InstancingEntity::~InstancingEntity()

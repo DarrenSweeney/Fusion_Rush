@@ -15,8 +15,8 @@ public:
 
 private:
 	// Values based on http://isthe.com/chongo/tech/comp/fnv/
-	const static unsigned long FNV_prime =	0x01000193;		// 0016777619
-	const static unsigned long FNV_offset_basis =	0x811C9DC5;		// 2166136261
+	const static unsigned long FNV_prime		=	0x01000193;	// 0016777619
+	const static unsigned long FNV_offset_basis =	0x811C9DC5;	// 2166136261
 
 	unsigned long HashStringID(const char *str);
 };

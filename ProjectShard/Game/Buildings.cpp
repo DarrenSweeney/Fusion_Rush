@@ -8,8 +8,9 @@ Buildings::Buildings()
 
 	buildingModel = g_resourceMgr.GetModel(SID("Building"));
 	reflecBuildingModel = g_resourceMgr.GetModel(SID("BuildingReflection"));
+
 	UseInstancingShader();
-	glUniform3f(glGetUniformLocation(ShaderProgramID(), "skyColour"), 0.5f, 0.5f, 0.5f);
+	glUniform3f(glGetUniformLocation(ShaderProgramID(), "skyColour"), 0.8f, 0.45f, 0.4f);
 
 	scaleMatrix = Matrix4();
 	scaleMatrix = scaleMatrix.scale(Vector3(20.0f, 20.0f, 20.0f));

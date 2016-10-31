@@ -3,6 +3,7 @@
 TrackBlock::TrackBlock()
 	:	position(10.5f, 0.5f, -550.0f), scaleVec(7.0f, 7.0f, 7.0f)
 {
+	// TODO(Darren): Remove this
 	Vector3 skyColour(0.5f, 0.5f, 0.5f);
 
 	modelBlock = g_resourceMgr.GetModel("Block");

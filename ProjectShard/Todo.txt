@@ -1,8 +1,8 @@
 # Darren's todo list for road the games fleadh
 
 // Things that need to be done.
-2. Create a rotation reflection
-5. Implement geometry exploding shader.
+1. Create a rotation reflection
+2. Implement collision for all the barriers
 
 // NEED TO FIX: Hash ID memory leak in hash table.
 

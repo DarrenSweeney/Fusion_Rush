@@ -8,8 +8,6 @@ Barriers::Barriers()
 
 	barrierModel = g_resourceMgr.GetModel(SID("Barrier"));
 	reflecBarrierModel = g_resourceMgr.GetModel(SID("BarrierReflection"));
-	UseInstancingShader();
-	glUniform3f(glGetUniformLocation(ShaderProgramID(), "skyColour"), 0.5f, 0.5f, 0.5f);
 
 	scaleMatrix = Matrix4();
 	scaleMatrix = scaleMatrix.scale(Vector3(3.0f, 5.0f, 3.0f));
