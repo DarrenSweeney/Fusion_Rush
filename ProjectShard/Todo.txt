@@ -2,7 +2,7 @@
 
 1. Create a rotation reflection
 2. Implement collision for all the barriers
-3. Fix timeout error with gamesparks
-4. NEED TO FIX: Hash ID memory leak in hash table.
-5. Make respositry public
-6. Make a preview video
+3. NEED TO FIX: Hash ID memory leak in hash table
+4. Make respositry public
+5. Make a preview video
+6. Fix text shader

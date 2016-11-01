@@ -21,6 +21,7 @@ private:
 	Text testText;
 	Shader *sceneObjects;
 	Sound sound;
+	// TODO(Darren): Rename this to player.
 	Player player;
 	Model *raceTrack;
 	Model *barrier;
