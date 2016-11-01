@@ -20,8 +20,6 @@ using namespace GameSparks::Api::Requests;
 using namespace GameSparks::Optional;
 using namespace GameSparks::Api::Types;
 
-gsstl::vector<LeaderboardData> givemedata;
-
 void AuthenticationRequest_Response(GameSparks::Core::GS&, const GameSparks::Api::Responses::AuthenticationResponse& response)
 {
 	if (response.GetHasErrors())
@@ -45,9 +43,9 @@ void RegistrationRequest_Response(GS& gsInstance, const GameSparks::Api::Respons
 	}
 	else
 	{
-		// login immediately when gamesparks is available
+		// Login immediately when gamesparks is available
 		GameSparks::Api::Requests::AuthenticationRequest request(gsInstance);
-		request.SetUserName("Johnny");
+		request.SetUserName("SpyroTheDragon");
 		request.SetPassword("password");
 		request.Send(AuthenticationRequest_Response);
 	}
@@ -55,10 +53,23 @@ void RegistrationRequest_Response(GS& gsInstance, const GameSparks::Api::Respons
 
 void LeaderboardDataRequest_Response(GS& gsInstance, const LeaderboardDataResponse& response) 
 {
-	gsstl::vector<LeaderboardData> data = response.GetData();
-	givemedata = response.GetFirst();
-	gsstl::vector<LeaderboardData> last = response.GetLast();
-	t_StringOptional leaderboardShortCode = response.GetLeaderboardShortCode();
+	if (response.GetHasErrors())
+	{
+		std::cout << "something went wrong with leaderboard data request" << std::endl;
+		std::cout << response.GetErrors().GetValue().GetJSON().c_str() << std::endl;
+	}
+	else
+	{
+		gsstl::vector<LeaderboardData> data = response.GetData();
+
+		for (gsstl::vector<LeaderboardData>::iterator it = data.begin(); it != data.end(); ++it)
+		{
+			LeaderboardData data = *it;
+
+			std::cout << "Darren Sweeney" << std::endl;
+			std::cout << "-Data: " << data.GetBaseData().GetString("userName").GetValue().c_str() << std::endl;
+		}
+	}
 }
 
 void GameSparksAvailable(GameSparks::Core::GS& gsInstance, bool available)
@@ -73,12 +84,17 @@ void GameSparksAvailable(GameSparks::Core::GS& gsInstance, bool available)
 		requestRight.SetPassword("password");
 		requestRight.Send(AuthenticationRequest_Response);
 
-		// Try with an account created
+		// Try request an account registration
 		GameSparks::Api::Requests::RegistrationRequest req(gsInstance);
 		req.SetUserName("Johnny");
 		req.SetPassword("password");
 		req.SetDisplayName("SuperPlayerJohnny");
 		req.Send(RegistrationRequest_Response);
+		
+		GameSparks::Api::Requests::LeaderboardDataRequest leaderboard(gsInstance);
+		leaderboard.SetEntryCount(10);
+		leaderboard.SetLeaderboardShortCode("Race_Times");
+		leaderboard.Send(LeaderboardDataRequest_Response);
 	}
 }
 
@@ -95,7 +111,6 @@ int main(int argc, char* argv[])
 	gs.Initialise(&platform);
 	gs.GameSparksAvailable = GameSparksAvailable;
 	std::cout << "--- End GameSparks ---" << std::endl;
-
 	SoundEngine soundEngine;
 
 	GLfloat deltaTime = 0.0f;
@@ -116,7 +131,7 @@ int main(int argc, char* argv[])
 
 	while (!window.CloseState())
 	{
-		gs.Update(glfwGetTime());
+		gs.Update(0.1f);
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 

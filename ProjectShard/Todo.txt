@@ -1,10 +1,8 @@
-# Darren's todo list for road the games fleadh
+# Darren's todo list for road to Games Fleadh:)
 
-// Things that need to be done.
 1. Create a rotation reflection
 2. Implement collision for all the barriers
-
-// NEED TO FIX: Hash ID memory leak in hash table.
-
-Create a debug camera which is free to move around.
-Do CPU and GPU timings.
+3. Fix timeout error with gamesparks
+4. NEED TO FIX: Hash ID memory leak in hash table.
+5. Make respositry public
+6. Make a preview video
