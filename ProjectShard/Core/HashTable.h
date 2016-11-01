@@ -104,7 +104,7 @@ template <class T>
 T* HashTable<T>::Find(HashID hashID)
 {
 	int index = HashIndex(hashID);
-	T *value = new T;	//	TODO(Darren): Fix this.
+	T *value = new T;
 
 	Item *ptr = hashTable[index];
 	while (ptr != NULL)

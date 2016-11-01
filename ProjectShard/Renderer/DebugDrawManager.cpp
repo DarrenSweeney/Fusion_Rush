@@ -3,8 +3,15 @@
 DebugDrawManager g_debugDrawMgr;
 
 DebugDrawManager::DebugDrawManager()
+	: VBO(0), VAO(0)
 {
 	lineShader = g_resourceMgr.GetShader(SID("DebugLine"));
+}
+
+void DebugDrawManager::Init()
+{
+	glGenBuffers(1, &VBO);
+	glGenVertexArrays(1, &VAO);
 }
 
 void DebugDrawManager::AddLine(const Vector3 &startPos, const Vector3 &endPos, Vector3 &color,
@@ -42,9 +49,6 @@ void DebugDrawManager::Submit(Camera &camera)
 	{
 		lineShader->Use();
 
-		GLuint VBO, VAO;
-		glGenBuffers(1, &VBO);
-		glGenVertexArrays(1, &VAO);
 		glBindVertexArray(VAO);
 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
 		GLsizeiptr size = sizeof(Line) * lineCount;

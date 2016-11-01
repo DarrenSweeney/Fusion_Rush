@@ -10,7 +10,7 @@
 class DebugDrawManager
 {
 private:
-	static const unsigned int MAX_LINES = 256;
+	static const unsigned int MAX_LINES = 16;
 	const float LINE_WIDTH = 1.5f;
 
 	struct Line
@@ -23,9 +23,11 @@ private:
 	Line lines[MAX_LINES];
 	int lineCount = 0;
 	Shader *lineShader;
+	GLuint VBO, VAO;
 
 public:
 	DebugDrawManager();
+	void Init();
 
 	void AddLine(const Vector3 &startPos,
 				const Vector3 &endPos,

@@ -15,6 +15,8 @@ Player::~Player()
 
 void Player::Update(float deltaTime)
 {
+	shaderModel = g_resourceMgr.GetShader(SID("PlayerShader"));
+
 	// Add time component to geometry shader in the form of a uniform
 	shaderModel->Use();
 	glUniform1f(glGetUniformLocation(shaderModel->Program, "time"), glfwGetTime() * 5.0f);
