@@ -2,6 +2,4 @@
 
 1. Create a rotation reflection
 2. Implement collision for all the barriers
-3. DebugDrawManager breaks when setting VBO and VAO
-4. Make respositry public
 5. Make a preview video

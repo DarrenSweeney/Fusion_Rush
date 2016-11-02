@@ -34,7 +34,6 @@ void TestPlayArea::InitalizeScene()
 	racingTrack.Init();
 	g_debugDrawMgr.Init();
 
-
 	//sound.soundEngine->play2D("Resources/Sounds/Bodyfall_sound_effects/BF_Short_Hard_1c.ogg");
 }
 
@@ -102,7 +101,6 @@ void TestPlayArea::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	testText.RenderText(".", Vector2(0.0f, -50.0f), 0.5f, Vector3(0.0, 0.0f, 0.0f), screenWidth, screenHeight);
 	testText.RenderText("ProjectShard", Vector2(0.0f, 10.0f), 1.0f, Vector3(1.0f, 0.3f, 0.6f), screenWidth, screenHeight);
 
 	//g_debugDrawMgr.Submit(player.camera);

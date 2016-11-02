@@ -191,6 +191,7 @@
     <ClInclude Include="GameSparksConfiguration.h" />
     <ClInclude Include="Game\Barriers.h" />
     <ClInclude Include="Game\Buildings.h" />
+    <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Renderer\InstancingEntity.h" />
     <ClInclude Include="Math\CollisionBox.h" />
     <ClInclude Include="Game\Camera.h" />

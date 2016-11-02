@@ -101,12 +101,12 @@ void Text::RenderText(std::string text, Vector2 &pos, GLfloat scale, Vector3 &co
 {
 	Matrix4 textProjection = Matrix4();
 	textProjection.orthographicProjection(0.0f, screenWidth, 0.0f, screenHeight, 1.0f, 0.0f);
+	textShader->Use();
 	glUniformMatrix4fv(glGetUniformLocation(textShader->Program, "projection"), 1, GL_FALSE, &textProjection.data[0]);
 
 	// Disable depth testing when rending text and re-enable when done.
 	glDisable(GL_DEPTH_TEST);
 	// Activate corresponding render state	
-	textShader->Use();
 	glUniform3f(glGetUniformLocation(textShader->Program, "textColor"), color.x, color.y, color.z);
 	glActiveTexture(GL_TEXTURE0);
 	glBindVertexArray(textVAO);
