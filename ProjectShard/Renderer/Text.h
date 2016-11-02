@@ -31,10 +31,10 @@ private:
 	GLuint textVAO, textVBO;
 
 public:
-	Text(GLsizei screenWidth, GLsizei screenHeight);
+	Text();
 	~Text();
 	void Load(const char* fontPath);
-	void RenderText(std::string text, Vector2 &pos, GLfloat scale, Vector3 &color, GLsizei screenWidth, GLsizei screenHeight);
+	void RenderText(std::string text, Vector2 pos, GLfloat scale, Vector3 &color, GLsizei screenWidth, GLsizei screenHeight);
 };
 
 #endif

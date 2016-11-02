@@ -4,6 +4,7 @@
 #include <iostream>
 #include <GL\gl3w.h>
 #include <GLFW\glfw3.h>
+#include "..\Input\InputManager.h"
 
 // Sets up OpenGL context and GLFW window managment
 class WindowManagement

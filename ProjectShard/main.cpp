@@ -1,10 +1,9 @@
 #include <iostream>
 
-#include "Core\ResourceManager.h"
+#include "Platform\WindowManagement.h"
 #include "Input\InputManager.h"
 #include "Game\GameApplication.h"
 #include "Audio\SoundEngine.h"
-#include "Platform\WindowManagement.h"
 
 // Testing out GameSparks SDK
 #include <GameSparks\GS.h>
@@ -116,22 +115,22 @@ int main(int argc, char* argv[])
 	GLfloat deltaTime = 0.0f;
 	GLfloat lastFrame = 0.0f;
 
+	InputManager::GetInstance().SetWindowContext(window.GetWindow());
+
 	std::cout << "\n--- Start ResourceMgr ---" << std::endl;
 	g_resourceMgr.LoadSceneShaders();
 	g_resourceMgr.LoadSceneModels();
 	g_resourceMgr.LoadSceneTextures();
-	g_resourceMgr.PrintShaderTable();
 	std::cout << "--- End ResourceMgr ---\n" << std::endl;
 
 	GameApplication gameApp;
 	gameApp.Init();
 
-	InputManager::GetInstance().SetWindowContext(window.GetWindow());
 	bool polygonMode = false;
 
 	while (!window.CloseState())
 	{
-		gs.Update(0.1f);
+		//gs.Update(0.1f);
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 

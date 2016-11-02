@@ -1,15 +1,22 @@
 #ifndef GAME_APPLICATION_H
 #define GAME_APPLICATION_H
 
+#include "..\Core\ResourceManager.h"
 #include "TestPlayArea.h"
+#include "MainMenu.h"
 
 class GameApplication
 {
 private:
 	TestPlayArea *testPlayArea;
-	GLfloat lastX;
-	GLfloat lastY;
-	bool activeCamera;
+	MainMenu *mainMenu;
+
+	enum class GameState
+	{
+		mainMenu,
+		inGame
+	};
+	GameState currentGameState = GameState::mainMenu;
 
 public:
 	GameApplication();

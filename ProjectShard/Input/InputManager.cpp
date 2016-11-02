@@ -10,12 +10,23 @@ InputManager &InputManager::GetInstance()
 
 bool InputManager::IsKeyPressed(int key)
 {
-	int state = glfwGetKey(window, key);
-
-	if (state == GLFW_PRESS)
+	if (keys_down[key] && !keys_locked[key]) 
+	{
+		keys_locked[key] = true;
 		return true;
-	else
-		return false;
+	}
+
+	return false;
+}
+
+bool InputManager::IsKeyDown(int key)
+{
+	if (keys_down[key]) 
+	{
+		return true;
+	}
+
+	return false;
 }
 
 bool InputManager::IsMouseButtonPressed(int key)

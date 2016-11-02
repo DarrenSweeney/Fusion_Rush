@@ -1,6 +1,6 @@
 #include "Text.h"
 
-Text::Text(GLsizei screenWidth, GLsizei screenHeight)
+Text::Text()
 {
 	textShader = g_resourceMgr.GetShader(SID("Text"));
 	textShader->Use();
@@ -97,7 +97,7 @@ void Text::Load(const char* fontPath)
 	FT_Done_FreeType(ft);
 }
 
-void Text::RenderText(std::string text, Vector2 &pos, GLfloat scale, Vector3 &color, GLsizei screenWidth, GLsizei screenHeight)
+void Text::RenderText(std::string text, Vector2 pos, GLfloat scale, Vector3 &color, GLsizei screenWidth, GLsizei screenHeight)
 {
 	Matrix4 textProjection = Matrix4();
 	textProjection.orthographicProjection(0.0f, screenWidth, 0.0f, screenHeight, 1.0f, 0.0f);

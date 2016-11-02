@@ -155,9 +155,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Desktop\imgui-master\imgui-master\examples\libs\gl3w\GL\gl3w.c" />
+    <ClCompile Include="Math\CollisionRectangle.cpp" />
     <ClCompile Include="GameSparksAll.cpp" />
     <ClCompile Include="Game\Barriers.cpp" />
     <ClCompile Include="Game\Buildings.cpp" />
+    <ClCompile Include="Game\MainMenu.cpp" />
     <ClCompile Include="Renderer\InstancingEntity.cpp" />
     <ClCompile Include="Math\CollisionBox.cpp" />
     <ClCompile Include="Game\Camera.cpp" />
@@ -188,10 +190,11 @@
     <ClCompile Include="Game\TrackSections.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Math\CollisionRectangle.h" />
     <ClInclude Include="GameSparksConfiguration.h" />
     <ClInclude Include="Game\Barriers.h" />
     <ClInclude Include="Game\Buildings.h" />
-    <ClInclude Include="MainMenu.h" />
+    <ClInclude Include="Game\MainMenu.h" />
     <ClInclude Include="Renderer\InstancingEntity.h" />
     <ClInclude Include="Math\CollisionBox.h" />
     <ClInclude Include="Game\Camera.h" />

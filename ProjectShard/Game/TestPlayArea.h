@@ -3,7 +3,6 @@
 
 #include "..\Renderer\Shader.h"
 #include "..\Math\Matrix4x4.h"
-#include "Camera.h"
 #include "..\Renderer\Texture.h"
 #include "..\Renderer\Text.h"
 #include "..\Renderer\DebugDrawManager.h"
@@ -18,7 +17,6 @@
 class TestPlayArea
 {
 private:
-	Text testText;
 	Shader *sceneObjects;
 	Sound sound;
 	// TODO(Darren): Rename this to player.

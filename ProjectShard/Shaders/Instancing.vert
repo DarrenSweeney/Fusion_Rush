@@ -6,7 +6,7 @@ layout (location = 3) in mat4 instanceMatrix;
 out vec2 TexCoords;
 out float visibility;
 
-const float density = 0.0030;
+const float density = 0.0025;
 const float gradient = 2.0;
 
 uniform mat4 projection;

@@ -2,6 +2,8 @@
 
 #define FULLSCREEN false
 
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+
 GLFWwindow *WindowManagement::GetWindow()
 {
 	return window;
@@ -61,6 +63,7 @@ void WindowManagement::StartUp()
 	height = 600;// vidMode->height;
 
 	window = glfwCreateWindow(width, height, "Project Shard", FULLSCREEN ? glfwGetPrimaryMonitor() : NULL, NULL);
+	glfwSetKeyCallback(window, key_callback);
 
 	if (!window)
 	{
@@ -98,4 +101,28 @@ void WindowManagement::SwapBuffers()
 void WindowManagement::ShutDown()
 {
 	glfwTerminate();
+}
+
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+	if (key == GLFW_KEY_E && action == GLFW_PRESS)
+	{
+		std::cout << "Key pressed once" << std::endl;
+	}
+
+	if (key >= 0 && key < InputManager::GetInstance().MAX_KEYS)
+	{
+		if (GLFW_PRESS == action)
+		{
+			if (!InputManager::GetInstance().keys_locked[key])
+			{
+				InputManager::GetInstance().keys_down[key] = true;
+			}
+		}
+		if (GLFW_RELEASE == action)
+		{
+			InputManager::GetInstance().keys_down[key] = false;
+			InputManager::GetInstance().keys_locked[key] = false;
+		}
+	}
 }

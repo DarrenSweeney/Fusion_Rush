@@ -1,7 +1,6 @@
 #include "TestPlayArea.h"
 
 TestPlayArea::TestPlayArea()
-	: testText(900.0f, 600.0f)
 {
 	
 }
@@ -25,7 +24,6 @@ void TestPlayArea::InitalizeScene()
 	sceneObjects->Use();
 	glUniform1i(glGetUniformLocation(sceneObjects->Program, "diffuseTexture"), 0);
 
-	testText.Load("Resources/Fonts/arial.ttf");
 	raceTrack = g_resourceMgr.GetModel(SID("RaceTrack"));
 	barrier = g_resourceMgr.GetModel(SID("Barrier"));
 	building = g_resourceMgr.GetModel(SID("Building"));
@@ -63,8 +61,6 @@ void TestPlayArea::UpdateScene(float deltaTime)
 
 void TestPlayArea::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 {
-	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
-
 	Matrix4 projection = player.camera.GetProjectionMatrix(screenWidth, screenHeight);
 	Matrix4 view = player.camera.GetViewMatrix();
 	Matrix4 model = Matrix4();
@@ -98,10 +94,4 @@ void TestPlayArea::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	player.Reflection(screenWidth, screenHeight);
 	racingTrack.RenderTrackReflection(player.camera, screenWidth, screenHeight);
 	glDisable(GL_STENCIL_TEST);
-
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	testText.RenderText("ProjectShard", Vector2(0.0f, 10.0f), 1.0f, Vector3(1.0f, 0.3f, 0.6f), screenWidth, screenHeight);
-
-	//g_debugDrawMgr.Submit(player.camera);
 }

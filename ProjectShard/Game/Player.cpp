@@ -34,15 +34,15 @@ void Player::Update(float deltaTime)
 	const float *axis = InputManager::GetInstance().GetJoyStickAxis(GLFW_JOYSTICK_1); 
 	const unsigned char* buttons = InputManager::GetInstance().GetJoyStickButtons(GLFW_JOYSTICK_1);
 
-	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_UP) || (connected && axis[LEFT_TRIGGER] > 0.1f)
+	if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_UP) || (connected && axis[LEFT_TRIGGER] > 0.1f)
 		|| (connected && buttons[5] == GLFW_PRESS))
 		linearVelocity.z -= 0.9f;
 
-	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN) || (connected && axis[RIGHT_TRIGGER] > 0.1f)
+	if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_DOWN) || (connected && axis[RIGHT_TRIGGER] > 0.1f)
 		|| (connected && buttons[4] == GLFW_PRESS))
 		linearVelocity.z += 0.9f;
 
-	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_LEFT) || (connected && axis[LEFT_STICK_X] < -0.1f))
+	if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_LEFT) || (connected && axis[LEFT_STICK_X] < -0.1f))
 	{
 		linearVelocity.x -= 0.9f;
 
@@ -52,7 +52,7 @@ void Player::Update(float deltaTime)
 	else
 		orientation = orientation.Slerp(orientation, initalRotation, deltaTime * rotationSpeed);
 	
-	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_RIGHT) || (connected && axis[LEFT_STICK_X] > 0.1f))
+	if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_RIGHT) || (connected && axis[LEFT_STICK_X] > 0.1f))
 	{
 		linearVelocity.x += 0.9f;
 
