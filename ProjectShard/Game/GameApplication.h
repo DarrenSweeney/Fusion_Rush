@@ -10,6 +10,7 @@ class GameApplication
 private:
 	TestPlayArea *testPlayArea;
 	MainMenu *mainMenu;
+	GLsizei screenWidth, screenHeight;
 
 	enum class GameState
 	{
@@ -19,11 +20,11 @@ private:
 	GameState currentGameState = GameState::mainMenu;
 
 public:
-	GameApplication();
+	GameApplication(GLsizei screenWidth, GLsizei screenHeight);
 	~GameApplication();
 	void Init();
 	void Update(GLfloat deltaTime);
-	void Render(GLsizei screenWidth, GLsizei screenHeight);
+	void Render();
 };
 
 #endif

@@ -27,12 +27,16 @@ private:
 	Model *block;
 	RacingTrack racingTrack;
 	Skybox skybox;
+	Shader *blurShader;
+	GLuint framebuffer, quadVAO, texColorBuffer;
+
+	void SetUpBuffers(GLsizei screenWidth, GLsizei screenHeight);
 
 public:
 	TestPlayArea();
 	~TestPlayArea();
 
-	void InitalizeScene();
+	void InitalizeScene(GLsizei screenWidth, GLsizei screenHeight);
 	void UpdateScene(float deltaTime);
 	void RenderScene(GLsizei screenWidth, GLsizei screenHeight);
 };

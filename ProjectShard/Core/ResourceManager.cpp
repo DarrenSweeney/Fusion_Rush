@@ -61,6 +61,8 @@ void ResourceManager::LoadSceneShaders()
 	LoadShader("SkyboxShader", "Shaders/Skybox.vert", "Shaders/Skybox.frag");
 	// Player shader
 	LoadShader("PlayerShader", "Shaders/Player.vert", "Shaders/Player.frag", "Shaders/ExplodeGeometry.gs");
+	// Scene blur shader
+	LoadShader("BlurShader", "Shaders/SceneBlur.vert", "Shaders/SceneBlur.frag");
 }
 
 void ResourceManager::LoadSceneModels()

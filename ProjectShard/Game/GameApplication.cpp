@@ -1,6 +1,7 @@
 #include "GameApplication.h"
 
-GameApplication::GameApplication()
+GameApplication::GameApplication(GLsizei _screenWidth, GLsizei _screenHeight)
+	: screenWidth(_screenWidth), screenHeight(_screenHeight)
 {
 	testPlayArea = new TestPlayArea();
 	mainMenu = new MainMenu();
@@ -14,7 +15,7 @@ GameApplication::~GameApplication()
 
 void GameApplication::Init()
 {
-	testPlayArea->InitalizeScene();
+	testPlayArea->InitalizeScene(screenWidth, screenHeight);
 	mainMenu->InitScene();
 }
 
@@ -39,7 +40,7 @@ void GameApplication::Update(GLfloat deltaTime)
 	}*/
 }
 
-void GameApplication::Render(GLsizei screenWidth, GLsizei screenHeight)
+void GameApplication::Render()
 {
 	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 

@@ -123,7 +123,7 @@ int main(int argc, char* argv[])
 	g_resourceMgr.LoadSceneTextures();
 	std::cout << "--- End ResourceMgr ---\n" << std::endl;
 
-	GameApplication gameApp;
+	GameApplication gameApp(window.GetWidth(), window.GetHeight());
 	gameApp.Init();
 
 	bool polygonMode = false;
@@ -152,7 +152,7 @@ int main(int argc, char* argv[])
 			window.SetCloseState(GL_TRUE);
 
 		gameApp.Update(deltaTime);
-		gameApp.Render(window.GetWidth(), window.GetHeight());
+		gameApp.Render();
 
 		window.SwapBuffers();
 	}

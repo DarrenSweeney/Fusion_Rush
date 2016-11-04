@@ -242,6 +242,8 @@
     <None Include="Shaders\ExplodeGeometry.gs" />
     <None Include="Shaders\Player.vert" />
     <None Include="Shaders\Player.frag" />
+    <None Include="Shaders\SceneBlur.frag" />
+    <None Include="Shaders\SceneBlur.vert" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Todo.txt" />

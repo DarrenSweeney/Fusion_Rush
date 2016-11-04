@@ -11,9 +11,10 @@ TestPlayArea::~TestPlayArea()
 	delete raceTrack;
 	delete building;
 	delete block;
+	delete blurShader;
 }
 
-void TestPlayArea::InitalizeScene()
+void TestPlayArea::InitalizeScene(GLsizei screenWidth, GLsizei screenHeight)
 {
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
@@ -32,7 +33,58 @@ void TestPlayArea::InitalizeScene()
 	racingTrack.Init();
 	g_debugDrawMgr.Init();
 
+	blurShader = g_resourceMgr.GetShader(SID("BlurShader"));
+
+	GLfloat quadVertices[] = {   // Vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
+								 // Positions   // TexCoords
+		-1.0f,  1.0f,  0.0f, 1.0f,
+		-1.0f, -1.0f,  0.0f, 0.0f,
+		1.0f, -1.0f,  1.0f, 0.0f,
+
+		-1.0f,  1.0f,  0.0f, 1.0f,
+		1.0f, -1.0f,  1.0f, 0.0f,
+		1.0f,  1.0f,  1.0f, 1.0f
+	};
+	// Setup screen VAO
+	GLuint quadVBO;
+	glGenVertexArrays(1, &quadVAO);
+	glGenBuffers(1, &quadVBO);
+	glBindVertexArray(quadVAO);
+	glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (GLvoid*)0);
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (GLvoid*)(2 * sizeof(GLfloat)));
+	glBindVertexArray(0);
+
+	SetUpBuffers(screenWidth, screenHeight);
+
 	//sound.soundEngine->play2D("Resources/Sounds/Bodyfall_sound_effects/BF_Short_Hard_1c.ogg");
+}
+
+void TestPlayArea::SetUpBuffers(GLsizei screenWidth, GLsizei screenHeight)
+{
+	// Framebuffers
+	glGenFramebuffers(1, &framebuffer);
+	glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
+	// Create a color attachment texture
+	glGenTextures(1, &texColorBuffer);
+	glBindTexture(GL_TEXTURE_2D, texColorBuffer);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, screenWidth, screenHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texColorBuffer, 0);
+
+	GLuint rbo;
+	glGenRenderbuffers(1, &rbo);
+	glBindRenderbuffer(GL_RENDERBUFFER, rbo);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, screenWidth, screenHeight);
+	glBindRenderbuffer(GL_RENDERBUFFER, 0);
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+		cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << endl;
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 void TestPlayArea::UpdateScene(float deltaTime)
@@ -67,6 +119,10 @@ void TestPlayArea::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	Matrix4 translate = Matrix4();
 	Matrix4 scale = Matrix4();
 
+	// TODO(Darren): Check for resize of screen
+
+	glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	// Render gameplay assets
 	glDisable(GL_BLEND);
 	glDisable(GL_STENCIL_TEST);
@@ -94,4 +150,13 @@ void TestPlayArea::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	player.Reflection(screenWidth, screenHeight);
 	racingTrack.RenderTrackReflection(player.camera, screenWidth, screenHeight);
 	glDisable(GL_STENCIL_TEST);
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+	// Draw Screen
+	blurShader->Use();
+	glBindVertexArray(quadVAO);
+	glBindTexture(GL_TEXTURE_2D, texColorBuffer);
+	glDrawArrays(GL_TRIANGLES, 0, 6);
+	glBindVertexArray(0);
+
 }
