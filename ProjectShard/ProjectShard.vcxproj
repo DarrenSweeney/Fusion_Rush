@@ -188,6 +188,7 @@
     <ClCompile Include="Renderer\Skybox.cpp" />
     <ClCompile Include="Game\TrackBlock.cpp" />
     <ClCompile Include="Game\TrackSections.cpp" />
+    <ClCompile Include="Renderer\Sprite.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Math\CollisionRectangle.h" />
@@ -225,6 +226,7 @@
     <ClInclude Include="Renderer\Skybox.h" />
     <ClInclude Include="Game\TrackBlock.h" />
     <ClInclude Include="Game\TrackSections.h" />
+    <ClInclude Include="Renderer\Sprite.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GameSparks\GSIosHelper.mm" />
@@ -245,6 +247,8 @@
     <None Include="Shaders\text.vert" />
     <None Include="Shaders\Skybox.frag" />
     <None Include="Shaders\Skybox.vert" />
+    <None Include="Shaders\UI.frag" />
+    <None Include="Shaders\UI.vert" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Todo.txt" />

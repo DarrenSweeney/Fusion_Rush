@@ -15,8 +15,10 @@ private:
 
 public:
 	GLFWwindow *GetWindow();
+	static bool windowResized;
 	int GetWidth();
 	int GetHeight();
+	bool GetWindowResized();
 	bool CloseState();
 	void SetCloseState(int state);
 	void GetFrameBufferSize(int *width, int *height);

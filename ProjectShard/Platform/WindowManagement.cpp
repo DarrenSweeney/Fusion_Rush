@@ -3,6 +3,8 @@
 #define FULLSCREEN false
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+void window_size_callback(GLFWwindow* window, int width, int height);
+bool WindowManagement::windowResized;
 
 GLFWwindow *WindowManagement::GetWindow()
 {
@@ -17,6 +19,11 @@ int WindowManagement::GetWidth()
 int WindowManagement::GetHeight()
 {
 	return height;
+}
+
+bool WindowManagement::GetWindowResized()
+{
+	return windowResized;
 }
 
 bool WindowManagement::CloseState()
@@ -64,6 +71,7 @@ void WindowManagement::StartUp()
 
 	window = glfwCreateWindow(width, height, "Project Shard", FULLSCREEN ? glfwGetPrimaryMonitor() : NULL, NULL);
 	glfwSetKeyCallback(window, key_callback);
+	glfwSetWindowSizeCallback(window, window_size_callback);
 
 	if (!window)
 	{
@@ -125,4 +133,9 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			InputManager::GetInstance().keys_locked[key] = false;
 		}
 	}
+}
+
+void window_size_callback(GLFWwindow* window, int width, int height)
+{
+	WindowManagement::windowResized = true;
 }

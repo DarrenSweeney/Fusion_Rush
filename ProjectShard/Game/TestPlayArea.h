@@ -19,7 +19,6 @@ class TestPlayArea
 private:
 	Shader *sceneObjects;
 	Sound sound;
-	// TODO(Darren): Rename this to player.
 	Player player;
 	Model *raceTrack;
 	Model *barrier;
@@ -38,7 +37,7 @@ public:
 
 	void InitalizeScene(GLsizei screenWidth, GLsizei screenHeight);
 	void UpdateScene(float deltaTime);
-	void RenderScene(GLsizei screenWidth, GLsizei screenHeight);
+	void RenderScene(GLsizei screenWidth, GLsizei screenHeight, bool windowResized);
 };
 
 #endif

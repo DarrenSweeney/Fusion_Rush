@@ -63,6 +63,7 @@ void ResourceManager::LoadSceneShaders()
 	LoadShader("PlayerShader", "Shaders/Player.vert", "Shaders/Player.frag", "Shaders/ExplodeGeometry.gs");
 	// Scene blur shader
 	LoadShader("BlurShader", "Shaders/SceneBlur.vert", "Shaders/SceneBlur.frag");
+	LoadShader("UI_Shader", "Shaders/UI.vert", "Shaders/UI.frag");
 }
 
 void ResourceManager::LoadSceneModels()
@@ -87,6 +88,8 @@ void ResourceManager::LoadSceneTextures()
 	faces.push_back("Resources/skybox/galaxy+Z.png");
 	faces.push_back("Resources/skybox/galaxy-Z.png");
 	LoadCubeMap("GameSkybox", faces);
+
+	LoadTexture("Bottom_UI", "Resources/UI/Cross.png");
 }
 
 void ResourceManager::PrintShaderTable()

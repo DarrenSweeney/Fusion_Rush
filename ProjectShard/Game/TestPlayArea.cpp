@@ -2,20 +2,6 @@
 
 TestPlayArea::TestPlayArea()
 {
-	
-}
-
-TestPlayArea::~TestPlayArea()
-{
-	delete sceneObjects;
-	delete raceTrack;
-	delete building;
-	delete block;
-	delete blurShader;
-}
-
-void TestPlayArea::InitalizeScene(GLsizei screenWidth, GLsizei screenHeight)
-{
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 	glDepthFunc(GL_LESS);
@@ -29,11 +15,22 @@ void TestPlayArea::InitalizeScene(GLsizei screenWidth, GLsizei screenHeight)
 	barrier = g_resourceMgr.GetModel(SID("Barrier"));
 	building = g_resourceMgr.GetModel(SID("Building"));
 	block = g_resourceMgr.GetModel(SID("Block"));
+	blurShader = g_resourceMgr.GetShader(SID("BlurShader"));
+}
 
+TestPlayArea::~TestPlayArea()
+{
+	delete sceneObjects;
+	delete raceTrack;
+	delete building;
+	delete block;
+	delete blurShader;
+}
+
+void TestPlayArea::InitalizeScene(GLsizei screenWidth, GLsizei screenHeight)
+{
 	racingTrack.Init();
 	g_debugDrawMgr.Init();
-
-	blurShader = g_resourceMgr.GetShader(SID("BlurShader"));
 
 	GLfloat quadVertices[] = {   // Vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
 								 // Positions   // TexCoords
@@ -45,6 +42,7 @@ void TestPlayArea::InitalizeScene(GLsizei screenWidth, GLsizei screenHeight)
 		1.0f, -1.0f,  1.0f, 0.0f,
 		1.0f,  1.0f,  1.0f, 1.0f
 	};
+
 	// Setup screen VAO
 	GLuint quadVBO;
 	glGenVertexArrays(1, &quadVAO);
@@ -111,7 +109,7 @@ void TestPlayArea::UpdateScene(float deltaTime)
 	racingTrack.Update(deltaTime);
 }
 
-void TestPlayArea::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
+void TestPlayArea::RenderScene(GLsizei screenWidth, GLsizei screenHeight, bool windowResized)
 {
 	Matrix4 projection = player.camera.GetProjectionMatrix(screenWidth, screenHeight);
 	Matrix4 view = player.camera.GetViewMatrix();
@@ -120,6 +118,8 @@ void TestPlayArea::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	Matrix4 scale = Matrix4();
 
 	// TODO(Darren): Check for resize of screen
+	if (windowResized)
+		SetUpBuffers(screenWidth, screenHeight);
 
 	glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -158,5 +158,4 @@ void TestPlayArea::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	glBindTexture(GL_TEXTURE_2D, texColorBuffer);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 	glBindVertexArray(0);
-
 }

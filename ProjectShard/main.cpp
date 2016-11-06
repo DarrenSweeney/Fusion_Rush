@@ -151,8 +151,12 @@ int main(int argc, char* argv[])
 		if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ESCAPE))
 			window.SetCloseState(GL_TRUE);
 
+		// Update the screen size
+		glfwGetWindowSize(window.GetWindow(), &gameApp.screenWidth, &gameApp.screenHeight);
+
 		gameApp.Update(deltaTime);
-		gameApp.Render();
+		gameApp.Render(window.windowResized);
+		window.windowResized = false;
 
 		window.SwapBuffers();
 	}
