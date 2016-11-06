@@ -22,7 +22,7 @@ void GameApplication::Init()
 void GameApplication::Update(GLfloat deltaTime)
 {
 	mainMenu->UpdateScene(deltaTime);
-	//testPlayArea->UpdateScene(deltaTime);
+	testPlayArea->UpdateScene(deltaTime);
 
 	/*switch (currentGameState)
 	{
@@ -44,8 +44,9 @@ void GameApplication::Render(bool windowResized)
 {
 	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 
-	//testPlayArea->RenderScene(screenWidth, screenHeight, windowResized);
+	
 	mainMenu->RenderScene(screenWidth, screenHeight);
+	testPlayArea->RenderScene(screenWidth, screenHeight, windowResized);
 
 	/*switch (currentGameState)
 	{

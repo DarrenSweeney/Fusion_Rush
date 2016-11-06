@@ -1,7 +1,7 @@
 #include "Player.h"
 
 Player::Player()
-	: rotationSpeed(2.0f), camera(Vector3(3.0f, 0.0f, 2.0)), position(Vector3(0.0f, 0.0f, 150.0f))
+	: rotationSpeed(2.0f), camera(Vector3(3.0f, 0.0f, 2.0)), position(Vector3(0.0f, 0.0f, 50.0f))
 {
 	model = g_resourceMgr.GetModel(SID("PlayerShip"));
 	shaderModel = g_resourceMgr.GetShader(SID("PlayerShader"));
@@ -77,7 +77,7 @@ void Player::Update(float deltaTime)
 
 void Player::Spawn()
 {
-	position = Vector3(0.0f, 0.0f, 100.0f);
+	position = Vector3(0.0f, 0.0f, 50.0f);
 	linearVelocity = Vector3();
 }
 

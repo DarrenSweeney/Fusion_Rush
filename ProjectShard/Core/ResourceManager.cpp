@@ -89,7 +89,8 @@ void ResourceManager::LoadSceneTextures()
 	faces.push_back("Resources/skybox/galaxy-Z.png");
 	LoadCubeMap("GameSkybox", faces);
 
-	LoadTexture("Bottom_UI", "Resources/UI/Cross.png");
+	LoadTexture("Bottom_UI", "Resources/UI/Bottom_UI.png");
+	LoadTexture("Menu_UI", "Resources/UI/Menu_UI.png");
 }
 
 void ResourceManager::PrintShaderTable()

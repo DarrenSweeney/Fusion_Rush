@@ -8,7 +8,7 @@ Texture::Texture()
 GLuint Texture::LoadTexture(const char* path)
 {
 	int width, height, numComponents;
-	unsigned char* image = stbi_load(path, &width, &height, &numComponents, STBI_rgb);
+	unsigned char* image = stbi_load(path, &width, &height, &numComponents, STBI_rgb_alpha);
 
 	if (image == NULL)
 	{
@@ -24,7 +24,7 @@ GLuint Texture::LoadTexture(const char* path)
 	GLuint texture;
 	glGenTextures(1, &texture);
 	glBindTexture(GL_TEXTURE_2D, texture);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
 	glGenerateMipmap(GL_TEXTURE_2D);
 
 	float aniso = 0.0f;
