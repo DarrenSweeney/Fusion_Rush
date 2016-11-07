@@ -1,6 +1,6 @@
 #include "TestPlayArea.h"
 
-TestPlayArea::TestPlayArea()
+RacingScene::RacingScene()
 {
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
@@ -18,7 +18,7 @@ TestPlayArea::TestPlayArea()
 	blurShader = g_resourceMgr.GetShader(SID("BlurShader"));
 }
 
-TestPlayArea::~TestPlayArea()
+RacingScene::~RacingScene()
 {
 	delete sceneObjects;
 	delete raceTrack;
@@ -27,7 +27,7 @@ TestPlayArea::~TestPlayArea()
 	delete blurShader;
 }
 
-void TestPlayArea::InitalizeScene(GLsizei screenWidth, GLsizei screenHeight)
+void RacingScene::InitalizeScene(GLsizei screenWidth, GLsizei screenHeight)
 {
 	racingTrack.Init();
 	g_debugDrawMgr.Init();
@@ -61,7 +61,7 @@ void TestPlayArea::InitalizeScene(GLsizei screenWidth, GLsizei screenHeight)
 	//sound.soundEngine->play2D("Resources/Sounds/Bodyfall_sound_effects/BF_Short_Hard_1c.ogg");
 }
 
-void TestPlayArea::SetUpBuffers(GLsizei screenWidth, GLsizei screenHeight)
+void RacingScene::SetUpBuffers(GLsizei screenWidth, GLsizei screenHeight)
 {
 	// Framebuffers
 	glGenFramebuffers(1, &framebuffer);
@@ -85,7 +85,7 @@ void TestPlayArea::SetUpBuffers(GLsizei screenWidth, GLsizei screenHeight)
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void TestPlayArea::UpdateScene(float deltaTime)
+void RacingScene::UpdateScene(float deltaTime)
 {
 	g_debugDrawMgr.AddLine(Vector3(-55.0f, 10.0f, -20.0f), Vector3(-5.0f, 0.5f, 0.0f), Vector3(1.0f, 0.0f, 0.0f));
 	g_debugDrawMgr.AddLine(Vector3(-5.0f, 0.5f, 0.0f), Vector3(-5.0f, 10.0f, 0.0f), Vector3(0.0f, 1.0f, 0.0f));
@@ -109,7 +109,7 @@ void TestPlayArea::UpdateScene(float deltaTime)
 	racingTrack.Update(deltaTime);
 }
 
-void TestPlayArea::RenderScene(GLsizei screenWidth, GLsizei screenHeight, bool windowResized)
+void RacingScene::RenderScene(GLsizei screenWidth, GLsizei screenHeight, bool windowResized)
 {
 	Matrix4 projection = player.camera.GetProjectionMatrix(screenWidth, screenHeight);
 	Matrix4 view = player.camera.GetViewMatrix();
@@ -117,7 +117,6 @@ void TestPlayArea::RenderScene(GLsizei screenWidth, GLsizei screenHeight, bool w
 	Matrix4 translate = Matrix4();
 	Matrix4 scale = Matrix4();
 
-	// TODO(Darren): Check for resize of screen
 	if (windowResized)
 		SetUpBuffers(screenWidth, screenHeight);
 
@@ -158,4 +157,9 @@ void TestPlayArea::RenderScene(GLsizei screenWidth, GLsizei screenHeight, bool w
 	glBindTexture(GL_TEXTURE_2D, texColorBuffer);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 	glBindVertexArray(0);
+}
+
+void RacingScene::TogglePlayerMovement()
+{
+	player.updateMovement = !player.updateMovement;
 }

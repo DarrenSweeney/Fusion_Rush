@@ -120,6 +120,9 @@
     <ClCompile Include="Renderer\Sprite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GameSparksInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Math\Vector3.h">
@@ -218,9 +221,6 @@
     <ClInclude Include="Game\TrackSections.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameSparksConfiguration.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Game\MainMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -228,6 +228,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Renderer\Sprite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSparksInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSparksConfiguration.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -8,7 +8,7 @@
 class GameApplication
 {
 private:
-	TestPlayArea *testPlayArea;
+	RacingScene *racingScene;
 	MainMenu *mainMenu;
 
 	enum class GameState
@@ -21,6 +21,7 @@ private:
 public:
 	GameApplication(GLsizei screenWidth, GLsizei screenHeight);
 	~GameApplication();
+
 	void Init();
 	void Update(GLfloat deltaTime);
 	void Render(bool windowResized);

@@ -15,14 +15,23 @@ Player::~Player()
 
 void Player::Update(float deltaTime)
 {
-	shaderModel = g_resourceMgr.GetShader(SID("PlayerShader"));
-
 	// Add time component to geometry shader in the form of a uniform
 	shaderModel->Use();
 	glUniform1f(glGetUniformLocation(shaderModel->Program, "time"), glfwGetTime() * 5.0f);
 
-	position += linearVelocity * deltaTime;
 	camera.SetPosition(position - Vector3(0.0f, -15.0f, -40.0f));
+
+	if(updateMovement)
+		Movement(deltaTime);
+
+	modelRotate = Matrix4();
+	modelRotate = modelRotate.QuaternionToMatrix4(orientation);
+	boundingBox.UpdateBoundingBox(position, modelRotate, Vector3(1.0f, 1.0f, 1.0f));
+}
+
+void Player::Movement(float deltaTime)
+{
+	position += linearVelocity * deltaTime;
 
 	Quaternion targetRotation = Quaternion();
 	Quaternion initalRotation = Quaternion();
@@ -31,7 +40,7 @@ void Player::Update(float deltaTime)
 	// a correct input button method where i don't need to check if a controller is connected
 	// Input for controller 1
 	bool connected = InputManager::GetInstance().IsJoyStickPresent(GLFW_JOYSTICK_1);
-	const float *axis = InputManager::GetInstance().GetJoyStickAxis(GLFW_JOYSTICK_1); 
+	const float *axis = InputManager::GetInstance().GetJoyStickAxis(GLFW_JOYSTICK_1);
 	const unsigned char* buttons = InputManager::GetInstance().GetJoyStickButtons(GLFW_JOYSTICK_1);
 
 	if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_UP) || (connected && axis[LEFT_TRIGGER] > 0.1f)
@@ -51,7 +60,7 @@ void Player::Update(float deltaTime)
 	}
 	else
 		orientation = orientation.Slerp(orientation, initalRotation, deltaTime * rotationSpeed);
-	
+
 	if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_RIGHT) || (connected && axis[LEFT_STICK_X] > 0.1f))
 	{
 		linearVelocity.x += 0.9f;
@@ -69,10 +78,6 @@ void Player::Update(float deltaTime)
 
 		linearVelocity -= i * friction;
 	}
-
-	modelRotate = Matrix4();
-	modelRotate = modelRotate.QuaternionToMatrix4(orientation);
-	boundingBox.UpdateBoundingBox(position, modelRotate, Vector3(1.0f, 1.0f, 1.0f));
 }
 
 void Player::Spawn()

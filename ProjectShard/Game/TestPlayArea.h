@@ -14,7 +14,7 @@
 #include "..\Renderer\Skybox.h"
 #include "TrackBlock.h"
 
-class TestPlayArea
+class RacingScene
 {
 private:
 	Shader *sceneObjects;
@@ -32,12 +32,13 @@ private:
 	void SetUpBuffers(GLsizei screenWidth, GLsizei screenHeight);
 
 public:
-	TestPlayArea();
-	~TestPlayArea();
+	RacingScene();
+	~RacingScene();
 
 	void InitalizeScene(GLsizei screenWidth, GLsizei screenHeight);
 	void UpdateScene(float deltaTime);
 	void RenderScene(GLsizei screenWidth, GLsizei screenHeight, bool windowResized);
+	void TogglePlayerMovement();
 };
 
 #endif

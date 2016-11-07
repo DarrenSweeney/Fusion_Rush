@@ -155,6 +155,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Desktop\imgui-master\imgui-master\examples\libs\gl3w\GL\gl3w.c" />
+    <ClCompile Include="GameSparksInfo.cpp" />
     <ClCompile Include="Math\CollisionRectangle.cpp" />
     <ClCompile Include="GameSparksAll.cpp" />
     <ClCompile Include="Game\Barriers.cpp" />
@@ -191,6 +192,7 @@
     <ClCompile Include="Renderer\Sprite.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GameSparksInfo.h" />
     <ClInclude Include="Math\CollisionRectangle.h" />
     <ClInclude Include="GameSparksConfiguration.h" />
     <ClInclude Include="Game\Barriers.h" />

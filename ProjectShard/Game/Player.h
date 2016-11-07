@@ -21,21 +21,21 @@ public:
 	void Render(GLsizei screenWidth, GLsizei screenHeight);
 	void Reflection(GLsizei screenWidth, GLsizei screenHeight);
 
-	CollisionBox boundingBox;
-
-	// TODO(Darren): Take this out.
 	Camera camera;
+	CollisionBox boundingBox;
 	Vector3 linearVelocity;
+	bool updateMovement;
 
 private:
 	Model *model;
 	Shader *shaderModel;
-	//Vector3 linearVelocity;	
 	Vector3 acceleration;
 	Quaternion orientation;
 	float rotationSpeed;
 	Matrix4 modelRotate;
 	Vector3 position;
+
+	void Movement(float deltaTime);
 };
 
 #endif
