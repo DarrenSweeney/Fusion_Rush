@@ -231,7 +231,6 @@
     <ClInclude Include="Renderer\Sprite.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram.cd" />
     <None Include="GameSparks\GSIosHelper.mm" />
     <None Include="Shaders\SceneBlur.frag" />
     <None Include="Shaders\SceneBlur.vert" />

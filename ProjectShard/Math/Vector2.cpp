@@ -18,3 +18,16 @@ Vector2 Vector2::operator-=(Vector2 &vec2)
 
 	return *this;
 }
+
+Vector2 Vector2::operator+(Vector2 &vec2)
+{
+	return Vector2(x + vec2.x, y + vec2.y);
+}
+
+Vector2 Vector2::operator+=(Vector2 &vec2)
+{
+	x += vec2.x;
+	y += vec2.y;
+
+	return *this;
+}

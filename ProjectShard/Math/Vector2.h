@@ -11,6 +11,8 @@ public:
 
 	Vector2 operator-(Vector2 &vec2);
 	Vector2 operator-=(Vector2 &vec2);
+	Vector2 operator+(Vector2 &vec2);
+	Vector2 operator+=(Vector2 &vec2);
 };
 
 #endif

@@ -258,7 +258,6 @@
     <None Include="Shaders\SceneBlur.vert" />
     <None Include="Shaders\UI.frag" />
     <None Include="Shaders\UI.vert" />
-    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Todo.txt" />
