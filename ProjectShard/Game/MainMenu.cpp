@@ -108,7 +108,7 @@ void MainMenu::UpdateScene(float delatTime)
 			{
 				currentSelectState = SelectState::ExitSelected;
 				currentMenuState = MenuState::ExitOpitions;
-				selectPosition = exitPannelPosition + Vector2(0, 100);
+				selectPosition = exitPannelPosition;
 			}
 
 			break;
@@ -116,18 +116,18 @@ void MainMenu::UpdateScene(float delatTime)
 
 		case MenuState::ExitOpitions:
 		{
-			if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_RIGHT))
-				selectPosition.x += 50.0f;
-			else if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_LEFT))
-				selectPosition.x -= 50.0f;
+			if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_RIGHT) && selectPosition.x != exitPannelPosition.x + 150.0f)
+				selectPosition.x += 150.0f;
+			else if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_LEFT) && selectPosition.x != exitPannelPosition.x)
+				selectPosition.x -= 150.0f;
 
-			exitNo.rect.SetRectangle(exitNo.position, 5, 300);
-			exitYes.rect.SetRectangle(exitYes.position, 5, 300);
+			exitNo.rect.SetRectangle(exitNo.position, 30, 50);
+			exitYes.rect.SetRectangle(exitYes.position, 30, 50);
 
 			UpdateLable(exitNo);
 			if (exitNo.labelSelected)
 			{
-				selectPosition = playLabel.position;
+				selectPosition = exitLabel.position;
 				currentMenuState = MenuState::MenuOpitions;
 				currentSelectState = SelectState::NotSelected;
 			}
@@ -179,7 +179,6 @@ void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	spriteRenderer->Render(*UI_Bottom, *UI_Shader, Vector2(0.0f, screenHeight - 100.0f), Vector2(screenWidth + 40.0f, 100.0f));
 	spriteRenderer->Render(*UI_Pannal, *UI_Shader, Vector2(-5.0f, pannelHeight - 80.0f), Vector2(300.0f, 220.0f));
 	spriteRenderer->Render(*UI_Pannal, *UI_Shader, leaderboardUIPos, Vector2(300.0f, 500.0f));
-	spriteRenderer->Render(*UI_Pannal, *UI_Shader, selectPosition, Vector2(30.0f, 300.0f));
 	if (currentSelectState == SelectState::ExitSelected)
 	{
 		spriteRenderer->Render(*UI_Pannal, *UI_Shader, exitPannelPosition, Vector2(400.0f, 150.0f));
