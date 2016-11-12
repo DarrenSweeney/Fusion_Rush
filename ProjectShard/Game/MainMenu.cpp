@@ -50,7 +50,7 @@ MainMenu::MainMenu()
 	UI_Bottom = g_resourceMgr.GetTexture(SID("Bottom_UI"));
 	UI_Pannal = g_resourceMgr.GetTexture(SID("Menu_UI"));
 
-	spriteRenderer = new Sprite();
+	spriteRenderer = new SpriteRenderer();
 }
 
 MainMenu::~MainMenu()
@@ -99,7 +99,13 @@ void MainMenu::UpdateScene(float delatTime)
 
 			UpdateLable(playLabel);
 			if (playLabel.labelSelected)
+			{
 				currentSelectState = SelectState::PlaySelected;
+				playGame = true;
+				playLabel.labelSelected = false;
+			}
+			else
+				playGame = false;
 			UpdateLable(signInOutLabel);
 			if (signInOutLabel.labelSelected)
 				currentSelectState = SelectState::SignInOutSeleted;
@@ -166,7 +172,7 @@ void MainMenu::UpdateLable(MenuLabel &label)
 void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 {
 	float pannelHeight = screenHeight - playLabel.position.y;
-	leaderboardUIPos = Vector2(screenWidth - 330.0f, 30.0f);
+	leaderboardUIPos = Vector2(screenWidth - 430.0f, 30.0f);
 	exitPannelPosition = Vector2((screenWidth / 2) - 200.0f, (screenHeight / 2) - 70.0f);
 	exitAsk.position = exitPannelPosition + Vector2(150.0f, 90.0f);
 	exitNo.position = exitPannelPosition + Vector2(100.0f, 20.0f);
@@ -178,12 +184,12 @@ void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	glUniformMatrix4fv(glGetUniformLocation(UI_Shader->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
 	spriteRenderer->Render(*UI_Bottom, *UI_Shader, Vector2(0.0f, screenHeight - 100.0f), Vector2(screenWidth + 40.0f, 100.0f));
 	spriteRenderer->Render(*UI_Pannal, *UI_Shader, Vector2(-5.0f, pannelHeight - 80.0f), Vector2(300.0f, 220.0f));
-	spriteRenderer->Render(*UI_Pannal, *UI_Shader, leaderboardUIPos, Vector2(300.0f, 500.0f));
+	spriteRenderer->Render(*UI_Pannal, *UI_Shader, leaderboardUIPos, Vector2(400.0f, 600.0f));
 	if (currentSelectState == SelectState::ExitSelected)
 	{
 		spriteRenderer->Render(*UI_Pannal, *UI_Shader, exitPannelPosition, Vector2(400.0f, 150.0f));
 	}
-	leaderboardTitle.position = Vector2(screenWidth - 300.0f, screenHeight - 80.0f);
+	leaderboardTitle.position = Vector2(screenWidth - 325.0f, screenHeight - 80.0f);
 
 	glEnable(GL_BLEND);		
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -196,7 +202,6 @@ void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	RenderLeaderboardEntry(screenWidth, screenHeight);
 	serverStatus.position.x = screenWidth - 110;
 	RenderLabel(serverStatus, screenWidth, screenHeight);
-
 	if (currentSelectState == SelectState::ExitSelected)
 	{
 		RenderLabel(exitAsk, screenWidth, screenHeight);
@@ -209,7 +214,7 @@ void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 void MainMenu::RenderLeaderboardEntry(GLsizei screenWidth, GLsizei screenHeight)
 {
 	int index = 0;
-	float firstEntryHeight = (screenHeight - leaderboardUIPos.y) - 100.0f;
+	float firstEntryHeight = (screenHeight - leaderboardUIPos.y) - 120.0f;
 	float firstEntryWidth = (screenWidth - leaderboardUIPos.x) + 10.0f;
 
 	for (std::vector<LeaderboardEntry>::iterator it = gameSparksInfo.leaderboardEntry.begin();
@@ -218,10 +223,10 @@ void MainMenu::RenderLeaderboardEntry(GLsizei screenWidth, GLsizei screenHeight)
 		std::ostringstream oss;
 		oss << it->rank.GetValue();
 		textRenderer.RenderText(oss.str(), Vector2(leaderboardUIPos.x + 10.0f, firstEntryHeight + (-50 * index)), 0.6f, defaultColor, screenWidth, screenHeight);
-		textRenderer.RenderText(it->username.GetValue().c_str(), Vector2(leaderboardUIPos.x + 50.0f, firstEntryHeight + (-50 * index)), 0.6f, defaultColor, screenWidth, screenHeight);
+		textRenderer.RenderText(it->username.GetValue().c_str(), Vector2(leaderboardUIPos.x + 80.0f, firstEntryHeight + (-50 * index)), 0.6f, defaultColor, screenWidth, screenHeight);
 		oss.str("");
 		oss << it->time.GetValue();
-		textRenderer.RenderText(oss.str(), Vector2(leaderboardUIPos.x + 250.0f, firstEntryHeight + (-50 * index)), 0.6f, defaultColor, screenWidth, screenHeight);
+		textRenderer.RenderText(oss.str(), Vector2(leaderboardUIPos.x + 350.0f, firstEntryHeight + (-50 * index)), 0.6f, defaultColor, screenWidth, screenHeight);
 	}
 }
 

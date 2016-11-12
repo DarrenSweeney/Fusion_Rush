@@ -5,9 +5,9 @@
 #include "..\Core\ResourceManager.h"
 #include "..\Renderer\Model.h"
 #include "..\Audio\Sound.h"
-#include "../Math/CollisionRectangle.h"
-#include "../Input/InputManager.h"
-#include "..\Renderer\Sprite.h"
+#include "..\Math\CollisionRectangle.h"
+#include "..\Input\InputManager.h"
+#include "..\Renderer\SpriteRenderer.h"
 #include "..\GameSparksInfo.h"
 
 struct MenuText
@@ -62,7 +62,7 @@ private:
 	Shader *UI_Shader;
 	Texture *UI_Bottom;
 	Texture *UI_Pannal;
-	Sprite *spriteRenderer;
+	SpriteRenderer *spriteRenderer;
 	Vector2 leaderboardUIPos;
 	Vector2 exitPannelPosition;
 	MenuText exitAsk;
@@ -76,7 +76,7 @@ public:
 	MainMenu();
 	~MainMenu();
 
-	bool exitGame;
+	bool exitGame, playGame;
 
 	void InitScene();
 	void UpdateScene(float delatTime);

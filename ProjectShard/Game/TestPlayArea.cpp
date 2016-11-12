@@ -1,6 +1,7 @@
 #include "TestPlayArea.h"
 
 RacingScene::RacingScene()
+	: sceneBlur(true)
 {
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
@@ -16,6 +17,8 @@ RacingScene::RacingScene()
 	building = g_resourceMgr.GetModel(SID("Building"));
 	block = g_resourceMgr.GetModel(SID("Block"));
 	blurShader = g_resourceMgr.GetShader(SID("BlurShader"));
+	blurShader->Use();
+	glUniform1i(glGetUniformLocation(blurShader->Program, "blurScreen"), sceneBlur);
 }
 
 RacingScene::~RacingScene()
@@ -153,13 +156,14 @@ void RacingScene::RenderScene(GLsizei screenWidth, GLsizei screenHeight, bool wi
 
 	// Draw Screen
 	blurShader->Use();
+	glUniform1i(glGetUniformLocation(blurShader->Program, "blurScreen"), sceneBlur);
 	glBindVertexArray(quadVAO);
 	glBindTexture(GL_TEXTURE_2D, texColorBuffer);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 	glBindVertexArray(0);
 }
 
-void RacingScene::TogglePlayerMovement()
+void RacingScene::SetPlayerMovement(bool move)
 {
-	player.updateMovement = !player.updateMovement;
+	player.updateMovement = move;
 }

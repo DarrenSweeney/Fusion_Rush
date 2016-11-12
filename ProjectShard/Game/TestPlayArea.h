@@ -35,10 +35,12 @@ public:
 	RacingScene();
 	~RacingScene();
 
+	bool sceneBlur;
+
 	void InitalizeScene(GLsizei screenWidth, GLsizei screenHeight);
 	void UpdateScene(float deltaTime);
 	void RenderScene(GLsizei screenWidth, GLsizei screenHeight, bool windowResized);
-	void TogglePlayerMovement();
+	void SetPlayerMovement(bool move);
 };
 
 #endif

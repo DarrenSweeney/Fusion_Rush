@@ -117,10 +117,10 @@
     <ClCompile Include="Math\CollisionRectangle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer\Sprite.cpp">
+    <ClCompile Include="GameSparksInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameSparksInfo.cpp">
+    <ClCompile Include="Renderer\SpriteRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -227,13 +227,13 @@
     <ClInclude Include="Math\CollisionRectangle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer\Sprite.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GameSparksInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameSparksConfiguration.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\SpriteRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
