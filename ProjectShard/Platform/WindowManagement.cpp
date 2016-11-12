@@ -113,11 +113,6 @@ void WindowManagement::ShutDown()
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-	if (key == GLFW_KEY_E && action == GLFW_PRESS)
-	{
-		std::cout << "Key pressed once" << std::endl;
-	}
-
 	if (key >= 0 && key < InputManager::GetInstance().MAX_KEYS)
 	{
 		if (GLFW_PRESS == action)

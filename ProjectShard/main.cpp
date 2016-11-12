@@ -46,8 +46,11 @@ int main(int argc, char* argv[])
 		window.PollEvents();
 		window.UpdateViewport();
 
-		if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ESCAPE))
+		if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ESCAPE)
+			|| gameApp.GetCloseState())
+		{
 			window.SetCloseState(GL_TRUE);
+		}
 
 		// Update the screen size
 		glfwGetWindowSize(window.GetWindow(), &gameApp.screenWidth, &gameApp.screenHeight);

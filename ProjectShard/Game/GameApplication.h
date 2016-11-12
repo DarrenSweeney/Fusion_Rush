@@ -25,6 +25,7 @@ public:
 	void Init();
 	void Update(GLfloat deltaTime);
 	void Render(bool windowResized);
+	bool GetCloseState();
 
 	GLsizei screenWidth, screenHeight;
 };

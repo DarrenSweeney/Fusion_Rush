@@ -48,3 +48,8 @@ void GameApplication::Render(bool windowResized)
 
 	racingScene->RenderScene(screenWidth, screenHeight, windowResized);
 }
+
+bool GameApplication::GetCloseState()
+{
+	return mainMenu->exitGame;
+}
