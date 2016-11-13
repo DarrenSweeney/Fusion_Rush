@@ -62,11 +62,15 @@ private:
 	Shader *UI_Shader;
 	Texture *UI_Bottom;
 	Texture *UI_Pannal;
+	Texture *UI_Enter;
 	SpriteRenderer *spriteRenderer;
 	Vector2 leaderboardUIPos;
 	Vector2 exitPannelPosition;
 	MenuText exitAsk;
 	MenuLabel exitNo, exitYes;
+	Vector2 signInOutPannelPos;
+	MenuText usernameText, passwordText;
+	MenuLabel loginLabel, cancelLabel, noAccountLabel;
 
 	void UpdateLable(MenuLabel &label);
 	void RenderLabel(MenuText &menuLabel, GLsizei screenWidth, GLsizei sceenHeight);

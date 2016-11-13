@@ -91,6 +91,7 @@ void ResourceManager::LoadSceneTextures()
 
 	LoadTexture("Bottom_UI", "Resources/UI/Bottom_UI.png");
 	LoadTexture("Menu_UI", "Resources/UI/Menu_UI.png");
+	LoadTexture("Enter_UI", "Resources/UI/EnterPanel.png");
 }
 
 void ResourceManager::PrintShaderTable()

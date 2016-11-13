@@ -1,7 +1,7 @@
 #include "Player.h"
 
 Player::Player()
-	: rotationSpeed(2.0f), camera(Vector3(3.0f, 0.0f, 2.0)), position(Vector3(0.0f, 0.0f, 50.0f))
+	: rotationSpeed(2.0f), camera(Vector3(3.0f, 0.0f, 2.0)), position(Vector3(0.0f, 0.0f, 50.0f)), speed(2.5f)
 {
 	model = g_resourceMgr.GetModel(SID("PlayerShip"));
 	shaderModel = g_resourceMgr.GetShader(SID("PlayerShader"));
@@ -19,10 +19,10 @@ void Player::Update(float deltaTime)
 	shaderModel->Use();
 	glUniform1f(glGetUniformLocation(shaderModel->Program, "time"), glfwGetTime() * 5.0f);
 
-	camera.SetPosition(position - Vector3(0.0f, -15.0f, -40.0f));
-
 	if(updateMovement)
 		Movement(deltaTime);
+
+	camera.SetPosition(position - Vector3(0.0f, -15.0f, -40.0f));
 
 	modelRotate = Matrix4();
 	modelRotate = modelRotate.QuaternionToMatrix4(orientation);
@@ -45,15 +45,15 @@ void Player::Movement(float deltaTime)
 
 	if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_UP) || (connected && axis[LEFT_TRIGGER] > 0.1f)
 		|| (connected && buttons[5] == GLFW_PRESS))
-		linearVelocity.z -= 0.9f;
+		linearVelocity.z -= speed;
 
 	if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_DOWN) || (connected && axis[RIGHT_TRIGGER] > 0.1f)
 		|| (connected && buttons[4] == GLFW_PRESS))
-		linearVelocity.z += 0.9f;
+		linearVelocity.z += speed;
 
 	if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_LEFT) || (connected && axis[LEFT_STICK_X] < -0.1f))
 	{
-		linearVelocity.x -= 0.9f;
+		linearVelocity.x -= speed;
 
 		targetRotation = targetRotation.RotateZ(MathHelper::DegressToRadians(90.0f));
 		orientation = orientation.Slerp(orientation, targetRotation, deltaTime * rotationSpeed);
@@ -63,7 +63,7 @@ void Player::Movement(float deltaTime)
 
 	if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_RIGHT) || (connected && axis[LEFT_STICK_X] > 0.1f))
 	{
-		linearVelocity.x += 0.9f;
+		linearVelocity.x += speed;
 
 		targetRotation = targetRotation.RotateZ(MathHelper::DegressToRadians(-90.0f));
 		orientation = orientation.Slerp(orientation, targetRotation, deltaTime * rotationSpeed);

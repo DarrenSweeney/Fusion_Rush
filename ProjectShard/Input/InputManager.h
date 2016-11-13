@@ -35,6 +35,7 @@ public:
 	static const int MAX_KEYS = 1024;
 	bool keys_down[MAX_KEYS];
 	bool keys_locked[MAX_KEYS];
+	std::string keyInput;
 };
 
 #endif

@@ -9,7 +9,7 @@ MainMenu::MainMenu()
 
 	signInOutLabel.position = Vector2(40.0f, 350.0f);
 	signInOutLabel.color = defaultColor;
-	signInOutLabel.text = "Sign Out";
+	signInOutLabel.text = "Sign In";
 
 	exitLabel.position = Vector2(40.0f, 300.0f);
 	exitLabel.color = defaultColor;
@@ -44,11 +44,28 @@ MainMenu::MainMenu()
 	serverStatus.scale = 0.7f;
 	serverStatus.text = "Offline";
 
+	usernameText.color = defaultColor;
+	usernameText.scale = 0.8f;
+	usernameText.text = "Username";
+	passwordText.color = defaultColor;
+	passwordText.scale = 0.8f;
+	passwordText.text = "Password";
+	loginLabel.color = defaultColor;
+	loginLabel.text = "Login";
+	loginLabel.scale = 0.6f;
+	cancelLabel.color = defaultColor;
+	cancelLabel.text = "Cancel";
+	cancelLabel.scale = 0.6f;
+	noAccountLabel.color = defaultColor;
+	noAccountLabel.text = "No account?";
+	noAccountLabel.scale  = 0.6f;
+
 	selectPosition = playLabel.position;
 
 	UI_Shader = g_resourceMgr.GetShader(SID("UI_Shader"));
 	UI_Bottom = g_resourceMgr.GetTexture(SID("Bottom_UI"));
 	UI_Pannal = g_resourceMgr.GetTexture(SID("Menu_UI"));
+	UI_Enter = g_resourceMgr.GetTexture(SID("Enter_UI"));
 
 	spriteRenderer = new SpriteRenderer();
 }
@@ -177,6 +194,12 @@ void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	exitAsk.position = exitPannelPosition + Vector2(150.0f, 90.0f);
 	exitNo.position = exitPannelPosition + Vector2(100.0f, 20.0f);
 	exitYes.position = exitPannelPosition + Vector2(250.0f, 20.0f);
+	signInOutPannelPos = Vector2((screenWidth / 2) - 200.0f, (screenHeight / 2) - 70.0f);
+	usernameText.position = signInOutPannelPos + Vector2(20.0f, 90.0f);
+	passwordText.position = signInOutPannelPos + Vector2(20.0f, -10.0f);
+	loginLabel.position = signInOutPannelPos + Vector2(50.0f, -110.0f);
+	cancelLabel.position = signInOutPannelPos + Vector2(250.0f, -110.0f);
+	noAccountLabel.position = signInOutPannelPos + Vector2(100.0f, -160.0f);
 
 	Matrix4 projection = Matrix4();
 	projection = projection.orthographicProjection(0.0f, screenWidth, screenHeight, 0.0f, -1.0f, 1.0f);
@@ -188,6 +211,15 @@ void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	if (currentSelectState == SelectState::ExitSelected)
 	{
 		spriteRenderer->Render(*UI_Pannal, *UI_Shader, exitPannelPosition, Vector2(400.0f, 150.0f));
+	}
+	if (currentSelectState == SelectState::SignInOutSeleted)
+	{
+		// Username
+		spriteRenderer->Render(*UI_Enter, *UI_Shader, signInOutPannelPos + Vector2(30.0f, 60.0f), Vector2(350.0f, 50.0f));
+		// Password
+		spriteRenderer->Render(*UI_Enter, *UI_Shader, signInOutPannelPos + Vector2(30.0f, 160.0f), Vector2(350.0f, 50.0f));
+		// UI pannel for password entering
+		spriteRenderer->Render(*UI_Pannal, *UI_Shader, signInOutPannelPos, Vector2(400.0f, 320.0f));
 	}
 	leaderboardTitle.position = Vector2(screenWidth - 325.0f, screenHeight - 80.0f);
 
@@ -208,6 +240,18 @@ void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 		RenderLabel(exitNo, screenWidth, screenHeight);
 		RenderLabel(exitYes, screenWidth, screenHeight);
 	}
+	if (currentSelectState == SelectState::SignInOutSeleted)
+	{
+		RenderLabel(usernameText, screenWidth, screenHeight);
+		RenderLabel(passwordText, screenWidth, screenHeight);
+		RenderLabel(loginLabel, screenWidth, screenHeight);
+		RenderLabel(cancelLabel, screenWidth, screenHeight);
+		RenderLabel(noAccountLabel, screenWidth, screenHeight);
+	}
+
+	// NOTE(Darren): Testing the key input here
+	textRenderer.RenderText(InputManager::GetInstance().keyInput.c_str(), Vector2(770.0f, 470.0f), 0.8f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
+
 	glDisable(GL_BLEND);
 }
 

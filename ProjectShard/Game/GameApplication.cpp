@@ -34,15 +34,21 @@ void GameApplication::Update(GLfloat deltaTime)
 			}
 			break;
 		}
-	}
 
-	racingScene->UpdateScene(deltaTime);
 
-	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ESCAPE))
-	{
-		currentGameState = GameState::mainMenu;
-		racingScene->sceneBlur = true;
-		racingScene->SetPlayerMovement(false);
+		case GameState::inGame:
+		{
+			racingScene->UpdateScene(deltaTime);
+
+			if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ESCAPE))
+			{
+				currentGameState = GameState::mainMenu;
+				racingScene->sceneBlur = true;
+				racingScene->SetPlayerMovement(false);
+			}
+
+			break;
+		}
 	}
 }
 

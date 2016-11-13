@@ -4,6 +4,7 @@
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 void window_size_callback(GLFWwindow* window, int width, int height);
+void character_callback(GLFWwindow* window, unsigned int codepoint);
 bool WindowManagement::windowResized;
 
 GLFWwindow *WindowManagement::GetWindow()
@@ -72,6 +73,7 @@ void WindowManagement::StartUp()
 	window = glfwCreateWindow(width, height, "Project Shard", FULLSCREEN ? glfwGetPrimaryMonitor() : NULL, NULL);
 	glfwSetKeyCallback(window, key_callback);
 	glfwSetWindowSizeCallback(window, window_size_callback);
+	glfwSetCharCallback(window, character_callback);
 
 	if (!window)
 	{
@@ -133,4 +135,13 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 void window_size_callback(GLFWwindow* window, int width, int height)
 {
 	WindowManagement::windowResized = true;
+}
+
+void character_callback(GLFWwindow* window, unsigned int codepoint)
+{
+	char key = codepoint;
+
+	InputManager::GetInstance().keyInput.push_back(key);
+
+	std::cout << InputManager::GetInstance().keyInput.c_str();
 }

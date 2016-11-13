@@ -24,6 +24,7 @@ public:
 	Camera camera;
 	CollisionBox boundingBox;
 	Vector3 linearVelocity;
+	float speed;
 	bool updateMovement;
 
 private:
