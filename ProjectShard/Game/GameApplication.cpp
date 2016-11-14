@@ -25,7 +25,7 @@ void GameApplication::Update(GLfloat deltaTime)
 	{
 		case GameState::mainMenu:
 		{
-			mainMenu->UpdateScene(deltaTime);
+			mainMenu->UpdateScene(deltaTime, screenWidth, screenHeight);
 			if (mainMenu->playGame)
 			{
 				currentGameState = GameState::inGame;

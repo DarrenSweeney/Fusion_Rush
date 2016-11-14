@@ -85,10 +85,10 @@ void MainMenu::InitScene()
 	playLabel.rect.SetRectangle(playLabel.position, 30, 10);
 	signInOutLabel.rect.SetRectangle(signInOutLabel.position, 30, 10);
 	exitLabel.rect.SetRectangle(exitLabel.position, 30, 10);
-	selectRect.SetRectangle(selectPosition, 100, 50);
+	selectRect.SetRectangle(selectPosition, 50, 50);
 }
 
-void MainMenu::UpdateScene(float delatTime)
+void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenHeight)
 {
 	gameSparksInfo.Update();
 
@@ -125,13 +125,51 @@ void MainMenu::UpdateScene(float delatTime)
 				playGame = false;
 			UpdateLable(signInOutLabel);
 			if (signInOutLabel.labelSelected)
+			{
 				currentSelectState = SelectState::SignInOutSeleted;
+				currentMenuState = MenuState::SignInOpitions;
+				selectPosition = signInOutPannelPos + Vector2(0.0f, 50.0f);
+			}
 			UpdateLable(exitLabel);
 			if (exitLabel.labelSelected)
 			{
 				currentSelectState = SelectState::ExitSelected;
 				currentMenuState = MenuState::ExitOpitions;
 				selectPosition = exitPannelPosition;
+			}
+
+			break;
+		}
+
+		case MenuState::SignInOpitions:
+		{
+			usernameRect.SetRectangle(signInOutPannelPos + Vector2(30.0f, 60.0f), 200.0f, 30.0f);
+			passwordRect.SetRectangle(signInOutPannelPos + Vector2(30.0f, 160.0f), 200.0f, 30.0f);
+
+			// TODO(Darren): Grrr very messy code, will refactor at a later stage.
+			loginLabel.rect.SetRectangle(Vector2(loginLabel.position.x, screenHeight - loginLabel.position.y), 30, 50);
+			cancelLabel.rect.SetRectangle(Vector2(cancelLabel.position.x, screenHeight - cancelLabel.position.y), 30, 50);
+			noAccountLabel.rect.SetRectangle(Vector2(noAccountLabel.position.x - 50.0f, screenHeight - (noAccountLabel.position.y - 150.0f)), 200.0f, 50);
+
+			if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_UP) && !selectRect.Intersects(usernameRect))
+				selectPosition.y -= 120.0f;
+			else if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN) && !selectRect.Intersects(noAccountLabel.rect))
+				selectPosition.y += 120.0f;
+
+			if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_RIGHT) && selectRect.Intersects(loginLabel.rect))
+				selectPosition.x += 150.0f;
+			else if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_LEFT) && selectRect.Intersects(cancelLabel.rect))
+				selectPosition.x -= 150.0f;
+
+			UpdateLable(loginLabel);
+			UpdateLable(cancelLabel);
+			UpdateLable(noAccountLabel);
+
+			if (cancelLabel.labelSelected)
+			{
+				currentMenuState = MenuState::MenuOpitions;
+				currentSelectState = SelectState::NotSelected;
+				selectPosition = playLabel.position;
 			}
 
 			break;
@@ -184,6 +222,9 @@ void MainMenu::UpdateLable(MenuLabel &label)
 		label.color = defaultColor;
 		label.labelSelected = false;
 	}
+
+	// TODO(Darren): Need to refactor main menu code, one part i could out the update
+	// of the collision rect in here.
 }
 
 void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
@@ -208,6 +249,7 @@ void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	spriteRenderer->Render(*UI_Bottom, *UI_Shader, Vector2(0.0f, screenHeight - 100.0f), Vector2(screenWidth + 40.0f, 100.0f));
 	spriteRenderer->Render(*UI_Pannal, *UI_Shader, Vector2(-5.0f, pannelHeight - 80.0f), Vector2(300.0f, 220.0f));
 	spriteRenderer->Render(*UI_Pannal, *UI_Shader, leaderboardUIPos, Vector2(400.0f, 600.0f));
+
 	if (currentSelectState == SelectState::ExitSelected)
 	{
 		spriteRenderer->Render(*UI_Pannal, *UI_Shader, exitPannelPosition, Vector2(400.0f, 150.0f));
@@ -249,8 +291,15 @@ void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 		RenderLabel(noAccountLabel, screenWidth, screenHeight);
 	}
 
-	// NOTE(Darren): Testing the key input here
-	textRenderer.RenderText(InputManager::GetInstance().keyInput.c_str(), Vector2(770.0f, 470.0f), 0.8f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
+	if (selectRect.Intersects(usernameRect))
+	{
+		textRenderer.RenderText("password", signInOutPannelPos + Vector2(40.0f, 45.0f), 0.8f, Vector3(1.0f, 0.0f, 0.0f), screenWidth, screenHeight);
+	}
+
+	if (selectRect.Intersects(passwordRect))
+	{
+		textRenderer.RenderText("Password", signInOutPannelPos + Vector2(40.0f, -60.0f), 0.8f, Vector3(0.0f, 1.0f, 0.0f), screenWidth, screenHeight);
+	}
 
 	glDisable(GL_BLEND);
 }

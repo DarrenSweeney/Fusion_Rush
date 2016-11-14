@@ -55,6 +55,7 @@ private:
 	enum class MenuState
 	{
 		MenuOpitions,
+		SignInOpitions,
 		ExitOpitions
 	};
 	MenuState currentMenuState = MenuState::MenuOpitions;
@@ -71,6 +72,7 @@ private:
 	Vector2 signInOutPannelPos;
 	MenuText usernameText, passwordText;
 	MenuLabel loginLabel, cancelLabel, noAccountLabel;
+	CollisionRectangle usernameRect, passwordRect;
 
 	void UpdateLable(MenuLabel &label);
 	void RenderLabel(MenuText &menuLabel, GLsizei screenWidth, GLsizei sceenHeight);
@@ -83,7 +85,7 @@ public:
 	bool exitGame, playGame;
 
 	void InitScene();
-	void UpdateScene(float delatTime);
+	void UpdateScene(float delatTime, GLsizei screenWidth, GLsizei sceenHeight);
 	void RenderScene(GLsizei screenWidth, GLsizei sceenHeight);
 };
 
