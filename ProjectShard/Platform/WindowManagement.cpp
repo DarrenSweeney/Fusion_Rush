@@ -143,5 +143,7 @@ void character_callback(GLFWwindow* window, unsigned int codepoint)
 
 	InputManager::GetInstance().keyInput.push_back(key);
 
-	std::cout << InputManager::GetInstance().keyInput.c_str();
+	// NOTE(Darren): This does not work here.
+	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_BACKSPACE))
+		InputManager::GetInstance().keyInput.pop_back();
 }

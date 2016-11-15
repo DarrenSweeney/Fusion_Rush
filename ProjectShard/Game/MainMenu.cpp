@@ -129,6 +129,9 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 				currentSelectState = SelectState::SignInOutSeleted;
 				currentMenuState = MenuState::SignInOpitions;
 				selectPosition = signInOutPannelPos + Vector2(0.0f, 50.0f);
+				// Clear the data fields
+				signInUserName.GetValue().clear();
+				signInPassword.GetValue().clear();
 			}
 			UpdateLable(exitLabel);
 			if (exitLabel.labelSelected)
@@ -151,15 +154,39 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 			cancelLabel.rect.SetRectangle(Vector2(cancelLabel.position.x, screenHeight - cancelLabel.position.y), 30, 50);
 			noAccountLabel.rect.SetRectangle(Vector2(noAccountLabel.position.x - 50.0f, screenHeight - (noAccountLabel.position.y - 150.0f)), 200.0f, 50);
 
-			if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_UP) && !selectRect.Intersects(usernameRect))
-				selectPosition.y -= 120.0f;
-			else if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN) && !selectRect.Intersects(noAccountLabel.rect))
-				selectPosition.y += 120.0f;
+			if (selectRect.Intersects(usernameRect))
+			{
+				std::string input = InputManager::GetInstance().keyInput;
+				signInUserName = input;
 
-			if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_RIGHT) && selectRect.Intersects(loginLabel.rect))
-				selectPosition.x += 150.0f;
-			else if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_LEFT) && selectRect.Intersects(cancelLabel.rect))
-				selectPosition.x -= 150.0f;
+				// NOTE(Darren): I could seperate this, duplicate. Could put with backspace check.
+				if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ENTER)
+					|| InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN)
+					|| InputManager::GetInstance().IsKeyPressed(GLFW_KEY_TAB))
+				{
+					InputManager::GetInstance().keyInput.clear();
+					selectPosition.y += 120.0f;
+				}
+			}
+			else if (selectRect.Intersects(passwordRect))
+			{
+				std::string input = InputManager::GetInstance().keyInput;
+				signInPassword = input;
+
+				if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ENTER)
+					|| InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN)
+					|| InputManager::GetInstance().IsKeyPressed(GLFW_KEY_TAB))
+				{
+					InputManager::GetInstance().keyInput.clear();
+					selectPosition.y += 120.0f;
+				}
+			}
+
+			if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_BACKSPACE))
+			{
+				if (InputManager::GetInstance().keyInput.size() > 0)
+					InputManager::GetInstance().keyInput.pop_back();
+			}
 
 			UpdateLable(loginLabel);
 			UpdateLable(cancelLabel);
@@ -169,8 +196,18 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 			{
 				currentMenuState = MenuState::MenuOpitions;
 				currentSelectState = SelectState::NotSelected;
-				selectPosition = playLabel.position;
+				selectPosition = signInOutLabel.position;
 			}
+
+			if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_UP) && !selectRect.Intersects(usernameRect))
+				selectPosition.y -= 120.0f;
+			else if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN) && !selectRect.Intersects(noAccountLabel.rect))
+				selectPosition.y += 120.0f;
+
+			if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_RIGHT) && selectRect.Intersects(loginLabel.rect))
+				selectPosition.x += 150.0f;
+			else if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_LEFT) && selectRect.Intersects(cancelLabel.rect))
+				selectPosition.x -= 150.0f;
 
 			break;
 		}
@@ -291,14 +328,10 @@ void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 		RenderLabel(noAccountLabel, screenWidth, screenHeight);
 	}
 
-	if (selectRect.Intersects(usernameRect))
+	if (currentSelectState == SelectState::SignInOutSeleted)
 	{
-		textRenderer.RenderText("password", signInOutPannelPos + Vector2(40.0f, 45.0f), 0.8f, Vector3(1.0f, 0.0f, 0.0f), screenWidth, screenHeight);
-	}
-
-	if (selectRect.Intersects(passwordRect))
-	{
-		textRenderer.RenderText("Password", signInOutPannelPos + Vector2(40.0f, -60.0f), 0.8f, Vector3(0.0f, 1.0f, 0.0f), screenWidth, screenHeight);
+		textRenderer.RenderText(signInUserName.GetValue().c_str(), signInOutPannelPos + Vector2(40.0f, 45.0f),  0.8f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
+		textRenderer.RenderText(signInPassword.GetValue().c_str(), signInOutPannelPos + Vector2(40.0f, -60.0f), 0.8f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
 	}
 
 	glDisable(GL_BLEND);

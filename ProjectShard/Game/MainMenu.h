@@ -73,6 +73,8 @@ private:
 	MenuText usernameText, passwordText;
 	MenuLabel loginLabel, cancelLabel, noAccountLabel;
 	CollisionRectangle usernameRect, passwordRect;
+	// NOTE(Darren): Good idea to use GameSparks data types here?
+	GameSparks::Optional::t_StringOptional signInUserName, signInPassword;
 
 	void UpdateLable(MenuLabel &label);
 	void RenderLabel(MenuText &menuLabel, GLsizei screenWidth, GLsizei sceenHeight);
