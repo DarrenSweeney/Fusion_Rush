@@ -73,9 +73,11 @@ private:
 	MenuText usernameText, passwordText;
 	MenuLabel loginLabel, cancelLabel, noAccountLabel;
 	CollisionRectangle usernameRect, passwordRect;
-	// NOTE(Darren): Good idea to use GameSparks data types here?
-	GameSparks::Optional::t_StringOptional signInUserName, signInPassword;
+	std::string signInUserName, signInPassword;
+	std::string currentUserName;	// NOTE(Darren): Need to implement
+	std::string playerRank;			// NOTE(Darren): Need to implement
 
+	void SendSignInRequest();
 	void UpdateLable(MenuLabel &label);
 	void RenderLabel(MenuText &menuLabel, GLsizei screenWidth, GLsizei sceenHeight);
 	void RenderLeaderboardEntry(GLsizei screenWidth, GLsizei sceenHeight);

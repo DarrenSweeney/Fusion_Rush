@@ -25,12 +25,12 @@ MainMenu::MainMenu()
 	exitYes.scale = 0.8f;
 
 	worldRankLabel.position = Vector2(20.0f, 60.0f);
-	worldRankLabel.text = "World Rank: #12";
+	worldRankLabel.text = "World Rank: NA";
 	worldRankLabel.color = defaultColor;
 	worldRankLabel.scale = 0.5f;
 
 	currentPlayer.position = Vector2(80.0f, 15.0f);
-	currentPlayer.text = "SpyroTheDragon";
+	currentPlayer.text = "-";
 	currentPlayer.color = defaultColor;
 	currentPlayer.scale = 0.5f;
 
@@ -130,8 +130,9 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 				currentMenuState = MenuState::SignInOpitions;
 				selectPosition = signInOutPannelPos + Vector2(0.0f, 50.0f);
 				// Clear the data fields
-				signInUserName.GetValue().clear();
-				signInPassword.GetValue().clear();
+				signInUserName.clear();
+				signInPassword.clear();
+				InputManager::GetInstance().keyInput.clear();
 			}
 			UpdateLable(exitLabel);
 			if (exitLabel.labelSelected)
@@ -192,6 +193,12 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 			UpdateLable(cancelLabel);
 			UpdateLable(noAccountLabel);
 
+			if (loginLabel.labelSelected)
+			{
+				SendSignInRequest();
+				gameSparksInfo.InitGS();
+			}
+
 			if (cancelLabel.labelSelected)
 			{
 				currentMenuState = MenuState::MenuOpitions;
@@ -241,6 +248,21 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 		default:
 			break;
 	}
+
+	if (gameSparksInfo.loginSuccessful)
+	{
+		currentUserName = gameSparksInfo.username;
+		playerRank = gameSparksInfo.currentPlayerRank;
+		currentPlayer.text = currentUserName.c_str();
+		worldRankLabel.text = playerRank.c_str();
+		gameSparksInfo.loginSuccessful = false;
+	}
+}
+
+void MainMenu::SendSignInRequest()
+{
+	gameSparksInfo.username = signInUserName;
+	gameSparksInfo.password = signInPassword;
 }
 
 void MainMenu::UpdateLable(MenuLabel &label)
@@ -330,8 +352,8 @@ void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 
 	if (currentSelectState == SelectState::SignInOutSeleted)
 	{
-		textRenderer.RenderText(signInUserName.GetValue().c_str(), signInOutPannelPos + Vector2(40.0f, 45.0f),  0.8f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
-		textRenderer.RenderText(signInPassword.GetValue().c_str(), signInOutPannelPos + Vector2(40.0f, -60.0f), 0.8f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
+		textRenderer.RenderText(signInUserName.c_str(), signInOutPannelPos + Vector2(40.0f, 45.0f),  0.8f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
+		textRenderer.RenderText(signInPassword.c_str(), signInOutPannelPos + Vector2(40.0f, -60.0f), 0.8f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
 	}
 
 	glDisable(GL_BLEND);
