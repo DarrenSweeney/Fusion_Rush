@@ -56,6 +56,7 @@ private:
 	{
 		MenuOpitions,
 		SignInOpitions,
+		CreateAccount,
 		ExitOpitions
 	};
 	MenuState currentMenuState = MenuState::MenuOpitions;
@@ -71,7 +72,7 @@ private:
 	MenuLabel exitNo, exitYes;
 	Vector2 signInOutPannelPos;
 	MenuText usernameText, passwordText;
-	MenuLabel loginLabel, cancelLabel, noAccountLabel;
+	MenuLabel loginLabel, cancelLabel, createAccountLabel;
 	CollisionRectangle usernameRect, passwordRect;
 	std::string signInUserName, signInPassword;
 	std::string currentUserName;	// NOTE(Darren): Need to implement

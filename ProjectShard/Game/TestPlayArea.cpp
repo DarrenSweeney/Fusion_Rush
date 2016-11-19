@@ -61,7 +61,7 @@ void RacingScene::InitalizeScene(GLsizei screenWidth, GLsizei screenHeight)
 
 	SetUpBuffers(screenWidth, screenHeight);
 
-	//sound.soundEngine->play2D("Resources/Sounds/Bodyfall_sound_effects/BF_Short_Hard_1c.ogg");
+	//sound.soundEngine->play2D("Resources/Sounds/GamesFleadh.wav");
 }
 
 void RacingScene::SetUpBuffers(GLsizei screenWidth, GLsizei screenHeight)

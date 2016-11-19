@@ -56,9 +56,9 @@ MainMenu::MainMenu()
 	cancelLabel.color = defaultColor;
 	cancelLabel.text = "Cancel";
 	cancelLabel.scale = 0.6f;
-	noAccountLabel.color = defaultColor;
-	noAccountLabel.text = "No account?";
-	noAccountLabel.scale  = 0.6f;
+	createAccountLabel.color = defaultColor;
+	createAccountLabel.text = "Create account?";
+	createAccountLabel.scale  = 0.6f;
 
 	selectPosition = playLabel.position;
 
@@ -153,7 +153,7 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 			// TODO(Darren): Grrr very messy code, will refactor at a later stage.
 			loginLabel.rect.SetRectangle(Vector2(loginLabel.position.x, screenHeight - loginLabel.position.y), 30, 50);
 			cancelLabel.rect.SetRectangle(Vector2(cancelLabel.position.x, screenHeight - cancelLabel.position.y), 30, 50);
-			noAccountLabel.rect.SetRectangle(Vector2(noAccountLabel.position.x - 50.0f, screenHeight - (noAccountLabel.position.y - 150.0f)), 200.0f, 50);
+			createAccountLabel.rect.SetRectangle(Vector2(createAccountLabel.position.x - 50.0f, screenHeight - (createAccountLabel.position.y - 150.0f)), 200.0f, 50);
 
 			if (selectRect.Intersects(usernameRect))
 			{
@@ -191,7 +191,7 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 
 			UpdateLable(loginLabel);
 			UpdateLable(cancelLabel);
-			UpdateLable(noAccountLabel);
+			UpdateLable(createAccountLabel);
 
 			if (loginLabel.labelSelected)
 			{
@@ -199,21 +199,48 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 				gameSparksInfo.InitGS();
 			}
 
-			if (cancelLabel.labelSelected)
+			if (cancelLabel.labelSelected || InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ESCAPE))
 			{
 				currentMenuState = MenuState::MenuOpitions;
 				currentSelectState = SelectState::NotSelected;
 				selectPosition = signInOutLabel.position;
 			}
 
+			if (createAccountLabel.labelSelected)
+			{
+				currentMenuState = MenuState::CreateAccount;
+			}
+
 			if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_UP) && !selectRect.Intersects(usernameRect))
 				selectPosition.y -= 120.0f;
-			else if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN) && !selectRect.Intersects(noAccountLabel.rect))
+			else if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN) && !selectRect.Intersects(createAccountLabel.rect))
 				selectPosition.y += 120.0f;
 
 			if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_RIGHT) && selectRect.Intersects(loginLabel.rect))
 				selectPosition.x += 150.0f;
 			else if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_LEFT) && selectRect.Intersects(cancelLabel.rect))
+				selectPosition.x -= 150.0f;
+
+			break;
+		}
+
+		case MenuState::CreateAccount:
+		{
+			if (cancelLabel.labelSelected || InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ESCAPE))
+			{
+				currentMenuState = MenuState::MenuOpitions;
+				currentSelectState = SelectState::NotSelected;
+				selectPosition = signInOutLabel.position;
+			}
+
+			if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_UP))
+				selectPosition.y -= 120.0f;
+			else if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN))
+				selectPosition.y += 120.0f;
+
+			if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_RIGHT))
+				selectPosition.x += 150.0f;
+			else if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_LEFT))
 				selectPosition.x -= 150.0f;
 
 			break;
@@ -230,7 +257,7 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 			exitYes.rect.SetRectangle(exitYes.position, 30, 50);
 
 			UpdateLable(exitNo);
-			if (exitNo.labelSelected)
+			if (exitNo.labelSelected || InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ESCAPE))
 			{
 				selectPosition = exitLabel.position;
 				currentMenuState = MenuState::MenuOpitions;
@@ -299,7 +326,7 @@ void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	passwordText.position = signInOutPannelPos + Vector2(20.0f, -10.0f);
 	loginLabel.position = signInOutPannelPos + Vector2(50.0f, -110.0f);
 	cancelLabel.position = signInOutPannelPos + Vector2(250.0f, -110.0f);
-	noAccountLabel.position = signInOutPannelPos + Vector2(100.0f, -160.0f);
+	createAccountLabel.position = signInOutPannelPos + Vector2(100.0f, -160.0f);
 
 	Matrix4 projection = Matrix4();
 	projection = projection.orthographicProjection(0.0f, screenWidth, screenHeight, 0.0f, -1.0f, 1.0f);
@@ -315,12 +342,15 @@ void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	}
 	if (currentSelectState == SelectState::SignInOutSeleted)
 	{
-		// Username
-		spriteRenderer->Render(*UI_Enter, *UI_Shader, signInOutPannelPos + Vector2(30.0f, 60.0f), Vector2(350.0f, 50.0f));
-		// Password
-		spriteRenderer->Render(*UI_Enter, *UI_Shader, signInOutPannelPos + Vector2(30.0f, 160.0f), Vector2(350.0f, 50.0f));
-		// UI pannel for password entering
-		spriteRenderer->Render(*UI_Pannal, *UI_Shader, signInOutPannelPos, Vector2(400.0f, 320.0f));
+		if (currentMenuState == MenuState::SignInOpitions)
+		{
+			// Username
+			spriteRenderer->Render(*UI_Enter, *UI_Shader, signInOutPannelPos + Vector2(30.0f, 60.0f), Vector2(350.0f, 50.0f));
+			// Password
+			spriteRenderer->Render(*UI_Enter, *UI_Shader, signInOutPannelPos + Vector2(30.0f, 160.0f), Vector2(350.0f, 50.0f));
+			// UI background pannel
+			spriteRenderer->Render(*UI_Pannal, *UI_Shader, signInOutPannelPos, Vector2(400.0f, 320.0f));
+		}
 	}
 	leaderboardTitle.position = Vector2(screenWidth - 325.0f, screenHeight - 80.0f);
 
@@ -341,19 +371,46 @@ void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 		RenderLabel(exitNo, screenWidth, screenHeight);
 		RenderLabel(exitYes, screenWidth, screenHeight);
 	}
-	if (currentSelectState == SelectState::SignInOutSeleted)
+	else if (currentSelectState == SelectState::SignInOutSeleted)
 	{
-		RenderLabel(usernameText, screenWidth, screenHeight);
-		RenderLabel(passwordText, screenWidth, screenHeight);
-		RenderLabel(loginLabel, screenWidth, screenHeight);
-		RenderLabel(cancelLabel, screenWidth, screenHeight);
-		RenderLabel(noAccountLabel, screenWidth, screenHeight);
-	}
+		if (currentMenuState == MenuState::SignInOpitions)
+		{
+			RenderLabel(usernameText, screenWidth, screenHeight);
+			RenderLabel(passwordText, screenWidth, screenHeight);
+			RenderLabel(loginLabel, screenWidth, screenHeight);
+			RenderLabel(cancelLabel, screenWidth, screenHeight);
+			RenderLabel(createAccountLabel, screenWidth, screenHeight);
 
-	if (currentSelectState == SelectState::SignInOutSeleted)
-	{
-		textRenderer.RenderText(signInUserName.c_str(), signInOutPannelPos + Vector2(40.0f, 45.0f),  0.8f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
-		textRenderer.RenderText(signInPassword.c_str(), signInOutPannelPos + Vector2(40.0f, -60.0f), 0.8f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
+			textRenderer.RenderText(signInUserName.c_str(), signInOutPannelPos + Vector2(40.0f, 45.0f), 0.8f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
+			textRenderer.RenderText(signInPassword.c_str(), signInOutPannelPos + Vector2(40.0f, -60.0f), 0.8f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
+		}
+		else if (currentMenuState == MenuState::CreateAccount)
+		{
+			usernameText.position = signInOutPannelPos + Vector2(20.0f, 120.0f);
+			passwordText.position = signInOutPannelPos + Vector2(20.0f, 20.0f);
+
+			// Username
+			spriteRenderer->Render(*UI_Enter, *UI_Shader, signInOutPannelPos + Vector2(30.0f, 30.0f), Vector2(350.0f, 50.0f));
+			// Password
+			spriteRenderer->Render(*UI_Enter, *UI_Shader, signInOutPannelPos + Vector2(30.0f, 130.0f), Vector2(350.0f, 50.0f));
+			// Re-enter password
+			spriteRenderer->Render(*UI_Enter, *UI_Shader, signInOutPannelPos + Vector2(30.0f, 230.0f), Vector2(350.0f, 50.0f));
+
+			spriteRenderer->Render(*UI_Pannal, *UI_Shader, signInOutPannelPos + Vector2(0.0f, -40.0f), Vector2(400.0f, 380.0f));
+
+			RenderLabel(usernameText, screenWidth, screenHeight);
+			passwordText.text = "Password";
+			RenderLabel(passwordText, screenWidth, screenHeight);
+			passwordText.text = "Re-Enter Password";
+			passwordText.position += Vector2(0.0f, -100.0f);
+			RenderLabel(passwordText, screenWidth, screenHeight);
+
+			// Text
+			createAccountLabel.position = signInOutPannelPos + Vector2(20.0f, -180.0f);
+			RenderLabel(createAccountLabel, screenWidth, screenHeight);
+			cancelLabel.position = signInOutPannelPos + Vector2(290.0f, -180.0f);
+			RenderLabel(cancelLabel, screenWidth, screenHeight);
+		}
 	}
 
 	glDisable(GL_BLEND);

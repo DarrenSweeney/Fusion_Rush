@@ -3,7 +3,6 @@
 #include "Platform\WindowManagement.h"
 #include "Input\InputManager.h"
 #include "Game\GameApplication.h"
-#include "Audio\SoundEngine.h"
 
 int main(int argc, char* argv[])
 {

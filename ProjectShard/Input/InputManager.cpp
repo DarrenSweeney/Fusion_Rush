@@ -79,7 +79,7 @@ const unsigned char *InputManager::GetJoyStickButtons(int joystick)
 
 	if (IsJoyStickPresent(joystick))
 	{
-		buttons = glfwGetJoystickButtons(GLFW_JOYSTICK_1, &count);
+		buttons = glfwGetJoystickButtons(joystick, &count);
 	}
 
 	return buttons;

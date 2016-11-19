@@ -121,7 +121,7 @@ void RacingTrack::RenderSceneObjects(Camera &camera, GLsizei screenWidth, GLsize
 	buildings.Render(camera, screenWidth, screenHeight);
 	barriers.Render(camera, screenWidth, screenHeight);
 
-	debug_block.Render(camera, screenWidth, screenHeight);
+	//debug_block.Render(camera, screenWidth, screenHeight);
 
 	for (unsigned int i = 0; i < blockAmount; i++)
 		trackBlock[i].Render(camera, screenWidth, screenHeight);
