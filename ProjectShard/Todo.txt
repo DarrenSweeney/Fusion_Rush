@@ -6,6 +6,6 @@
 4. Create a class for player input which abstracts a up movment,
 	down movement etc so i don't have to check for keyboard,
 	controller, sterring wheel etc.
-5. Create create account in menu.
+5. Create account in menu.
 6. Will need to look over menu memory cost. Need to refactor code because
 	it is a bit messey and the rendering is all over the place.

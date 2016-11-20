@@ -71,9 +71,10 @@ private:
 	MenuText exitAsk;
 	MenuLabel exitNo, exitYes;
 	Vector2 signInOutPannelPos;
+	Vector2 createAccountPannelPos;
 	MenuText usernameText, passwordText;
 	MenuLabel loginLabel, cancelLabel, createAccountLabel;
-	CollisionRectangle usernameRect, passwordRect;
+	CollisionRectangle usernameRect, passwordRect, reenterPasswordRec;
 	std::string signInUserName, signInPassword;
 	std::string currentUserName;	// NOTE(Darren): Need to implement
 	std::string playerRank;			// NOTE(Darren): Need to implement
