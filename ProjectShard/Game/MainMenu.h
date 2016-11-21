@@ -75,11 +75,14 @@ private:
 	MenuText usernameText, passwordText;
 	MenuLabel loginLabel, cancelLabel, createAccountLabel;
 	CollisionRectangle usernameRect, passwordRect, reenterPasswordRec;
-	std::string signInUserName, signInPassword;
+	std::string signInUserName, signInPassword, signInReEnterPass;
+	// Hide password when player types
+	std::string signInPassDisplay;
 	std::string currentUserName;	// NOTE(Darren): Need to implement
 	std::string playerRank;			// NOTE(Darren): Need to implement
 
 	void SendSignInRequest();
+	void AccountCreateRequest();
 	void UpdateLable(MenuLabel &label);
 	void RenderLabel(MenuText &menuLabel, GLsizei screenWidth, GLsizei sceenHeight);
 	void RenderLeaderboardEntry(GLsizei screenWidth, GLsizei sceenHeight);

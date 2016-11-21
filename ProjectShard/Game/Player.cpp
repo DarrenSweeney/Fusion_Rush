@@ -52,7 +52,7 @@ void Player::Movement(float deltaTime)
 
 	if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_DOWN) || (connected && axis[RIGHT_TRIGGER] > deadZone)
 		|| (connected && buttons[4] == GLFW_PRESS))
-		linearVelocity.z += speed;
+		linearVelocity.z += speed * 2.0f;
 
 	if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_LEFT) || (connected && axis[LEFT_STICK_X] < -deadZone))
 	{

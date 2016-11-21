@@ -132,6 +132,7 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 				// Clear the data fields
 				signInUserName.clear();
 				signInPassword.clear();
+				signInPassDisplay.clear();
 				InputManager::GetInstance().keyInput.clear();
 			}
 			UpdateLable(exitLabel);
@@ -174,6 +175,10 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 			{
 				std::string input = InputManager::GetInstance().keyInput;
 				signInPassword = input;
+
+				// TODO(Darren): Disguise input password with '*'
+				signInPassDisplay = input;
+				//signInPassDisplay = signInPassDisplay.replace(signInPassDisplay.begin(), signInPassDisplay.begin() + 3, "*");
 
 				if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ENTER)
 					|| InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN)
@@ -265,7 +270,7 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 			else if (selectRect.Intersects(reenterPasswordRec))
 			{
 				std::string input = InputManager::GetInstance().keyInput;
-				signInPassword = input;
+				signInReEnterPass = input;
 
 				if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ENTER)
 					|| InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN)
@@ -274,6 +279,12 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 					InputManager::GetInstance().keyInput.clear();
 					selectPosition.y += 100.0f;
 				}
+			}
+
+			if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_BACKSPACE))
+			{
+				if (InputManager::GetInstance().keyInput.size() > 0)
+					InputManager::GetInstance().keyInput.pop_back();
 			}
 
 			UpdateLable(cancelLabel);
@@ -286,9 +297,10 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 				selectPosition = signInOutLabel.position;
 			}
 
-			if (cancelLabel.labelSelected)
+			if (createAccountLabel.labelSelected)
 			{
-				// TODO(Darren): Create the account here and tell the user if the password is wrong
+				AccountCreateRequest();
+				gameSparksInfo.InitGS();
 			}
 
 			if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_UP) && !usernameRect.Intersects(selectRect))
@@ -346,6 +358,12 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 }
 
 void MainMenu::SendSignInRequest()
+{
+	gameSparksInfo.username = signInUserName;
+	gameSparksInfo.password = signInPassword;
+}
+
+void MainMenu::AccountCreateRequest()
 {
 	gameSparksInfo.username = signInUserName;
 	gameSparksInfo.password = signInPassword;
@@ -438,7 +456,7 @@ void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 			RenderLabel(createAccountLabel, screenWidth, screenHeight);
 
 			textRenderer.RenderText(signInUserName.c_str(), signInOutPannelPos + Vector2(40.0f, 40.0f), 0.8f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
-			textRenderer.RenderText(signInPassword.c_str(), signInOutPannelPos + Vector2(40.0f, -55.0f), 0.8f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
+			textRenderer.RenderText(signInPassDisplay.c_str(), signInOutPannelPos + Vector2(40.0f, -55.0f), 0.8f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
 		}
 		else if (currentMenuState == MenuState::CreateAccount)
 		{
@@ -468,7 +486,7 @@ void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 
 			textRenderer.RenderText(signInUserName.c_str(), signInOutPannelPos + Vector2(40.0f, 70.0f), 0.8f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
 			textRenderer.RenderText(signInPassword.c_str(), signInOutPannelPos + Vector2(40.0f, -30.0f), 0.8f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
-			textRenderer.RenderText(signInPassword.c_str(), signInOutPannelPos + Vector2(40.0f, -130.0f), 0.8f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
+			textRenderer.RenderText(signInReEnterPass.c_str(), signInOutPannelPos + Vector2(40.0f, -130.0f), 0.8f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
 		}
 	}
 
