@@ -65,6 +65,8 @@ private:
 	Texture *UI_Bottom;
 	Texture *UI_Pannal;
 	Texture *UI_Enter;
+	Texture *typeElement;
+	Vector2 typeElementPos;
 	SpriteRenderer *spriteRenderer;
 	Vector2 leaderboardUIPos;
 	Vector2 exitPannelPosition;

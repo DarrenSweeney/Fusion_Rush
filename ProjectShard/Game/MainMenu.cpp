@@ -66,6 +66,7 @@ MainMenu::MainMenu()
 	UI_Bottom = g_resourceMgr.GetTexture(SID("Bottom_UI"));
 	UI_Pannal = g_resourceMgr.GetTexture(SID("Menu_UI"));
 	UI_Enter = g_resourceMgr.GetTexture(SID("Enter_UI"));
+	typeElement = g_resourceMgr.GetTexture(SID("TypeElement"));
 
 	spriteRenderer = new SpriteRenderer();
 }
@@ -162,6 +163,8 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 				std::string input = InputManager::GetInstance().keyInput;
 				signInUserName = input;
 
+				typeElementPos = signInOutPannelPos + Vector2(40.0f + (21.0f * input.size()), 80.0f);
+
 				// NOTE(Darren): I could seperate this, duplicate. Could put with backspace check.
 				if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ENTER)
 					|| InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN)
@@ -175,6 +178,8 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 			{
 				std::string input = InputManager::GetInstance().keyInput;
 				signInPassword = input;
+
+				typeElementPos = signInOutPannelPos + Vector2(40.0f + (21.0f * input.size()), 180.0f);
 
 				// TODO(Darren): Disguise input password with '*'
 				signInPassDisplay = input;
@@ -245,6 +250,8 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 				std::string input = InputManager::GetInstance().keyInput;
 				signInUserName = input;
 
+				typeElementPos = signInOutPannelPos + Vector2(40.0f + (21.0f * input.size()), 50.0f);
+
 				// NOTE(Darren): I could seperate this, duplicate. Could put with backspace check.
 				if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ENTER)
 					|| InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN)
@@ -259,6 +266,8 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 				std::string input = InputManager::GetInstance().keyInput;
 				signInPassword = input;
 
+				typeElementPos = signInOutPannelPos + Vector2(40.0f + (21.0f * input.size()), 150.0f);
+
 				if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ENTER)
 					|| InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN)
 					|| InputManager::GetInstance().IsKeyPressed(GLFW_KEY_TAB))
@@ -271,6 +280,8 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 			{
 				std::string input = InputManager::GetInstance().keyInput;
 				signInReEnterPass = input;
+
+				typeElementPos = signInOutPannelPos + Vector2(40.0f + (21.0f * input.size()), 250.0f);
 
 				if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ENTER)
 					|| InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN)
@@ -297,10 +308,13 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 				selectPosition = signInOutLabel.position;
 			}
 
-			if (createAccountLabel.labelSelected)
+			if (signInPassword == signInReEnterPass)
 			{
-				AccountCreateRequest();
-				gameSparksInfo.InitGS();
+				if (createAccountLabel.labelSelected)
+				{
+					AccountCreateRequest();
+					gameSparksInfo.InitGS();
+				}
 			}
 
 			if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_UP) && !usernameRect.Intersects(selectRect))
@@ -439,6 +453,8 @@ void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	}
 	else if (currentSelectState == SelectState::SignInOutSeleted)
 	{
+		spriteRenderer->Render(*typeElement, *UI_Shader, typeElementPos, Vector2(5.0f, 20.0f), 0.0f, Vector3(0.0f, 0.0f, 0.0f));
+
 		if (currentMenuState == MenuState::SignInOpitions)
 		{
 			// Username
@@ -456,7 +472,7 @@ void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 			RenderLabel(createAccountLabel, screenWidth, screenHeight);
 
 			textRenderer.RenderText(signInUserName.c_str(), signInOutPannelPos + Vector2(40.0f, 40.0f), 0.8f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
-			textRenderer.RenderText(signInPassDisplay.c_str(), signInOutPannelPos + Vector2(40.0f, -55.0f), 0.8f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
+			textRenderer.RenderText(signInPassDisplay.c_str(), signInOutPannelPos + Vector2(40.0f, -60.0f), 0.8f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
 		}
 		else if (currentMenuState == MenuState::CreateAccount)
 		{

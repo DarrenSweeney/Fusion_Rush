@@ -47,21 +47,13 @@ Texture* ResourceManager::GetTexture(HashID hashID)
 
 void ResourceManager::LoadSceneShaders()
 {
-	// Model Shader
 	LoadShader("ModelShader", "Shaders/model.vert", "Shaders/model.frag");
-	// Debug drawing line shader
 	LoadShader("DebugLine","Shaders/DebugDrawMgr/DebugLine.vert", "Shaders/DebugDrawMgr/DebugLine.frag", "Shaders/DebugDrawMgr/DebugLine.gs");
-	// General basic scene objects
 	LoadShader("EnviromentObject", "Shaders/EnviromentObject.vert", "Shaders/EnviromentObject.frag");
-	// Rendering text to screen
 	LoadShader("Text", "Shaders/text.vert", "Shaders/text.frag");
-	// Shader for instancing rendering
 	LoadShader("Instancing", "Shaders/instancing.vert", "Shaders/EnviromentObject.frag");
-	// Skybox shader
 	LoadShader("SkyboxShader", "Shaders/Skybox.vert", "Shaders/Skybox.frag");
-	// Player shader
 	LoadShader("PlayerShader", "Shaders/Player.vert", "Shaders/Player.frag");// , "Shaders/ExplodeGeometry.gs");
-	// Scene blur shader
 	LoadShader("BlurShader", "Shaders/SceneBlur.vert", "Shaders/SceneBlur.frag");
 	LoadShader("UI_Shader", "Shaders/UI.vert", "Shaders/UI.frag");
 }
@@ -92,6 +84,7 @@ void ResourceManager::LoadSceneTextures()
 	LoadTexture("Bottom_UI", "Resources/UI/Bottom_UI.png");
 	LoadTexture("Menu_UI", "Resources/UI/Menu_UI.png");
 	LoadTexture("Enter_UI", "Resources/UI/EnterPanel.png");
+	LoadTexture("TypeElement", "Resources/UI/TypeElement.png");
 }
 
 void ResourceManager::PrintShaderTable()
