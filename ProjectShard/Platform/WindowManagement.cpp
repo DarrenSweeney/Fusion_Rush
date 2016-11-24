@@ -74,6 +74,7 @@ void WindowManagement::StartUp()
 	glfwSetKeyCallback(window, key_callback);
 	glfwSetWindowSizeCallback(window, window_size_callback);
 	glfwSetCharCallback(window, character_callback);
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
 	if (!window)
 	{

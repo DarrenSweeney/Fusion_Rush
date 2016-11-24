@@ -8,10 +8,10 @@ Matrix4::Matrix4()
 	data[0] = data[5] = data[10] = data[15] = 1.0f;
 }
 
-Matrix4::Matrix4(int m11, int m12, int m13, int m14,
-	int m21, int m22, int m23, int m24,
-	int m31, int m32, int m33, int m34,
-	int m41, int m42, int m43, int m44)
+Matrix4::Matrix4(float m11, float m12, float m13, float m14,
+	float m21, float m22, float m23, float m24,
+	float m31, float m32, float m33, float m34,
+	float m41, float m42, float m43, float m44)
 {
 	data[0] = m11; data[1] = m12; data[2] = m13; data[3] = m14;
 	data[4] = m21; data[5] = m22; data[6] = m23; data[7] = m24;

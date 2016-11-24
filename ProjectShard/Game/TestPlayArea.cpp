@@ -102,6 +102,8 @@ void RacingScene::UpdateScene(float deltaTime)
 	{
 		//player.linearVelocity = Vector3();
 		player.Spawn();
+
+		// Draw the velocity vector, and collison reflection vector
 	}
 
 	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_P))

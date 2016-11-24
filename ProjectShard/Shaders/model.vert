@@ -12,7 +12,7 @@ out vec2 TexCoords;
 out float visibility;
 
 const float density = 0.0025;
-const float gradient = 2.0;
+const float gradient = 1.0;
 
 void main()
 {

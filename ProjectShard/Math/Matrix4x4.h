@@ -13,10 +13,10 @@ public:
 	float data[16];
 
 	Matrix4();
-	Matrix4(int m11, int m12, int m13, int m14,
-		int m21, int m22, int m23, int m24,
-		int m31, int m32, int m33, int m34,
-		int m41, int m42, int m43, int m44);
+	Matrix4(float m11, float m12, float m13, float m14,
+		float m21, float m22, float m23, float m24,
+		float m31, float m32, float m33, float m34,
+		float m41, float m42, float m43, float m44);
 
 	Vector4 operator*(Vector4 &vec4);
 	Matrix4 &operator+=(float value);

@@ -13,6 +13,12 @@
 #define LEFT_TRIGGER	4
 #define RIGHT_TRIGGER	5
 
+// TODO(Darren): Create button feedback for xbox 360 controller.
+#define XBOX360_A 0
+#define XBOX360_B 1
+#define XBOX360_X 2
+#define XBOX360_Y 3
+
 // A singleton Input Manager class
 class InputManager
 {

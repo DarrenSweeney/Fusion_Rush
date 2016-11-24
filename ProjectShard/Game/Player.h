@@ -9,6 +9,7 @@
 #include "..\Input\InputManager.h"
 #include "Camera.h"
 #include "..\Math\CollisionBox.h"
+#include "..\Renderer\DebugDrawManager.h"
 
 class Player
 {

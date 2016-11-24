@@ -81,6 +81,10 @@ void Player::Movement(float deltaTime)
 
 		linearVelocity -= i * friction;
 	}
+
+	Vector3 direction = linearVelocity;
+	direction.normalise();
+	g_debugDrawMgr.AddLine(position, Vector3(0.0f, 10.0f, 0.0), Vector3(1.0f, 0.0f, 0.0f), 1.0f, false);
 }
 
 void Player::Spawn()
