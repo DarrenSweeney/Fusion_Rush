@@ -5,19 +5,61 @@
 #include "..\Math\Vector2.h"
 #include <iostream>
 
-// NOTE(Darren): This could be incorrect becuase i'm using a PS4 controller.
+#define CONTROLLER_ONE   0
+#define CONTROLLER_TWO   1
+#define CONTROLLER_THREE 2
+#define CONTROLLER_FOUR  3
+
+#define XBOX360_A		0
+#define XBOX360_B		1
+#define XBOX360_X		2
+#define XBOX360_Y		3
+#define XBOX360_LB		4
+#define XBOX360_RB		5
+#define XBOX360_BACK	6
+#define XBOX360_START	7
+#define XBOX360_LEFT_JOY_BUTTON	 8
+#define XBOX360_RIGHT_JOY_BUTTON 9
+#define XBOX360_UP		10
+#define XBOX360_RIGHT	11
+#define XBOX360_DOWN	12
+#define XBOX360_LEFT	13
+
+#define XBOX360_MAX_BUTTONS 14
+
 #define LEFT_STICK_X	0
 #define LEFT_STICK_Y	1
-#define RIGHT_STICK_X	2
+#define TRIGGERS		2
 #define RIGHT_STICK_Y	3
-#define LEFT_TRIGGER	4
-#define RIGHT_TRIGGER	5
+#define RIGHT_STICK_X	4
 
-// TODO(Darren): Create button feedback for xbox 360 controller.
-#define XBOX360_A 0
-#define XBOX360_B 1
-#define XBOX360_X 2
-#define XBOX360_Y 3
+struct XboxControllerState
+{
+	Vector2 leftThumbStick, rightThumbStick;
+	float leftTrigger, rightTrigger;
+
+	union
+	{
+		bool buttons[XBOX360_MAX_BUTTONS];
+		struct
+		{
+			bool A;
+			bool B;
+			bool X;
+			bool Y;
+			bool LB;
+			bool RB;
+			bool back;
+			bool start;
+			bool leftThumbStickClick;
+			bool rightThumbStickClick;
+			bool DpadUp;
+			bool DpadDown;
+			bool DpadLeft;
+			bool DpadRight;
+		};
+	};
+};
 
 // A singleton Input Manager class
 class InputManager
@@ -29,19 +71,25 @@ private:
 	int count;
 
 public:
+	static const int MAX_KEYS = 1024;
+	bool keys_down[MAX_KEYS];
+	bool keys_locked[MAX_KEYS];
+	std::string keyInput;
+	XboxControllerState currentControllerState;
+	XboxControllerState previousControllerState;
+	const float DPAD_THRESHHOLD = 0.2f;
+
 	static InputManager &GetInstance();
 	bool IsKeyPressed(int key);
 	bool IsKeyDown(int key);
 	bool IsMouseButtonPressed(int key);
 	Vector2 GetCursorPos();
 	void SetWindowContext(GLFWwindow *currentWindow);
-	bool IsJoyStickPresent(int joyStick); // NOTE(Darren): support for 16 joysticks?
-	const float *GetJoyStickAxis(int joystick);
-	const unsigned char *GetJoyStickButtons(int joystick);
-	static const int MAX_KEYS = 1024;
-	bool keys_down[MAX_KEYS];
-	bool keys_locked[MAX_KEYS];
-	std::string keyInput;
+	bool IsJoyStickPresent(int joyStick);
+	bool IsControllerButtonPressed(unsigned int button);
+	bool IsControllerButtonDown(unsigned int button);
+	Vector2 GetLeftJoyStick();
+	Vector2 GetRightJoyStick();
 };
 
 #endif

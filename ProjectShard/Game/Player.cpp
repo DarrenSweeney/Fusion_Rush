@@ -36,25 +36,16 @@ void Player::Movement(float deltaTime)
 	Quaternion targetRotation = Quaternion();
 	Quaternion initalRotation = Quaternion();
 
-	// TODO(Darren): Take out the dead zone from here
-	float deadZone = 0.2f;
-
-	// TODO(Darren): Need to implement the defines for a 360 controller and create 
-	// a correct input button method where i don't need to check if a controller is connected
-	// Input for controller 1
-	bool connected = InputManager::GetInstance().IsJoyStickPresent(GLFW_JOYSTICK_3);
-	const float *axis = InputManager::GetInstance().GetJoyStickAxis(GLFW_JOYSTICK_3);
-	const unsigned char* buttons = InputManager::GetInstance().GetJoyStickButtons(GLFW_JOYSTICK_3);
-
-	if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_UP) || (connected && axis[LEFT_TRIGGER] > deadZone)
-		|| (connected && buttons[5] == GLFW_PRESS))
+	if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_UP)
+		|| InputManager::GetInstance().IsControllerButtonDown(XBOX360_RB))
 		linearVelocity.z -= speed;
 
-	if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_DOWN) || (connected && axis[RIGHT_TRIGGER] > deadZone)
-		|| (connected && buttons[4] == GLFW_PRESS))
+	if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_DOWN)
+		|| InputManager::GetInstance().IsControllerButtonPressed(XBOX360_LB))
 		linearVelocity.z += speed * 2.0f;
 
-	if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_LEFT) || (connected && axis[LEFT_STICK_X] < -deadZone))
+	if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_LEFT) 
+		|| InputManager::GetInstance().GetLeftJoyStick().x < - JOYSTICK_DEAD_ZONE)
 	{
 		linearVelocity.x -= speed;
 
@@ -64,7 +55,8 @@ void Player::Movement(float deltaTime)
 	else
 		orientation = orientation.Slerp(orientation, initalRotation, deltaTime * rotationSpeed);
 
-	if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_RIGHT) || (connected && axis[LEFT_STICK_X] > deadZone))
+	if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_RIGHT) 
+		|| InputManager::GetInstance().GetLeftJoyStick().x > JOYSTICK_DEAD_ZONE)
 	{
 		linearVelocity.x += speed;
 

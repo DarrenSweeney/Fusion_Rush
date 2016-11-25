@@ -100,10 +100,18 @@ void RacingScene::UpdateScene(float deltaTime)
 
 	if (racingTrack.TrackCollision(player.boundingBox))
 	{
-		//player.linearVelocity = Vector3();
-		player.Spawn();
+		//player.linearVelocity.x *= -1;
+		//player.linearVelocity.x *= 0.5f;
+		//player.linearVelocity.y *= 0.5f;
 
-		// Draw the velocity vector, and collison reflection vector
+		float mag = player.linearVelocity.Magnitude();
+
+		//if(mag > 80.0f)//&& player.linearVelocity.x > -80.0f)
+			//player.linearVelocity.x /= 2.0f;
+
+		//std::cout << player.linearVelocity.x << std::endl;
+
+		player.Spawn();
 	}
 
 	if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_P))

@@ -61,26 +61,98 @@ bool InputManager::IsJoyStickPresent(int joystick)
 	return present == 1 ? true : false;
 }
 
-const float *InputManager::GetJoyStickAxis(int joystick)
+bool InputManager::IsControllerButtonPressed(unsigned int button)
 {
-	const float *axis = NULL;
+	if (!IsJoyStickPresent(GLFW_JOYSTICK_3))
+		return false;
 
-	if (IsJoyStickPresent(joystick))
+	bool buttonPressed = false;
+	// Check if the input parameter is a face button, shoulder button, back/start button or joystick button
+	if (button >= XBOX360_A && button < XBOX360_MAX_BUTTONS)
 	{
-		axis = glfwGetJoystickAxes(joystick, &count);
+		const unsigned char* buttons = glfwGetJoystickButtons(GLFW_JOYSTICK_3, &count);
+
+		if (buttons[button] == GLFW_PRESS)
+		{
+			buttonPressed = true;
+
+			// Check if the previous button state is false (button up)
+			if (!previousControllerState.buttons[button])
+			{
+				currentControllerState.buttons[button] = buttonPressed;
+			}
+			else  // If the previous state is true (button down) then button can't be down agian
+			{
+				buttonPressed = false;
+			}
+		}
+		else
+		{
+			// Button is not pressed so update the current state
+			currentControllerState.buttons[button] = false;
+		}
+
+		// Update the previous face button state
+		previousControllerState.buttons[button] = currentControllerState.buttons[button];
 	}
-	                                                                              
-	return axis;
+	
+	return buttonPressed;
 }
 
-const unsigned char *InputManager::GetJoyStickButtons(int joystick)
+bool InputManager::IsControllerButtonDown(unsigned int button)
 {
-	const unsigned char* buttons = NULL;
+	if (!IsJoyStickPresent(GLFW_JOYSTICK_3))
+		return false;
 
-	if (IsJoyStickPresent(joystick))
+	bool buttonPressed = false;
+	// Check if the input parameter is a face button, shoulder button, back/start button or joystick button
+	if (button >= XBOX360_A && button < XBOX360_MAX_BUTTONS)
 	{
-		buttons = glfwGetJoystickButtons(joystick, &count);
+		const unsigned char* buttons = glfwGetJoystickButtons(GLFW_JOYSTICK_3, &count);
+
+		if (buttons[button] == GLFW_PRESS)
+		{
+			buttonPressed = true;
+			currentControllerState.buttons[button] = buttonPressed;
+		}
+		else
+		{
+			// Button is not pressed so update the current state
+			currentControllerState.buttons[button] = false;
+		}
 	}
 
-	return buttons;
+	return buttonPressed;
+}
+
+Vector2 InputManager::GetLeftJoyStick()
+{
+	Vector2 leftThumbStick;
+
+	if (!IsJoyStickPresent(GLFW_JOYSTICK_3))
+		return leftThumbStick;
+
+	const float *axis = glfwGetJoystickAxes(GLFW_JOYSTICK_3, &count);
+	leftThumbStick.x = axis[LEFT_STICK_X];
+	leftThumbStick.y = axis[LEFT_STICK_Y];
+
+	currentControllerState.leftThumbStick = leftThumbStick;
+
+	return leftThumbStick;
+}
+
+Vector2 InputManager::GetRightJoyStick()
+{
+	Vector2 rightThumbStick;
+
+	if (!IsJoyStickPresent(GLFW_JOYSTICK_3))
+		return rightThumbStick;
+
+	const float *axis = glfwGetJoystickAxes(GLFW_JOYSTICK_3, &count);
+	rightThumbStick.x = axis[RIGHT_STICK_X];
+	rightThumbStick.y = axis[RIGHT_STICK_Y];
+
+	currentControllerState.rightThumbStick = rightThumbStick;
+
+	return rightThumbStick;
 }

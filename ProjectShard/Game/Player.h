@@ -36,6 +36,7 @@ private:
 	float rotationSpeed;
 	Matrix4 modelRotate;
 	Vector3 position;
+	const float JOYSTICK_DEAD_ZONE = 0.2f;
 
 	void Movement(float deltaTime);
 };
