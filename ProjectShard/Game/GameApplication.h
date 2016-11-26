@@ -2,7 +2,7 @@
 #define GAME_APPLICATION_H
 
 #include "..\Core\ResourceManager.h"
-#include "TestPlayArea.h"
+#include "RacingScene.h"
 #include "MainMenu.h"
 
 class GameApplication

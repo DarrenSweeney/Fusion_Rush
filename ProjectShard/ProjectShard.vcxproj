@@ -180,7 +180,7 @@
     <ClCompile Include="Core\ResourceManager.cpp" />
     <ClCompile Include="Renderer\Shader.cpp" />
     <ClCompile Include="Audio\Sound.cpp" />
-    <ClCompile Include="Game\TestPlayArea.cpp" />
+    <ClCompile Include="Game\RacingScene.cpp" />
     <ClCompile Include="Renderer\Text.cpp" />
     <ClCompile Include="Renderer\Texture.cpp" />
     <ClCompile Include="Math\Vector2.cpp" />
@@ -219,7 +219,7 @@
     <ClInclude Include="Renderer\Shader.h" />
     <ClInclude Include="Audio\Sound.h" />
     <ClInclude Include="Renderer\stb_image.h" />
-    <ClInclude Include="Game\TestPlayArea.h" />
+    <ClInclude Include="Game\RacingScene.h" />
     <ClInclude Include="Renderer\Text.h" />
     <ClInclude Include="Renderer\Texture.h" />
     <ClInclude Include="Math\Vector2.h" />

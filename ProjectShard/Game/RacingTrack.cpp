@@ -90,7 +90,7 @@ void RacingTrack::Update(float deltaTime)
 	}
 }
 
-bool RacingTrack::TrackCollision(CollisionBox &playerBoundingBox)
+bool RacingTrack::ObstacleCollision(CollisionBox &playerBoundingBox)
 {
 	for (unsigned int i = 0; i < blockAmount; i++)
 	{
@@ -100,7 +100,12 @@ bool RacingTrack::TrackCollision(CollisionBox &playerBoundingBox)
 		}
 	}
 
-	if (debug_BoundingBox.Intersects(playerBoundingBox))
+	return false;
+}
+
+bool RacingTrack::BarrierCollision(CollisionBox &playerBoundingBox)
+{
+	if (playerBoundingBox.boundingBox.c.x < -55.0f || playerBoundingBox.boundingBox.c.x > 55.0f)
 	{
 		return true;
 	}
