@@ -26,6 +26,7 @@ public:
 	CollisionBox boundingBox;
 	Vector3 linearVelocity;
 	float speed;
+	Vector3 position;
 	bool updateMovement;
 
 private:
@@ -35,7 +36,6 @@ private:
 	Quaternion orientation;
 	float rotationSpeed;
 	Matrix4 modelRotate;
-	Vector3 position;
 	const float JOYSTICK_DEAD_ZONE = 0.2f;
 
 	void Movement(float deltaTime);

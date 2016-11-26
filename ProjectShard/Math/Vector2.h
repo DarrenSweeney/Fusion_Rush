@@ -13,6 +13,8 @@ public:
 	Vector2 operator-=(Vector2 &vec2);
 	Vector2 operator+(Vector2 &vec2);
 	Vector2 operator+=(Vector2 &vec2);
+
+	Vector2 Lerp(Vector2 &start, Vector2 &end, float interpolator);
 };
 
 #endif

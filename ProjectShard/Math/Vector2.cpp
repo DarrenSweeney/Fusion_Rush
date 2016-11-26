@@ -31,3 +31,9 @@ Vector2 Vector2::operator+=(Vector2 &vec2)
 
 	return *this;
 }
+
+Vector2 Vector2::Lerp(Vector2 &start, Vector2 &end, float interpolator)
+{
+	return Vector2((1.0f - interpolator) * start.x + (interpolator * end.x),
+		(1.0f - interpolator) * start.y + (interpolator * end.y));
+}

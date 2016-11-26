@@ -110,9 +110,11 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 	{
 		case MenuState::MenuOpitions:
 		{
-			if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_UP) && selectPosition.y != playLabel.position.y)
+			if ((InputManager::GetInstance().IsKeyPressed(GLFW_KEY_UP) || InputManager::GetInstance().IsControllerButtonPressed(XBOX360_UP)) 
+				&& selectPosition.y != playLabel.position.y)
 				selectPosition.y += 50.0f;
-			else if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN) && selectPosition.y != exitLabel.position.y)
+			else if ((InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN) || InputManager::GetInstance().IsControllerButtonPressed(XBOX360_DOWN))
+				&& selectPosition.y != exitLabel.position.y)
 				selectPosition.y -= 50.0f;
 
 			UpdateLable(playLabel);
@@ -168,7 +170,8 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 				// NOTE(Darren): I could seperate this, duplicate. Could put with backspace check.
 				if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ENTER)
 					|| InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN)
-					|| InputManager::GetInstance().IsKeyPressed(GLFW_KEY_TAB))
+					|| InputManager::GetInstance().IsKeyPressed(GLFW_KEY_TAB)
+					|| InputManager::GetInstance().IsControllerButtonPressed(XBOX360_A))
 				{
 					InputManager::GetInstance().keyInput.clear();
 					selectPosition.y += 120.0f;

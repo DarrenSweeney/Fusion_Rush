@@ -30,7 +30,7 @@ void RacingTrack::Init()
 			for (; i < firstIndex + 5; i++)
 			{
 				trackBlock[i].blockType = TrackBlock::BlockType::oscillation;
-				trackBlock[i].position = Vector3(40.0f - (blockIndent * 14.0f), 35.0f - (8.0f * blockIndent), -firstIndex * 80);
+				trackBlock[i].position = Vector3(40.0f - (blockIndent * 14.0f), 35.0f - (8.0f * blockIndent), -50.0f - (firstIndex * 80));
 				blockIndent++;
 			}
 
@@ -54,7 +54,7 @@ void RacingTrack::Init()
 			}
 
 			trackBlock[i].blockType = TrackBlock::BlockType::rotating;
-			trackBlock[i].position = Vector3(blockIndent, 7.0f, (i * -80));
+			trackBlock[i].position = Vector3(blockIndent, 7.0f, -50.0f + (i * - 80));
 			trackBlock[i].rotate.rotate(MathHelper::DegressToRadians(45.0f), Vector3(1.0f, 1.0f, 1.0f));
 
 			continue;
@@ -68,7 +68,7 @@ void RacingTrack::Init()
 				blockIndent = -blockIndent;
 
 			trackBlock[i].blockType = TrackBlock::BlockType::stationary;
-			trackBlock[i].position = Vector3(blockIndent, 4.0f, (i * -80));
+			trackBlock[i].position = Vector3(blockIndent, 4.0f, -50.0f + (i * -80));
 
 			continue;
 		}
@@ -76,10 +76,6 @@ void RacingTrack::Init()
 
 	Matrix4 rotate = Matrix4();
 	Vector3 scaleVec = Vector3(3.0f, 5.0f, 60.0f);
-	debug_block.position = Vector3(-60.0f, 0.0f, 0.0f);
-	debug_block.rotate = rotate;
-	debug_block.scaleVec = scaleVec;
-	debug_BoundingBox.UpdateBoundingBox(Vector3(-60.0f, 0.0f, 0.0f), rotate, scaleVec);
 }
 
 void RacingTrack::Update(float deltaTime)
@@ -105,6 +101,8 @@ bool RacingTrack::ObstacleCollision(CollisionBox &playerBoundingBox)
 
 bool RacingTrack::BarrierCollision(CollisionBox &playerBoundingBox)
 {
+	// TODO(Darren): Maybe have to reolve the collision better and push the position outside 
+	// the barrer so it doesn't get stuck.
 	if (playerBoundingBox.boundingBox.c.x < -55.0f || playerBoundingBox.boundingBox.c.x > 55.0f)
 	{
 		return true;
@@ -125,8 +123,6 @@ void RacingTrack::RenderSceneObjects(Camera &camera, GLsizei screenWidth, GLsize
 	
 	buildings.Render(camera, screenWidth, screenHeight);
 	barriers.Render(camera, screenWidth, screenHeight);
-
-	//debug_block.Render(camera, screenWidth, screenHeight);
 
 	for (unsigned int i = 0; i < blockAmount; i++)
 		trackBlock[i].Render(camera, screenWidth, screenHeight);

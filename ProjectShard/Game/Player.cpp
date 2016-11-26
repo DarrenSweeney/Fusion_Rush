@@ -1,7 +1,7 @@
 #include "Player.h"
 
 Player::Player()
-	: rotationSpeed(2.0f), camera(Vector3(3.0f, 0.0f, 2.0)), position(Vector3(0.0f, 0.0f, 50.0f)), speed(2.5f)
+	: rotationSpeed(2.0f), camera(Vector3(3.0f, 0.0f, 2.0)), position(Vector3(0.0f, 0.0f, 0.0f)), speed(2.5f)
 {
 	model = g_resourceMgr.GetModel(SID("PlayerShip"));
 	shaderModel = g_resourceMgr.GetShader(SID("PlayerShader"));
@@ -41,7 +41,7 @@ void Player::Movement(float deltaTime)
 		linearVelocity.z -= speed;
 
 	if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_DOWN)
-		|| InputManager::GetInstance().IsControllerButtonPressed(XBOX360_LB))
+		|| InputManager::GetInstance().IsControllerButtonDown(XBOX360_LB))
 		linearVelocity.z += speed * 2.0f;
 
 	if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_LEFT) 
@@ -81,7 +81,7 @@ void Player::Movement(float deltaTime)
 
 void Player::Spawn()
 {
-	position = Vector3(0.0f, 0.0f, 50.0f);
+	position = Vector3(0.0f, 0.0f, 0.0f);
 	linearVelocity = Vector3();
 }
 

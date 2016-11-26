@@ -54,6 +54,11 @@ void InputManager::SetWindowContext(GLFWwindow *currentWindow)
 	window = currentWindow;
 }
 
+void InputManager::SetControllerIndex(unsigned int index)
+{
+	controllerIndex = index;
+}
+
 bool InputManager::IsJoyStickPresent(int joystick)
 {
 	int present = glfwJoystickPresent(joystick);
@@ -63,14 +68,14 @@ bool InputManager::IsJoyStickPresent(int joystick)
 
 bool InputManager::IsControllerButtonPressed(unsigned int button)
 {
-	if (!IsJoyStickPresent(GLFW_JOYSTICK_3))
+	if (!IsJoyStickPresent(controllerIndex))
 		return false;
 
 	bool buttonPressed = false;
 	// Check if the input parameter is a face button, shoulder button, back/start button or joystick button
 	if (button >= XBOX360_A && button < XBOX360_MAX_BUTTONS)
 	{
-		const unsigned char* buttons = glfwGetJoystickButtons(GLFW_JOYSTICK_3, &count);
+		const unsigned char* buttons = glfwGetJoystickButtons(controllerIndex, &count);
 
 		if (buttons[button] == GLFW_PRESS)
 		{
@@ -101,14 +106,14 @@ bool InputManager::IsControllerButtonPressed(unsigned int button)
 
 bool InputManager::IsControllerButtonDown(unsigned int button)
 {
-	if (!IsJoyStickPresent(GLFW_JOYSTICK_3))
+	if (!IsJoyStickPresent(controllerIndex))
 		return false;
 
 	bool buttonPressed = false;
 	// Check if the input parameter is a face button, shoulder button, back/start button or joystick button
 	if (button >= XBOX360_A && button < XBOX360_MAX_BUTTONS)
 	{
-		const unsigned char* buttons = glfwGetJoystickButtons(GLFW_JOYSTICK_3, &count);
+		const unsigned char* buttons = glfwGetJoystickButtons(controllerIndex, &count);
 
 		if (buttons[button] == GLFW_PRESS)
 		{
@@ -129,10 +134,10 @@ Vector2 InputManager::GetLeftJoyStick()
 {
 	Vector2 leftThumbStick;
 
-	if (!IsJoyStickPresent(GLFW_JOYSTICK_3))
+	if (!IsJoyStickPresent(controllerIndex))
 		return leftThumbStick;
 
-	const float *axis = glfwGetJoystickAxes(GLFW_JOYSTICK_3, &count);
+	const float *axis = glfwGetJoystickAxes(controllerIndex, &count);
 	leftThumbStick.x = axis[LEFT_STICK_X];
 	leftThumbStick.y = axis[LEFT_STICK_Y];
 
@@ -145,10 +150,10 @@ Vector2 InputManager::GetRightJoyStick()
 {
 	Vector2 rightThumbStick;
 
-	if (!IsJoyStickPresent(GLFW_JOYSTICK_3))
+	if (!IsJoyStickPresent(controllerIndex))
 		return rightThumbStick;
 
-	const float *axis = glfwGetJoystickAxes(GLFW_JOYSTICK_3, &count);
+	const float *axis = glfwGetJoystickAxes(controllerIndex, &count);
 	rightThumbStick.x = axis[RIGHT_STICK_X];
 	rightThumbStick.y = axis[RIGHT_STICK_Y];
 
