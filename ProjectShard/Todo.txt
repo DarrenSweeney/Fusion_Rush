@@ -1,9 +1,8 @@
 # Darren's todo list for road to Games Fleadh:)
 
-1. Create a rotation reflection.
-2. Implement collision for all the barriers.
-3. Create a class for player input which abstracts a up movment,
-	down movement etc so i don't have to check for keyboard,
-	controller, sterring wheel etc.
-4. Will need to look over menu memory cost. Need to refactor code because
-	it is a bit messey and the rendering is all over the place.
+1. Create a rotation reflection matrix
+2. Create UI for speed
+3. Create UI for damange
+4. Create UI for best lap and current lap
+5. Player can't reverse at start. 
+6. Create an end to race track, get time, pop up UI, etc.

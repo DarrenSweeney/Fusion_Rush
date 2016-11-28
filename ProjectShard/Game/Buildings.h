@@ -16,7 +16,6 @@ public:
 private:
 	Model *buildingModel, *reflecBuildingModel;
 	Matrix4 *modelMatrices, *refleModelMatrices;
-	Matrix4 scaleMatrix;
 };
 
 #endif

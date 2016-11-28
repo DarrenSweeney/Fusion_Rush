@@ -12,7 +12,7 @@ Buildings::Buildings()
 	UseInstancingShader();
 	glUniform3f(glGetUniformLocation(ShaderProgramID(), "skyColour"), 0.8f, 0.45f, 0.4f);
 
-	scaleMatrix = Matrix4();
+	Matrix4 scaleMatrix = Matrix4();
 	scaleMatrix = scaleMatrix.scale(Vector3(20.0f, 20.0f, 20.0f));
 	for (GLuint i = 0; i < amount; i++)
 	{
