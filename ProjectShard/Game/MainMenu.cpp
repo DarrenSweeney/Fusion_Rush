@@ -87,6 +87,10 @@ void MainMenu::InitScene()
 	signInOutLabel.rect.SetRectangle(signInOutLabel.position, 30, 10);
 	exitLabel.rect.SetRectangle(exitLabel.position, 30, 10);
 	selectRect.SetRectangle(selectPosition, 50, 50);
+
+	// TODO(Darren): Need to figure how i will load sounds in resource manager and play them here
+	// and can i get the volume of each sound loaded etc.
+	//menuSound.Play2D(,);
 }
 
 void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenHeight)

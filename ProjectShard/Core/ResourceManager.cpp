@@ -89,6 +89,8 @@ void ResourceManager::LoadSceneTextures()
 	LoadTexture("Arrow_UI", "Resources/UI/Arrow_UI.png");
 	LoadTexture("Best_Time_UI", "Resources/UI/Best_Time_UI.png");
 	LoadTexture("Current_Time_UI", "Resources/UI/Current_Time_UI.png");
+	LoadTexture("Gauge_Speed_UI", "Resources/UI/Gauge_Vel.png");
+	LoadTexture("Gauge_Arrow_UI", "Resources/UI/Speed_Pointer.png");
 }
 
 void ResourceManager::PrintShaderTable()

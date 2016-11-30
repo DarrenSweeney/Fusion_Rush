@@ -29,6 +29,8 @@ class MainMenu
 private:
 	GameSparksInfo gameSparksInfo;
 
+	Sound menuSound;
+
 	Text textRenderer;
 	CollisionRectangle selectRect;
 	Vector2 selectPosition;
@@ -78,7 +80,7 @@ private:
 	MenuLabel loginLabel, cancelLabel, createAccountLabel;
 	CollisionRectangle usernameRect, passwordRect, reenterPasswordRec;
 	std::string signInUserName, signInPassword, signInReEnterPass;
-	// Hide password when player types
+	// TODO(Darren): Hide password when player types
 	std::string signInPassDisplay;
 	std::string currentUserName;	// NOTE(Darren): Need to implement
 	std::string playerRank;			// NOTE(Darren): Need to implement
