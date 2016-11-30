@@ -21,6 +21,7 @@ public:
 	void Spawn();
 	void Render(GLsizei screenWidth, GLsizei screenHeight);
 	void Reflection(GLsizei screenWidth, GLsizei screenHeight);
+	float GetSpeed();
 
 	Camera camera;
 	CollisionBox boundingBox;

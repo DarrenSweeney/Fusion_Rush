@@ -121,3 +121,8 @@ void Player::Reflection(GLsizei screenWidth, GLsizei screenHeight)
 	glUniformMatrix4fv(glGetUniformLocation(shaderModel->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
 	model->Draw(*shaderModel);
 }
+
+float Player::GetSpeed()
+{
+	return linearVelocity.Magnitude();
+}
