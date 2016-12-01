@@ -29,7 +29,7 @@ class MainMenu
 private:
 	GameSparksInfo gameSparksInfo;
 
-	Sound menuSound;
+	Sound menuError, menuNaV, menuSelect;
 
 	Text textRenderer;
 	CollisionRectangle selectRect;
@@ -100,6 +100,9 @@ public:
 	void InitScene();
 	void UpdateScene(float delatTime, GLsizei screenWidth, GLsizei sceenHeight);
 	void RenderScene(GLsizei screenWidth, GLsizei sceenHeight);
+	void PlayMenuSelect();
+	void PlayMenuError();
+	void PlayMenuNav();
 };
 
 #endif

@@ -31,6 +31,7 @@ void GameApplication::Update(GLfloat deltaTime)
 				currentGameState = GameState::inGame;
 				racingScene->sceneBlur = false;
 				racingScene->SetPlayerMovement(true);
+				racingScene->SetRenderUIState(true);
 			}
 			break;
 		}
@@ -45,6 +46,7 @@ void GameApplication::Update(GLfloat deltaTime)
 				currentGameState = GameState::mainMenu;
 				racingScene->sceneBlur = true;
 				racingScene->SetPlayerMovement(false);
+				racingScene->SetRenderUIState(false);
 			}
 
 			break;

@@ -90,7 +90,7 @@ void MainMenu::InitScene()
 
 	// TODO(Darren): Need to figure how i will load sounds in resource manager and play them here
 	// and can i get the volume of each sound loaded etc.
-	//menuSound.Play2D(,);
+	// ---
 }
 
 void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenHeight)
@@ -114,12 +114,18 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 	{
 		case MenuState::MenuOpitions:
 		{
-			if ((InputManager::GetInstance().IsKeyPressed(GLFW_KEY_UP) || InputManager::GetInstance().IsControllerButtonPressed(XBOX360_UP)) 
+			if ((InputManager::GetInstance().IsKeyPressed(GLFW_KEY_UP) || InputManager::GetInstance().IsControllerButtonPressed(XBOX360_UP))
 				&& selectPosition.y != playLabel.position.y)
+			{
 				selectPosition.y += 50.0f;
+				PlayMenuNav();
+			}
 			else if ((InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN) || InputManager::GetInstance().IsControllerButtonPressed(XBOX360_DOWN))
 				&& selectPosition.y != exitLabel.position.y)
+			{
 				selectPosition.y -= 50.0f;
+				PlayMenuNav();
+			}
 
 			UpdateLable(playLabel);
 			if (playLabel.labelSelected)
@@ -179,6 +185,7 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 				{
 					InputManager::GetInstance().keyInput.clear();
 					selectPosition.y += 120.0f;
+					PlayMenuNav();
 				}
 			}
 			else if (selectRect.Intersects(passwordRect))
@@ -198,6 +205,7 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 				{
 					InputManager::GetInstance().keyInput.clear();
 					selectPosition.y += 120.0f;
+					PlayMenuNav();
 				}
 			}
 
@@ -217,7 +225,8 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 				gameSparksInfo.InitGS();
 			}
 
-			if (cancelLabel.labelSelected || InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ESCAPE))
+			if (cancelLabel.labelSelected || InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ESCAPE)
+				|| InputManager::GetInstance().IsControllerButtonPressed(XBOX360_BACK))
 			{
 				currentMenuState = MenuState::MenuOpitions;
 				currentSelectState = SelectState::NotSelected;
@@ -231,14 +240,26 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 			}
 
 			if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_UP) && !selectRect.Intersects(usernameRect))
+			{
 				selectPosition.y -= 120.0f;
+				PlayMenuNav();
+			}
 			else if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN) && !selectRect.Intersects(createAccountLabel.rect))
+			{
 				selectPosition.y += 120.0f;
+				PlayMenuNav();
+			}
 
 			if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_RIGHT) && selectRect.Intersects(loginLabel.rect))
+			{
 				selectPosition.x += 150.0f;
+				PlayMenuNav();
+			}
 			else if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_LEFT) && selectRect.Intersects(cancelLabel.rect))
+			{
 				selectPosition.x -= 150.0f;
+				PlayMenuNav();
+			}
 
 			break;
 		}
@@ -266,6 +287,7 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 				{
 					InputManager::GetInstance().keyInput.clear();
 					selectPosition.y += 100.0f;
+					PlayMenuNav();
 				}
 			}
 			else if (selectRect.Intersects(passwordRect))
@@ -281,6 +303,7 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 				{
 					InputManager::GetInstance().keyInput.clear();
 					selectPosition.y += 100.0f;
+					PlayMenuNav();
 				}
 			}
 			else if (selectRect.Intersects(reenterPasswordRec))
@@ -296,6 +319,7 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 				{
 					InputManager::GetInstance().keyInput.clear();
 					selectPosition.y += 100.0f;
+					PlayMenuNav();
 				}
 			}
 
@@ -308,32 +332,51 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 			UpdateLable(cancelLabel);
 			UpdateLable(createAccountLabel);
 
-			if (cancelLabel.labelSelected || InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ESCAPE))
+			if (cancelLabel.labelSelected || InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ESCAPE)
+				|| InputManager::GetInstance().IsControllerButtonPressed(XBOX360_BACK))
 			{
 				currentMenuState = MenuState::MenuOpitions;
 				currentSelectState = SelectState::NotSelected;
 				selectPosition = signInOutLabel.position;
 			}
 
-			if (signInPassword == signInReEnterPass)
+			if (createAccountLabel.labelSelected)
 			{
-				if (createAccountLabel.labelSelected)
+				if (signInPassword == signInReEnterPass)
 				{
 					AccountCreateRequest();
 					gameSparksInfo.InitGS();
 				}
+				else
+				{
+					// TODO(Darren): Render this string to menu screen
+					std::cout << "Password word does not match" << std::endl;
+					PlayMenuError();
+				}
 			}
 
 			if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_UP) && !usernameRect.Intersects(selectRect))
+			{
 				selectPosition.y -= 100.0f;
-			else if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN) 
+				PlayMenuNav();
+			}
+			else if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN)
 				&& (!createAccountLabel.rect.Intersects(selectRect)) && (!cancelLabel.rect.Intersects(selectRect)))
+			{
 				selectPosition.y += 100.0f;
+				PlayMenuNav();
+			}
 
 			if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_RIGHT) && !cancelLabel.rect.Intersects(selectRect))
+			{
 				selectPosition.x += 150.0f;
+				PlayMenuNav();
+			}
 			else if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_LEFT) && !createAccountLabel.rect.Intersects(selectRect))
+			{
 				selectPosition.x -= 150.0f;
+				PlayMenuNav();
+			}
 
 			break;
 		}
@@ -341,15 +384,22 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 		case MenuState::ExitOpitions:
 		{
 			if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_RIGHT) && selectPosition.x != exitPannelPosition.x + 150.0f)
+			{
 				selectPosition.x += 150.0f;
+				PlayMenuNav();
+			}
 			else if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_LEFT) && selectPosition.x != exitPannelPosition.x)
+			{
 				selectPosition.x -= 150.0f;
+				PlayMenuNav();
+			}
 
 			exitNo.rect.SetRectangle(exitNo.position, 30, 50);
 			exitYes.rect.SetRectangle(exitYes.position, 30, 50);
 
 			UpdateLable(exitNo);
-			if (exitNo.labelSelected || InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ESCAPE))
+			if (exitNo.labelSelected || InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ESCAPE)
+				|| InputManager::GetInstance().IsControllerButtonPressed(XBOX360_BACK))
 			{
 				selectPosition = exitLabel.position;
 				currentMenuState = MenuState::MenuOpitions;
@@ -396,8 +446,12 @@ void MainMenu::UpdateLable(MenuLabel &label)
 	{
 		label.color = selectColor;
 
-		if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ENTER))
+		if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ENTER) 
+			|| InputManager::GetInstance().IsControllerButtonPressed(XBOX360_A))
+		{
 			label.labelSelected = true;
+			PlayMenuSelect();
+		}
 		else
 			label.labelSelected = false;
 	}
@@ -538,4 +592,19 @@ void MainMenu::RenderLeaderboardEntry(GLsizei screenWidth, GLsizei screenHeight)
 void MainMenu::RenderLabel(MenuText &menuLable, GLsizei screenWidth, GLsizei sceenHeight)
 {
 	textRenderer.RenderText(menuLable.text, menuLable.position, menuLable.scale, menuLable.color, screenWidth, sceenHeight);
+}
+
+void MainMenu::PlayMenuError()
+{
+	menuError.Play2D("Resources/Sounds/Menu/Menu_Error.wav");
+}
+
+void MainMenu::PlayMenuNav()
+{
+	menuNaV.Play2D("Resources/Sounds/Menu/Menu_Nav.wav");
+}
+
+void MainMenu::PlayMenuSelect()
+{
+	menuSelect.Play2D("Resources/Sounds/Menu/Menu_Select.wav");
 }
