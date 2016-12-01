@@ -201,7 +201,8 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 
 				if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ENTER)
 					|| InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN)
-					|| InputManager::GetInstance().IsKeyPressed(GLFW_KEY_TAB))
+					|| InputManager::GetInstance().IsKeyPressed(GLFW_KEY_TAB)
+					|| InputManager::GetInstance().IsControllerButtonPressed(XBOX360_A))
 				{
 					InputManager::GetInstance().keyInput.clear();
 					selectPosition.y += 120.0f;
@@ -239,23 +240,27 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 				selectPosition = createAccountPannelPos + Vector2(30.0f, 60.0f);
 			}
 
-			if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_UP) && !selectRect.Intersects(usernameRect))
+			if ((InputManager::GetInstance().IsKeyPressed(GLFW_KEY_UP) || InputManager::GetInstance().IsControllerButtonPressed(XBOX360_UP)) 
+				&& !selectRect.Intersects(usernameRect))
 			{
 				selectPosition.y -= 120.0f;
 				PlayMenuNav();
 			}
-			else if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN) && !selectRect.Intersects(createAccountLabel.rect))
+			else if ((InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN) || InputManager::GetInstance().IsControllerButtonPressed(XBOX360_DOWN)) 
+				&& !selectRect.Intersects(createAccountLabel.rect))
 			{
 				selectPosition.y += 120.0f;
 				PlayMenuNav();
 			}
 
-			if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_RIGHT) && selectRect.Intersects(loginLabel.rect))
+			if ((InputManager::GetInstance().IsKeyPressed(GLFW_KEY_RIGHT) || InputManager::GetInstance().IsControllerButtonPressed(XBOX360_RIGHT)) 
+				&& selectRect.Intersects(loginLabel.rect))
 			{
 				selectPosition.x += 150.0f;
 				PlayMenuNav();
 			}
-			else if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_LEFT) && selectRect.Intersects(cancelLabel.rect))
+			else if ((InputManager::GetInstance().IsKeyPressed(GLFW_KEY_LEFT) || InputManager::GetInstance().IsControllerButtonPressed(XBOX360_LEFT)) 
+				&& selectRect.Intersects(cancelLabel.rect))
 			{
 				selectPosition.x -= 150.0f;
 				PlayMenuNav();
@@ -283,7 +288,8 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 				// NOTE(Darren): I could seperate this, duplicate. Could put with backspace check.
 				if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ENTER)
 					|| InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN)
-					|| InputManager::GetInstance().IsKeyPressed(GLFW_KEY_TAB))
+					|| InputManager::GetInstance().IsKeyPressed(GLFW_KEY_TAB)
+					|| InputManager::GetInstance().IsControllerButtonPressed(XBOX360_A))
 				{
 					InputManager::GetInstance().keyInput.clear();
 					selectPosition.y += 100.0f;
@@ -299,7 +305,8 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 
 				if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ENTER)
 					|| InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN)
-					|| InputManager::GetInstance().IsKeyPressed(GLFW_KEY_TAB))
+					|| InputManager::GetInstance().IsKeyPressed(GLFW_KEY_TAB)
+					|| InputManager::GetInstance().IsControllerButtonPressed(XBOX360_A))
 				{
 					InputManager::GetInstance().keyInput.clear();
 					selectPosition.y += 100.0f;
@@ -315,7 +322,8 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 
 				if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ENTER)
 					|| InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN)
-					|| InputManager::GetInstance().IsKeyPressed(GLFW_KEY_TAB))
+					|| InputManager::GetInstance().IsKeyPressed(GLFW_KEY_TAB)
+					|| InputManager::GetInstance().IsControllerButtonPressed(XBOX360_A))
 				{
 					InputManager::GetInstance().keyInput.clear();
 					selectPosition.y += 100.0f;
@@ -355,24 +363,27 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 				}
 			}
 
-			if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_UP) && !usernameRect.Intersects(selectRect))
+			if ((InputManager::GetInstance().IsKeyPressed(GLFW_KEY_UP) || InputManager::GetInstance().IsControllerButtonPressed(XBOX360_UP)) 
+				&& !usernameRect.Intersects(selectRect))
 			{
 				selectPosition.y -= 100.0f;
 				PlayMenuNav();
 			}
-			else if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN)
+			else if ((InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN) || InputManager::GetInstance().IsControllerButtonPressed(XBOX360_DOWN))
 				&& (!createAccountLabel.rect.Intersects(selectRect)) && (!cancelLabel.rect.Intersects(selectRect)))
 			{
 				selectPosition.y += 100.0f;
 				PlayMenuNav();
 			}
 
-			if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_RIGHT) && !cancelLabel.rect.Intersects(selectRect))
+			if ((InputManager::GetInstance().IsKeyPressed(GLFW_KEY_RIGHT) || InputManager::GetInstance().IsControllerButtonPressed(XBOX360_RIGHT))
+				&& !cancelLabel.rect.Intersects(selectRect))
 			{
 				selectPosition.x += 150.0f;
 				PlayMenuNav();
 			}
-			else if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_LEFT) && !createAccountLabel.rect.Intersects(selectRect))
+			else if ((InputManager::GetInstance().IsKeyPressed(GLFW_KEY_LEFT) || InputManager::GetInstance().IsControllerButtonPressed(XBOX360_LEFT))
+				&& !createAccountLabel.rect.Intersects(selectRect))
 			{
 				selectPosition.x -= 150.0f;
 				PlayMenuNav();
@@ -383,12 +394,14 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 
 		case MenuState::ExitOpitions:
 		{
-			if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_RIGHT) && selectPosition.x != exitPannelPosition.x + 150.0f)
+			if ((InputManager::GetInstance().IsKeyPressed(GLFW_KEY_RIGHT) || InputManager::GetInstance().IsControllerButtonPressed(XBOX360_RIGHT)) 
+				&& selectPosition.x != exitPannelPosition.x + 150.0f)
 			{
 				selectPosition.x += 150.0f;
 				PlayMenuNav();
-			}
-			else if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_LEFT) && selectPosition.x != exitPannelPosition.x)
+			} 
+			else if ((InputManager::GetInstance().IsKeyPressed(GLFW_KEY_LEFT) || InputManager::GetInstance().IsControllerButtonPressed(XBOX360_LEFT)) 
+				&& selectPosition.x != exitPannelPosition.x)
 			{
 				selectPosition.x -= 150.0f;
 				PlayMenuNav();

@@ -41,7 +41,8 @@ void GameApplication::Update(GLfloat deltaTime)
 		{
 			racingScene->UpdateScene(deltaTime);
 
-			if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ESCAPE))
+			if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ESCAPE)
+				|| InputManager::GetInstance().IsControllerButtonPressed(XBOX360_BACK))
 			{
 				currentGameState = GameState::mainMenu;
 				racingScene->sceneBlur = true;
