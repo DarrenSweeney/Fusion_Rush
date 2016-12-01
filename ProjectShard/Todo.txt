@@ -1,9 +1,6 @@
 # Darren's todo list for road to Games Fleadh:)
 
 1. Create a rotation reflection matrix
-2. Create UI for speed
-3. Create UI for damange
-5. Player can't reverse at start. 
-6. Create an end to race track, get time, pop up UI, etc.
-7. Fix sprite rendering for origin rotation.
-8. Add sound effect to menu and organise resource loading.
+2. Create UI for damange
+3. Player can't reverse at start.
+4. Create an end to race track, get time, pop up UI, etc.
