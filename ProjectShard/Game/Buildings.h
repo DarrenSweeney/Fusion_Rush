@@ -14,8 +14,17 @@ public:
 	void RenderReflection(Camera &camera, GLsizei screenWidth, GLsizei screenHeight);
 
 private:
-	Model *buildingModel, *reflecBuildingModel;
-	Matrix4 *modelMatrices, *refleModelMatrices;
+	struct BuildingData
+	{
+		Model *buildingModel, *reflecBuildingModel;
+		Matrix4 *modelMatrices, *refleModelMatrices;
+	};
+
+	BuildingData building_1;
+	BuildingData building_2;
+
+	void CreateBuilding(BuildingData building, const char* modelName, const char* modelReflName);
+	void DeleteBuilding(BuildingData building);
 };
 
 #endif

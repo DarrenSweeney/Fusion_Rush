@@ -64,8 +64,10 @@ void ResourceManager::LoadSceneModels()
 	LoadModel("RaceTrack", "Resources/Track_new/Race_Track.obj");
 	LoadModel("Barrier", "Resources/Barrier/Barrier.obj");
 	LoadModel("BarrierReflection", "Resources/Barrier/Barrier.obj");
-	LoadModel("Building", "Resources/Building/Building.obj");
-	LoadModel("BuildingReflection", "Resources/Building/Building.obj");
+	LoadModel("Building", "Resources/Buildings/Building/Building.obj");
+	LoadModel("BuildingReflection", "Resources/Buildings/Building/Building.obj");
+	LoadModel("Building_2", "Resources/Buildings/Building_2/Building_2.obj");
+	LoadModel("BuildingReflection_2", "Resources/Buildings/Building_2/Building_2.obj");
 	LoadModel("Block", "Resources/Obstacle/Obstacle.obj");
 }
 

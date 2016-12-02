@@ -26,6 +26,7 @@ public:
 	Matrix4 &GetProjectionMatrix(GLsizei screenWidth, GLsizei screenHeight);
 
 	void SetPosition(Vector3 pos);
+	void Roll(GLfloat angle);
 
 	void KeyboardMovement(GLfloat deltaTime);
 	void MouseMovement(GLfloat xOffset, GLfloat yOffset);
@@ -44,7 +45,6 @@ private:
 	GLfloat zoom;
 
 	void UpdateCameraVectors();
-	void Roll(GLfloat angle);
 };
 
 #endif

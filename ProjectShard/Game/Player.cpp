@@ -1,10 +1,14 @@
 #include "Player.h"
 
 Player::Player()
-	: rotationSpeed(2.0f), camera(Vector3(3.0f, 0.0f, 2.0)), position(Vector3(0.0f, 0.0f, 0.0f)), speed(2.5f)
+	: rotationSpeed(2.0f), camera(Vector3(3.0f, 2.0f, 8.0)), position(Vector3(0.0f, 0.0f, 0.0f)), speed(2.5f)
 {
 	model = g_resourceMgr.GetModel(SID("PlayerShip"));
 	shaderModel = g_resourceMgr.GetShader(SID("PlayerShader"));
+
+	// TODO(Darren): Create some user of yaw, roll pitch for camera angles.
+	//				 maybe set pitch etc.
+	//camera.Roll(140.0f);
 }
 
 Player::~Player()
