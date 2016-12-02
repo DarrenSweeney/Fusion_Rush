@@ -38,6 +38,7 @@ private:
 	float rotationSpeed;
 	Matrix4 modelRotate;
 	const float JOYSTICK_DEAD_ZONE = 0.2f;
+	float cameraInterpolator = 0;
 
 	void Movement(float deltaTime);
 };

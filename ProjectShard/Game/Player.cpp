@@ -1,7 +1,7 @@
 #include "Player.h"
 
 Player::Player()
-	: rotationSpeed(2.0f), camera(Vector3(3.0f, 2.0f, 8.0)), position(Vector3(0.0f, 0.0f, 0.0f)), speed(2.5f)
+	: rotationSpeed(2.0f), camera(Vector3(3.0f, 2.0f, 8.0f)), position(Vector3(0.0f, 0.0f, 0.0f)), speed(2.5f)
 {
 	model = g_resourceMgr.GetModel(SID("PlayerShip"));
 	shaderModel = g_resourceMgr.GetShader(SID("PlayerShader"));
@@ -26,7 +26,14 @@ void Player::Update(float deltaTime)
 	if(updateMovement)
 		Movement(deltaTime);
 
-	camera.SetPosition(position - Vector3(0.0f, -15.0f, -40.0f));
+	Vector3 initPos = Vector3(3.0f, 2.0f, 8.0f);
+	Vector3 finalPos = position - Vector3(0.0f, -15.0f, -40.0f);
+	if (cameraInterpolator < 1.0f)
+		cameraInterpolator += 0.01f;
+	else
+		cameraInterpolator = 1.0f;
+	Vector3 transitionVector = transitionVector.Lerp(initPos, finalPos, cameraInterpolator);
+	camera.SetPosition(transitionVector);
 
 	modelRotate = Matrix4();
 	modelRotate = modelRotate.QuaternionToMatrix4(orientation);
@@ -87,6 +94,7 @@ void Player::Spawn()
 {
 	position = Vector3(0.0f, 0.0f, 0.0f);
 	linearVelocity = Vector3();
+	cameraInterpolator = 0.0f;
 }
 
 void Player::Render(GLsizei screenWidth, GLsizei screenHeight)
