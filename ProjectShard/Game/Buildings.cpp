@@ -3,14 +3,23 @@
 Buildings::Buildings()
 {
 	amount = 100;
+	building_1.refleModelMatrices = new Matrix4[amount];
+	building_1.modelMatrices = new Matrix4[amount];
 
-	CreateBuilding(building_1, "Building", "BuildingReflection");
-	CreateBuilding(building_2, "Building_2", "BuildingReflection_2");
+	building_1.buildingModel = g_resourceMgr.GetModel(SID("Building"));
+	building_1.reflecBuildingModel = g_resourceMgr.GetModel(SID("BuildingReflection"));
+
+	//CreateBuilding(building_1);
+
+	building_2.refleModelMatrices = new Matrix4[amount];
+	building_2.modelMatrices = new Matrix4[amount];
+
+	building_2.buildingModel = g_resourceMgr.GetModel(SID("Building_2"));
+	building_2.reflecBuildingModel = g_resourceMgr.GetModel(SID("BuildingReflection_2"));
 
 	UseInstancingShader();
 	glUniform3f(glGetUniformLocation(ShaderProgramID(), "skyColour"), 0.8f, 0.45f, 0.4f);
 
-	// Refactor this into create building
 	Matrix4 scaleMatrix = Matrix4();
 	scaleMatrix = scaleMatrix.scale(Vector3(20.0f, 20.0f, 20.0f));
 	for (GLuint i = 0; i < amount; i++)

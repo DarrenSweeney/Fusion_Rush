@@ -21,6 +21,9 @@ private:
 	Buildings buildings;
 	Barriers barriers;
 	TrackSections trackSections;
+	Model *finishModel;
+	Shader *modelShader;
+	Vector3 finishPosition;
 
 public:
 	RacingTrack();

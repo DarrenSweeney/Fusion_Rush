@@ -69,6 +69,7 @@ void ResourceManager::LoadSceneModels()
 	LoadModel("Building_2", "Resources/Buildings/Building_2/Building_2.obj");
 	LoadModel("BuildingReflection_2", "Resources/Buildings/Building_2/Building_2.obj");
 	LoadModel("Block", "Resources/Obstacle/Obstacle.obj");
+	LoadModel("Finish_Model", "Resources/Finish_Model/Race_Finish.obj");
 }
 
 // Loads independent textures, that excludes models textures.

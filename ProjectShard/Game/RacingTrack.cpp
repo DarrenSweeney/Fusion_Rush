@@ -1,9 +1,12 @@
 #include "RacingTrack.h"
 
 RacingTrack::RacingTrack()
-	: blockAmount(50)
+	: blockAmount(50), finishPosition(-0.4f, 0.0f, -4500.0f)
 {
 	trackBlock = new TrackBlock[blockAmount];
+
+	finishModel = g_resourceMgr.GetModel("Finish_Model");
+	modelShader = g_resourceMgr.GetShader("ModelShader");
 }
 
 RacingTrack::~RacingTrack()
@@ -120,6 +123,18 @@ void RacingTrack::RenderSceneObjects(Camera &camera, GLsizei screenWidth, GLsize
 {
 	Matrix4 projection = camera.GetProjectionMatrix(screenWidth, screenHeight);
 	Matrix4 view = camera.GetViewMatrix();
+
+	modelShader->Use();
+	Matrix4 modelMatrix = Matrix4();
+	Matrix4 modelTranslate = Matrix4();
+	Matrix4 modelScale = Matrix4();
+	modelTranslate = modelTranslate.translate(finishPosition);
+	modelScale = modelScale.scale(Vector3(3.2f, 5.0f, 5.0f));
+	modelMatrix = modelScale * modelTranslate;
+	glUniformMatrix4fv(glGetUniformLocation(modelShader->Program, "model"), 1, GL_FALSE, &modelMatrix.data[0]);
+	glUniformMatrix4fv(glGetUniformLocation(modelShader->Program, "view"), 1, GL_FALSE, &view.data[0]);
+	glUniformMatrix4fv(glGetUniformLocation(modelShader->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
+	finishModel->Draw(*modelShader);
 	
 	buildings.Render(camera, screenWidth, screenHeight);
 	barriers.Render(camera, screenWidth, screenHeight);
