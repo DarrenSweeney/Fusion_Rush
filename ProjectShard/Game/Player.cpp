@@ -29,10 +29,12 @@ void Player::Update(float deltaTime)
 	Vector3 initPos = Vector3(3.0f, 2.0f, 8.0f);
 	Vector3 finalPos = position - Vector3(0.0f, -15.0f, -40.0f);
 	if (cameraInterpolator < 1.0f)
-		cameraInterpolator += 0.01f;
+		cameraInterpolator += 0.8f * deltaTime;
 	else
 		cameraInterpolator = 1.0f;
 	Vector3 transitionVector = transitionVector.Lerp(initPos, finalPos, cameraInterpolator);
+	// TODO(Darren): Might add another interpolation to make the camera fall 
+	//				 behind player on the X-axis.
 	camera.SetPosition(transitionVector);
 
 	modelRotate = Matrix4();

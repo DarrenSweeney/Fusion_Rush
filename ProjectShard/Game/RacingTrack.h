@@ -23,11 +23,12 @@ private:
 	TrackSections trackSections;
 	Model *finishModel;
 	Shader *modelShader;
-	Vector3 finishPosition;
 
 public:
 	RacingTrack();
 	~RacingTrack();
+
+	Vector3 startRacePosition, finishRacePosition;
 
 	void Init();
 	void Update(float deltaTime);
