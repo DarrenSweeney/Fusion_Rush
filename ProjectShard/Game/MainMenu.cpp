@@ -69,6 +69,10 @@ MainMenu::MainMenu()
 	typeElement = g_resourceMgr.GetTexture(SID("TypeElement"));
 
 	spriteRenderer = new SpriteRenderer();
+
+	menuError.soundEngine->setSoundVolume(0.2f);
+	menuNaV.soundEngine->setSoundVolume(0.2f);
+	menuSelect.soundEngine->setSoundVolume(0.2f);
 }
 
 MainMenu::~MainMenu()

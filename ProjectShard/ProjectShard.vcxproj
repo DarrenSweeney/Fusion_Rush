@@ -190,6 +190,7 @@
     <ClCompile Include="Game\TrackBlock.cpp" />
     <ClCompile Include="Game\TrackSections.cpp" />
     <ClCompile Include="Renderer\SpriteRenderer.cpp" />
+    <ClCompile Include="Game\SplashScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameSparksInfo.h" />
@@ -229,6 +230,7 @@
     <ClInclude Include="Game\TrackBlock.h" />
     <ClInclude Include="Game\TrackSections.h" />
     <ClInclude Include="Renderer\SpriteRenderer.h" />
+    <ClInclude Include="Game\SplashScreen.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GameSparks\GSIosHelper.mm" />

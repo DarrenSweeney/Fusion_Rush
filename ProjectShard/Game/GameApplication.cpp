@@ -23,6 +23,18 @@ void GameApplication::Update(GLfloat deltaTime)
 {
 	switch (currentGameState)
 	{
+		case GameState::splashScreen:
+		{
+			splashScreen.Update(deltaTime);
+
+			if (splashScreen.changeScene)
+			{
+				currentGameState = GameState::mainMenu;
+			}
+
+			break;
+		}
+
 		case GameState::mainMenu:
 		{
 			mainMenu->UpdateScene(deltaTime, screenWidth, screenHeight);
@@ -61,14 +73,26 @@ void GameApplication::Render(bool windowResized)
 
 	switch (currentGameState)
 	{
+		case GameState::splashScreen:
+		{
+			splashScreen.Render(screenWidth, screenHeight);
+
+			break;
+		}
+
 		case GameState::mainMenu:
 		{
 			mainMenu->RenderScene(screenWidth, screenHeight);
+			racingScene->RenderScene(screenWidth, screenHeight, windowResized);
+			break;
+		}
+
+		case GameState::inGame:
+		{
+			racingScene->RenderScene(screenWidth, screenHeight, windowResized);
 			break;
 		}
 	}
-
-	racingScene->RenderScene(screenWidth, screenHeight, windowResized);
 }
 
 bool GameApplication::GetCloseState()

@@ -4,19 +4,22 @@
 #include "..\Core\ResourceManager.h"
 #include "RacingScene.h"
 #include "MainMenu.h"
+#include "SplashScreen.h"
 
 class GameApplication
 {
 private:
-	RacingScene *racingScene;
+	SplashScreen splashScreen;
 	MainMenu *mainMenu;
+	RacingScene *racingScene;
 
 	enum class GameState
 	{
+		splashScreen,
 		mainMenu,
 		inGame
 	};
-	GameState currentGameState = GameState::mainMenu;
+	GameState currentGameState = GameState::splashScreen;
 
 public:
 	GameApplication(GLsizei screenWidth, GLsizei screenHeight);

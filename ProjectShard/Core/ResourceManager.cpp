@@ -94,6 +94,7 @@ void ResourceManager::LoadSceneTextures()
 	LoadTexture("Current_Time_UI", "Resources/UI/Current_Time_UI.png");
 	LoadTexture("Gauge_Speed_UI", "Resources/UI/Gauge_Vel.png");
 	LoadTexture("Gauge_Arrow_UI", "Resources/UI/Speed_Pointer.png");
+	LoadTexture("Engine_Logo", "Resources/Engine_Logo/Engine_Logo.png");
 }
 
 void ResourceManager::PrintShaderTable()
