@@ -2,7 +2,7 @@
 
 Buildings::Buildings()
 {
-	amount = 100;
+	amount = 130;
 	building_1.refleModelMatrices = new Matrix4[amount];
 	building_1.modelMatrices = new Matrix4[amount];
 

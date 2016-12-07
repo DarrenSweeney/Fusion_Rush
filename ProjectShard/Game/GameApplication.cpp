@@ -1,8 +1,10 @@
 #include "GameApplication.h"
 
 GameApplication::GameApplication(GLsizei _screenWidth, GLsizei _screenHeight)
-	: screenWidth(_screenWidth), screenHeight(_screenHeight)
+	: screenWidth(_screenWidth), screenHeight(_screenHeight), nbFrames(0)
 {
+	lastTime = glfwGetTime();
+
 	racingScene = new RacingScene();
 	mainMenu = new MainMenu();
 }
@@ -17,10 +19,23 @@ void GameApplication::Init()
 {
 	racingScene->InitalizeScene(screenWidth, screenHeight);
 	mainMenu->InitScene();
+
+	msPerFrameText.Load("Resources/Fonts/arial.ttf");
 }
 
 void GameApplication::Update(GLfloat deltaTime)
 {
+	// ms per frame
+	double currentTime = glfwGetTime();
+	nbFrames++;
+	if (currentTime - lastTime >= 1.0)
+	{
+		msPerFrame = 1000.0 / double(nbFrames);
+		printf("%f ms/frame\n", msPerFrame);
+		nbFrames = 0;
+		lastTime += 1.0;
+	}
+
 	switch (currentGameState)
 	{
 		case GameState::splashScreen:
@@ -70,6 +85,14 @@ void GameApplication::Update(GLfloat deltaTime)
 void GameApplication::Render(bool windowResized)
 {
 	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	stringstream ss;
+	ss << "ms per frame: " << msPerFrame;
+	msPerFrameText.RenderText(ss.str(), Vector2(10.0f, screenHeight - 30.0f), 0.4f, Vector3(0.0, 1.0f, 0.0f), screenWidth, screenHeight);
+	glDisable(GL_BLEND);
 
 	switch (currentGameState)
 	{

@@ -13,6 +13,12 @@ private:
 	MainMenu *mainMenu;
 	RacingScene *racingScene;
 
+	// ms per frame
+	double lastTime;
+	int nbFrames;
+	double msPerFrame;
+	Text msPerFrameText;
+
 	enum class GameState
 	{
 		splashScreen,
