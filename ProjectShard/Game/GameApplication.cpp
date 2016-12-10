@@ -64,7 +64,6 @@ void GameApplication::Update(GLfloat deltaTime)
 			break;
 		}
 
-
 		case GameState::inGame:
 		{
 			racingScene->UpdateScene(deltaTime);

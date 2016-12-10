@@ -65,7 +65,7 @@ void Player::Movement(float deltaTime)
 	if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_UP)
 		|| InputManager::GetInstance().IsControllerButtonDown(XBOX360_RB))
 		//|| InputManager::GetInstance().GetLeftTrigger() < 0.4f)
-		linearVelocity.z -= speed * 1.5f;
+		linearVelocity.z -= speed;
 
 	if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_DOWN)
 		|| InputManager::GetInstance().IsControllerButtonDown(XBOX360_LB))
@@ -74,7 +74,7 @@ void Player::Movement(float deltaTime)
 	if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_LEFT) 
 		|| InputManager::GetInstance().GetLeftJoyStick().x < - JOYSTICK_DEAD_ZONE)
 	{
-		linearVelocity.x -= speed * 2.0f; // *(-input * 2.0f);
+		linearVelocity.x -= speed * 1.1f; // *(-input * 2.0f);
 
 		targetRotation = targetRotation.RotateZ(MathHelper::DegressToRadians(90.0f));
 		orientation = orientation.Slerp(orientation, targetRotation, deltaTime * rotationSpeed);
@@ -85,7 +85,7 @@ void Player::Movement(float deltaTime)
 	if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_RIGHT) 
 		|| InputManager::GetInstance().GetLeftJoyStick().x > JOYSTICK_DEAD_ZONE)
 	{
-		linearVelocity.x += speed * 2.0f; // *(-input * 2.0f);
+		linearVelocity.x += speed * 1.1f; // *(-input * 2.0f);
 
 		targetRotation = targetRotation.RotateZ(MathHelper::DegressToRadians(-90.0f));
 		orientation = orientation.Slerp(orientation, targetRotation, deltaTime * rotationSpeed);
@@ -96,7 +96,7 @@ void Player::Movement(float deltaTime)
 	if (linearVelocity.x != 0)
 	{
 		Vector3 i = linearVelocity;
-		float friction = 0.013f;
+		float friction = 0.003f;
 
 		linearVelocity -= i * friction;
 	}
