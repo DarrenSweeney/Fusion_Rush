@@ -42,6 +42,19 @@ void Player::Update(float deltaTime)
 	boundingBox.UpdateBoundingBox(position, modelRotate, Vector3(1.0f, 1.0f, 1.0f));
 }
 
+void Player::FinishedAnimation(float deltaTime)
+{
+	Vector3 initPos = Vector3(3.0f, 2.0f, 8.0f);
+	Vector3 finalPos = position - Vector3(-10.0f, 0.0f, 0.0f);
+	if (cameraInterpolator < 1.0f)
+		cameraInterpolator += 0.8f * deltaTime;
+	else
+		cameraInterpolator = 1.0f;
+	Vector3 transitionVector = transitionVector.Lerp(initPos, finalPos, cameraInterpolator);
+
+	camera.SetPosition(transitionVector);
+}
+
 void Player::Movement(float deltaTime)
 {
 	position += linearVelocity * deltaTime;
@@ -51,7 +64,8 @@ void Player::Movement(float deltaTime)
 
 	if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_UP)
 		|| InputManager::GetInstance().IsControllerButtonDown(XBOX360_RB))
-		linearVelocity.z -= speed;
+		//|| InputManager::GetInstance().GetLeftTrigger() < 0.4f)
+		linearVelocity.z -= speed * 1.5f;
 
 	if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_DOWN)
 		|| InputManager::GetInstance().IsControllerButtonDown(XBOX360_LB))
@@ -60,7 +74,7 @@ void Player::Movement(float deltaTime)
 	if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_LEFT) 
 		|| InputManager::GetInstance().GetLeftJoyStick().x < - JOYSTICK_DEAD_ZONE)
 	{
-		linearVelocity.x -= speed;
+		linearVelocity.x -= speed * 2.0f; // *(-input * 2.0f);
 
 		targetRotation = targetRotation.RotateZ(MathHelper::DegressToRadians(90.0f));
 		orientation = orientation.Slerp(orientation, targetRotation, deltaTime * rotationSpeed);
@@ -71,7 +85,7 @@ void Player::Movement(float deltaTime)
 	if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_RIGHT) 
 		|| InputManager::GetInstance().GetLeftJoyStick().x > JOYSTICK_DEAD_ZONE)
 	{
-		linearVelocity.x += speed;
+		linearVelocity.x += speed * 2.0f; // *(-input * 2.0f);
 
 		targetRotation = targetRotation.RotateZ(MathHelper::DegressToRadians(-90.0f));
 		orientation = orientation.Slerp(orientation, targetRotation, deltaTime * rotationSpeed);
@@ -82,7 +96,7 @@ void Player::Movement(float deltaTime)
 	if (linearVelocity.x != 0)
 	{
 		Vector3 i = linearVelocity;
-		float friction = 0.003f;
+		float friction = 0.013f;
 
 		linearVelocity -= i * friction;
 	}

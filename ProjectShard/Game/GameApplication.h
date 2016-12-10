@@ -5,6 +5,7 @@
 #include "RacingScene.h"
 #include "MainMenu.h"
 #include "SplashScreen.h"
+#include "FinishedMenu.h"
 
 class GameApplication
 {
@@ -12,6 +13,7 @@ private:
 	SplashScreen splashScreen;
 	MainMenu *mainMenu;
 	RacingScene *racingScene;
+	FinishedMenu finishedMenu;
 
 	// ms per frame
 	double lastTime;
@@ -23,7 +25,8 @@ private:
 	{
 		splashScreen,
 		mainMenu,
-		inGame
+		inGame,
+		finishedMenu,
 	};
 	GameState currentGameState = GameState::splashScreen;
 

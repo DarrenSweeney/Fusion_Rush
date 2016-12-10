@@ -9,20 +9,7 @@
 #include "..\Input\InputManager.h"
 #include "..\Renderer\SpriteRenderer.h"
 #include "..\GameSparksInfo.h"
-
-struct MenuText
-{
-	Vector3 color;
-	Vector2 position;
-	const char* text;
-	float scale = 1.0f;
-};
-
-struct MenuLabel : MenuText
-{
-	CollisionRectangle rect;
-	bool labelSelected;
-};
+#include "MenuText.h"
 
 class MainMenu
 {

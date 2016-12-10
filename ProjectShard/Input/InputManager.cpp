@@ -59,16 +59,9 @@ void InputManager::SetControllerIndex(unsigned int index)
 	controllerIndex = index;
 }
 
-bool InputManager::IsJoyStickPresent(int joystick)
-{
-	int present = glfwJoystickPresent(joystick);
-
-	return present == 1 ? true : false;
-}
-
 bool InputManager::IsControllerButtonPressed(unsigned int button)
 {
-	if (!IsJoyStickPresent(controllerIndex))
+	if (controllerIndex != NO_CONTROLLER_CONNTECTED)
 		return false;
 
 	bool buttonPressed = false;
@@ -106,7 +99,7 @@ bool InputManager::IsControllerButtonPressed(unsigned int button)
 
 bool InputManager::IsControllerButtonDown(unsigned int button)
 {
-	if (!IsJoyStickPresent(controllerIndex))
+	if (controllerIndex != NO_CONTROLLER_CONNTECTED)
 		return false;
 
 	bool buttonPressed = false;
@@ -134,7 +127,7 @@ Vector2 InputManager::GetLeftJoyStick()
 {
 	Vector2 leftThumbStick;
 
-	if (!IsJoyStickPresent(controllerIndex))
+	if (controllerIndex != NO_CONTROLLER_CONNTECTED)
 		return leftThumbStick;
 
 	const float *axis = glfwGetJoystickAxes(controllerIndex, &count);
@@ -150,7 +143,7 @@ Vector2 InputManager::GetRightJoyStick()
 {
 	Vector2 rightThumbStick;
 
-	if (!IsJoyStickPresent(controllerIndex))
+	if (controllerIndex != NO_CONTROLLER_CONNTECTED)
 		return rightThumbStick;
 
 	const float *axis = glfwGetJoystickAxes(controllerIndex, &count);
@@ -160,4 +153,24 @@ Vector2 InputManager::GetRightJoyStick()
 	currentControllerState.rightThumbStick = rightThumbStick;
 
 	return rightThumbStick;
+}
+
+float InputManager::GetLeftTrigger()
+{
+	const float *axis = glfwGetJoystickAxes(controllerIndex, &count);
+	float leftTirgger = axis[TRIGGERS];
+
+	currentControllerState.leftTrigger = leftTirgger;
+
+	return leftTirgger;
+}
+
+float InputManager::GetRightTrigger()
+{
+	const float *axis = glfwGetJoystickAxes(controllerIndex, &count);
+	float rightTirgger = axis[TRIGGERS];
+
+	currentControllerState.rightTrigger = rightTirgger;
+
+	return rightTirgger;
 }

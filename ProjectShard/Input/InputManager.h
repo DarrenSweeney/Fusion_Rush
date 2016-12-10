@@ -5,6 +5,7 @@
 #include "..\Math\Vector2.h"
 #include <iostream>
 
+#define NO_CONTROLLER_CONNTECTED -1
 #define CONTROLLER_ONE   0
 #define CONTROLLER_TWO   1
 #define CONTROLLER_THREE 2
@@ -69,7 +70,7 @@ private:
 	InputManager();
 	const float *axis;
 	int count;
-	unsigned int controllerIndex;
+	unsigned int controllerIndex = -1;
 
 public:
 	static const int MAX_KEYS = 1024;
@@ -87,11 +88,12 @@ public:
 	bool IsMouseButtonPressed(int key);
 	Vector2 GetCursorPos();
 	void SetWindowContext(GLFWwindow *currentWindow);
-	bool IsJoyStickPresent(int joyStick);
 	bool IsControllerButtonPressed(unsigned int button);
 	bool IsControllerButtonDown(unsigned int button);
 	Vector2 GetLeftJoyStick();
 	Vector2 GetRightJoyStick();
+	float GetLeftTrigger();
+	float GetRightTrigger();
 };
 
 #endif

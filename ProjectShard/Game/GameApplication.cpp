@@ -19,6 +19,7 @@ void GameApplication::Init()
 {
 	racingScene->InitalizeScene(screenWidth, screenHeight);
 	mainMenu->InitScene();
+	finishedMenu.Init();
 
 	msPerFrameText.Load("Resources/Fonts/arial.ttf");
 }
@@ -26,11 +27,11 @@ void GameApplication::Init()
 void GameApplication::Update(GLfloat deltaTime)
 {
 	// ms per frame
-	double currentTime = glfwGetTime();
+	float currentTime = glfwGetTime();
 	nbFrames++;
 	if (currentTime - lastTime >= 1.0)
 	{
-		msPerFrame = 1000.0 / double(nbFrames);
+		msPerFrame = 1000.0 / float(nbFrames);
 		printf("%f ms/frame\n", msPerFrame);
 		nbFrames = 0;
 		lastTime += 1.0;
@@ -77,6 +78,21 @@ void GameApplication::Update(GLfloat deltaTime)
 				racingScene->SetRenderUIState(false);
 			}
 
+			if (racingScene->finishedRace)
+			{
+				currentGameState = GameState::finishedMenu;
+				racingScene->sceneBlur = true;
+				racingScene->SetPlayerMovement(true);
+				racingScene->SetRenderUIState(false);
+			}
+
+			break;
+		}
+
+		case GameState::finishedMenu:
+		{
+			racingScene->UpdateScene(deltaTime);
+			finishedMenu.Update();
 			break;
 		}
 	}
@@ -85,7 +101,6 @@ void GameApplication::Update(GLfloat deltaTime)
 void GameApplication::Render(bool windowResized)
 {
 	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
-
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -99,7 +114,6 @@ void GameApplication::Render(bool windowResized)
 		case GameState::splashScreen:
 		{
 			splashScreen.Render(screenWidth, screenHeight);
-
 			break;
 		}
 
@@ -112,6 +126,13 @@ void GameApplication::Render(bool windowResized)
 
 		case GameState::inGame:
 		{
+			racingScene->RenderScene(screenWidth, screenHeight, windowResized);
+			break;
+		}
+
+		case GameState::finishedMenu:
+		{
+			finishedMenu.Render(screenWidth, screenHeight);
 			racingScene->RenderScene(screenWidth, screenHeight, windowResized);
 			break;
 		}

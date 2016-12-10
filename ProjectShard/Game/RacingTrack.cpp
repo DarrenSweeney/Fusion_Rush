@@ -1,12 +1,12 @@
 #include "RacingTrack.h"
 
 RacingTrack::RacingTrack()
-	: blockAmount(100), startRacePosition(), finishRacePosition(-0.4f, 0.0f, -7500.0f)
+	: blockAmount(100), startRacePosition(), finishRacePosition(-0.4f, 0.0f, -8000.0f)
 {
 	trackBlock = new TrackBlock[blockAmount];
 
-	finishModel = g_resourceMgr.GetModel("Finish_Model");
-	modelShader = g_resourceMgr.GetShader("ModelShader");
+	finishModel = g_resourceMgr.GetModel(SID("Finish_Model"));
+	modelShader = g_resourceMgr.GetShader(SID("ModelShader"));
 }
 
 RacingTrack::~RacingTrack()
@@ -33,7 +33,7 @@ void RacingTrack::Init()
 			for (; i < firstIndex + 5; i++)
 			{
 				trackBlock[i].blockType = TrackBlock::BlockType::oscillation;
-				trackBlock[i].position = Vector3(40.0f - (blockIndent * 14.0f), 35.0f - (8.0f * blockIndent), -50.0f - (firstIndex * 80));
+				trackBlock[i].position = Vector3(40.0f - (blockIndent * 14.0f), 35.0f - (8.0f * blockIndent), -50.0f - (firstIndex * 180));
 				blockIndent++;
 			}
 
@@ -57,7 +57,7 @@ void RacingTrack::Init()
 			}
 
 			trackBlock[i].blockType = TrackBlock::BlockType::rotating;
-			trackBlock[i].position = Vector3(blockIndent, 7.0f, -50.0f + (i * - 80));
+			trackBlock[i].position = Vector3(blockIndent, 7.0f, -50.0f + (i * - 180));
 			trackBlock[i].rotate.rotate(MathHelper::DegressToRadians(45.0f), Vector3(1.0f, 1.0f, 1.0f));
 
 			continue;
@@ -71,7 +71,7 @@ void RacingTrack::Init()
 				blockIndent = -blockIndent;
 
 			trackBlock[i].blockType = TrackBlock::BlockType::stationary;
-			trackBlock[i].position = Vector3(blockIndent, 4.0f, -50.0f + (i * -80));
+			trackBlock[i].position = Vector3(blockIndent, 4.0f, -50.0f + (i * -180));
 
 			continue;
 		}

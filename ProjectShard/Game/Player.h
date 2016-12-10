@@ -18,6 +18,7 @@ public:
 	~Player();
 
 	void Update(float deltaTime);
+	void FinishedAnimation(float delatTime);
 	void Spawn();
 	void Render(GLsizei screenWidth, GLsizei screenHeight);
 	void Reflection(GLsizei screenWidth, GLsizei screenHeight);
@@ -37,10 +38,9 @@ private:
 	Quaternion orientation;
 	float rotationSpeed;
 	Matrix4 modelRotate;
-	const float JOYSTICK_DEAD_ZONE = 0.2f;
+	const float JOYSTICK_DEAD_ZONE = 0.05f;
 	float cameraInterpolator = 0;
 
 	void Movement(float deltaTime);
 };
-
 #endif
