@@ -92,6 +92,17 @@ void GameApplication::Update(GLfloat deltaTime)
 		{
 			racingScene->UpdateScene(deltaTime);
 			finishedMenu.Update();
+
+			// TODO(Darren): Take this out
+			if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_SPACE))
+			{
+				currentGameState = GameState::inGame;
+				racingScene->finishedRace = false;
+				racingScene->sceneBlur = false;
+				racingScene->SetPlayerMovement(true);
+				racingScene->SetRenderUIState(true);
+			}
+
 			break;
 		}
 	}

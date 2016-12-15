@@ -9,10 +9,11 @@ struct MenuText
 {
 	Vector3 color;
 	Vector2 position;
-	const char* text;
+	const char* text = "";
 	float scale = 1.0f;
 };
 
+// TODO(Darren): Rename menu button?
 struct MenuLabel : MenuText
 {
 	CollisionRectangle rect;
