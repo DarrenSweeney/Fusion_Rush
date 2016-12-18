@@ -1,7 +1,7 @@
 #include "GameApplication.h"
 
 GameApplication::GameApplication(GLsizei _screenWidth, GLsizei _screenHeight)
-	: screenWidth(_screenWidth), screenHeight(_screenHeight), nbFrames(0)
+	: screenWidth(_screenWidth), screenHeight(_screenHeight), nbFrames(0), finishedMenu(_screenWidth, _screenHeight)
 {
 	lastTime = glfwGetTime();
 
@@ -57,6 +57,8 @@ void GameApplication::Update(GLfloat deltaTime)
 			if (mainMenu->playGame)
 			{
 				currentGameState = GameState::inGame;
+				racingScene->player.Spawn();
+				racingScene->finishedRace = false;
 				racingScene->sceneBlur = false;
 				racingScene->SetPlayerMovement(true);
 				racingScene->SetRenderUIState(true);
@@ -81,7 +83,7 @@ void GameApplication::Update(GLfloat deltaTime)
 			{
 				currentGameState = GameState::finishedMenu;
 				racingScene->sceneBlur = true;
-				racingScene->SetPlayerMovement(true);
+				racingScene->SetPlayerMovement(false);
 				racingScene->SetRenderUIState(false);
 			}
 
@@ -93,14 +95,20 @@ void GameApplication::Update(GLfloat deltaTime)
 			racingScene->UpdateScene(deltaTime);
 			finishedMenu.Update();
 
-			// TODO(Darren): Take this out
-			if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_SPACE))
+			if (finishedMenu.selectedMainMenu)
+			{
+				currentGameState = GameState::mainMenu;
+				finishedMenu.selectedMainMenu = false;
+			}
+			else if (finishedMenu.selectedPlayAgain)
 			{
 				currentGameState = GameState::inGame;
+				racingScene->player.Spawn();
 				racingScene->finishedRace = false;
 				racingScene->sceneBlur = false;
 				racingScene->SetPlayerMovement(true);
 				racingScene->SetRenderUIState(true);
+				finishedMenu.selectedPlayAgain = false;
 			}
 
 			break;

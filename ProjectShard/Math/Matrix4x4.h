@@ -6,7 +6,6 @@
 #include "Vector4.h"
 #include "Quaternion.h"
 
-// This is a column-major 4x4 matrix.
 class Matrix4
 {
 public:

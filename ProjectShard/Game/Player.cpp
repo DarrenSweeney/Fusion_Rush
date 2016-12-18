@@ -37,6 +37,9 @@ void Player::Update(float deltaTime)
 	//				 behind player on the X-axis.
 	camera.SetPosition(transitionVector);
 
+	if (position.z > 50.0f)
+		linearVelocity.z *= -1;
+
 	modelRotate = Matrix4();
 	modelRotate = modelRotate.QuaternionToMatrix4(orientation);
 	boundingBox.UpdateBoundingBox(position, modelRotate, Vector3(1.0f, 1.0f, 1.0f));

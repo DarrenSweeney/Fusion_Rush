@@ -90,7 +90,6 @@ void MainMenu::InitScene()
 	playLabel.rect.SetRectangle(playLabel.position, 30, 10);
 	signInOutLabel.rect.SetRectangle(signInOutLabel.position, 30, 10);
 	exitLabel.rect.SetRectangle(exitLabel.position, 30, 10);
-	selectRect.SetRectangle(selectPosition, 50, 50);
 
 	// TODO(Darren): Need to figure how i will load sounds in resource manager and play them here
 	// and can i get the volume of each sound loaded etc.
@@ -118,13 +117,15 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 	{
 		case MenuState::MenuOpitions:
 		{
-			if ((InputManager::GetInstance().IsKeyPressed(GLFW_KEY_UP) || InputManager::GetInstance().IsControllerButtonPressed(XBOX360_UP))
+			if ((InputManager::GetInstance().IsKeyPressed(GLFW_KEY_UP) 
+				|| InputManager::GetInstance().IsControllerButtonPressed(XBOX360_UP))
 				&& selectPosition.y != playLabel.position.y)
 			{
 				selectPosition.y += 50.0f;
 				PlayMenuNav();
 			}
-			else if ((InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN) || InputManager::GetInstance().IsControllerButtonPressed(XBOX360_DOWN))
+			else if ((InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN) 
+				|| InputManager::GetInstance().IsControllerButtonPressed(XBOX360_DOWN))
 				&& selectPosition.y != exitLabel.position.y)
 			{
 				selectPosition.y -= 50.0f;
