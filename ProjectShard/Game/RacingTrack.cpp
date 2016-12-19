@@ -1,7 +1,7 @@
 #include "RacingTrack.h"
 
 RacingTrack::RacingTrack()
-	: blockAmount(100), startRacePosition(), finishRacePosition(-0.4f, 0.0f, -100.0f)
+	: blockAmount(100), startRacePosition(), finishRacePosition(-0.4f, 0.0f, -7500.0f)
 {
 	trackBlock = new TrackBlock[blockAmount];
 
@@ -152,6 +152,7 @@ void RacingTrack::RenderTrackReflection(Camera &camera, GLsizei screenWidth, GLs
 	buildings.RenderReflection(camera, screenWidth, screenHeight); 
 	barriers.RenderReflection(camera, screenWidth, screenHeight);
 
+	// TODO(Darren): Big problem here, only render what is in range from racer to fog.
 	for (unsigned int i = 0; i < blockAmount; i++)
 		trackBlock[i].RenderReflection(camera, screenWidth, screenHeight);
 }

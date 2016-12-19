@@ -1,8 +1,10 @@
 #include "Player.h"
 
 Player::Player()
-	: rotationSpeed(2.0f), camera(Vector3(3.0f, 2.0f, 8.0f)), position(Vector3(0.0f, 0.0f, 0.0f)), speed(2.5f)
+	: rotationSpeed(2.0f), camera(Vector3(3.0f, 2.0f, 8.0f)), position(Vector3(0.0f, 0.0f, 0.0f)), speed(2.5f), recordRace(false)
 {
+	lastTime = glfwGetTime();
+
 	model = g_resourceMgr.GetModel(SID("PlayerShip"));
 	shaderModel = g_resourceMgr.GetShader(SID("PlayerShader"));
 
@@ -37,25 +39,29 @@ void Player::Update(float deltaTime)
 	//				 behind player on the X-axis.
 	camera.SetPosition(transitionVector);
 
-	if (position.z > 50.0f)
-		linearVelocity.z *= -1;
-
 	modelRotate = Matrix4();
 	modelRotate = modelRotate.QuaternionToMatrix4(orientation);
 	boundingBox.UpdateBoundingBox(position, modelRotate, Vector3(1.0f, 1.0f, 1.0f));
+
+	RecordPosition();
 }
 
+/*
+	TODO(Darren): Implement finished animation.
+	The camera is already being set in the update so the interpolation does not matter.
+*/
 void Player::FinishedAnimation(float deltaTime)
 {
-	Vector3 initPos = Vector3(3.0f, 2.0f, 8.0f);
-	Vector3 finalPos = position - Vector3(-10.0f, 0.0f, 0.0f);
-	if (cameraInterpolator < 1.0f)
-		cameraInterpolator += 0.8f * deltaTime;
-	else
-		cameraInterpolator = 1.0f;
-	Vector3 transitionVector = transitionVector.Lerp(initPos, finalPos, cameraInterpolator);
+	//Vector3 initPos = Vector3(3.0f, 2.0f, 8.0f);
+	//Vector3 finalPos = position - Vector3(-10.0f, 0.0f, 0.0f);
+	//if (iner < 1.0f)
+	//	iner += 0.01f * deltaTime;
+	//else
+	//	iner = 1.0f;
+	//Vector3 transitionVector = transitionVector.Lerp(position, 
+	//	position + Vector3(0.0f, 0.0f, -2000.0f), iner);
 
-	camera.SetPosition(transitionVector);
+	//camera.SetPosition(transitionVector);
 }
 
 void Player::Movement(float deltaTime)
@@ -107,6 +113,35 @@ void Player::Movement(float deltaTime)
 	Vector3 direction = linearVelocity;
 	direction.normalise();
 	g_debugDrawMgr.AddLine(position, Vector3(0.0f, 10.0f, 0.0), Vector3(1.0f, 0.0f, 0.0f), 1.0f, false);
+}
+
+void Player::RecordPosition()
+{
+	if (recordRace)
+	{
+		// TODO(Darren): This records fromt the start of the application
+		float currentTime = glfwGetTime();
+		if (currentTime - lastTime >= 1.0)
+		{
+			lastTime += 1.0;
+
+			Vector3 pos = position;
+			recordPositions.push_back(pos);
+			std::cout << "Position: " << pos.x << " " << pos.y << " " << pos.z << std::endl;
+		}
+	}
+}
+
+void Player::WriteRecordedPositions()
+{
+	std::ofstream ghostRacerFile;
+
+	ghostRacerFile.open("Ghost_Racer.txt");
+	for (std::vector<Vector3>::iterator it = recordPositions.begin(); it != recordPositions.end(); it++)
+	{
+		ghostRacerFile << it->x << " " << it->y << " " << it->z << "\n";
+	}
+	ghostRacerFile.close();
 }
 
 void Player::Spawn()

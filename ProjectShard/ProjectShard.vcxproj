@@ -157,6 +157,7 @@
     <ClCompile Include="..\..\..\..\Desktop\imgui-master\imgui-master\examples\libs\gl3w\GL\gl3w.c" />
     <ClCompile Include="Game\FinishedMenu.cpp" />
     <ClCompile Include="GameSparksInfo.cpp" />
+    <ClCompile Include="Game\GhostRacer.cpp" />
     <ClCompile Include="Math\CollisionRectangle.cpp" />
     <ClCompile Include="GameSparksAll.cpp" />
     <ClCompile Include="Game\Barriers.cpp" />
@@ -196,6 +197,7 @@
   <ItemGroup>
     <ClInclude Include="Game\FinishedMenu.h" />
     <ClInclude Include="GameSparksInfo.h" />
+    <ClInclude Include="Game\GhostRacer.h" />
     <ClInclude Include="Math\CollisionRectangle.h" />
     <ClInclude Include="GameSparksConfiguration.h" />
     <ClInclude Include="Game\Barriers.h" />

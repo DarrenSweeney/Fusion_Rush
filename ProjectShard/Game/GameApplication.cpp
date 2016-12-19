@@ -32,7 +32,6 @@ void GameApplication::Update(GLfloat deltaTime)
 	if (currentTime - lastTime >= 1.0)
 	{
 		msPerFrame = 1000.0 / float(nbFrames);
-		printf("%f ms/frame\n", msPerFrame);
 		nbFrames = 0;
 		lastTime += 1.0;
 	}
@@ -57,11 +56,11 @@ void GameApplication::Update(GLfloat deltaTime)
 			if (mainMenu->playGame)
 			{
 				currentGameState = GameState::inGame;
-				racingScene->player.Spawn();
 				racingScene->finishedRace = false;
 				racingScene->sceneBlur = false;
 				racingScene->SetPlayerMovement(true);
 				racingScene->SetRenderUIState(true);
+				racingScene->player.recordRace = true;
 			}
 			break;
 		}
@@ -77,6 +76,7 @@ void GameApplication::Update(GLfloat deltaTime)
 				racingScene->sceneBlur = true;
 				racingScene->SetPlayerMovement(false);
 				racingScene->SetRenderUIState(false);
+				racingScene->player.recordRace = false;
 			}
 
 			if (racingScene->finishedRace)
@@ -85,6 +85,7 @@ void GameApplication::Update(GLfloat deltaTime)
 				racingScene->sceneBlur = true;
 				racingScene->SetPlayerMovement(false);
 				racingScene->SetRenderUIState(false);
+				racingScene->player.recordRace = false;
 			}
 
 			break;
@@ -98,7 +99,9 @@ void GameApplication::Update(GLfloat deltaTime)
 			if (finishedMenu.selectedMainMenu)
 			{
 				currentGameState = GameState::mainMenu;
+				racingScene->player.Spawn();
 				finishedMenu.selectedMainMenu = false;
+				racingScene->player.WriteRecordedPositions();
 			}
 			else if (finishedMenu.selectedPlayAgain)
 			{

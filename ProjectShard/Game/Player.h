@@ -10,6 +10,7 @@
 #include "Camera.h"
 #include "..\Math\CollisionBox.h"
 #include "..\Renderer\DebugDrawManager.h"
+#include <sstream>
 
 class Player
 {
@@ -23,12 +24,14 @@ public:
 	void Render(GLsizei screenWidth, GLsizei screenHeight);
 	void Reflection(GLsizei screenWidth, GLsizei screenHeight);
 	float GetSpeed();
+	void WriteRecordedPositions();
 
 	Camera camera;
 	CollisionBox boundingBox;
 	Vector3 linearVelocity;
 	float speed;
 	Vector3 position;
+	bool recordRace;
 	bool updateMovement;
 
 private:
@@ -40,7 +43,10 @@ private:
 	Matrix4 modelRotate;
 	const float JOYSTICK_DEAD_ZONE = 0.05f;
 	float cameraInterpolator = 0;
+	double lastTime;
+	std::vector<Vector3> recordPositions;
 
 	void Movement(float deltaTime);
+	void RecordPosition();
 };
 #endif
