@@ -17,6 +17,7 @@ public:
 	void Render(GLsizei screenWidth, GLsizei screenHeight, Camera &camera);
 
 private:
+	GLfloat lastTime;
 	Model *ghostRacerModel;
 	Shader *ghostRacerShader;
 	Vector3 position;

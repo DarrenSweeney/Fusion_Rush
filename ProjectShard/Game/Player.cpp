@@ -127,7 +127,6 @@ void Player::RecordPosition()
 
 			Vector3 pos = position;
 			recordPositions.push_back(pos);
-			std::cout << "Position: " << pos.x << " " << pos.y << " " << pos.z << std::endl;
 		}
 	}
 }
@@ -135,7 +134,6 @@ void Player::RecordPosition()
 void Player::WriteRecordedPositions()
 {
 	std::ofstream ghostRacerFile;
-
 	ghostRacerFile.open("Ghost_Racer.txt");
 	for (std::vector<Vector3>::iterator it = recordPositions.begin(); it != recordPositions.end(); it++)
 	{

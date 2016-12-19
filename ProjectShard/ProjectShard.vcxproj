@@ -260,6 +260,7 @@
     <None Include="Shaders\UI.vert" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Ghost_Racer.txt" />
     <Text Include="Todo.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

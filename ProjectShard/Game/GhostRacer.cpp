@@ -1,6 +1,7 @@
 #include "GhostRacer.h"
 
 GhostRacer::GhostRacer()
+	:	lastTime(0.0f)
 {
 	ghostRacerModel = g_resourceMgr.GetModel(SID("PlayerShip"));
 	ghostRacerShader = g_resourceMgr.GetShader(SID("ModelShader"));
@@ -28,7 +29,15 @@ void GhostRacer::ReadRecordedPositions()
 
 void GhostRacer::Update()
 {
-	
+	if ((int)lastTime < ghostRacerPositions.size() - 2) // && ghostRacerPositions.size() > 0)
+	{
+		float currentTime = glfwGetTime();
+		float interpolate = currentTime - lastTime;
+		if (interpolate >= 1.0)
+			lastTime += 1.0;
+
+		position = position.Lerp(ghostRacerPositions.at((int)lastTime), ghostRacerPositions.at((int)(lastTime + 1)), interpolate);
+	}
 }
 
 void GhostRacer::Render(GLsizei screenWidth, GLsizei screenHeight, Camera &camera)

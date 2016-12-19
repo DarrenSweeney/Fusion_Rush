@@ -112,6 +112,7 @@ void GameApplication::Update(GLfloat deltaTime)
 				racingScene->SetPlayerMovement(true);
 				racingScene->SetRenderUIState(true);
 				finishedMenu.selectedPlayAgain = false;
+				racingScene->player.WriteRecordedPositions();
 			}
 
 			break;
