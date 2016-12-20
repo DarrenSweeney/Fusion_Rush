@@ -44,6 +44,8 @@ void Player::Update(float deltaTime)
 	boundingBox.UpdateBoundingBox(position, modelRotate, Vector3(1.0f, 1.0f, 1.0f));
 
 	RecordPosition();
+
+	currentTrackTime += deltaTime;
 }
 
 /*
@@ -119,7 +121,6 @@ void Player::RecordPosition()
 {
 	if (recordRace)
 	{
-		// TODO(Darren): This records fromt the start of the application
 		float currentTime = glfwGetTime();
 		if (currentTime - lastTime >= 1.0)
 		{

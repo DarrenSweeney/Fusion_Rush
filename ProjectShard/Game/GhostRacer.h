@@ -13,11 +13,12 @@ public:
 	~GhostRacer();
 
 	void ReadRecordedPositions();
-	void Update();
+	void RestGhostRacer();
+	void Update(float currentTrackTime);
 	void Render(GLsizei screenWidth, GLsizei screenHeight, Camera &camera);
 
 private:
-	GLfloat lastTime;
+	float lastTime;
 	Model *ghostRacerModel;
 	Shader *ghostRacerShader;
 	Vector3 position;

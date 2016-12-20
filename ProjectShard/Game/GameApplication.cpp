@@ -102,6 +102,7 @@ void GameApplication::Update(GLfloat deltaTime)
 				racingScene->player.Spawn();
 				finishedMenu.selectedMainMenu = false;
 				racingScene->player.WriteRecordedPositions();
+				racingScene->ResetScene();
 			}
 			else if (finishedMenu.selectedPlayAgain)
 			{
@@ -113,6 +114,7 @@ void GameApplication::Update(GLfloat deltaTime)
 				racingScene->SetRenderUIState(true);
 				finishedMenu.selectedPlayAgain = false;
 				racingScene->player.WriteRecordedPositions();
+				racingScene->ResetScene();
 			}
 
 			break;

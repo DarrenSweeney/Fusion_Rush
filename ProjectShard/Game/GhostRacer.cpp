@@ -13,6 +13,11 @@ GhostRacer::~GhostRacer()
 	delete ghostRacerShader;
 }
 
+void GhostRacer::RestGhostRacer()
+{
+	lastTime = 0.0f;
+}
+
 void GhostRacer::ReadRecordedPositions()
 {
 	std::ifstream ghostRacerFile;
@@ -27,14 +32,16 @@ void GhostRacer::ReadRecordedPositions()
 	ghostRacerFile.close();
 }
 
-void GhostRacer::Update()
+void GhostRacer::Update(float currentTrackTime)
 {
-	if ((int)lastTime < ghostRacerPositions.size() - 2) // && ghostRacerPositions.size() > 0)
+	if ((int)lastTime < ghostRacerPositions.size() - 2 && ghostRacerPositions.size() > 0)
 	{
-		float currentTime = glfwGetTime();
-		float interpolate = currentTime - lastTime;
-		if (interpolate >= 1.0)
+		float interpolate = currentTrackTime - lastTime;
+		if (interpolate >= 1.0f)
+		{
 			lastTime += 1.0;
+			interpolate = 1.0f;
+		}
 
 		position = position.Lerp(ghostRacerPositions.at((int)lastTime), ghostRacerPositions.at((int)(lastTime + 1)), interpolate);
 	}

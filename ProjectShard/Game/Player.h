@@ -43,7 +43,9 @@ private:
 	Matrix4 modelRotate;
 	const float JOYSTICK_DEAD_ZONE = 0.05f;
 	float cameraInterpolator = 0;
-	double lastTime;
+	float currentTimePos;
+	float lastTime;
+	float currentTrackTime;
 	std::vector<Vector3> recordPositions;
 
 	void Movement(float deltaTime);
