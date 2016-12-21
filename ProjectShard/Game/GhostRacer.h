@@ -12,6 +12,8 @@ public:
 	GhostRacer();
 	~GhostRacer();
 
+	Vector3 position;
+
 	void ReadRecordedPositions();
 	void RestGhostRacer();
 	void Update(float currentTrackTime);
@@ -21,7 +23,6 @@ private:
 	float lastTime;
 	Model *ghostRacerModel;
 	Shader *ghostRacerShader;
-	Vector3 position;
 	Quaternion orientation;
 	std::vector<Vector3> ghostRacerPositions;
 };
