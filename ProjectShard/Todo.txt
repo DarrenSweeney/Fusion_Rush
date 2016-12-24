@@ -1,7 +1,34 @@
 # Darren's todo list for road to Games Fleadh:)
 
-1. Create a rotation reflection matrix
-2. Create UI for damange
-3. Player can't reverse at start.
-4. Create an end to race track, get time, pop up UI, etc.
-5. Make a splash screen for the logo. Render logo then load.
+01. Create a rotation reflection matrix
+02. Create UI for damange, geometry explode?
+03. Add best time to game UI
+04. Add lap time
+05. Add personal best time
+06. Worlds best time
+07. Add finished race animation
+08. Generate tack to match race grid
+09. Add numbers to speed gauge
+10. Figure out better ways to position buildings
+11. Menu error for username or password incorrect
+12. If user logged in go back to menu state
+13. If user logged in displayed UserID, Personal Best, World Rank
+14. Clear password when going to create account
+15. When a user creates an account go back to menu state
+16. Min and Max username and password size
+17. Only render blocks that are visible
+18. Add the lab time achieved to end race UI
+19. Add the personal time achieved to end race UI
+20. Add the world best time achieved to end race UI
+21. Add rotation to ghost racer
+22. Figure out how track seeds work and current ghost racer
+23. Upload and download ghost racer file
+24. Add sound for hiting wall
+25. Add sound for hitting block
+26. Add game music, overalay on top of menu music when in game
+27. Add sound for finishing the race
+28. Add 3..2..1.. counter
+29. Add voice sound for couting down
+30. Add voice sound for finished
+31. Add voice sound for crash
+32. Add side ways interpolation for the camera
