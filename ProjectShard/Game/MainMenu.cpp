@@ -90,10 +90,6 @@ void MainMenu::InitScene()
 	playLabel.rect.SetRectangle(playLabel.position, 30, 10);
 	signInOutLabel.rect.SetRectangle(signInOutLabel.position, 30, 10);
 	exitLabel.rect.SetRectangle(exitLabel.position, 30, 10);
-
-	// TODO(Darren): Need to figure how i will load sounds in resource manager and play them here
-	// and can i get the volume of each sound loaded etc.
-	// ---
 }
 
 void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenHeight)
@@ -438,24 +434,28 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 
 	if (gameSparksInfo.loginSuccessful)
 	{
-		currentUserName = gameSparksInfo.username;
+		currentUserName = gameSparksInfo.signInUsername;
 		playerRank = gameSparksInfo.currentPlayerRank;
 		currentPlayer.text = currentUserName.c_str();
 		worldRankLabel.text = playerRank.c_str();
 		gameSparksInfo.loginSuccessful = false;
+		currentMenuState = MenuState::MenuOpitions;
+		currentSelectState = SelectState::NotSelected;
+		selectPosition = signInOutLabel.position;
 	}
 }
 
 void MainMenu::SendSignInRequest()
 {
-	gameSparksInfo.username = signInUserName;
-	gameSparksInfo.password = signInPassword;
+	gameSparksInfo.signInUsername = signInUserName;
+	gameSparksInfo.signInPassword = signInPassword;
 }
 
 void MainMenu::AccountCreateRequest()
 {
-	gameSparksInfo.username = signInUserName;
-	gameSparksInfo.password = signInPassword;
+	gameSparksInfo.registerAccount = true;
+	gameSparksInfo.accountRegUsername = signInUserName;
+	gameSparksInfo.accountRegPassword = signInPassword;
 }
 
 void MainMenu::UpdateLable(MenuLabel &label)

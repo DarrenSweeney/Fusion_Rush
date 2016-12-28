@@ -11,7 +11,7 @@
 09. Add numbers to speed gauge
 10. Figure out better ways to position buildings
 11. Menu error for username or password incorrect
-12. If user logged in go back to menu state
+**
 13. If user logged in displayed UserID, Personal Best, World Rank
 14. Clear password when going to create account
 15. When a user creates an account go back to menu state
