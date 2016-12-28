@@ -131,7 +131,7 @@ void TrackBlock::RenderReflection(Camera &camera, GLsizei screenWidth, GLsizei s
 	Matrix4 mirror = Matrix4(1.0f, 0.0f, 0.0f, 0.0f,
 							 0.0f, -1.0f, 0.0f, 0.0f, 
 							 0.0f, 0.0f, 1.0f, 0.0f,
-							 1.0f, 0.0f, 0.0f, 0.0f);
+							 0.0f, 0.0f, 0.0f, 1.0f);
 
 	shaderBlock->Use();
 	translate = translate.translate(Vector3(position.x, -position.y - 5.0f, position.z));
@@ -139,7 +139,7 @@ void TrackBlock::RenderReflection(Camera &camera, GLsizei screenWidth, GLsizei s
 	scale = scale.scale(scaleVec);
 	// TODO(Darren): Create a rotation reflection (look into this)
 	model = scale * rotate * translate;
-	model = mirror * model;
+	//model = mirror * model;
 	shaderBlock->Use();
 	glUniformMatrix4fv(glGetUniformLocation(shaderBlock->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
 	glUniformMatrix4fv(glGetUniformLocation(shaderBlock->Program, "view"), 1, GL_FALSE, &view.data[0]);

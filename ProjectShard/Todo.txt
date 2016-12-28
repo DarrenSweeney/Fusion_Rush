@@ -13,7 +13,7 @@
 11. Menu error for username or password incorrect
 **
 13. If user logged in displayed UserID, Personal Best, World Rank
-14. Clear password when going to create account
+**
 15. When a user creates an account go back to menu state
 16. Min and Max username and password size
 17. Only render blocks that are visible

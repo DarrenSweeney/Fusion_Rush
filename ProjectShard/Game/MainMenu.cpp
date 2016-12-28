@@ -239,6 +239,8 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 			{
 				currentMenuState = MenuState::CreateAccount;
 				selectPosition = createAccountPannelPos + Vector2(30.0f, 60.0f);
+				signInUserName.clear();
+				signInPassword.clear();
 			}
 
 			if ((InputManager::GetInstance().IsKeyPressed(GLFW_KEY_UP) || InputManager::GetInstance().IsControllerButtonPressed(XBOX360_UP)) 
