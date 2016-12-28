@@ -7,8 +7,7 @@ void GameSparksAvailable(GameSparks::Core::GS& gsInstance, bool available);
 void GetLeaderboardEntriesRequest_Response(GS& gsInstance, const GetLeaderboardEntriesResponse& response);
 
 std::vector<LeaderboardEntry> GameSparksInfo::leaderboardEntry;
-std::string GameSparksInfo::signInUsername, GameSparksInfo::signInPassword;
-std::string GameSparksInfo::accountRegUsername, GameSparksInfo::accountRegPassword;
+std::string GameSparksInfo::username, GameSparksInfo::password;
 bool GameSparksInfo::loginSuccessful;
 bool GameSparksInfo::registerAccount;
 bool GameSparksInfo::available;
@@ -71,9 +70,10 @@ void RegistrationRequest_Response(GS& gsInstance, const GameSparks::Api::Respons
 	else
 	{
 		// Login immediately when gamesparks is available
+		GameSparksInfo::loginSuccessful = true;
 		GameSparks::Api::Requests::AuthenticationRequest request(gsInstance);
-		request.SetUserName(GameSparksInfo::accountRegUsername);
-		request.SetPassword(GameSparksInfo::accountRegPassword);
+		request.SetUserName(GameSparksInfo::username);
+		request.SetPassword(GameSparksInfo::password);
 		request.Send(AuthenticationRequest_Response);
 	}
 }
@@ -129,17 +129,17 @@ void GameSparksAvailable(GameSparks::Core::GS& gsInstance, bool available)
 
 		// Sign In request
 		GameSparks::Api::Requests::AuthenticationRequest requestRight(gsInstance);
-		requestRight.SetUserName(GameSparksInfo::signInUsername);
-		requestRight.SetPassword(GameSparksInfo::signInPassword);
+		requestRight.SetUserName(GameSparksInfo::username);
+		requestRight.SetPassword(GameSparksInfo::password);
 		requestRight.Send(AuthenticationRequest_Response);
 
 		// Account creation request
 		if (GameSparksInfo::registerAccount)
 		{
 			GameSparks::Api::Requests::RegistrationRequest req(gsInstance);
-			req.SetUserName(GameSparksInfo::accountRegUsername);
-			req.SetPassword(GameSparksInfo::accountRegPassword);
-			req.SetDisplayName(GameSparksInfo::accountRegUsername);
+			req.SetUserName(GameSparksInfo::username);
+			req.SetPassword(GameSparksInfo::password);
+			req.SetDisplayName(GameSparksInfo::username);
 			req.Send(RegistrationRequest_Response);
 			GameSparksInfo::registerAccount = false;
 		}
@@ -153,7 +153,7 @@ void GameSparksAvailable(GameSparks::Core::GS& gsInstance, bool available)
 		std::vector<std::string> leaderboards;
 		leaderboards.push_back("Race_Times");
 		request.SetLeaderboards(leaderboards);
-		request.SetPlayer(GameSparksInfo::signInUsername);
+		request.SetPlayer(GameSparksInfo::username);
 		request.Send(GetLeaderboardEntriesRequest_Response);
 	}
 	else

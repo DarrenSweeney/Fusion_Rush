@@ -14,7 +14,7 @@
 **
 13. If user logged in displayed UserID, Personal Best, World Rank
 **
-15. When a user creates an account go back to menu state
+**
 16. Min and Max username and password size
 17. Only render blocks that are visible
 18. Add the lab time achieved to end race UI
@@ -32,3 +32,4 @@
 30. Add voice sound for finished
 31. Add voice sound for crash
 32. Add side ways interpolation for the camera
+33. Make ghost racer transparent

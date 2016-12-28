@@ -436,28 +436,28 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 
 	if (gameSparksInfo.loginSuccessful)
 	{
-		currentUserName = gameSparksInfo.signInUsername;
+		currentUserName = gameSparksInfo.username;
 		playerRank = gameSparksInfo.currentPlayerRank;
 		currentPlayer.text = currentUserName.c_str();
 		worldRankLabel.text = playerRank.c_str();
 		gameSparksInfo.loginSuccessful = false;
-		currentMenuState = MenuState::MenuOpitions;
-		currentSelectState = SelectState::NotSelected;
+		/*currentMenuState = MenuState::MenuOpitions;
+		currentSelectState = SelectState::NotSelected;*/
 		selectPosition = signInOutLabel.position;
 	}
 }
 
 void MainMenu::SendSignInRequest()
 {
-	gameSparksInfo.signInUsername = signInUserName;
-	gameSparksInfo.signInPassword = signInPassword;
+	gameSparksInfo.username = signInUserName;
+	gameSparksInfo.password = signInPassword;
 }
 
 void MainMenu::AccountCreateRequest()
 {
 	gameSparksInfo.registerAccount = true;
-	gameSparksInfo.accountRegUsername = signInUserName;
-	gameSparksInfo.accountRegPassword = signInPassword;
+	gameSparksInfo.username = signInUserName;
+	gameSparksInfo.password = signInPassword;
 }
 
 void MainMenu::UpdateLable(MenuLabel &label)

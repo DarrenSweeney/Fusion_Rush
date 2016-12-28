@@ -30,8 +30,7 @@ public:
 
 	static bool available;
 	static std::vector<LeaderboardEntry> leaderboardEntry;
-	static std::string signInUsername, signInPassword;
-	static std::string accountRegUsername, accountRegPassword;
+	static std::string username, password;
 	static bool registerAccount;
 	static bool loginSuccessful;
 	static std::string currentPlayerRank;
