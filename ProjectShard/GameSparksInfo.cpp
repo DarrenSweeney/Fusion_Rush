@@ -10,6 +10,7 @@ std::vector<LeaderboardEntry> GameSparksInfo::leaderboardEntry;
 std::string GameSparksInfo::username, GameSparksInfo::password;
 bool GameSparksInfo::loginSuccessful;
 bool GameSparksInfo::registerAccount;
+bool GameSparksInfo::signInAccount;
 bool GameSparksInfo::available;
 std::string GameSparksInfo::currentPlayerRank;
 
@@ -49,8 +50,6 @@ void AuthenticationRequest_Response(GameSparks::Core::GS&, const GameSparks::Api
 		GameSparksInfo::loginSuccessful = false;
 		std::cout << "something went wrong during the authentication" << std::endl;
 		std::cout << response.GetErrors().GetValue().GetJSON().c_str() << std::endl;
-
-		// TODO(Darren): Check what errors i get here and feed them back into the menu
 	}
 	else
 	{
@@ -128,10 +127,14 @@ void GameSparksAvailable(GameSparks::Core::GS& gsInstance, bool available)
 		GameSparksInfo::available = true;
 
 		// Sign In request
-		GameSparks::Api::Requests::AuthenticationRequest requestRight(gsInstance);
-		requestRight.SetUserName(GameSparksInfo::username);
-		requestRight.SetPassword(GameSparksInfo::password);
-		requestRight.Send(AuthenticationRequest_Response);
+		if (GameSparksInfo::signInAccount)
+		{
+			GameSparks::Api::Requests::AuthenticationRequest requestRight(gsInstance);
+			requestRight.SetUserName(GameSparksInfo::username);
+			requestRight.SetPassword(GameSparksInfo::password);
+			requestRight.Send(AuthenticationRequest_Response);
+			GameSparksInfo::signInAccount = false;
+		}
 
 		// Account creation request
 		if (GameSparksInfo::registerAccount)

@@ -15,7 +15,7 @@
 13. If user logged in displayed UserID, Personal Best, World Rank
 **
 **
-16. Min and Max username and password size
+**
 17. Only render blocks that are visible
 18. Add the lab time achieved to end race UI
 19. Add the personal time achieved to end race UI
