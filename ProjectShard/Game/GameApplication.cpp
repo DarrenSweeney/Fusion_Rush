@@ -86,6 +86,7 @@ void GameApplication::Update(GLfloat deltaTime)
 				racingScene->SetPlayerMovement(false);
 				racingScene->SetRenderUIState(false);
 				racingScene->player.recordRace = false;
+				finishedMenu.finishedLapTime = racingScene->currentTime;
 			}
 
 			break;

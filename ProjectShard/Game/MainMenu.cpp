@@ -457,11 +457,6 @@ void MainMenu::SendSignInRequest()
 	gameSparksInfo.signInAccount = true;
 	gameSparksInfo.username = signInUserName;
 	gameSparksInfo.password = signInPassword;
-	
-	if (gameSparksInfo.loginSuccessful)
-	{
-		printf("Login");
-	}
 }
 
 void MainMenu::AccountCreateRequest()
@@ -512,7 +507,7 @@ void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	createAccountLabel.position = signInOutPannelPos + Vector2(100.0f, -160.0f);
 	leaderboardTitle.position = Vector2(screenWidth - 325.0f, screenHeight - 80.0f);
 
-	glEnable(GL_BLEND);		
+	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	Matrix4 projection = Matrix4();

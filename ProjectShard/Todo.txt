@@ -17,7 +17,7 @@
 **
 **
 17. Only render blocks that are visible
-18. Add the lab time achieved to end race UI
+**
 19. Add the personal time achieved to end race UI
 20. Add the world best time achieved to end race UI
 21. Add rotation to ghost racer
