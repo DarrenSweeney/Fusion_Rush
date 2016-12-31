@@ -77,12 +77,13 @@ void Player::Movement(float deltaTime)
 	Quaternion initalRotation = Quaternion();
 
 	if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_UP)
-		|| InputManager::GetInstance().IsControllerButtonDown(XBOX360_RB))
-		//|| InputManager::GetInstance().GetLeftTrigger() < 0.4f)
+		|| InputManager::GetInstance().IsControllerButtonDown(XBOX360_RB)
+		|| InputManager::GetInstance().GetRightTrigger() > 0.4f)
 		linearVelocity.z -= speed;
 
 	if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_DOWN)
-		|| InputManager::GetInstance().IsControllerButtonDown(XBOX360_LB))
+		|| InputManager::GetInstance().IsControllerButtonDown(XBOX360_LB)
+		|| InputManager::GetInstance().GetLeftTrigger() < -0.4f)
 		linearVelocity.z += speed * 2.0f;
 
 	if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_LEFT) 

@@ -61,7 +61,7 @@ void InputManager::SetControllerIndex(unsigned int index)
 
 bool InputManager::IsControllerButtonPressed(unsigned int button)
 {
-	if (controllerIndex != NO_CONTROLLER_CONNTECTED)
+	if (controllerIndex == NO_CONTROLLER_CONNTECTED)
 		return false;
 
 	bool buttonPressed = false;
@@ -99,7 +99,7 @@ bool InputManager::IsControllerButtonPressed(unsigned int button)
 
 bool InputManager::IsControllerButtonDown(unsigned int button)
 {
-	if (controllerIndex != NO_CONTROLLER_CONNTECTED)
+	if (controllerIndex == NO_CONTROLLER_CONNTECTED)
 		return false;
 
 	bool buttonPressed = false;
@@ -127,7 +127,7 @@ Vector2 InputManager::GetLeftJoyStick()
 {
 	Vector2 leftThumbStick;
 
-	if (controllerIndex != NO_CONTROLLER_CONNTECTED)
+	if (controllerIndex == NO_CONTROLLER_CONNTECTED)
 		return leftThumbStick;
 
 	const float *axis = glfwGetJoystickAxes(controllerIndex, &count);
@@ -143,7 +143,7 @@ Vector2 InputManager::GetRightJoyStick()
 {
 	Vector2 rightThumbStick;
 
-	if (controllerIndex != NO_CONTROLLER_CONNTECTED)
+	if (controllerIndex == NO_CONTROLLER_CONNTECTED)
 		return rightThumbStick;
 
 	const float *axis = glfwGetJoystickAxes(controllerIndex, &count);
