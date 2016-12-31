@@ -8,7 +8,7 @@
 06. Worlds best time
 07. Add finished race animation
 08. Generate tack to match race grid
-09. Add numbers to speed gauge
+**
 10. Figure out better ways to position buildings
 11. Menu error for username or password incorrect
 **
@@ -18,7 +18,7 @@
 **
 17. Only render blocks that are visible
 **
-19. Add the personal time achieved to end race UI
+**
 20. Add the world best time achieved to end race UI
 21. Add rotation to ghost racer
 22. Figure out how track seeds work and current ghost racer
