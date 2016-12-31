@@ -68,6 +68,9 @@ void Player::FinishedAnimation(float deltaTime)
 
 void Player::Movement(float deltaTime)
 {
+	if (linearVelocity.Magnitude() < 0.5f)
+		linearVelocity = Vector3();
+
 	position += linearVelocity * deltaTime;
 
 	Quaternion targetRotation = Quaternion();
