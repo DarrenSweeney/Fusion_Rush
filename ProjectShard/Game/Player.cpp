@@ -22,8 +22,8 @@ Player::~Player()
 void Player::Update(float deltaTime)
 {
 	// Add time component to geometry shader in the form of a uniform
-	shaderModel->Use();
-	glUniform1f(glGetUniformLocation(shaderModel->Program, "time"), glfwGetTime() * 5.0f);
+	//shaderModel->Use();
+	//glUniform1f(glGetUniformLocation(shaderModel->Program, "time"), glfwGetTime() * 5.0f);
 
 	if(updateMovement)
 		Movement(deltaTime);

@@ -14,6 +14,8 @@ private:
 	MainMenu *mainMenu;
 	RacingScene *racingScene;
 	FinishedMenu finishedMenu;
+	Shader *crtShader;
+	GLuint framebuffer, quadVAO, texColorBuffer;
 
 	// ms per frame
 	double lastTime;
@@ -29,6 +31,8 @@ private:
 		finishedMenu,
 	};
 	GameState currentGameState = GameState::splashScreen;
+
+	void SetUpBuffers(GLsizei screenWidth, GLsizei screenHeight);
 
 public:
 	GameApplication(GLsizei screenWidth, GLsizei screenHeight);

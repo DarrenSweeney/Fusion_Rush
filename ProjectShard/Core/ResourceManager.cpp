@@ -54,7 +54,7 @@ void ResourceManager::LoadSceneShaders()
 	LoadShader("Instancing", "Shaders/instancing.vert", "Shaders/EnviromentObject.frag");
 	LoadShader("SkyboxShader", "Shaders/Skybox.vert", "Shaders/Skybox.frag");
 	LoadShader("PlayerShader", "Shaders/Player.vert", "Shaders/Player.frag");// , "Shaders/ExplodeGeometry.gs");
-	LoadShader("BlurShader", "Shaders/SceneBlur.vert", "Shaders/SceneBlur.frag");
+	LoadShader("CRT_Shader", "Shaders/CRT_Screen.vert", "Shaders/CRT_Screen.frag");
 	LoadShader("UI_Shader", "Shaders/UI.vert", "Shaders/UI.frag");
 }
 

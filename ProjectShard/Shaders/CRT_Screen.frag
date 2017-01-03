@@ -6,9 +6,8 @@ out vec4 color;
 #define enable true
 
 uniform sampler2D screenTexture;
-uniform bool blurScreen;	// ---
 uniform vec2 resolution;
-uniform float time = 10.0f;
+uniform float time;
 
 vec2 curve(vec2 uv)
 {
@@ -43,12 +42,12 @@ vec4 crt(vec2 fragCoord)
         col *= vec3(pow(vig,0.3));
 
     col *= vec3(0.95,1.05,0.95);
-        col *= 2.8;
+	col *= 2.8;
 
-        float scans = clamp( 0.35+0.35*sin(3.5*time+uv.y*resolution.y*1.5), 0.0, 1.0);
+	float scans = clamp( 0.35+0.35*sin(3.5*time+uv.y*resolution.y*1.5), 0.0, 1.0);
 
-        float s = pow(scans,1.7);
-        col = col*vec3( 0.4+0.7*s) ;
+	float s = pow(scans,1.7);
+	col = col*vec3( 0.4+0.7*s) ;
 
     col *= 1.0+0.01*sin(110.0*time);
     if (uv.x < 0.0 || uv.x > 1.0)
@@ -58,7 +57,7 @@ vec4 crt(vec2 fragCoord)
 
 	col*=1.0-0.65*vec3(clamp((mod(fragCoord.x, 2.0)-1.0)*2.0,0.0,1.0));
 
-    float comp = smoothstep( 0.1, 0.9, sin(time) );
+    //float comp = smoothstep( 0.1, 0.9, sin(time) );
 		
     return vec4(col,1.0);
 }
