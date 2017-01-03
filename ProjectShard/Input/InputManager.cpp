@@ -1,6 +1,7 @@
 #include "InputManager.h"
 
-InputManager::InputManager() { }
+InputManager::InputManager()
+	: controllerIndex(NO_CONTROLLER_CONNTECTED) { }
 
 InputManager &InputManager::GetInstance()
 {
@@ -157,20 +158,30 @@ Vector2 InputManager::GetRightJoyStick()
 
 float InputManager::GetLeftTrigger()
 {
+	float leftTrigger = 0.0f;
+
+	if (controllerIndex == NO_CONTROLLER_CONNTECTED)
+		return leftTrigger;
+
 	const float *axis = glfwGetJoystickAxes(controllerIndex, &count);
-	float leftTirgger = axis[TRIGGERS];
+	leftTrigger = axis[TRIGGERS];
 
-	currentControllerState.leftTrigger = leftTirgger;
+	currentControllerState.leftTrigger = leftTrigger;
 
-	return leftTirgger;
+	return leftTrigger;
 }
 
 float InputManager::GetRightTrigger()
 {
+	float rightTrigger = 0.0f;
+
+	if (controllerIndex == NO_CONTROLLER_CONNTECTED)
+		return rightTrigger;
+
 	const float *axis = glfwGetJoystickAxes(controllerIndex, &count);
-	float rightTirgger = axis[TRIGGERS];
+	rightTrigger = axis[TRIGGERS];
 
-	currentControllerState.rightTrigger = rightTirgger;
+	currentControllerState.rightTrigger = rightTrigger;
 
-	return rightTirgger;
+	return rightTrigger;
 }

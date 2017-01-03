@@ -18,7 +18,7 @@ Buildings::Buildings()
 	building_2.reflecBuildingModel = g_resourceMgr.GetModel(SID("BuildingReflection_2"));
 
 	UseInstancingShader();
-	glUniform3f(glGetUniformLocation(ShaderProgramID(), "skyColour"), 0.8f, 0.45f, 0.4f);
+	glUniform3f(glGetUniformLocation(ShaderProgramID(), "skyColour"), 0.0f, 0.0f, 0.0f);
 
 	Matrix4 scaleMatrix = Matrix4();
 	scaleMatrix = scaleMatrix.scale(Vector3(20.0f, 20.0f, 20.0f));

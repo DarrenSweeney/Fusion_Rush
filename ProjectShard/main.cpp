@@ -15,7 +15,7 @@ int main(int argc, char* argv[])
 	GLfloat lastFrame = 0.0f;
 
 	InputManager::GetInstance().SetWindowContext(window.GetWindow());
-	InputManager::GetInstance().SetControllerIndex(CONTROLLER_ONE);
+	//InputManager::GetInstance().SetControllerIndex(CONTROLLER_ONE);
 
 	std::cout << "\n--- Start ResourceMgr ---" << std::endl;
 	g_resourceMgr.LoadSceneShaders();

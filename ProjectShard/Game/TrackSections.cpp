@@ -7,7 +7,7 @@ TrackSections::TrackSections()
 
 	trackModel = g_resourceMgr.GetModel(SID("RaceTrack"));
 	UseInstancingShader();
-	glUniform3f(glGetUniformLocation(ShaderProgramID(), "skyColour"), 0.5f, 0.5f, 0.5f);
+	glUniform3f(glGetUniformLocation(ShaderProgramID(), "skyColour"), 0.0f, 0.0f, 0.0f);
 
 	Matrix4 scaleMatrix = Matrix4();
 	scaleMatrix = scaleMatrix.scale(Vector3(3.0f, 0.0f, 3.0f));
