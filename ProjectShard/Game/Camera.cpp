@@ -24,9 +24,14 @@ Matrix4 &Camera::GetProjectionMatrix(GLsizei screenWidth, GLsizei screenHeight)
 	return projection.perspectiveProjection(zoom, (GLfloat)screenWidth / (GLfloat)screenHeight, 0.1f, 20000.0f);
 }
 
-void Camera::SetPosition(Vector3 pos)
+void Camera::SetPosition(Vector3 &pos)
 {
 	position = pos;
+}
+
+Vector3 Camera::GetPosition()
+{
+	return position;
 }
 
 void Camera::KeyboardMovement(GLfloat deltaTime)

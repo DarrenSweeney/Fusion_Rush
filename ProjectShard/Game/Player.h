@@ -38,11 +38,12 @@ private:
 	Model *model;
 	Shader *shaderModel;
 	Vector3 acceleration;
+	Vector3 oldPosition;
 	Quaternion orientation;
 	float rotationSpeed;
 	Matrix4 modelRotate;
 	const float JOYSTICK_DEAD_ZONE = 0.05f;
-	float cameraInterpolator = 0;
+	float cameraInterpolator, interpolator;
 	float currentTimePos;
 	float lastTime;
 	float currentTrackTime;

@@ -33,3 +33,4 @@
 31. Add voice sound for crash
 32. Add side ways interpolation for the camera
 **
+33. Might add loading screen kernel emulation

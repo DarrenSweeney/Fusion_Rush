@@ -239,8 +239,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="GameSparks\GSIosHelper.mm" />
-    <None Include="Shaders\SceneBlur.frag" />
-    <None Include="Shaders\SceneBlur.vert" />
+    <None Include="Shaders\CRT_Screen.frag" />
+    <None Include="Shaders\CRT_Screen.vert" />
     <None Include="Shaders\Player.frag" />
     <None Include="Shaders\Player.vert" />
     <None Include="Shaders\ExplodeGeometry.gs" />

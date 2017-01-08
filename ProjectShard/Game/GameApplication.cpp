@@ -198,6 +198,7 @@ void GameApplication::Render(bool windowResized)
 
 	glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 	switch (currentGameState)
 	{
 		case GameState::splashScreen:
@@ -226,6 +227,7 @@ void GameApplication::Render(bool windowResized)
 			break;
 		}
 	}
+
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	// Draw Screen

@@ -25,7 +25,8 @@ public:
 	// Returns the projection matrix of the camera
 	Matrix4 &GetProjectionMatrix(GLsizei screenWidth, GLsizei screenHeight);
 
-	void SetPosition(Vector3 pos);
+	void SetPosition(Vector3 &pos);
+	Vector3 GetPosition();
 	void Roll(GLfloat angle);
 
 	void KeyboardMovement(GLfloat deltaTime);

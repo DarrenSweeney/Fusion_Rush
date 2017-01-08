@@ -35,8 +35,16 @@ void Player::Update(float deltaTime)
 	else
 		cameraInterpolator = 1.0f;
 	Vector3 transitionVector = transitionVector.Lerp(initPos, finalPos, cameraInterpolator);
-	// TODO(Darren): Might add another interpolation to make the camera fall 
-	//				 behind player on the X-axis.
+
+	if (interpolator < 1.0f)
+		interpolator += 0.1f * deltaTime;
+	else
+		interpolator = 1.0f;
+
+	float offset = (1.0f - interpolator) * oldPosition.x + (interpolator * position.x);
+
+	Vector3 direction = position - camera.GetPosition();
+
 	camera.SetPosition(transitionVector);
 
 	modelRotate = Matrix4();
@@ -46,6 +54,8 @@ void Player::Update(float deltaTime)
 	RecordPosition();
 
 	currentTrackTime += deltaTime;
+
+	oldPosition = position;
 }
 
 /*

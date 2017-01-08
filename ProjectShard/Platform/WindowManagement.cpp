@@ -67,8 +67,8 @@ void WindowManagement::StartUp()
 	// Get the desktop resolution.
 	GLFWmonitor *monitor = glfwGetPrimaryMonitor();
 	const GLFWvidmode* vidMode = glfwGetVideoMode(monitor);
-	width = 1600;// vidMode->width;
-	height = 800;// vidMode->height;
+	width = vidMode->width; //1600
+	height = vidMode->height;	//800
 
 	window = glfwCreateWindow(width, height, "Project Shard", FULLSCREEN ? glfwGetPrimaryMonitor() : NULL, NULL);
 	glfwSetKeyCallback(window, key_callback);

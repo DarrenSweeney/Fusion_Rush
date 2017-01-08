@@ -275,10 +275,10 @@
     <None Include="Shaders\ExplodeGeometry.gs" />
     <None Include="Shaders\Player.vert" />
     <None Include="Shaders\Player.frag" />
-    <None Include="Shaders\SceneBlur.frag" />
-    <None Include="Shaders\SceneBlur.vert" />
     <None Include="Shaders\UI.frag" />
     <None Include="Shaders\UI.vert" />
+    <None Include="Shaders\CRT_Screen.frag" />
+    <None Include="Shaders\CRT_Screen.vert" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Todo.txt" />
