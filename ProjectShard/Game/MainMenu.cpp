@@ -362,12 +362,14 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 				{
 					AccountCreateRequest();
 					gameSparksInfo.InitGS();
+					passwordMatchError = false;
 				}
 				else
 				{
 					// TODO(Darren): Render this string to menu screen
 					std::cout << "Password word does not match" << std::endl;
 					PlayMenuError();
+					passwordMatchError = true;
 				}
 			}
 
@@ -590,6 +592,11 @@ void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 			textRenderer.RenderText(signInUserName.c_str(), signInOutPannelPos + Vector2(40.0f, 70.0f), 0.8f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
 			textRenderer.RenderText(signInPassword.c_str(), signInOutPannelPos + Vector2(40.0f, -30.0f), 0.8f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
 			textRenderer.RenderText(signInReEnterPass.c_str(), signInOutPannelPos + Vector2(40.0f, -130.0f), 0.8f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
+
+			if (passwordMatchError)
+			{
+				textRenderer.RenderText("password does not match", Vector2(500.0f, 10.0f), 0.6f, Vector3(1.0f, 0.0f, 0.0f), screenWidth, screenHeight);
+			}
 		}
 	}
 

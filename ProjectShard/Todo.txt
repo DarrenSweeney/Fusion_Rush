@@ -27,7 +27,7 @@
 25. Add sound for hitting block
 26. Add game music, overalay on top of menu music when in game
 27. Add sound for finishing the race
-28. Add 3..2..1.. counter
+28. Add 3..2..1.. counter with voice
 29. Add voice sound for couting down
 30. Add voice sound for finished
 31. Add voice sound for crash

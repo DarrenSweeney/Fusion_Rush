@@ -72,6 +72,9 @@ private:
 	std::string currentUserName;	// NOTE(Darren): Need to implement
 	std::string playerRank;			// NOTE(Darren): Need to implement
 
+	// Error
+	bool passwordMatchError, accountSignInError, userNameExistsError;
+
 	void SendSignInRequest();
 	void AccountCreateRequest();
 	void UpdateLable(MenuLabel &label);
