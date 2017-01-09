@@ -25,6 +25,7 @@ private:
 	Shader *ghostRacerShader;
 	Quaternion orientation;
 	std::vector<Vector3> ghostRacerPositions;
+	std::vector<Quaternion> ghostRacerOrientations;
 };
 
 #endif

@@ -198,12 +198,19 @@ void GameApplication::Render(bool windowResized)
 
 	glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 	switch (currentGameState)
 	{
 		case GameState::splashScreen:
 		{
 			splashScreen.Render(screenWidth, screenHeight);
+
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			msPerFrameText.RenderText("***Booting System... Copyright Right Sweeney_Systems 1976***", Vector2(10.0f, screenHeight - 30.0f), 0.4f, Vector3(0.0, 1.0f, 0.0f), screenWidth, screenHeight);
+			msPerFrameText.RenderText("***Initalizing System***", Vector2(10.0f, screenHeight - 50.0f), 0.4f, Vector3(0.0, 1.0f, 0.0f), screenWidth, screenHeight);
+			msPerFrameText.RenderText("***Running...***", Vector2(10.0f, screenHeight - 70.0f), 0.4f, Vector3(0.0, 1.0f, 0.0f), screenWidth, screenHeight);
+			glDisable(GL_BLEND);
+
 			break;
 		}
 
@@ -227,7 +234,6 @@ void GameApplication::Render(bool windowResized)
 			break;
 		}
 	}
-
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	// Draw Screen

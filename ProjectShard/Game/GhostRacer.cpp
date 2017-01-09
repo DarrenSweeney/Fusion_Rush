@@ -24,10 +24,17 @@ void GhostRacer::ReadRecordedPositions()
 	ghostRacerFile.open("Ghost_Racer.txt");
 	Vector3 position;
 	std::string str;
+	bool readPos, readOri;
+
+	// TODO(Darren): Check if there is '#' which means now reading orientation
+
 	while (std::getline(ghostRacerFile, str))
 	{
-		ghostRacerFile >> position.x >> position.y >> position.z;
-		ghostRacerPositions.push_back(position);
+		if (str.compare("#"))
+		{
+			ghostRacerFile >> position.x >> position.y >> position.z;
+			ghostRacerPositions.push_back(position);
+		}
 	}
 	ghostRacerFile.close();
 }

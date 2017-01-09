@@ -48,6 +48,7 @@ private:
 	float lastTime;
 	float currentTrackTime;
 	std::vector<Vector3> recordPositions;
+	std::vector<Quaternion> recordOrientation;
 
 	void Movement(float deltaTime);
 	void RecordPosition();

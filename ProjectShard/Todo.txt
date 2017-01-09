@@ -2,8 +2,8 @@
 
 01. Create a rotation reflection matrix
 02. Create UI for damange, geometry explode?
-03. Add best time to game UI
-04. Add lap time
+**
+**
 05. Add personal best time
 06. Worlds best time
 07. Add finished race animation
@@ -33,4 +33,4 @@
 31. Add voice sound for crash
 32. Add side ways interpolation for the camera
 **
-33. Might add loading screen kernel emulation
+**
