@@ -229,12 +229,24 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 				gameSparksInfo.InitGS();
 			}
 
+			if (gameSparksInfo.signInAccount)
+			{
+				if (!gameSparksInfo.available)
+					notOnlineError = true;
+				else if (!gameSparksInfo.loginSuccessful)
+					accountSignInError = true;
+			}
+
 			if (cancelLabel.labelSelected || InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ESCAPE)
 				|| InputManager::GetInstance().IsControllerButtonPressed(XBOX360_BACK))
 			{
 				currentMenuState = MenuState::MenuOpitions;
 				currentSelectState = SelectState::NotSelected;
 				selectPosition = signInOutLabel.position;
+				gameSparksInfo.signInAccount = false;
+
+				notOnlineError = false;
+				accountSignInError = false;
 			}
 
 			if (createAccountLabel.labelSelected)
@@ -451,6 +463,7 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 		currentMenuState = MenuState::MenuOpitions;
 		currentSelectState = SelectState::NotSelected;
 		selectPosition = signInOutLabel.position;
+		accountSignInError = false;
 	}
 }
 
@@ -562,6 +575,16 @@ void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 
 			textRenderer.RenderText(signInUserName.c_str(), signInOutPannelPos + Vector2(40.0f, 40.0f), 0.8f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
 			textRenderer.RenderText(signInPassword.c_str(), signInOutPannelPos + Vector2(40.0f, -60.0f), 0.8f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
+
+			if (accountSignInError)
+			{
+				textRenderer.RenderText("account details not correct", Vector2(500.0f, 10.0f), 0.6f, Vector3(1.0f, 0.0f, 0.0f), screenWidth, screenHeight);
+			}
+
+			if (notOnlineError)
+			{
+				textRenderer.RenderText("Not Online!", Vector2(600.0f, 10.0f), 0.6f, Vector3(1.0f, 0.0f, 0.0f), screenWidth, screenHeight);
+			}
 		}
 		else if (currentMenuState == MenuState::CreateAccount)
 		{

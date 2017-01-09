@@ -73,7 +73,7 @@ private:
 	std::string playerRank;			// NOTE(Darren): Need to implement
 
 	// Error
-	bool passwordMatchError, accountSignInError, userNameExistsError;
+	bool passwordMatchError, accountSignInError, userNameExistsError, notOnlineError;
 
 	void SendSignInRequest();
 	void AccountCreateRequest();
