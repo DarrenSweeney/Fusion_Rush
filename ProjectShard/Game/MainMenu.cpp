@@ -360,6 +360,14 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 			UpdateLable(cancelLabel);
 			UpdateLable(createAccountLabel);
 
+			if (gameSparksInfo.registerAccount)
+			{
+				if (!gameSparksInfo.available)
+					notOnlineError = true;
+				else if (!gameSparksInfo.loginSuccessful)
+					accountSignInError = true;
+			}
+
 			if (cancelLabel.labelSelected || InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ESCAPE)
 				|| InputManager::GetInstance().IsControllerButtonPressed(XBOX360_BACK))
 			{
@@ -583,7 +591,7 @@ void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 
 			if (notOnlineError)
 			{
-				textRenderer.RenderText("Not Online!", Vector2(600.0f, 10.0f), 0.6f, Vector3(1.0f, 0.0f, 0.0f), screenWidth, screenHeight);
+				textRenderer.RenderText("Not Online!", Vector2(620.0f, 10.0f), 0.6f, Vector3(1.0f, 0.0f, 0.0f), screenWidth, screenHeight);
 			}
 		}
 		else if (currentMenuState == MenuState::CreateAccount)
@@ -619,6 +627,11 @@ void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 			if (passwordMatchError)
 			{
 				textRenderer.RenderText("password does not match", Vector2(500.0f, 10.0f), 0.6f, Vector3(1.0f, 0.0f, 0.0f), screenWidth, screenHeight);
+			}
+
+			if (notOnlineError)
+			{
+				textRenderer.RenderText("Not Online!", Vector2(620.0f, 10.0f), 0.6f, Vector3(1.0f, 0.0f, 0.0f), screenWidth, screenHeight);
 			}
 		}
 	}
