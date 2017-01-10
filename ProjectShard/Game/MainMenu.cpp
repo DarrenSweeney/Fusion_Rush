@@ -70,9 +70,7 @@ MainMenu::MainMenu()
 
 	spriteRenderer = new SpriteRenderer();
 
-	menuError.soundEngine->setSoundVolume(0.2f);
-	menuNaV.soundEngine->setSoundVolume(0.2f);
-	menuSelect.soundEngine->setSoundVolume(0.2f);
+	menuSound.soundEngine->setSoundVolume(0.2f);
 }
 
 MainMenu::~MainMenu()
@@ -113,6 +111,8 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 	{
 		case MenuState::MenuOpitions:
 		{
+			passwordMatchError = accountSignInError = userNameExistsError = notOnlineError = false;
+
 			if ((InputManager::GetInstance().IsKeyPressed(GLFW_KEY_UP) 
 				|| InputManager::GetInstance().IsControllerButtonPressed(XBOX360_UP))
 				&& selectPosition.y != playLabel.position.y)
@@ -244,9 +244,6 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 				currentSelectState = SelectState::NotSelected;
 				selectPosition = signInOutLabel.position;
 				gameSparksInfo.signInAccount = false;
-
-				notOnlineError = false;
-				accountSignInError = false;
 			}
 
 			if (createAccountLabel.labelSelected)
@@ -665,15 +662,15 @@ void MainMenu::RenderLabel(MenuText &menuLable, GLsizei screenWidth, GLsizei sce
 
 void MainMenu::PlayMenuError()
 {
-	menuError.Play2D("Resources/Sounds/Menu/Menu_Error.wav");
+	menuSound.Play2D("Resources/Sounds/Menu/Menu_Error.wav");
 }
 
 void MainMenu::PlayMenuNav()
 {
-	menuNaV.Play2D("Resources/Sounds/Menu/Menu_Nav.wav");
+	menuSound.Play2D("Resources/Sounds/Menu/Menu_Nav.wav");
 }
 
 void MainMenu::PlayMenuSelect()
 {
-	menuSelect.Play2D("Resources/Sounds/Menu/Menu_Select.wav");
+	menuSound.Play2D("Resources/Sounds/Menu/Menu_Select.wav");
 }

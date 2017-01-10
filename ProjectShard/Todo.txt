@@ -23,8 +23,8 @@
 21. Add rotation to ghost racer
 22. Figure out how track seeds work and current ghost racer
 23. Upload and download ghost racer file
-24. Add sound for hiting wall
-25. Add sound for hitting block
+24. Add sound for hiting wall	// -> Test in
+25. Add sound for hitting block	// -> Test in
 26. Add game music, overalay on top of menu music when in game
 27. Add sound for finishing the race
 28. Add 3..2..1.. counter with voice

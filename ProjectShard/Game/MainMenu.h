@@ -16,7 +16,7 @@ class MainMenu
 private:
 	GameSparksInfo gameSparksInfo;
 
-	Sound menuError, menuNaV, menuSelect;
+	Sound menuSound;
 
 	Text textRenderer;
 	CollisionRectangle selectRect;
