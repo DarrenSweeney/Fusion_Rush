@@ -143,8 +143,8 @@ void Player::RecordPosition()
 			Vector3 pos = position;
 			recordPositions.push_back(pos);
 
-			Quaternion orien = orientation;
-			recordOrientation.push_back(orien);
+			//Quaternion orien = orientation;
+			//recordOrientation.push_back(orien);
 		}
 	}
 }
@@ -162,7 +162,7 @@ void Player::WriteRecordedPositions()
 
 	for (std::vector<Quaternion>::iterator it = recordOrientation.begin(); it != recordOrientation.end(); it++)
 	{
-		ghostRacerFile << it->x << " " << it->y << " " << it->z << "\n";
+		ghostRacerFile << it->w << " " << it->x << " " << it->y << " " << it->z << "\n";
 	}
 	ghostRacerFile.close();
 }

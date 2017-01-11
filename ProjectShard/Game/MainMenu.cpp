@@ -88,6 +88,8 @@ void MainMenu::InitScene()
 	playLabel.rect.SetRectangle(playLabel.position, 30, 10);
 	signInOutLabel.rect.SetRectangle(signInOutLabel.position, 30, 10);
 	exitLabel.rect.SetRectangle(exitLabel.position, 30, 10);
+
+	menuSoundTrack.Play2D("Resources/Music/Menu_Music.wav");
 }
 
 void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenHeight)
@@ -134,6 +136,8 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 				currentSelectState = SelectState::PlaySelected;
 				playGame = true;
 				playLabel.labelSelected = false;
+
+				//menuSoundTrack.soundEngine->setSoundVolume(0.1f);
 			}
 			else
 				playGame = false;

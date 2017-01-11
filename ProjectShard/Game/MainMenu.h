@@ -17,6 +17,7 @@ private:
 	GameSparksInfo gameSparksInfo;
 
 	Sound menuSound;
+	Sound menuSoundTrack;
 
 	Text textRenderer;
 	CollisionRectangle selectRect;

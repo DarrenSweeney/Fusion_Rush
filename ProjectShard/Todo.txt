@@ -1,7 +1,7 @@
 # Darren's todo list for road to Games Fleadh:)
 
 01. Create a rotation reflection matrix
-02. Create UI for damange, geometry explode?
+02. Create UI for damange?, geometry explode?
 **
 **
 05. Add personal best time
@@ -34,3 +34,4 @@
 32. Add side ways interpolation for the camera
 **
 **
+35. Add sound for moving passed obstacles
