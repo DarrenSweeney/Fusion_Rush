@@ -88,12 +88,16 @@ void MainMenu::InitScene()
 	playLabel.rect.SetRectangle(playLabel.position, 30, 10);
 	signInOutLabel.rect.SetRectangle(signInOutLabel.position, 30, 10);
 	exitLabel.rect.SetRectangle(exitLabel.position, 30, 10);
-
-	menuSoundTrack.Play2D("Resources/Music/Menu_Music.wav");
 }
 
 void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenHeight)
 {
+	if (startSoundTrack)
+	{
+		menuSoundTrack.Play2D("Resources/Music/Menu_Music.wav");
+		startSoundTrack = false;
+	}
+
 	gameSparksInfo.Update();
 
 	if (gameSparksInfo.GetStatus())
@@ -138,6 +142,7 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 				playLabel.labelSelected = false;
 
 				menuSoundTrack.soundEngine->stopAllSounds();
+				// TODO(Darren): Might fade out soundtrack here
 				//menuSoundTrack.soundEngine->setSoundVolume(0.0f);
 			}
 			else

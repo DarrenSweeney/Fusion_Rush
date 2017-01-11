@@ -87,6 +87,7 @@ public:
 	~MainMenu();
 
 	bool exitGame, playGame;
+	bool startSoundTrack;
 
 	void InitScene();
 	void UpdateScene(float delatTime, GLsizei screenWidth, GLsizei sceenHeight);

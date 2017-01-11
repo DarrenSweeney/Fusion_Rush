@@ -102,6 +102,7 @@ void GameApplication::Update(GLfloat deltaTime)
 			if (splashScreen.changeScene)
 			{
 				currentGameState = GameState::mainMenu;
+				mainMenu->startSoundTrack = true;
 			}
 
 			break;
@@ -125,8 +126,6 @@ void GameApplication::Update(GLfloat deltaTime)
 
 		case GameState::inGame:
 		{
-			racingScene->UpdateScene(deltaTime);
-
 			if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ESCAPE)
 				|| InputManager::GetInstance().IsControllerButtonPressed(XBOX360_BACK))
 			{
@@ -135,7 +134,11 @@ void GameApplication::Update(GLfloat deltaTime)
 				racingScene->SetPlayerMovement(false);
 				racingScene->SetRenderUIState(false);
 				racingScene->player.recordRace = false;
+				mainMenu->startSoundTrack = true;
+				racingScene->stopSoundTrack = true;
 			}
+
+			racingScene->UpdateScene(deltaTime);
 
 			if (racingScene->finishedRace)
 			{
@@ -145,6 +148,7 @@ void GameApplication::Update(GLfloat deltaTime)
 				racingScene->SetRenderUIState(false);
 				racingScene->player.recordRace = false;
 				finishedMenu.finishedLapTime = racingScene->currentTime;
+				mainMenu->startSoundTrack = true;
 			}
 
 			break;
