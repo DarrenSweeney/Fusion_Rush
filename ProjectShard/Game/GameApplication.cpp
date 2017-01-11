@@ -118,6 +118,7 @@ void GameApplication::Update(GLfloat deltaTime)
 				racingScene->SetPlayerMovement(true);
 				racingScene->SetRenderUIState(true);
 				racingScene->player.recordRace = true;
+				racingScene->startSoundTrack = true;
 			}
 			break;
 		}

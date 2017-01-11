@@ -137,7 +137,8 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 				playGame = true;
 				playLabel.labelSelected = false;
 
-				//menuSoundTrack.soundEngine->setSoundVolume(0.1f);
+				menuSoundTrack.soundEngine->stopAllSounds();
+				//menuSoundTrack.soundEngine->setSoundVolume(0.0f);
 			}
 			else
 				playGame = false;
