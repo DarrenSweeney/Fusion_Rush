@@ -2,7 +2,6 @@
 in vec2 TexCoords;
 out vec4 color;
 
-#define distortion 0.2
 #define enable true
 
 uniform sampler2D screenTexture;

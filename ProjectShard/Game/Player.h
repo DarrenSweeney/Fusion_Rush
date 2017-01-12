@@ -33,6 +33,7 @@ public:
 	Vector3 position;
 	bool recordRace;
 	bool updateMovement;
+	bool shipDestroyed;
 
 private:
 	Model *model;
@@ -52,5 +53,6 @@ private:
 
 	void Movement(float deltaTime);
 	void RecordPosition();
+	void PlayExplodeAnimation();
 };
 #endif

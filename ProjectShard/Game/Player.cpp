@@ -11,6 +11,13 @@ Player::Player()
 	// TODO(Darren): Create some user of yaw, roll pitch for camera angles.
 	//				 maybe set pitch etc.
 	//camera.Roll(140.0f);
+
+	shaderModel->Use();
+	glUniform1f(glGetUniformLocation(shaderModel->Program, "time"), 11.0f);
+
+	modelRotate = Matrix4();
+	modelRotate = modelRotate.QuaternionToMatrix4(orientation);
+	boundingBox.UpdateBoundingBox(position, modelRotate, Vector3(1.0f, 1.0f, 1.0f));
 }
 
 Player::~Player()
@@ -21,9 +28,8 @@ Player::~Player()
 
 void Player::Update(float deltaTime)
 {
-	// Add time component to geometry shader in the form of a uniform
-	//shaderModel->Use();
-	//glUniform1f(glGetUniformLocation(shaderModel->Program, "time"), glfwGetTime() * 5.0f);
+	if (shipDestroyed)
+		PlayExplodeAnimation();
 
 	if(updateMovement)
 		Movement(deltaTime);
@@ -74,6 +80,13 @@ void Player::FinishedAnimation(float deltaTime)
 	//	position + Vector3(0.0f, 0.0f, -2000.0f), iner);
 
 	//camera.SetPosition(transitionVector);
+}
+
+void Player::PlayExplodeAnimation()
+{
+	// Add time component to geometry shader in the form of a uniform
+	shaderModel->Use();
+	glUniform1f(glGetUniformLocation(shaderModel->Program, "time"), glfwGetTime() * 5.0f);
 }
 
 void Player::Movement(float deltaTime)
