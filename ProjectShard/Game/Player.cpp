@@ -14,10 +14,6 @@ Player::Player()
 
 	shaderModel->Use();
 	glUniform1f(glGetUniformLocation(shaderModel->Program, "time"), 11.0f);
-
-	modelRotate = Matrix4();
-	modelRotate = modelRotate.QuaternionToMatrix4(orientation);
-	boundingBox.UpdateBoundingBox(position, modelRotate, Vector3(1.0f, 1.0f, 1.0f));
 }
 
 Player::~Player()
@@ -185,6 +181,9 @@ void Player::Spawn()
 	position = Vector3(0.0f, 0.0f, 0.0f);
 	linearVelocity = Vector3();
 	cameraInterpolator = 0.0f;
+	shaderModel->Use();
+	glUniform1f(glGetUniformLocation(shaderModel->Program, "time"), 11.0f);
+	shipDestroyed = false;
 }
 
 void Player::Render(GLsizei screenWidth, GLsizei screenHeight)
