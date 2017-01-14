@@ -53,6 +53,6 @@ private:
 
 	void Movement(float deltaTime);
 	void RecordPosition();
-	void PlayExplodeAnimation();
+	void PlayExplodeAnimation(float deltaTime);
 };
 #endif

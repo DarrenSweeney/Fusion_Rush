@@ -95,6 +95,7 @@ public:
 	void PlayMenuSelect();
 	void PlayMenuError();
 	void PlayMenuNav();
+	void PlayKeyboardEnter();
 };
 
 #endif

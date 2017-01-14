@@ -13,7 +13,7 @@ Player::Player()
 	//camera.Roll(140.0f);
 
 	shaderModel->Use();
-	glUniform1f(glGetUniformLocation(shaderModel->Program, "time"), 11.0f);
+	glUniform1f(glGetUniformLocation(shaderModel->Program, "time"), 0.0f);
 }
 
 Player::~Player()
@@ -25,7 +25,7 @@ Player::~Player()
 void Player::Update(float deltaTime)
 {
 	if (shipDestroyed)
-		PlayExplodeAnimation();
+		PlayExplodeAnimation(deltaTime);
 
 	if(updateMovement)
 		Movement(deltaTime);
@@ -78,11 +78,11 @@ void Player::FinishedAnimation(float deltaTime)
 	//camera.SetPosition(transitionVector);
 }
 
-void Player::PlayExplodeAnimation()
+void Player::PlayExplodeAnimation(float deltaTime)
 {
 	// Add time component to geometry shader in the form of a uniform
 	shaderModel->Use();
-	glUniform1f(glGetUniformLocation(shaderModel->Program, "time"), glfwGetTime() * 5.0f);
+	glUniform1f(glGetUniformLocation(shaderModel->Program, "time"), deltaTime);
 }
 
 void Player::Movement(float deltaTime)

@@ -1,7 +1,7 @@
 # Darren's todo list for road to Games Fleadh:)
 
 01. Create a rotation reflection matrix
-02. Create UI for damange?, geometry explode?
+02. geometry explode shader that keeps going, not breathing. <---
 **
 **
 05. Add personal best time
@@ -24,8 +24,8 @@
 22. Figure out how track seeds work and current ghost racer
 23. Upload and download ghost racer file
 **
-25. Add sound for hitting block	// -> Test in
-26. Add game music, overalay on top of menu music when in game, -> Need to fade
+25. Add sound for hitting block	// -> Test in (camera zoom in)
+**
 27. Add sound for finishing the race
 28. Add 3..2..1.. counter with voice
 29. Add voice sound for couting down
@@ -35,4 +35,6 @@
 **
 **
 35. Add sound for moving passed obstacles
-36. Add fade between states
+36. Add fade black screen between states
+37. Fix back of ship, re-model? Also stream exhaust
+38. Keyboard enter sound in menu

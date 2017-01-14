@@ -70,7 +70,7 @@ MainMenu::MainMenu()
 
 	spriteRenderer = new SpriteRenderer();
 
-	menuSound.soundEngine->setSoundVolume(0.2f);
+	//menuSound.soundEngine->setSoundVolume(0.2f);
 }
 
 MainMenu::~MainMenu()
@@ -185,8 +185,11 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 			if (selectRect.Intersects(usernameRect))
 			{
 				std::string input = InputManager::GetInstance().keyInput;
-				if(input.size() < 15)
+				if (input.size() < 15)
+				{
 					signInUserName = input;
+					PlayKeyboardEnter();
+				}
 
 				typeElementPos = signInOutPannelPos + Vector2(40.0f + (21.0f * signInUserName.size()), 80.0f);
 
@@ -205,7 +208,10 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 			{
 				std::string input = InputManager::GetInstance().keyInput;
 				if (input.size() < 15)
+				{
 					signInPassword = input;
+					PlayKeyboardEnter();
+				}
 
 				typeElementPos = signInOutPannelPos + Vector2(40.0f + (21.0f * signInPassword.size()), 180.0f);
 
@@ -307,7 +313,10 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 			{
 				std::string input = InputManager::GetInstance().keyInput;
 				if (input.size() < 15)
+				{
+					PlayKeyboardEnter();
 					signInUserName = input;
+				}
 
 				typeElementPos = signInOutPannelPos + Vector2(40.0f + (21.0f * signInUserName.size()), 50.0f);
 
@@ -326,7 +335,10 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 			{
 				std::string input = InputManager::GetInstance().keyInput;
 				if (input.size() < 15)
+				{
+					PlayKeyboardEnter();
 					signInPassword = input;
+				}
 
 				typeElementPos = signInOutPannelPos + Vector2(40.0f + (21.0f * signInPassword.size()), 150.0f);
 
@@ -344,7 +356,10 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 			{
 				std::string input = InputManager::GetInstance().keyInput;
 				if (input.size() < 15)
+				{
+					PlayKeyboardEnter();
 					signInReEnterPass = input;
+				}
 
 				typeElementPos = signInOutPannelPos + Vector2(40.0f + (21.0f * signInReEnterPass.size()), 250.0f);
 
@@ -684,4 +699,13 @@ void MainMenu::PlayMenuNav()
 void MainMenu::PlayMenuSelect()
 {
 	menuSound.Play2D("Resources/Sounds/Menu/Menu_Select.wav");
+}
+
+void MainMenu::PlayKeyboardEnter()
+{
+	if (InputManager::GetInstance().charaterKeyPressed)
+	{
+		menuSound.Play2D("Resources/Sounds/Menu/Keyboard_Enter.wav");
+		InputManager::GetInstance().charaterKeyPressed = false;
+	}
 }

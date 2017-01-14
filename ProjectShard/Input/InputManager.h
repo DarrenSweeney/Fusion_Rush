@@ -77,6 +77,7 @@ public:
 	bool keys_down[MAX_KEYS];
 	bool keys_locked[MAX_KEYS];
 	std::string keyInput;
+	bool charaterKeyPressed;
 	XboxControllerState currentControllerState;
 	XboxControllerState previousControllerState;
 	const float DPAD_THRESHHOLD = 0.2f;
