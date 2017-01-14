@@ -5,6 +5,6 @@ ProjectShard is survival racing game with an aesthetic throw back to old acrade 
 ProjectShard is the current project name and not the name of the game.
 
 
-![alt tag](https://dsweeneyblog.files.wordpress.com/2017/01/engine_logo_.png)
+![alt tag](https://dsweeneyblog.files.wordpress.com/2017/01/engine.png)
 ![alt tag](https://dsweeneyblog.files.wordpress.com/2017/01/in_menu.png)
 ![alt tag](https://dsweeneyblog.files.wordpress.com/2017/01/in_game.png)
