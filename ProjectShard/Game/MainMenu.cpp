@@ -234,6 +234,8 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 			{
 				if (InputManager::GetInstance().keyInput.size() > 0)
 					InputManager::GetInstance().keyInput.pop_back();
+
+				PlayBackspaceSound();
 			}
 
 			UpdateLable(loginLabel);
@@ -378,6 +380,8 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 			{
 				if (InputManager::GetInstance().keyInput.size() > 0)
 					InputManager::GetInstance().keyInput.pop_back();
+
+				PlayBackspaceSound();
 			}
 
 			UpdateLable(cancelLabel);
@@ -708,4 +712,9 @@ void MainMenu::PlayKeyboardEnter()
 		menuSound.Play2D("Resources/Sounds/Menu/Keyboard_Enter.wav");
 		InputManager::GetInstance().charaterKeyPressed = false;
 	}
+}
+
+void MainMenu::PlayBackspaceSound()
+{
+	menuSound.Play2D("Resources/Sounds/Menu/Keyboard_Backspace.wav");
 }

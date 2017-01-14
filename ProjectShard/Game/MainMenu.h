@@ -96,6 +96,7 @@ public:
 	void PlayMenuError();
 	void PlayMenuNav();
 	void PlayKeyboardEnter();
+	void PlayBackspaceSound();
 };
 
 #endif
