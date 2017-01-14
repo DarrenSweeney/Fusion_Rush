@@ -156,9 +156,6 @@ void GameApplication::Update(GLfloat deltaTime)
 
 		case GameState::finishedMenu:
 		{
-			racingScene->UpdateScene(deltaTime);
-			finishedMenu.Update();
-
 			if (finishedMenu.selectedMainMenu)
 			{
 				currentGameState = GameState::mainMenu;
@@ -167,6 +164,7 @@ void GameApplication::Update(GLfloat deltaTime)
 				racingScene->player.WriteRecordedPositions();
 				racingScene->bestTime = finishedMenu.personalBestTime;
 				racingScene->ResetScene();
+				racingScene->stopSoundTrack = true;
 			}
 			else if (finishedMenu.selectedPlayAgain)
 			{
@@ -181,6 +179,9 @@ void GameApplication::Update(GLfloat deltaTime)
 				racingScene->bestTime = finishedMenu.personalBestTime;
 				racingScene->ResetScene();
 			}
+
+			racingScene->UpdateScene(deltaTime);
+			finishedMenu.Update();
 
 			break;
 		}

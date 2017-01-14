@@ -95,6 +95,7 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 	if (startSoundTrack)
 	{
 		menuSoundTrack.Play2D("Resources/Music/Menu_Music.wav");
+		menuSoundTrack.soundEngine->setSoundVolume(1.0f);
 		startSoundTrack = false;
 	}
 
