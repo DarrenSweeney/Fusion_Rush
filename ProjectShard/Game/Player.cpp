@@ -24,11 +24,11 @@ Player::~Player()
 
 void Player::Update(float deltaTime)
 {
-	if (shipDestroyed)
-		PlayExplodeAnimation(deltaTime);
-
 	if(updateMovement)
 		Movement(deltaTime);
+
+	if (shipDestroyed)
+		PlayExplodeAnimation(deltaTime);
 
 	Vector3 initPos = Vector3(3.0f, 2.0f, 8.0f);
 	Vector3 finalPos = position - Vector3(0.0f, -15.0f, -40.0f);
@@ -80,9 +80,16 @@ void Player::FinishedAnimation(float deltaTime)
 
 void Player::PlayExplodeAnimation(float deltaTime)
 {
+	explodeMagnitude += 20.0f * deltaTime;
+
 	// Add time component to geometry shader in the form of a uniform
 	shaderModel->Use();
-	glUniform1f(glGetUniformLocation(shaderModel->Program, "time"), deltaTime);
+	glUniform1f(glGetUniformLocation(shaderModel->Program, "magnitude"), explodeMagnitude);
+
+	if (explodeMagnitude > 20.0f)
+	{
+		Spawn();
+	}
 }
 
 void Player::Movement(float deltaTime)
@@ -182,7 +189,8 @@ void Player::Spawn()
 	linearVelocity = Vector3();
 	cameraInterpolator = 0.0f;
 	shaderModel->Use();
-	glUniform1f(glGetUniformLocation(shaderModel->Program, "time"), 11.0f);
+	explodeMagnitude = 0.0f;
+	glUniform1f(glGetUniformLocation(shaderModel->Program, "magnitude"), explodeMagnitude);
 	shipDestroyed = false;
 }
 

@@ -8,12 +8,12 @@ in VS_OUT {
 
 out vec2 TexCoords; 
 
-uniform float time;
+uniform float magnitude;
 
 vec4 explode(vec4 position, vec3 normal)
 {
-    float magnitude = 0.0f;
-    vec3 direction = normal * (time * 10.0f); //((sin(time) + 1.0f) / 2.0f);// * magnitude; 
+    vec3 direction = normal * magnitude; 
+	// --
     return position + vec4(direction, 0.0f);
 }
 

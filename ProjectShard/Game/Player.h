@@ -48,6 +48,7 @@ private:
 	float currentTimePos;
 	float lastTime;
 	float currentTrackTime;
+	float explodeMagnitude;
 	std::vector<Vector3> recordPositions;
 	std::vector<Quaternion> recordOrientation;
 
