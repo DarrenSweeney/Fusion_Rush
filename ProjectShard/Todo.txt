@@ -1,13 +1,13 @@
 # Darren's todo list for road to Games Fleadh:)
 
-01. Create a rotation reflection matrix
-02. geometry explode shader that keeps going, not breathing. <---
+**
+**
 **
 **
 05. Add personal best time
 06. Worlds best time
 07. Add finished race animation
-08. Generate tack to match race grid
+**
 **
 10. Figure out better ways to position buildings
 11. Menu error for account already exsisting ..* ..* 
@@ -37,4 +37,4 @@
 35. Add sound for moving passed obstacles
 36. Add fade black screen between states
 37. Fix back of ship, re-model? Also stream exhaust
-38. Keyboard enter sound in menu
+**

@@ -1,7 +1,7 @@
 #include "RacingTrack.h"
 
 RacingTrack::RacingTrack()
-	: blockAmount(80), startRacePosition(), finishRacePosition(-0.4f, 0.0f, -8500.0f)
+	: blockAmount(100), startRacePosition()
 {
 	trackBlock = new TrackBlock[blockAmount];
 
@@ -18,10 +18,12 @@ void RacingTrack::Init()
 {
 	srand(time(NULL));
 
+	int zIndent = 0;
+
 	// Set up the track obstacles blocks
 	for (int i = 0; i < blockAmount; i++)
 	{
-		bool oscillationBlock = ((rand() % 100) < 20) && (i + 5 < blockAmount);
+		bool oscillationBlock = ((rand() % 100) < 10) && (i + 8 < blockAmount);
 		bool rotatingBlock = ((rand() % 100) < 40);
 
 		// NOTE(Darren): Check the less chance ones first.
@@ -30,15 +32,17 @@ void RacingTrack::Init()
 			int firstIndex = i;
 			int blockIndent = 0;
 
-			for (; i < firstIndex + 5; i++)
+			for (; i < firstIndex + 8; i++)
 			{
 				trackBlock[i].blockType = TrackBlock::BlockType::oscillation;
-				trackBlock[i].position = Vector3(40.0f - (blockIndent * 14.0f), 35.0f - (8.0f * blockIndent), -50.0f - (firstIndex * 180));
+				trackBlock[i].position = Vector3(50.0f - (blockIndent * 14.0f), 35.0f - (8.0f * blockIndent), -50.0f - (zIndent * 180));
 				blockIndent++;
 			}
 
 			i--;		// NOTE(Darren): When going back to the top of the loop
 						// decrement by 1 so a block index is not skipped
+
+			zIndent++;
 
 			continue;	// Go back to the top of the loop
 		}
@@ -57,8 +61,10 @@ void RacingTrack::Init()
 			}
 
 			trackBlock[i].blockType = TrackBlock::BlockType::rotating;
-			trackBlock[i].position = Vector3(blockIndent, 7.0f, -50.0f + (i * - 180));
+			trackBlock[i].position = Vector3(blockIndent, 7.0f, -50.0f + (zIndent * - 180));
 			trackBlock[i].rotate.rotate(MathHelper::DegressToRadians(45.0f), Vector3(1.0f, 1.0f, 1.0f));
+
+			zIndent++;
 
 			continue;
 		}
@@ -71,7 +77,9 @@ void RacingTrack::Init()
 				blockIndent = -blockIndent;
 
 			trackBlock[i].blockType = TrackBlock::BlockType::stationary;
-			trackBlock[i].position = Vector3(blockIndent, 4.0f, -50.0f + (i * -180));
+			trackBlock[i].position = Vector3(blockIndent, 4.0f, -50.0f + (zIndent * -180));
+
+			zIndent++;
 
 			continue;
 		}
@@ -79,6 +87,8 @@ void RacingTrack::Init()
 
 	Matrix4 rotate = Matrix4();
 	Vector3 scaleVec = Vector3(3.0f, 5.0f, 60.0f);
+
+	finishRacePosition = Vector3(-0.4f, 0.0f, trackBlock[blockAmount - 1].position.z - 50.0f);
 }
 
 void RacingTrack::Update(float deltaTime)

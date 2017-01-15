@@ -13,7 +13,6 @@ uniform float magnitude;
 vec4 explode(vec4 position, vec3 normal)
 {
     vec3 direction = normal * magnitude; 
-	// --
     return position + vec4(direction, 0.0f);
 }
 

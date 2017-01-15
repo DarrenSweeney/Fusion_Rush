@@ -10,6 +10,7 @@
 #include "Camera.h"
 #include "..\Math\CollisionBox.h"
 #include "..\Renderer\DebugDrawManager.h"
+#include "..\Audio\Sound.h"
 #include <sstream>
 
 class Player
@@ -34,10 +35,12 @@ public:
 	bool recordRace;
 	bool updateMovement;
 	bool shipDestroyed;
+	bool playDestroyedSoundEffect;
 
 private:
 	Model *model;
 	Shader *shaderModel;
+	Sound shipSound;
 	Vector3 acceleration;
 	Vector3 oldPosition;
 	Quaternion orientation;
