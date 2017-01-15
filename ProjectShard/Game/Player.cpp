@@ -30,12 +30,6 @@ void Player::Update(float deltaTime)
 	if (shipDestroyed)
 	{
 		PlayExplodeAnimation(deltaTime);
-
-		/*if (playDestroyedSoundEffect)
-		{
-			shipSound.Play2D("Resources/Sounds/Gameplay/Ship_Destroyed.wav");
-			playDestroyedSoundEffect = false;
-		}*/
 	}
 
 	Vector3 initPos = Vector3(3.0f, 2.0f, 8.0f);

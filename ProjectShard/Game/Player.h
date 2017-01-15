@@ -35,7 +35,6 @@ public:
 	bool recordRace;
 	bool updateMovement;
 	bool shipDestroyed;
-	bool playDestroyedSoundEffect;
 
 private:
 	Model *model;
