@@ -126,45 +126,39 @@ void GameSparksAvailable(GameSparks::Core::GS& gsInstance, bool available)
 
 	if (available)
 	{
-
-		GameSparks::Api::Requests::AuthenticationRequest requestRight(gsInstance);
-		requestRight.SetUserName("DarrenSweeney");
-		requestRight.SetPassword("password");
-		requestRight.Send(AuthenticationRequest_Response);
-
 		GameSparksInfo::available = true;
 
-		//// Sign In request
-		//if (GameSparksInfo::signInAccount)
-		//{
-		//	GameSparks::Api::Requests::AuthenticationRequest requestRight(gsInstance);
-		//	requestRight.SetUserName(GameSparksInfo::username);
-		//	requestRight.SetPassword(GameSparksInfo::password);
-		//	requestRight.Send(AuthenticationRequest_Response);
-		//	GameSparksInfo::signInAccount = false;
+		// Sign In request
+		if (GameSparksInfo::signInAccount)
+		{
+			GameSparks::Api::Requests::AuthenticationRequest requestRight(gsInstance);
+			requestRight.SetUserName(GameSparksInfo::username);
+			requestRight.SetPassword(GameSparksInfo::password);
+			requestRight.Send(AuthenticationRequest_Response);
+			GameSparksInfo::signInAccount = false;
 
-		//	GetLeaderboardEntriesRequest request(gsInstance);
-		//	gsstl::vector<gsstl::string> leaderboards;
-		//	leaderboards.push_back("Race_Times");
-		//	request.SetLeaderboards(leaderboards);
-		//	request.Send(GetLeaderboardEntriesRequest_Response);
-		//}
+			GetLeaderboardEntriesRequest request(gsInstance);
+			gsstl::vector<gsstl::string> leaderboards;
+			leaderboards.push_back("Race_Times");
+			request.SetLeaderboards(leaderboards);
+			request.Send(GetLeaderboardEntriesRequest_Response);
+		}
 
-		//// Account creation request
-		//if (GameSparksInfo::registerAccount)
-		//{
-		//	GameSparks::Api::Requests::RegistrationRequest req(gsInstance);
-		//	req.SetUserName(GameSparksInfo::username);
-		//	req.SetPassword(GameSparksInfo::password);
-		//	req.SetDisplayName(GameSparksInfo::username);
-		//	req.Send(RegistrationRequest_Response);
-		//	GameSparksInfo::registerAccount = false;
-		//}
+		// Account creation request
+		if (GameSparksInfo::registerAccount)
+		{
+			GameSparks::Api::Requests::RegistrationRequest req(gsInstance);
+			req.SetUserName(GameSparksInfo::username);
+			req.SetPassword(GameSparksInfo::password);
+			req.SetDisplayName(GameSparksInfo::username);
+			req.Send(RegistrationRequest_Response);
+			GameSparksInfo::registerAccount = false;
+		}
 
-		//GameSparks::Api::Requests::LeaderboardDataRequest leaderboard(gsInstance);
-		//leaderboard.SetEntryCount(10);
-		//leaderboard.SetLeaderboardShortCode("Race_Times");
-		//leaderboard.Send(LeaderboardDataRequest_Response);
+		GameSparks::Api::Requests::LeaderboardDataRequest leaderboard(gsInstance);
+		leaderboard.SetEntryCount(10);
+		leaderboard.SetLeaderboardShortCode("Race_Times");
+		leaderboard.Send(LeaderboardDataRequest_Response);
 	}
 	else
 		GameSparksInfo::available = false;
