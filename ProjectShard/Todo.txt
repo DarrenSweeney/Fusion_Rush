@@ -12,7 +12,7 @@
 10. Figure out better ways to position buildings
 11. Menu error for account already exsisting ..* ..* 
 **
-13. If user logged in displayed UserID, Personal Best, World Rank
+13. If user logged in displayed UserID, Personal Best, World Rank	<---
 **
 **
 **
@@ -20,11 +20,11 @@
 **
 **
 20. Add the world best time achieved to end race UI
-21. Add rotation to ghost racer
+21. Add rotation to ghost racer	<---
 22. Figure out how track seeds work and current ghost racer
 23. Upload and download ghost racer file
 **
-25. Add sound for hitting block	// -> Test in (camera zoom in)
+**
 **
 27. Add sound for finishing the race
 28. Add 3..2..1.. counter with voice
@@ -39,3 +39,4 @@
 37. Fix back of ship, re-model? Also stream exhaust
 **
 38. Add voice sounds?
+39. Fix issue with current time not resetting

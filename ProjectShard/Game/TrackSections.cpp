@@ -2,7 +2,7 @@
 
 TrackSections::TrackSections()
 {
-	amount = 80;
+	amount = 130;
 	modelMatrices = new Matrix4[amount];
 
 	trackModel = g_resourceMgr.GetModel(SID("RaceTrack"));

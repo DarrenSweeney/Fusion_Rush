@@ -13,6 +13,7 @@ bool GameSparksInfo::registerAccount;
 bool GameSparksInfo::signInAccount;
 bool GameSparksInfo::available;
 std::string GameSparksInfo::currentPlayerRank;
+CurrentPlayer GameSparksInfo::currentPlayer;
 
 GameSparksInfo::GameSparksInfo()
 {
@@ -98,7 +99,7 @@ void LeaderboardDataRequest_Response(GS& gsInstance, const LeaderboardDataRespon
 			dataEntry.rank = data.GetBaseData().GetLong("rank").GetValue();
 			dataEntry.time = data.GetBaseData().GetLong("TIME").GetValue();
 
-			GameSparksInfo::leaderboardEntry.push_back(dataEntry); 
+			GameSparksInfo::leaderboardEntry.push_back(dataEntry);
 		}
 	}
 }
@@ -112,9 +113,10 @@ void GetLeaderboardEntriesRequest_Response(GS& gsInstance, const GetLeaderboardE
 	}
 	else
 	{
-		GameSparks::Core::GSData::t_Optional data = response.GetResults();
-
-		GameSparksInfo::currentPlayerRank = data.GetValue().GetString("rank").GetValue();
+		GameSparksInfo::currentPlayer.time = response.GetBaseData().GetLong("TIME").GetValue();
+		GameSparksInfo::currentPlayer.rank = response.GetBaseData().GetLong("rank").GetValue();
+		
+		int i = 0;
 	}
 }
 
@@ -124,40 +126,45 @@ void GameSparksAvailable(GameSparks::Core::GS& gsInstance, bool available)
 
 	if (available)
 	{
+
+		GameSparks::Api::Requests::AuthenticationRequest requestRight(gsInstance);
+		requestRight.SetUserName("DarrenSweeney");
+		requestRight.SetPassword("password");
+		requestRight.Send(AuthenticationRequest_Response);
+
 		GameSparksInfo::available = true;
 
-		// Sign In request
-		if (GameSparksInfo::signInAccount)
-		{
-			GameSparks::Api::Requests::AuthenticationRequest requestRight(gsInstance);
-			requestRight.SetUserName(GameSparksInfo::username);
-			requestRight.SetPassword(GameSparksInfo::password);
-			requestRight.Send(AuthenticationRequest_Response);
-			GameSparksInfo::signInAccount = false;
-		}
+		//// Sign In request
+		//if (GameSparksInfo::signInAccount)
+		//{
+		//	GameSparks::Api::Requests::AuthenticationRequest requestRight(gsInstance);
+		//	requestRight.SetUserName(GameSparksInfo::username);
+		//	requestRight.SetPassword(GameSparksInfo::password);
+		//	requestRight.Send(AuthenticationRequest_Response);
+		//	GameSparksInfo::signInAccount = false;
 
-		// Account creation request
-		if (GameSparksInfo::registerAccount)
-		{
-			GameSparks::Api::Requests::RegistrationRequest req(gsInstance);
-			req.SetUserName(GameSparksInfo::username);
-			req.SetPassword(GameSparksInfo::password);
-			req.SetDisplayName(GameSparksInfo::username);
-			req.Send(RegistrationRequest_Response);
-			GameSparksInfo::registerAccount = false;
-		}
+		//	GetLeaderboardEntriesRequest request(gsInstance);
+		//	gsstl::vector<gsstl::string> leaderboards;
+		//	leaderboards.push_back("Race_Times");
+		//	request.SetLeaderboards(leaderboards);
+		//	request.Send(GetLeaderboardEntriesRequest_Response);
+		//}
 
-		GameSparks::Api::Requests::LeaderboardDataRequest leaderboard(gsInstance);
-		leaderboard.SetEntryCount(10);
-		leaderboard.SetLeaderboardShortCode("Race_Times");
-		leaderboard.Send(LeaderboardDataRequest_Response);
+		//// Account creation request
+		//if (GameSparksInfo::registerAccount)
+		//{
+		//	GameSparks::Api::Requests::RegistrationRequest req(gsInstance);
+		//	req.SetUserName(GameSparksInfo::username);
+		//	req.SetPassword(GameSparksInfo::password);
+		//	req.SetDisplayName(GameSparksInfo::username);
+		//	req.Send(RegistrationRequest_Response);
+		//	GameSparksInfo::registerAccount = false;
+		//}
 
-		GetLeaderboardEntriesRequest request(gsInstance);
-		std::vector<std::string> leaderboards;
-		leaderboards.push_back("Race_Times");
-		request.SetLeaderboards(leaderboards);
-		request.SetPlayer(GameSparksInfo::username);
-		request.Send(GetLeaderboardEntriesRequest_Response);
+		//GameSparks::Api::Requests::LeaderboardDataRequest leaderboard(gsInstance);
+		//leaderboard.SetEntryCount(10);
+		//leaderboard.SetLeaderboardShortCode("Race_Times");
+		//leaderboard.Send(LeaderboardDataRequest_Response);
 	}
 	else
 		GameSparksInfo::available = false;

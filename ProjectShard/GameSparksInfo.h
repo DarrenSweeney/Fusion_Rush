@@ -22,6 +22,13 @@ struct LeaderboardEntry
 	GameSparks::Optional::t_LongOptional time;
 };
 
+struct CurrentPlayer
+{
+	GameSparks::Optional::t_LongOptional rank;
+	// TODO(Darren): May have to store this in milisecond and convert
+	GameSparks::Optional::t_LongOptional time;
+};
+
 class GameSparksInfo
 {
 public:
@@ -30,6 +37,7 @@ public:
 
 	static bool available;
 	static std::vector<LeaderboardEntry> leaderboardEntry;
+	static CurrentPlayer currentPlayer;
 	static std::string username, password;
 	static bool registerAccount, signInAccount;
 	static bool loginSuccessful;

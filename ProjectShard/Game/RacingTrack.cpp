@@ -1,7 +1,7 @@
 #include "RacingTrack.h"
 
 RacingTrack::RacingTrack()
-	: blockAmount(100), startRacePosition()
+	: blockAmount(80), startRacePosition()
 {
 	trackBlock = new TrackBlock[blockAmount];
 
@@ -89,6 +89,7 @@ void RacingTrack::Init()
 	Vector3 scaleVec = Vector3(3.0f, 5.0f, 60.0f);
 
 	finishRacePosition = Vector3(-0.4f, 0.0f, trackBlock[blockAmount - 1].position.z - 50.0f);
+	//finishRacePosition = Vector3(-0.4f, 0.0f, -100.0f);	// For testing
 }
 
 void RacingTrack::Update(float deltaTime)

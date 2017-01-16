@@ -187,7 +187,8 @@ void Player::WriteRecordedPositions()
 
 void Player::Spawn()
 {
-	position = Vector3(0.0f, 0.0f, 0.0f);
+	position = Vector3();
+	orientation = Quaternion();
 	linearVelocity = Vector3();
 	cameraInterpolator = 0.0f;
 	shaderModel->Use();
