@@ -4,7 +4,7 @@ void AuthenticationRequest_Response(GameSparks::Core::GS&, const GameSparks::Api
 void RegistrationRequest_Response(GS& gsInstance, const GameSparks::Api::Responses::RegistrationResponse& response);
 void LeaderboardDataRequest_Response(GS& gsInstance, const LeaderboardDataResponse& response);
 void GameSparksAvailable(GameSparks::Core::GS& gsInstance, bool available);
-void GetLeaderboardEntriesRequest_Response(GS& gsInstance, const GetLeaderboardEntriesResponse& response);
+void AroundMeLeaderboardRequest_Response(GS& gsInstance, const AroundMeLeaderboardResponse& response);
 
 std::vector<LeaderboardEntry> GameSparksInfo::leaderboardEntry;
 std::string GameSparksInfo::username, GameSparksInfo::password;
@@ -12,7 +12,6 @@ bool GameSparksInfo::loginSuccessful;
 bool GameSparksInfo::registerAccount;
 bool GameSparksInfo::signInAccount;
 bool GameSparksInfo::available;
-std::string GameSparksInfo::currentPlayerRank;
 CurrentPlayer GameSparksInfo::currentPlayer;
 
 GameSparksInfo::GameSparksInfo()
@@ -104,19 +103,27 @@ void LeaderboardDataRequest_Response(GS& gsInstance, const LeaderboardDataRespon
 	}
 }
 
-void GetLeaderboardEntriesRequest_Response(GS& gsInstance, const GetLeaderboardEntriesResponse& response)
+void AroundMeLeaderboardRequest_Response(GS& gsInstance, const AroundMeLeaderboardResponse& response)
 {
 	if (response.GetHasErrors())
 	{
-		std::cout << "something went wrong with leaderboard enteries request responce" << std::endl;
+		std::cout << "something went wrong with around me leaderboard request" << std::endl;
 		std::cout << response.GetErrors().GetValue().GetJSON().c_str() << std::endl;
 	}
 	else
 	{
-		GameSparksInfo::currentPlayer.time = response.GetBaseData().GetLong("TIME").GetValue();
-		GameSparksInfo::currentPlayer.rank = response.GetBaseData().GetLong("rank").GetValue();
-		
-		int i = 0;
+		gsstl::vector<LeaderboardData> data = response.GetData();
+
+		for (gsstl::vector<LeaderboardData>::iterator it = data.begin(); it != data.end(); ++it)
+		{
+			LeaderboardData data = *it;
+
+			if (GameSparksInfo::username == data.GetBaseData().GetString("userName").GetValue())
+			{
+				GameSparksInfo::currentPlayer.rank = data.GetBaseData().GetLong("rank").GetValue();
+				GameSparksInfo::currentPlayer.time = data.GetBaseData().GetLong("TIME").GetValue();
+			}
+		}
 	}
 }
 
@@ -131,23 +138,22 @@ void GameSparksAvailable(GameSparks::Core::GS& gsInstance, bool available)
 		// Sign In request
 		if (GameSparksInfo::signInAccount)
 		{
-			GameSparks::Api::Requests::AuthenticationRequest requestRight(gsInstance);
+			AuthenticationRequest requestRight(gsInstance);
 			requestRight.SetUserName(GameSparksInfo::username);
 			requestRight.SetPassword(GameSparksInfo::password);
 			requestRight.Send(AuthenticationRequest_Response);
 			GameSparksInfo::signInAccount = false;
 
-			GetLeaderboardEntriesRequest request(gsInstance);
-			gsstl::vector<gsstl::string> leaderboards;
-			leaderboards.push_back("Race_Times");
-			request.SetLeaderboards(leaderboards);
-			request.Send(GetLeaderboardEntriesRequest_Response);
+			AroundMeLeaderboardRequest requestAroundMe(gsInstance);
+			requestAroundMe.SetEntryCount(1);
+			requestAroundMe.SetLeaderboardShortCode("Race_Times");
+			requestAroundMe.Send(AroundMeLeaderboardRequest_Response);
 		}
 
 		// Account creation request
 		if (GameSparksInfo::registerAccount)
 		{
-			GameSparks::Api::Requests::RegistrationRequest req(gsInstance);
+			RegistrationRequest req(gsInstance);
 			req.SetUserName(GameSparksInfo::username);
 			req.SetPassword(GameSparksInfo::password);
 			req.SetDisplayName(GameSparksInfo::username);
@@ -155,7 +161,7 @@ void GameSparksAvailable(GameSparks::Core::GS& gsInstance, bool available)
 			GameSparksInfo::registerAccount = false;
 		}
 
-		GameSparks::Api::Requests::LeaderboardDataRequest leaderboard(gsInstance);
+		LeaderboardDataRequest leaderboard(gsInstance);
 		leaderboard.SetEntryCount(10);
 		leaderboard.SetLeaderboardShortCode("Race_Times");
 		leaderboard.Send(LeaderboardDataRequest_Response);

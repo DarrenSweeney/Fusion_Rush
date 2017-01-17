@@ -12,7 +12,7 @@
 10. Figure out better ways to position buildings
 11. Menu error for account already exsisting ..* ..* 
 **
-13. If user logged in displayed UserID, Personal Best, World Rank	<---
+**
 **
 **
 **

@@ -41,7 +41,6 @@ public:
 	static std::string username, password;
 	static bool registerAccount, signInAccount;
 	static bool loginSuccessful;
-	static std::string currentPlayerRank;
 
 	void Update();
 	bool GetStatus();

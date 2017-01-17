@@ -30,6 +30,7 @@ private:
 
 	MenuText worldRankLabel;
 	MenuText currentPlayer;
+	MenuText bestRecordTime;
 	MenuText leaderboardTitle;
 	MenuText serverStatus;
 
@@ -70,8 +71,7 @@ private:
 	std::string signInUserName, signInPassword, signInReEnterPass;
 	// TODO(Darren): Hide password when player types
 	std::string signInPassDisplay;
-	std::string currentUserName;	// NOTE(Darren): Need to implement
-	std::string playerRank;			// NOTE(Darren): Need to implement
+	std::string currentUserName, playerRank, recordTime;
 
 	// Error
 	bool passwordMatchError, accountSignInError, userNameExistsError, notOnlineError;

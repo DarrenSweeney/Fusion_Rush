@@ -29,6 +29,11 @@ MainMenu::MainMenu()
 	worldRankLabel.color = defaultColor;
 	worldRankLabel.scale = 0.5f;
 
+	bestRecordTime.position = Vector2();
+	bestRecordTime.text = "Best Time: NA";
+	bestRecordTime.color = defaultColor;
+	bestRecordTime.scale = 0.5f;
+
 	currentPlayer.position = Vector2(80.0f, 15.0f);
 	currentPlayer.text = "-";
 	currentPlayer.color = defaultColor;
@@ -491,15 +496,30 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 	if (gameSparksInfo.loginSuccessful)
 	{
 		currentUserName = gameSparksInfo.username;
-		playerRank = gameSparksInfo.currentPlayerRank;
-		currentPlayer.text = currentUserName.c_str();
-		worldRankLabel.text = playerRank.c_str();
 		gameSparksInfo.loginSuccessful = false;
 		currentMenuState = MenuState::MenuOpitions;
 		currentSelectState = SelectState::NotSelected;
 		selectPosition = signInOutLabel.position;
 		accountSignInError = false;
+		// ---
 	}
+
+	// Get the current signed in player, world rank and time.
+	currentPlayer.text = currentUserName.c_str();
+
+	std::stringstream ss;
+	ss << "World Rank :  " << gameSparksInfo.currentPlayer.rank.GetValue();
+	playerRank = ss.str();
+	worldRankLabel.text = playerRank.c_str();
+
+	ss.str("");
+	ss << "Best Time : " << gameSparksInfo.currentPlayer.time.GetValue();
+	recordTime = ss.str();
+	bestRecordTime.text = recordTime.c_str();
+
+	bestRecordTime.position = Vector2(200.0f, 10.0f);
+	worldRankLabel.position = Vector2(10.0f, 10.0f);
+	currentPlayer.position = Vector2(50.0f, 60.0f);
 }
 
 void MainMenu::SendSignInRequest()
@@ -572,6 +592,7 @@ void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	RenderLabel(signInOutLabel, screenWidth, screenHeight);
 	RenderLabel(exitLabel, screenWidth, screenHeight);
 	RenderLabel(worldRankLabel, screenWidth, screenHeight);
+	RenderLabel(bestRecordTime, screenWidth, screenHeight);
 	RenderLabel(currentPlayer, screenWidth, screenHeight);
 	RenderLabel(leaderboardTitle, screenWidth, screenHeight);
 	RenderLeaderboardEntry(screenWidth, screenHeight);
