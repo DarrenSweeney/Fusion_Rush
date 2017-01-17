@@ -16,7 +16,7 @@
 **
 **
 **
-17. Only render blocks that are visible
+17. Only render blocks that are visible and their reflections
 **
 **
 20. Add the world best time achieved to end race UI
