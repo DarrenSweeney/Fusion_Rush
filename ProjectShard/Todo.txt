@@ -4,7 +4,7 @@
 **
 **
 **
-05. Add personal best time
+**
 06. Worlds best time
 07. Add finished race animation
 **
@@ -39,4 +39,4 @@
 37. Fix back of ship, re-model? Also stream exhaust
 **
 38. Add voice sounds?
-39. Fix issue with current time not resetting
+**

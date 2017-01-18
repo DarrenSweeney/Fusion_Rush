@@ -91,6 +91,7 @@ void Player::PlayExplodeAnimation(float deltaTime)
 	if (explodeMagnitude > 20.0f)
 	{
 		Spawn();
+		shipSpawned = true;
 	}
 }
 

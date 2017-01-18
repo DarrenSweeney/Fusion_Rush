@@ -35,6 +35,7 @@ public:
 	bool recordRace;
 	bool updateMovement;
 	bool shipDestroyed;
+	bool shipSpawned;
 
 private:
 	Model *model;
