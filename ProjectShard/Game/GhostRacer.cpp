@@ -22,42 +22,49 @@ void GhostRacer::ReadRecordedPositions()
 {
 	std::ifstream ghostRacerFile;
 	ghostRacerFile.open("Ghost_Racer.txt");
+
 	Vector3 position;
 	Quaternion orientation;
-	std::string str;
+
+	std::string line;
+	std::string word = "#";
+
 	bool readPos = true;
 	bool readOri = false;
 
-	while (std::getline(ghostRacerFile, str))
+	if (ghostRacerFile.is_open())
 	{
-		//std::cout << str << std::endl;
+		while (std::getline(ghostRacerFile, line))
+		{
+			std::size_t found = line.find(word);
 
-		ghostRacerFile >> position.x >> position.y >> position.z;
-		ghostRacerPositions.push_back(position);
+			if (found != std::string::npos && readPos)
+			{
+				readOri = true;
+				readPos = false;
+				continue;
+			}
 
-		//if (readOri)
-		//{
-		//	ghostRacerFile >> orientation.w >> orientation.x >> orientation.y >> orientation.z;
-		//	ghostRacerOrientations.push_back(orientation);
-		//}
+			if (readPos)
+			{
+				std::stringstream stream(line);
+				stream >> position.x >> position.y >> position.z;
+				ghostRacerPositions.push_back(position);
+			}
+			else if (readOri)
+			{
+				std::stringstream stream(line);
+				stream >> orientation.w >> orientation.x >> orientation.y >> orientation.z;
+				ghostRacerOrientations.push_back(orientation);
+			}
+		}
 
-		///*if (readPos)
-		//{
-		//	ghostRacerFile >> position.x >> position.y >> position.z;
-		//	ghostRacerPositions.push_back(position);
-		//}*/
-
-		//if (str.find("#") == 0)
-		//{
-		//	if (readPos)
-		//	{
-		//		readOri = true;
-		//		readPos = false;
-		//	}
-		//}
+		ghostRacerFile.close();
 	}
-
-	ghostRacerFile.close();
+	else
+	{
+		std::cout << "GhostRacer::Unable to open file" << std::endl;
+	}
 }
 
 void GhostRacer::Update(float currentTrackTime)

@@ -162,8 +162,8 @@ void Player::RecordPosition()
 			Vector3 pos = position;
 			recordPositions.push_back(pos);
 
-			//Quaternion orien = orientation;
-			//recordOrientation.push_back(orien);
+			Quaternion orien = orientation;
+			recordOrientation.push_back(orien);
 		}
 	}
 }
