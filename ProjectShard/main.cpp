@@ -36,10 +36,10 @@ int main(int argc, char* argv[])
 		window.PollEvents();
 		window.UpdateViewport();
 
-		if(glfwJoystickPresent(CONTROLLER_ONE))
+		/*if(glfwJoystickPresent(CONTROLLER_ONE))
 			InputManager::GetInstance().SetControllerIndex(CONTROLLER_ONE);
 		else
-			InputManager::GetInstance().SetControllerIndex(NO_CONTROLLER_CONNTECTED);
+			InputManager::GetInstance().SetControllerIndex(NO_CONTROLLER_CONNTECTED);*/
 
 		if (gameApp.GetCloseState())
 			window.SetCloseState(GL_TRUE);

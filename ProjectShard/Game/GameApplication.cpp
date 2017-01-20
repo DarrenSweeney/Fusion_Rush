@@ -149,6 +149,7 @@ void GameApplication::Update(GLfloat deltaTime)
 				racingScene->player.recordRace = false;
 				finishedMenu.finishedLapTime = racingScene->currentTime;
 				mainMenu->startSoundTrack = true;
+				finishedMenu.SetWorldRecord(GameSparksInfo::worldRaceRecord);
 			}
 
 			break;

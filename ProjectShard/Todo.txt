@@ -5,7 +5,7 @@
 **
 **
 **
-06. Worlds best time	<---
+**
 07. Add finished race animation
 **
 **

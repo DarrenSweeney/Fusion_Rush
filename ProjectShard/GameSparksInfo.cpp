@@ -13,6 +13,7 @@ bool GameSparksInfo::registerAccount;
 bool GameSparksInfo::signInAccount;
 bool GameSparksInfo::available;
 CurrentPlayer GameSparksInfo::currentPlayer;
+float GameSparksInfo::worldRaceRecord;
 
 GameSparksInfo::GameSparksInfo()
 {
@@ -87,6 +88,8 @@ void LeaderboardDataRequest_Response(GS& gsInstance, const LeaderboardDataRespon
 	else
 	{
 		gsstl::vector<LeaderboardData> data = response.GetData();
+
+		GameSparksInfo::worldRaceRecord = data.at(0).GetBaseData().GetLong("TIME").GetValue();
 
 		GameSparksInfo::leaderboardEntry.clear();
 		for (gsstl::vector<LeaderboardData>::iterator it = data.begin(); it != data.end(); ++it)

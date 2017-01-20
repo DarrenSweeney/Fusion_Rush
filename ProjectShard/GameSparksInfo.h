@@ -41,6 +41,7 @@ public:
 	static std::string username, password;
 	static bool registerAccount, signInAccount;
 	static bool loginSuccessful;
+	static float worldRaceRecord;
 
 	void Update();
 	bool GetStatus();
