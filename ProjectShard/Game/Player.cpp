@@ -1,10 +1,8 @@
 #include "Player.h"
 
 Player::Player()
-	: rotationSpeed(2.0f), camera(Vector3(3.0f, 2.0f, 8.0f)), position(Vector3(0.0f, 0.0f, 0.0f)), speed(2.5f), recordRace(false)
+	: rotationSpeed(2.0f), camera(Vector3(3.0f, 2.0f, 8.0f)), position(Vector3(0.0f, 0.0f, 0.0f)), speed(2.5f), recordRace(false), lastTime(0.0f)
 {
-	lastTime = glfwGetTime();
-
 	model = g_resourceMgr.GetModel(SID("PlayerShip"));
 	shaderModel = g_resourceMgr.GetShader(SID("PlayerShader"));
 
@@ -22,7 +20,7 @@ Player::~Player()
 	delete shaderModel;
 }
 
-void Player::Update(float deltaTime)
+void Player::Update(float deltaTime, float currentRaceTime)
 {
 	if(updateMovement && !shipDestroyed)
 		Movement(deltaTime);
@@ -55,7 +53,7 @@ void Player::Update(float deltaTime)
 	modelRotate = modelRotate.QuaternionToMatrix4(orientation);
 	boundingBox.UpdateBoundingBox(position, modelRotate, Vector3(1.0f, 1.0f, 1.0f));
 
-	RecordPosition();
+	RecordPosition(currentRaceTime);
 
 	currentTrackTime += deltaTime;
 
@@ -150,12 +148,11 @@ void Player::Movement(float deltaTime)
 	g_debugDrawMgr.AddLine(position, Vector3(0.0f, 10.0f, 0.0), Vector3(1.0f, 0.0f, 0.0f), 1.0f, false);
 }
 
-void Player::RecordPosition()
+void Player::RecordPosition(float currentRaceTime)
 {
 	if (recordRace)
 	{
-		float currentTime = glfwGetTime();
-		if (currentTime - lastTime >= 1.0)
+		if (currentRaceTime - lastTime >= 1.0)
 		{
 			lastTime += 1.0;
 
@@ -172,6 +169,8 @@ void Player::WriteRecordedPositions()
 {
 	std::ofstream ghostRacerFile;
 	ghostRacerFile.open("Ghost_Racer.txt");
+	// Add the starting position
+	ghostRacerFile << 0 << " " << 0 << " " << 0 << "\n";
 	for (std::vector<Vector3>::iterator it = recordPositions.begin(); it != recordPositions.end(); it++)
 	{
 		ghostRacerFile << it->x << " " << it->y << " " << it->z << "\n";
@@ -179,6 +178,8 @@ void Player::WriteRecordedPositions()
 
 	ghostRacerFile << "#" << "\n";
 
+	// Add the starting orientation
+	ghostRacerFile << 1 << " " << 0 << " " << 0 << " " << 0 << "\n";
 	for (std::vector<Quaternion>::iterator it = recordOrientation.begin(); it != recordOrientation.end(); it++)
 	{
 		ghostRacerFile << it->w << " " << it->x << " " << it->y << " " << it->z << "\n";
@@ -196,6 +197,8 @@ void Player::Spawn()
 	explodeMagnitude = 0.0f;
 	glUniform1f(glGetUniformLocation(shaderModel->Program, "magnitude"), explodeMagnitude);
 	shipDestroyed = false;
+	//recordPositions.clear();
+	//recordOrientation.clear();
 }
 
 void Player::Render(GLsizei screenWidth, GLsizei screenHeight)

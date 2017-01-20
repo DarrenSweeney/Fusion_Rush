@@ -15,7 +15,6 @@ int main(int argc, char* argv[])
 	GLfloat lastFrame = 0.0f;
 
 	InputManager::GetInstance().SetWindowContext(window.GetWindow());
-	//InputManager::GetInstance().SetControllerIndex(CONTROLLER_ONE);
 
 	std::cout << "\n--- Start ResourceMgr ---" << std::endl;
 	g_resourceMgr.LoadSceneShaders();
@@ -36,6 +35,11 @@ int main(int argc, char* argv[])
 
 		window.PollEvents();
 		window.UpdateViewport();
+
+		if(glfwJoystickPresent(CONTROLLER_ONE))
+			InputManager::GetInstance().SetControllerIndex(CONTROLLER_ONE);
+		else
+			InputManager::GetInstance().SetControllerIndex(NO_CONTROLLER_CONNTECTED);
 
 		if (gameApp.GetCloseState())
 			window.SetCloseState(GL_TRUE);

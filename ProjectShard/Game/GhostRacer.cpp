@@ -79,6 +79,7 @@ void GhostRacer::Update(float currentTrackTime)
 		}
 
 		position = position.Lerp(ghostRacerPositions.at((int)lastTime), ghostRacerPositions.at((int)(lastTime + 1)), interpolate);
+		orientation = orientation.Slerp(ghostRacerOrientations.at((int)lastTime), ghostRacerOrientations.at((int)(lastTime + 1)), interpolate);
 	}
 }
 

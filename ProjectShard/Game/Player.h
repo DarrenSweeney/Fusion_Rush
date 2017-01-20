@@ -19,7 +19,7 @@ public:
 	Player();
 	~Player();
 
-	void Update(float deltaTime);
+	void Update(float deltaTime, float currentRaceTime);
 	void FinishedAnimation(float delatTime);
 	void Spawn();
 	void Render(GLsizei screenWidth, GLsizei screenHeight);
@@ -56,7 +56,7 @@ private:
 	std::vector<Quaternion> recordOrientation;
 
 	void Movement(float deltaTime);
-	void RecordPosition();
+	void RecordPosition(float currentRaceTime);
 	void PlayExplodeAnimation(float deltaTime);
 };
 #endif

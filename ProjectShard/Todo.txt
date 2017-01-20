@@ -9,7 +9,7 @@
 07. Add finished race animation
 **
 **
-10. Figure out better ways to position buildings
+**
 11. Menu error for account already exsisting ..* ..* 
 **
 **
@@ -20,25 +20,27 @@
 **
 **
 20. Add the world best time achieved to end race UI		<---
-21. Add rotation to ghost racer	<---
+**
 22. Figure out how track seeds work and current ghost racer
 23. Upload and download ghost racer file
 **
 **
 **
 27. Add sound for finishing the race
-28. Add 3..2..1.. counter with voice
-29. Add sound for couting down
 **
 **
-32. Add side ways interpolation for the camera
+**
+**
+**
 **
 **
 35. Add sound for moving passed obstacles
 36. Add fade black screen between states	<---
 37. Fix back of ship, re-model? Also stream exhaust
 **
-38. Add voice sounds?
 **
-39. Hide password in menu
+**
+**
 40. Record times on leaderboard
+41. Adjust UI based on resolution
+42. Add beter steering wheel support

@@ -1,7 +1,7 @@
 #include "RacingTrack.h"
 
 RacingTrack::RacingTrack()
-	: blockAmount(80), startRacePosition()
+	: blockAmount(30), startRacePosition()
 {
 	trackBlock = new TrackBlock[blockAmount];
 
