@@ -47,7 +47,7 @@ private:
 	float rotationSpeed;
 	Matrix4 modelRotate;
 	const float JOYSTICK_DEAD_ZONE = 0.05f;
-	float cameraInterpolator, interpolator;
+	float cameraInterpolator, finishedCameraInterpolation;
 	float currentTimePos;
 	float lastTime;
 	float currentTrackTime;

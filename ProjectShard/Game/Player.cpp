@@ -32,18 +32,13 @@ void Player::Update(float deltaTime, float currentRaceTime)
 
 	Vector3 initPos = Vector3(3.0f, 2.0f, 8.0f);
 	Vector3 finalPos = position - Vector3(0.0f, -15.0f, -40.0f);
+
 	if (cameraInterpolator < 1.0f)
 		cameraInterpolator += 0.8f * deltaTime;
 	else
 		cameraInterpolator = 1.0f;
+
 	Vector3 transitionVector = transitionVector.Lerp(initPos, finalPos, cameraInterpolator);
-
-	if (interpolator < 1.0f)
-		interpolator += 0.1f * deltaTime;
-	else
-		interpolator = 1.0f;
-
-	float offset = (1.0f - interpolator) * oldPosition.x + (interpolator * position.x);
 
 	Vector3 direction = position - camera.GetPosition();
 
@@ -60,22 +55,21 @@ void Player::Update(float deltaTime, float currentRaceTime)
 	oldPosition = position;
 }
 
-/*
-	TODO(Darren): Implement finished animation.
-	The camera is already being set in the update so the interpolation does not matter.
-*/
 void Player::FinishedAnimation(float deltaTime)
 {
-	//Vector3 initPos = Vector3(3.0f, 2.0f, 8.0f);
-	//Vector3 finalPos = position - Vector3(-10.0f, 0.0f, 0.0f);
-	//if (iner < 1.0f)
-	//	iner += 0.01f * deltaTime;
-	//else
-	//	iner = 1.0f;
-	//Vector3 transitionVector = transitionVector.Lerp(position, 
-	//	position + Vector3(0.0f, 0.0f, -2000.0f), iner);
+	Vector3 initPos = position - Vector3(0.0f, -15.0f, -40.0f);
+	Vector3 finalPos = initPos - Vector3(-10.0f, 5.0f, 15.0f);
+	if (finishedCameraInterpolation < 1.0f)
+		finishedCameraInterpolation += 0.4f * deltaTime;
+	else
+		finishedCameraInterpolation = 1.0f; 
 
-	//camera.SetPosition(transitionVector);
+	Vector3 transitionVector = transitionVector.Lerp(initPos, finalPos, finishedCameraInterpolation);
+
+	position.z -= 5.0f;
+	orientation = orientation.Slerp(orientation, Quaternion(), deltaTime * rotationSpeed);
+
+	camera.SetPosition(transitionVector);
 }
 
 void Player::PlayExplodeAnimation(float deltaTime)
@@ -199,6 +193,7 @@ void Player::Spawn()
 	shipDestroyed = false;
 	//recordPositions.clear();
 	//recordOrientation.clear();
+	finishedCameraInterpolation = 0.0f;
 }
 
 void Player::Render(GLsizei screenWidth, GLsizei screenHeight)

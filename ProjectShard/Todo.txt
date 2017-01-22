@@ -6,7 +6,7 @@
 **
 **
 **
-07. Add finished race animation
+**
 **
 **
 **
@@ -19,9 +19,9 @@
 17. Only render blocks that are visible and their reflections
 **
 **
-20. Add the world best time achieved to end race UI		<---
 **
-22. Figure out how track seeds work and current ghost racer
+**
+22. Figure out how track seeds work and current ghost racer <--- daily seeds
 23. Upload and download ghost racer file
 **
 **
@@ -44,3 +44,5 @@
 40. Record times on leaderboard
 41. Adjust UI based on resolution
 42. Add beter steering wheel support
+43. Create compile instructions
+44. Fix collision with walls	<--- NEED TO FIX
