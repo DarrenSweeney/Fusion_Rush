@@ -42,6 +42,7 @@ public:
 	static bool registerAccount, signInAccount;
 	static bool loginSuccessful;
 	static float worldRaceRecord;
+	static GameSparks::Optional::t_StringOptional raceSeedUrl;
 
 	void Update();
 	bool GetStatus();

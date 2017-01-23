@@ -5,6 +5,7 @@ void RegistrationRequest_Response(GS& gsInstance, const GameSparks::Api::Respons
 void LeaderboardDataRequest_Response(GS& gsInstance, const LeaderboardDataResponse& response);
 void GameSparksAvailable(GameSparks::Core::GS& gsInstance, bool available);
 void AroundMeLeaderboardRequest_Response(GS& gsInstance, const AroundMeLeaderboardResponse& response);
+void GetDownloadableRequest_Response(GS& gsInstance, const GetDownloadableResponse& response);
 
 std::vector<LeaderboardEntry> GameSparksInfo::leaderboardEntry;
 std::string GameSparksInfo::username, GameSparksInfo::password;
@@ -14,6 +15,7 @@ bool GameSparksInfo::signInAccount;
 bool GameSparksInfo::available;
 CurrentPlayer GameSparksInfo::currentPlayer;
 float GameSparksInfo::worldRaceRecord;
+GameSparks::Optional::t_StringOptional GameSparksInfo::raceSeedUrl;
 
 GameSparksInfo::GameSparksInfo()
 {
@@ -130,6 +132,19 @@ void AroundMeLeaderboardRequest_Response(GS& gsInstance, const AroundMeLeaderboa
 	}
 }
 
+void GetDownloadableRequest_Response(GS& gsInstance, const GetDownloadableResponse& response) 
+{
+	if (response.GetHasErrors())
+	{
+		std::cout << "something went wrong with around me leaderboard request" << std::endl;
+		std::cout << response.GetErrors().GetValue().GetJSON().c_str() << std::endl;
+	}
+	else
+	{
+		GameSparksInfo::raceSeedUrl = response.GetUrl();
+	}
+}
+
 void GameSparksAvailable(GameSparks::Core::GS& gsInstance, bool available)
 {
 	std::cout << "\nGameSparks is " << (available ? "available" : "not available") << std::endl;
@@ -168,6 +183,10 @@ void GameSparksAvailable(GameSparks::Core::GS& gsInstance, bool available)
 		leaderboard.SetEntryCount(10);
 		leaderboard.SetLeaderboardShortCode("Race_Times");
 		leaderboard.Send(LeaderboardDataRequest_Response);
+
+		GetDownloadableRequest requestRaceSeed(gsInstance);
+		requestRaceSeed.SetShortCode("Race_Seed");
+		requestRaceSeed.Send(GetDownloadableRequest_Response);
 	}
 	else
 		GameSparksInfo::available = false;
