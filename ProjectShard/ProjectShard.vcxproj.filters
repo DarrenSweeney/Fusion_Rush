@@ -260,7 +260,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\EnviromentObject.frag" />
-    <None Include="Shaders\EnviromentObject.vert" />
     <None Include="Shaders\text.vert" />
     <None Include="Shaders\text.frag" />
     <None Include="Shaders\DebugDrawMgr\DebugLine.frag" />
@@ -279,6 +278,7 @@
     <None Include="Shaders\UI.vert" />
     <None Include="Shaders\CRT_Screen.frag" />
     <None Include="Shaders\CRT_Screen.vert" />
+    <None Include="Shaders\EnviromentObject.vert" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Todo.txt" />

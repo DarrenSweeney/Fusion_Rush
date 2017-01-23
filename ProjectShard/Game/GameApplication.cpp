@@ -115,7 +115,6 @@ void GameApplication::Update(GLfloat deltaTime)
 			{
 				currentGameState = GameState::inGame;
 				racingScene->finishedRace = false;
-				racingScene->sceneBlur = false;
 				racingScene->SetPlayerMovement(true);
 				racingScene->SetRenderUIState(true);
 				racingScene->player.recordRace = true;
@@ -130,7 +129,6 @@ void GameApplication::Update(GLfloat deltaTime)
 				|| InputManager::GetInstance().IsControllerButtonPressed(XBOX360_BACK))
 			{
 				currentGameState = GameState::mainMenu;
-				racingScene->sceneBlur = true;
 				racingScene->SetPlayerMovement(false);
 				racingScene->SetRenderUIState(false);
 				racingScene->player.recordRace = false;
@@ -138,12 +136,9 @@ void GameApplication::Update(GLfloat deltaTime)
 				racingScene->stopSoundTrack = true;
 			}
 
-			racingScene->UpdateScene(deltaTime);
-
 			if (racingScene->finishedRace)
 			{
 				currentGameState = GameState::finishedMenu;
-				racingScene->sceneBlur = true;
 				racingScene->SetPlayerMovement(false);
 				racingScene->SetRenderUIState(false);
 				racingScene->player.recordRace = false;
@@ -151,6 +146,8 @@ void GameApplication::Update(GLfloat deltaTime)
 				mainMenu->startSoundTrack = true;
 				finishedMenu.SetWorldRecord(GameSparksInfo::worldRaceRecord);
 			}
+
+			racingScene->UpdateScene(deltaTime);
 
 			break;
 		}
@@ -162,6 +159,8 @@ void GameApplication::Update(GLfloat deltaTime)
 				currentGameState = GameState::mainMenu;
 				racingScene->player.Spawn();
 				finishedMenu.selectedMainMenu = false;
+				// TODO(Darren): Refactor this, bit messy, i should but this in ResetScene()
+				racingScene->finishedRace = false;
 				racingScene->player.WriteRecordedPositions();
 				racingScene->bestTime = finishedMenu.personalBestTime;
 				racingScene->ResetScene();
@@ -171,9 +170,8 @@ void GameApplication::Update(GLfloat deltaTime)
 			{
 				currentGameState = GameState::inGame;
 				racingScene->player.Spawn();
-				racingScene->finishedRace = false;
-				racingScene->sceneBlur = false;
 				racingScene->SetPlayerMovement(true);
+				racingScene->finishedRace = false;
 				racingScene->SetRenderUIState(true);
 				finishedMenu.selectedPlayAgain = false;
 				racingScene->player.WriteRecordedPositions();

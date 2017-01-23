@@ -20,7 +20,7 @@ public:
 	~Player();
 
 	void Update(float deltaTime, float currentRaceTime);
-	void FinishedAnimation(float delatTime);
+	void FinishedAnimation(float delatTime, Vector3 endRacePos);
 	void Spawn();
 	void Render(GLsizei screenWidth, GLsizei screenHeight);
 	void Reflection(GLsizei screenWidth, GLsizei screenHeight);
@@ -42,6 +42,7 @@ private:
 	Shader *shaderModel;
 	Sound shipSound;
 	Vector3 acceleration;
+	float frictionToApply;
 	Vector3 oldPosition;
 	Quaternion orientation;
 	float rotationSpeed;

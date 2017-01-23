@@ -1,7 +1,8 @@
 #include "Player.h"
 
 Player::Player()
-	: rotationSpeed(2.0f), camera(Vector3(3.0f, 2.0f, 8.0f)), position(Vector3(0.0f, 0.0f, 0.0f)), speed(2.5f), recordRace(false), lastTime(0.0f)
+	: rotationSpeed(2.0f), camera(Vector3(3.0f, 2.0f, 8.0f)), position(Vector3(0.0f, 0.0f, 0.0f)), 
+	speed(2.5f), recordRace(false), lastTime(0.0f), frictionToApply(0.003f)
 {
 	model = g_resourceMgr.GetModel(SID("PlayerShip"));
 	shaderModel = g_resourceMgr.GetShader(SID("PlayerShader"));
@@ -22,8 +23,7 @@ Player::~Player()
 
 void Player::Update(float deltaTime, float currentRaceTime)
 {
-	//if (updateMovement && !shipDestroyed)
-		Movement(deltaTime);
+	Movement(deltaTime);
 
 	if (shipDestroyed)
 	{
@@ -52,24 +52,21 @@ void Player::Update(float deltaTime, float currentRaceTime)
 
 	currentTrackTime += deltaTime;
 
+	std::cout << frictionToApply << std::endl;
+
 	oldPosition = position;
 }
 
-void Player::FinishedAnimation(float deltaTime)
+void Player::FinishedAnimation(float deltaTime, Vector3 endRacePos)
 {
 	Vector3 initPos = position - Vector3(0.0f, -15.0f, -40.0f);
 	Vector3 finalPos = initPos - Vector3(-10.0f, 5.0f, 15.0f);
-	// TODO(Darren): Add an impulse and then slow down
-	if (finishedCameraInterpolation < 1.0f)
-	{
-		finishedCameraInterpolation += 0.4f * deltaTime;
-	}
-	else
-	{
-		finishedCameraInterpolation = 1.0f;
-	}
+	frictionToApply = 0.020f;
 
-	//position += linearVelocity * deltaTime;
+	if (finishedCameraInterpolation < 1.0f)
+		finishedCameraInterpolation += 0.4f * deltaTime;
+	else
+		finishedCameraInterpolation = 1.0f;
 
 	Vector3 transitionVector = transitionVector.Lerp(initPos, finalPos, finishedCameraInterpolation);
 
@@ -100,47 +97,48 @@ void Player::Movement(float deltaTime)
 
 	position += linearVelocity * deltaTime;
 
-	Quaternion targetRotation = Quaternion();
-	Quaternion initalRotation = Quaternion();
-
-	if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_UP)
-		|| InputManager::GetInstance().IsControllerButtonDown(XBOX360_RB)
-		|| InputManager::GetInstance().GetRightTrigger() > 0.4f)
-		linearVelocity.z -= speed;
-
-	if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_DOWN)
-		|| InputManager::GetInstance().IsControllerButtonDown(XBOX360_LB)
-		|| InputManager::GetInstance().GetLeftTrigger() < -0.4f)
-		linearVelocity.z += speed * 2.0f;
-
-	if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_LEFT)
-		|| InputManager::GetInstance().GetLeftJoyStick().x < -JOYSTICK_DEAD_ZONE)
+	if (updateMovement && !shipDestroyed)
 	{
-		linearVelocity.x -= speed * 1.1f; // *(-input * 2.0f);
+		Quaternion targetRotation = Quaternion();
+		Quaternion initalRotation = Quaternion();
 
-		targetRotation = targetRotation.RotateZ(MathHelper::DegressToRadians(90.0f));
-		orientation = orientation.Slerp(orientation, targetRotation, deltaTime * rotationSpeed);
+		if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_UP)
+			|| InputManager::GetInstance().IsControllerButtonDown(XBOX360_RB)
+			|| InputManager::GetInstance().GetRightTrigger() > 0.4f)
+			linearVelocity.z -= speed;
+
+		if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_DOWN)
+			|| InputManager::GetInstance().IsControllerButtonDown(XBOX360_LB)
+			|| InputManager::GetInstance().GetLeftTrigger() < -0.4f)
+			linearVelocity.z += speed * 2.0f;
+
+		if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_LEFT)
+			|| InputManager::GetInstance().GetLeftJoyStick().x < -JOYSTICK_DEAD_ZONE)
+		{
+			linearVelocity.x -= speed * 1.1f; // *(-input * 2.0f);
+
+			targetRotation = targetRotation.RotateZ(MathHelper::DegressToRadians(90.0f));
+			orientation = orientation.Slerp(orientation, targetRotation, deltaTime * rotationSpeed);
+		}
+		else
+			orientation = orientation.Slerp(orientation, initalRotation, deltaTime * rotationSpeed);
+
+		if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_RIGHT)
+			|| InputManager::GetInstance().GetLeftJoyStick().x > JOYSTICK_DEAD_ZONE)
+		{
+			linearVelocity.x += speed * 1.1f; // *(-input * 2.0f);
+
+			targetRotation = targetRotation.RotateZ(MathHelper::DegressToRadians(-90.0f));
+			orientation = orientation.Slerp(orientation, targetRotation, deltaTime * rotationSpeed);
+		}
+		else
+			orientation = orientation.Slerp(orientation, initalRotation, deltaTime * rotationSpeed);
 	}
-	else
-		orientation = orientation.Slerp(orientation, initalRotation, deltaTime * rotationSpeed);
 
-	if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_RIGHT)
-		|| InputManager::GetInstance().GetLeftJoyStick().x > JOYSTICK_DEAD_ZONE)
-	{
-		linearVelocity.x += speed * 1.1f; // *(-input * 2.0f);
-
-		targetRotation = targetRotation.RotateZ(MathHelper::DegressToRadians(-90.0f));
-		orientation = orientation.Slerp(orientation, targetRotation, deltaTime * rotationSpeed);
-	}
-	else
-		orientation = orientation.Slerp(orientation, initalRotation, deltaTime * rotationSpeed);
-
-	if (linearVelocity.x != 0)
+	if (!(linearVelocity == Vector3()))
 	{
 		Vector3 i = linearVelocity;
-		float friction = 0.003f;
-
-		linearVelocity -= i * friction;
+		linearVelocity -= i * frictionToApply;
 	}
 
 	Vector3 direction = linearVelocity;
@@ -200,6 +198,7 @@ void Player::Spawn()
 	//recordPositions.clear();
 	//recordOrientation.clear();
 	finishedCameraInterpolation = 0.0f;
+	frictionToApply = 0.003f;
 }
 
 void Player::Render(GLsizei screenWidth, GLsizei screenHeight)
