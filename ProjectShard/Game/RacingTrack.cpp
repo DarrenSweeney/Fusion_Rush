@@ -1,7 +1,7 @@
 #include "RacingTrack.h"
 
 RacingTrack::RacingTrack()
-	: blockAmount(10), startRacePosition()
+	: blockAmount(80), startRacePosition()
 {
 	trackBlock = new TrackBlock[blockAmount];
 
@@ -16,7 +16,7 @@ RacingTrack::~RacingTrack()
 
 void RacingTrack::Init()
 {
-	srand(time(NULL));
+	srand(23798);
 
 	int zIndent = 0;
 
