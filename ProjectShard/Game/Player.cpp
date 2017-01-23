@@ -22,7 +22,7 @@ Player::~Player()
 
 void Player::Update(float deltaTime, float currentRaceTime)
 {
-	if(updateMovement && !shipDestroyed)
+	if (updateMovement && !shipDestroyed)
 		Movement(deltaTime);
 
 	if (shipDestroyed)
@@ -59,14 +59,19 @@ void Player::FinishedAnimation(float deltaTime)
 {
 	Vector3 initPos = position - Vector3(0.0f, -15.0f, -40.0f);
 	Vector3 finalPos = initPos - Vector3(-10.0f, 5.0f, 15.0f);
+	// TODO(Darren): Add an impulse and then slow down
 	if (finishedCameraInterpolation < 1.0f)
+	{
+		position.z -= 10.0f;
 		finishedCameraInterpolation += 0.4f * deltaTime;
+	}
 	else
-		finishedCameraInterpolation = 1.0f; 
+	{
+		finishedCameraInterpolation = 1.0f;
+	}
 
 	Vector3 transitionVector = transitionVector.Lerp(initPos, finalPos, finishedCameraInterpolation);
 
-	position.z -= 5.0f;
 	orientation = orientation.Slerp(orientation, Quaternion(), deltaTime * rotationSpeed);
 
 	camera.SetPosition(transitionVector);
@@ -107,8 +112,8 @@ void Player::Movement(float deltaTime)
 		|| InputManager::GetInstance().GetLeftTrigger() < -0.4f)
 		linearVelocity.z += speed * 2.0f;
 
-	if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_LEFT) 
-		|| InputManager::GetInstance().GetLeftJoyStick().x < - JOYSTICK_DEAD_ZONE)
+	if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_LEFT)
+		|| InputManager::GetInstance().GetLeftJoyStick().x < -JOYSTICK_DEAD_ZONE)
 	{
 		linearVelocity.x -= speed * 1.1f; // *(-input * 2.0f);
 
@@ -118,7 +123,7 @@ void Player::Movement(float deltaTime)
 	else
 		orientation = orientation.Slerp(orientation, initalRotation, deltaTime * rotationSpeed);
 
-	if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_RIGHT) 
+	if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_RIGHT)
 		|| InputManager::GetInstance().GetLeftJoyStick().x > JOYSTICK_DEAD_ZONE)
 	{
 		linearVelocity.x += speed * 1.1f; // *(-input * 2.0f);

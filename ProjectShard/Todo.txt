@@ -1,48 +1,17 @@
+
 # Darren's todo list for road to Games Fleadh:)
 
-**
-**
-**
-**
-**
-**
-**
-**
-**
-**
-11. Menu error for account already exsisting ..* ..* 
-**
-**
-**
-**
-**
-17. Only render blocks that are visible and their reflections
-**
-**
-**
-**
-22. Figure out how track seeds work and current ghost racer <--- daily seeds
-23. Upload and download ghost racer file
-**
-**
-**
-27. Add sound for finishing the race
-**
-**
-**
-**
-**
-**
-**
-35. Add sound for moving passed obstacles
-36. Add fade black screen between states	<---
-37. Fix back of ship, re-model? Also stream exhaust
-**
-**
-**
-**
-40. Record times on leaderboard
-41. Adjust UI based on resolution
-42. Add beter steering wheel support
-43. Create compile instructions
-44. Fix collision with walls	<--- NEED TO FIX
+01. Menu error for account already exsisting ..* ..*
+02. Only render blocks that are visible and their reflections
+03. Figure out how track seeds work and current ghost racer <--- daily seeds
+04. Upload and download ghost racer file
+05. Add sound for finishing the race	<-- fix finish race animation first
+06. Add sound for moving passed obstacles
+07. Add fade black screen between states	<---
+08. Fix back of ship, re-model? Also stream exhaust
+09. Record times on leaderboard
+10. Adjust UI based on resolution	<-- A must
+11. Add beter steering wheel support
+12. Create compile instructions
+13. Fix collision with walls	<--- NEED TO FIX
+14. Set up downloadable file i can test and set an offline default seed
