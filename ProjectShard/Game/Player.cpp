@@ -22,7 +22,7 @@ Player::~Player()
 
 void Player::Update(float deltaTime, float currentRaceTime)
 {
-	if (updateMovement && !shipDestroyed)
+	//if (updateMovement && !shipDestroyed)
 		Movement(deltaTime);
 
 	if (shipDestroyed)
@@ -62,13 +62,14 @@ void Player::FinishedAnimation(float deltaTime)
 	// TODO(Darren): Add an impulse and then slow down
 	if (finishedCameraInterpolation < 1.0f)
 	{
-		position.z -= 10.0f;
 		finishedCameraInterpolation += 0.4f * deltaTime;
 	}
 	else
 	{
 		finishedCameraInterpolation = 1.0f;
 	}
+
+	//position += linearVelocity * deltaTime;
 
 	Vector3 transitionVector = transitionVector.Lerp(initPos, finalPos, finishedCameraInterpolation);
 

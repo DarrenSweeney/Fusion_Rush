@@ -5,7 +5,7 @@
 02. Only render blocks that are visible and their reflections
 03. Figure out how track seeds work and current ghost racer <--- daily seeds
 04. Upload and download ghost racer file
-05. Add sound for finishing the race	<-- fix finish race animation first
+(05.) Add sound for finishing the race	<-- fix finish race animation first
 06. Add sound for moving passed obstacles
 07. Add fade black screen between states	<---
 08. Fix back of ship, re-model? Also stream exhaust
@@ -14,4 +14,4 @@
 11. Add beter steering wheel support
 12. Create compile instructions
 13. Fix collision with walls	<--- NEED TO FIX
-14. Set up downloadable file i can test and set an offline default seed
+(14.) Set up downloadable file i can test and set an offline default seed
