@@ -33,7 +33,7 @@ public:
 	void Init();
 	void Update(float deltaTime);
 	bool ObstacleCollision(CollisionBox &playerBoundingBox);
-	bool BarrierCollision(CollisionBox &playerBoundingBox);
+	bool BarrierCollision(CollisionBox &playerBoundingBox, Vector3 &playerPosition);
 	void RenderSceneObjects(Camera &camera, GLsizei screenWidth, GLsizei screenHeight);
 	void RenderTrack(Camera &camera, GLsizei screenWidth, GLsizei screenHeight);
 	void RenderTrackReflection(Camera &camera, GLsizei screenWidth, GLsizei screenHeight);

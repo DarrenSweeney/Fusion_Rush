@@ -113,12 +113,16 @@ bool RacingTrack::ObstacleCollision(CollisionBox &playerBoundingBox)
 	return false;
 }
 
-bool RacingTrack::BarrierCollision(CollisionBox &playerBoundingBox)
+bool RacingTrack::BarrierCollision(CollisionBox &playerBoundingBox, Vector3 &playerPosition)
 {
-	// TODO(Darren): Maybe have to reolve the collision better and push the position outside 
-	// the barrer so it doesn't get stuck.
-	if (playerBoundingBox.boundingBox.c.x < -55.0f || playerBoundingBox.boundingBox.c.x > 55.0f)
+	if (playerBoundingBox.boundingBox.c.x <= -55.0f)
 	{
+		playerPosition.x = -55.0f;
+		return true;
+	}
+	else if (playerBoundingBox.boundingBox.c.x >= 55.0f)
+	{
+		playerPosition.x = 55.0f;
 		return true;
 	}
 
