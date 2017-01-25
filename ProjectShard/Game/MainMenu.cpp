@@ -104,9 +104,7 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 		startSoundTrack = false;
 	}
 
-	gameSparksInfo.Update();
-
-	if (gameSparksInfo.GetStatus())
+	if (GameSparksInfo::GetStatus())
 	{
 		serverStatus.text = "Online";
 		serverStatus.color = Vector3(0.0f, 1.0f, 0.0f);
@@ -250,14 +248,14 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 			if (loginLabel.labelSelected)
 			{
 				SendSignInRequest();
-				gameSparksInfo.InitGS();
+				GameSparksInfo::InitGS();
 			}
 
-			if (gameSparksInfo.signInAccount)
+			if (GameSparksInfo::signInAccount)
 			{
-				if (!gameSparksInfo.available)
+				if (!GameSparksInfo::available)
 					notOnlineError = true;
-				else if (!gameSparksInfo.loginSuccessful)
+				else if (!GameSparksInfo::loginSuccessful)
 					accountSignInError = true;
 			}
 
@@ -267,7 +265,7 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 				currentMenuState = MenuState::MenuOpitions;
 				currentSelectState = SelectState::NotSelected;
 				selectPosition = signInOutLabel.position;
-				gameSparksInfo.signInAccount = false;
+				GameSparksInfo::signInAccount = false;
 			}
 
 			if (createAccountLabel.labelSelected)
@@ -392,11 +390,11 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 			UpdateLable(cancelLabel);
 			UpdateLable(createAccountLabel);
 
-			if (gameSparksInfo.registerAccount)
+			if (GameSparksInfo::registerAccount)
 			{
-				if (!gameSparksInfo.available)
+				if (!GameSparksInfo::available)
 					notOnlineError = true;
-				else if (!gameSparksInfo.loginSuccessful)
+				else if (!GameSparksInfo::loginSuccessful)
 					accountSignInError = true;
 			}
 
@@ -413,7 +411,7 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 				if (signInPassword == signInReEnterPass)
 				{
 					AccountCreateRequest();
-					gameSparksInfo.InitGS();
+					GameSparksInfo::InitGS();
 					passwordMatchError = false;
 				}
 				else
@@ -493,10 +491,10 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 			break;
 	}
 
-	if (gameSparksInfo.loginSuccessful)
+	if (GameSparksInfo::loginSuccessful)
 	{
-		currentUserName = gameSparksInfo.username;
-		gameSparksInfo.loginSuccessful = false;
+		currentUserName = GameSparksInfo::username;
+		GameSparksInfo::loginSuccessful = false;
 		currentMenuState = MenuState::MenuOpitions;
 		currentSelectState = SelectState::NotSelected;
 		selectPosition = signInOutLabel.position;
@@ -508,12 +506,12 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 	currentPlayer.text = currentUserName.c_str();
 
 	std::stringstream ss;
-	ss << "World Rank :  " << gameSparksInfo.currentPlayer.rank.GetValue();
+	ss << "World Rank :  " << GameSparksInfo::currentPlayer.rank.GetValue();
 	playerRank = ss.str();
 	worldRankLabel.text = playerRank.c_str();
 
 	ss.str("");
-	ss << "Best Time : " << gameSparksInfo.currentPlayer.time.GetValue();
+	ss << "Best Time : " << GameSparksInfo::currentPlayer.time.GetValue();
 	recordTime = ss.str();
 	bestRecordTime.text = recordTime.c_str();
 
@@ -524,16 +522,16 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 
 void MainMenu::SendSignInRequest()
 {
-	gameSparksInfo.signInAccount = true;
-	gameSparksInfo.username = signInUserName;
-	gameSparksInfo.password = signInPassword;
+	GameSparksInfo::signInAccount = true;
+	GameSparksInfo::username = signInUserName;
+	GameSparksInfo::password = signInPassword;
 }
 
 void MainMenu::AccountCreateRequest()
 {
-	gameSparksInfo.registerAccount = true;
-	gameSparksInfo.username = signInUserName;
-	gameSparksInfo.password = signInPassword;
+	GameSparksInfo::registerAccount = true;
+	GameSparksInfo::username = signInUserName;
+	GameSparksInfo::password = signInPassword;
 }
 
 void MainMenu::UpdateLable(MenuLabel &label)
@@ -631,16 +629,6 @@ void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 
 			textRenderer.RenderText(signInUserName.c_str(), signInOutPannelPos + Vector2(40.0f, 40.0f), 0.8f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
 			textRenderer.RenderText(signInPassword.c_str(), signInOutPannelPos + Vector2(40.0f, -60.0f), 0.8f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
-
-			if (accountSignInError)
-			{
-				textRenderer.RenderText("account details not correct", Vector2(500.0f, 10.0f), 0.6f, Vector3(1.0f, 0.0f, 0.0f), screenWidth, screenHeight);
-			}
-
-			if (notOnlineError)
-			{
-				textRenderer.RenderText("Not Online!", Vector2(620.0f, 10.0f), 0.6f, Vector3(1.0f, 0.0f, 0.0f), screenWidth, screenHeight);
-			}
 		}
 		else if (currentMenuState == MenuState::CreateAccount)
 		{
@@ -671,17 +659,17 @@ void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 			textRenderer.RenderText(signInUserName.c_str(), signInOutPannelPos + Vector2(40.0f, 70.0f), 0.8f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
 			textRenderer.RenderText(signInPassword.c_str(), signInOutPannelPos + Vector2(40.0f, -30.0f), 0.8f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
 			textRenderer.RenderText(signInReEnterPass.c_str(), signInOutPannelPos + Vector2(40.0f, -130.0f), 0.8f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
-
-			if (passwordMatchError)
-			{
-				textRenderer.RenderText("password does not match", Vector2(500.0f, 10.0f), 0.6f, Vector3(1.0f, 0.0f, 0.0f), screenWidth, screenHeight);
-			}
-
-			if (notOnlineError)
-			{
-				textRenderer.RenderText("Not Online!", Vector2(620.0f, 10.0f), 0.6f, Vector3(1.0f, 0.0f, 0.0f), screenWidth, screenHeight);
-			}
 		}
+
+		/*if (accountSignInError)
+		{
+		textRenderer.RenderText("account details not correct", Vector2(500.0f, 10.0f), 0.6f, Vector3(1.0f, 0.0f, 0.0f), screenWidth, screenHeight);
+		}
+
+		if (notOnlineError)
+		{
+		textRenderer.RenderText("Not Online!", Vector2(620.0f, 10.0f), 0.6f, Vector3(1.0f, 0.0f, 0.0f), screenWidth, screenHeight);
+		}*/
 	}
 
 	glDisable(GL_BLEND);
@@ -693,8 +681,8 @@ void MainMenu::RenderLeaderboardEntry(GLsizei screenWidth, GLsizei screenHeight)
 	float firstEntryHeight = (screenHeight - leaderboardUIPos.y) - 120.0f;
 	float firstEntryWidth = (screenWidth - leaderboardUIPos.x) + 10.0f;
 
-	for (std::vector<LeaderboardEntry>::iterator it = gameSparksInfo.leaderboardEntry.begin();
-		it != gameSparksInfo.leaderboardEntry.end(); it++, index++)
+	for (std::vector<LeaderboardEntry>::iterator it = GameSparksInfo::leaderboardEntry.begin();
+		it != GameSparksInfo::leaderboardEntry.end(); it++, index++)
 	{
 		std::ostringstream oss;
 		oss << it->rank.GetValue();

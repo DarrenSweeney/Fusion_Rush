@@ -18,6 +18,7 @@ GameApplication::~GameApplication()
 
 void GameApplication::Init()
 {
+	GameSparksInfo::InitGS();
 	racingScene->InitalizeScene(screenWidth, screenHeight);
 	mainMenu->InitScene();
 	finishedMenu.Init();
@@ -80,6 +81,8 @@ void GameApplication::SetUpBuffers(GLsizei screenWidth, GLsizei screenHeight)
 
 void GameApplication::Update(GLfloat deltaTime)
 {
+	GameSparksInfo::Update();
+
 	// ms per frame
 	float currentTime = glfwGetTime();
 	nbFrames++;

@@ -1,7 +1,7 @@
 #include "RacingTrack.h"
 
 RacingTrack::RacingTrack()
-	: blockAmount(80), startRacePosition()
+	: blockAmount(40), startRacePosition()
 {
 	trackBlock = new TrackBlock[blockAmount];
 
@@ -16,7 +16,11 @@ RacingTrack::~RacingTrack()
 
 void RacingTrack::Init()
 {
-	srand(23798);
+	std::ifstream file;
+	file.open("Race_Seed.txt");
+	int number = 0;
+	file >> number;
+	srand(number);
 
 	int zIndent = 0;
 

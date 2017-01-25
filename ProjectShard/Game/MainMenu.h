@@ -14,8 +14,6 @@
 class MainMenu
 {
 private:
-	GameSparksInfo gameSparksInfo;
-
 	Sound menuSound;
 	Sound menuSoundTrack;
 

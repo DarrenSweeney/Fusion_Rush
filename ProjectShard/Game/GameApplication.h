@@ -6,6 +6,7 @@
 #include "MainMenu.h"
 #include "SplashScreen.h"
 #include "FinishedMenu.h"
+#include "../GameSparksInfo.h"
 
 class GameApplication
 {

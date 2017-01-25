@@ -16,6 +16,9 @@ bool GameSparksInfo::available;
 CurrentPlayer GameSparksInfo::currentPlayer;
 float GameSparksInfo::worldRaceRecord;
 GameSparks::Optional::t_StringOptional GameSparksInfo::raceSeedUrl;
+GS GameSparksInfo::gs;
+GameSparksConfiguration::NativePlatformDescription GameSparksInfo::platform;
+gsstl::string GameSparksInfo::message;
 
 GameSparksInfo::GameSparksInfo()
 {
@@ -142,6 +145,24 @@ void GetDownloadableRequest_Response(GS& gsInstance, const GetDownloadableRespon
 	else
 	{
 		GameSparksInfo::raceSeedUrl = response.GetUrl();
+
+		const char *raceSeedURL = GameSparksInfo::raceSeedUrl.GetValue().c_str();
+		const char *filePath = "Race_Seed.txt";
+
+		tcout << _T("GameSparksInfo:: Downloading   : ") << raceSeedURL << std::endl;
+		tcout << _T("GameSparksInfo:: To local file : ") << filePath << std::endl;
+
+		DeleteUrlCacheEntryA(raceSeedURL);
+
+		HRESULT hr = URLDownloadToFileA(NULL, raceSeedURL, filePath, 0, NULL);
+		if (SUCCEEDED(hr))
+		{
+			tcout << _T("GameSparksInfo:: Downloaded OK") << endl;
+		}
+		else
+		{
+			tcout << _T("GameSparksInfo:: An error occured : error code = 0x") << hex << hr << endl;
+		}
 	}
 }
 

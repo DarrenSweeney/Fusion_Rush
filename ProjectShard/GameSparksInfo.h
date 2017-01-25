@@ -8,6 +8,23 @@
 #include "GameSparksConfiguration.h"
 #include "GameSparks\GSOptional.h"
 
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#include <tchar.h>
+
+#include <iostream>
+#include <iomanip>
+#include "urlmon.h"
+#include <wininet.h>
+
+#ifdef _UNICODE
+#define tcout wcout
+#else
+#define tcout cout
+#endif
+
+using namespace std;
+
 using namespace GameSparks::Core;
 using namespace GameSparks::Api::Responses;
 using namespace GameSparks::Api::Requests;
@@ -44,14 +61,14 @@ public:
 	static float worldRaceRecord;
 	static GameSparks::Optional::t_StringOptional raceSeedUrl;
 
-	void Update();
-	bool GetStatus();
-	void InitGS();
+	static void Update();
+	static bool GetStatus();
+	static void InitGS();
 
 private:
-	GS gs;
-	GameSparksConfiguration::NativePlatformDescription platform;
-	gsstl::string message;
+	static GS gs;
+	static GameSparksConfiguration::NativePlatformDescription platform;
+	static gsstl::string message;
 };
 
 #endif
