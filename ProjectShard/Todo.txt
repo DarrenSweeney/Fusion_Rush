@@ -14,7 +14,7 @@
 11. Add beter steering wheel support
 **
 **
-(14.) Set up downloadable file i can test and set an offline default seed
+**
 15. Add sound for ship moving
 16. Add sound for ship rotation
 17. Append finish race position to ghost racer

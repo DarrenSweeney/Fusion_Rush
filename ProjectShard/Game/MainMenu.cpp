@@ -35,9 +35,9 @@ MainMenu::MainMenu()
 	bestRecordTime.scale = 0.5f;
 
 	currentPlayer.position = Vector2(80.0f, 15.0f);
-	currentPlayer.text = "-";
+	currentPlayer.text = "Please sign in";
 	currentPlayer.color = defaultColor;
-	currentPlayer.scale = 0.5f;
+	currentPlayer.scale = 0.6f;
 
 	leaderboardTitle.position = Vector2(500.0f, 500.0f);
 	leaderboardTitle.text = "World Top 10";
@@ -499,21 +499,22 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 		currentSelectState = SelectState::NotSelected;
 		selectPosition = signInOutLabel.position;
 		accountSignInError = false;
-		// ---
+		// Get the current signed in player, world rank and time.
+		currentPlayer.text = currentUserName.c_str();
 	}
 
-	// Get the current signed in player, world rank and time.
-	currentPlayer.text = currentUserName.c_str();
+	if (currentUserName != "")
+	{
+		std::stringstream ss;
+		ss << "World Rank :  " << GameSparksInfo::currentPlayer.rank.GetValue();
+		playerRank = ss.str();
+		worldRankLabel.text = playerRank.c_str();
 
-	std::stringstream ss;
-	ss << "World Rank :  " << GameSparksInfo::currentPlayer.rank.GetValue();
-	playerRank = ss.str();
-	worldRankLabel.text = playerRank.c_str();
-
-	ss.str("");
-	ss << "Best Time : " << GameSparksInfo::currentPlayer.time.GetValue();
-	recordTime = ss.str();
-	bestRecordTime.text = recordTime.c_str();
+		ss.str("");
+		ss << "Best Time : " << GameSparksInfo::currentPlayer.time.GetValue();
+		recordTime = ss.str();
+		bestRecordTime.text = recordTime.c_str();
+	}
 
 	bestRecordTime.position = Vector2(200.0f, 10.0f);
 	worldRankLabel.position = Vector2(10.0f, 10.0f);
