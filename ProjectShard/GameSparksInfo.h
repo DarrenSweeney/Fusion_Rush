@@ -7,6 +7,8 @@
 #include <GameSparks\generated\GSResponses.h>
 #include "GameSparksConfiguration.h"
 #include "GameSparks\GSOptional.h"
+#include <fstream>
+#include <sstream>
 
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
@@ -60,6 +62,7 @@ public:
 	static bool loginSuccessful;
 	static float worldRaceRecord;
 	static GameSparks::Optional::t_StringOptional raceSeedUrl;
+	static int raceTrackSeed;
 
 	static void Update();
 	static bool GetStatus();

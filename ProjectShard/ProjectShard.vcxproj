@@ -261,7 +261,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Ghost_Racer.txt" />
-    <Text Include="Race_Record.txt" />
+    <Text Include="Race_Seed.txt" />
     <Text Include="Todo.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

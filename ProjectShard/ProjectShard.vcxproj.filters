@@ -283,6 +283,6 @@
   <ItemGroup>
     <Text Include="Todo.txt" />
     <Text Include="Ghost_Racer.txt" />
-    <Text Include="Race_Record.txt" />
+    <Text Include="Race_Seed.txt" />
   </ItemGroup>
 </Project>

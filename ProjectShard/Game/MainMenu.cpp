@@ -584,7 +584,6 @@ void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	glUniformMatrix4fv(glGetUniformLocation(UI_Shader->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
 	spriteRenderer->Render(*UI_Bottom, *UI_Shader, Vector2(0.0f, screenHeight - 100.0f), Vector2(screenWidth + 40.0f, 100.0f));
 	spriteRenderer->Render(*UI_Pannal, *UI_Shader, Vector2(-5.0f, pannelHeight - 80.0f), Vector2(300.0f, 220.0f));
-	spriteRenderer->Render(*UI_Pannal, *UI_Shader, leaderboardUIPos, Vector2(400.0f, 600.0f));
 
 	RenderLabel(playLabel, screenWidth, screenHeight);
 	RenderLabel(signInOutLabel, screenWidth, screenHeight);
@@ -592,8 +591,12 @@ void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	RenderLabel(worldRankLabel, screenWidth, screenHeight);
 	RenderLabel(bestRecordTime, screenWidth, screenHeight);
 	RenderLabel(currentPlayer, screenWidth, screenHeight);
-	RenderLabel(leaderboardTitle, screenWidth, screenHeight);
-	RenderLeaderboardEntry(screenWidth, screenHeight);
+	if (GameSparksInfo::available)
+	{
+		spriteRenderer->Render(*UI_Pannal, *UI_Shader, leaderboardUIPos, Vector2(400.0f, 600.0f));
+		RenderLabel(leaderboardTitle, screenWidth, screenHeight);
+		RenderLeaderboardEntry(screenWidth, screenHeight);
+	}
 	serverStatus.position.x = screenWidth - 110;
 	RenderLabel(serverStatus, screenWidth, screenHeight);
 

@@ -16,6 +16,7 @@ bool GameSparksInfo::available;
 CurrentPlayer GameSparksInfo::currentPlayer;
 float GameSparksInfo::worldRaceRecord;
 GameSparks::Optional::t_StringOptional GameSparksInfo::raceSeedUrl;
+int GameSparksInfo::raceTrackSeed;
 GS GameSparksInfo::gs;
 GameSparksConfiguration::NativePlatformDescription GameSparksInfo::platform;
 gsstl::string GameSparksInfo::message;
@@ -163,6 +164,27 @@ void GetDownloadableRequest_Response(GS& gsInstance, const GetDownloadableRespon
 		{
 			tcout << _T("GameSparksInfo:: An error occured : error code = 0x") << hex << hr << endl;
 		}
+
+		std::ifstream myReadFile;
+		myReadFile.open("Race_Seed.txt");
+		std::string string;
+		if (myReadFile.is_open())
+		{
+			while (!myReadFile.eof())
+			{
+				myReadFile >> string;
+				std::cout << string << std::endl;
+			}
+
+			std::stringstream str;
+			str << string;
+			str >> GameSparksInfo::raceTrackSeed;
+
+			if (!str)
+				std::cout << "The conversion failed" << std::endl;
+		}
+
+		myReadFile.close();
 	}
 }
 

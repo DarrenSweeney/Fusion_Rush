@@ -54,9 +54,9 @@ void RacingScene::ResetScene()
 	currentTime = 0.0f;
 }
 
-void RacingScene::InitalizeScene(GLsizei screenWidth, GLsizei screenHeight)
+void RacingScene::InitalizeScene(GLsizei screenWidth, GLsizei screenHeight, int raceTrackSeed)
 {
-	racingTrack.Init();
+	racingTrack.Init(raceTrackSeed);
 	g_debugDrawMgr.Init();
 
 	// TODO(Darren): May refactor so i'm not loading font more than once.
@@ -100,17 +100,6 @@ void RacingScene::UpdateScene(float deltaTime)
 
 	if (racingTrack.ObstacleCollision(player.boundingBox) && !player.shipDestroyed)
 	{
-		//player.linearVelocity.x *= -1;
-		//player.linearVelocity.x *= 0.5f;
-		//player.linearVelocity.y *= 0.5f;
-
-		float mag = player.linearVelocity.Magnitude();
-
-		//if(mag > 80.0f)//&& player.linearVelocity.x > -80.0f)
-			//player.linearVelocity.x /= 2.0f;
-
-		//std::cout << player.linearVelocity.x << std::endl;
-
 		player.shipDestroyed = true;
 		player.linearVelocity = Vector3();
 		soundEffect.Play2D("Resources/Sounds/Gameplay/Ship_Destroyed.wav");
@@ -130,7 +119,6 @@ void RacingScene::UpdateScene(float deltaTime)
 	if (racingTrack.BarrierCollision(player.boundingBox, player.position) && !player.shipDestroyed)
 	{
 		player.linearVelocity.x *= -1.0f;
-		//player.linearVelocity.x /= 2.0f;
 
 		soundEffect.Play2D("Resources/Sounds/Gameplay/barrier_hit.wav");
 	}

@@ -14,14 +14,11 @@ RacingTrack::~RacingTrack()
 	delete[] trackBlock;
 }
 
-void RacingTrack::Init()
+void RacingTrack::Init(int raceTrackSeed)
 {
-	std::ifstream file;
-	file.open("Race_Seed.txt");
-	int number = 0;
-	file >> number;
-	srand(number);
-
+	// Seed the generator based on today's track seed
+	srand(raceTrackSeed);
+	
 	int zIndent = 0;
 
 	// Set up the track obstacles blocks

@@ -30,7 +30,7 @@ public:
 
 	Vector3 startRacePosition, finishRacePosition;
 
-	void Init();
+	void Init(int raceTrackSeed);
 	void Update(float deltaTime);
 	bool ObstacleCollision(CollisionBox &playerBoundingBox);
 	bool BarrierCollision(CollisionBox &playerBoundingBox, Vector3 &playerPosition);

@@ -19,7 +19,7 @@ GameApplication::~GameApplication()
 void GameApplication::Init()
 {
 	GameSparksInfo::InitGS();
-	racingScene->InitalizeScene(screenWidth, screenHeight);
+	racingScene->InitalizeScene(screenWidth, screenHeight, GameSparksInfo::raceTrackSeed);
 	mainMenu->InitScene();
 	finishedMenu.Init();
 
