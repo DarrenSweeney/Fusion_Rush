@@ -13,11 +13,11 @@
 #include "..\Audio\Sound.h"
 #include <sstream>
 
-class Player
+class PlayerShip
 {
 public:
-	Player();
-	~Player();
+	PlayerShip();
+	~PlayerShip();
 
 	void Update(float deltaTime, float currentRaceTime);
 	void FinishedAnimation(float delatTime, Vector3 endRacePos);

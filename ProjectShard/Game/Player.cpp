@@ -1,6 +1,6 @@
 #include "Player.h"
 
-Player::Player()
+PlayerShip::PlayerShip()
 	: rotationSpeed(2.0f), camera(Vector3(3.0f, 2.0f, 8.0f)), position(Vector3(0.0f, 0.0f, 0.0f)), 
 	speed(2.5f), recordRace(false), lastTime(0.0f), frictionToApply(0.003f)
 {
@@ -15,13 +15,13 @@ Player::Player()
 	glUniform1f(glGetUniformLocation(shaderModel->Program, "time"), 0.0f);
 }
 
-Player::~Player()
+PlayerShip::~PlayerShip()
 {
 	delete model;
 	delete shaderModel;
 }
 
-void Player::Update(float deltaTime, float currentRaceTime)
+void PlayerShip::Update(float deltaTime, float currentRaceTime)
 {
 	Movement(deltaTime);
 
@@ -57,7 +57,7 @@ void Player::Update(float deltaTime, float currentRaceTime)
 	oldPosition = position;
 }
 
-void Player::FinishedAnimation(float deltaTime, Vector3 endRacePos)
+void PlayerShip::FinishedAnimation(float deltaTime, Vector3 endRacePos)
 {
 	Vector3 initPos = position - Vector3(0.0f, -15.0f, -40.0f);
 	Vector3 finalPos = initPos - Vector3(-10.0f, 5.0f, 15.0f);
@@ -75,7 +75,7 @@ void Player::FinishedAnimation(float deltaTime, Vector3 endRacePos)
 	camera.SetPosition(transitionVector);
 }
 
-void Player::PlayExplodeAnimation(float deltaTime)
+void PlayerShip::PlayExplodeAnimation(float deltaTime)
 {
 	explodeMagnitude += 20.0f * deltaTime;
 
@@ -90,7 +90,7 @@ void Player::PlayExplodeAnimation(float deltaTime)
 	}
 }
 
-void Player::Movement(float deltaTime)
+void PlayerShip::Movement(float deltaTime)
 {
 	if (linearVelocity.Magnitude() < 0.5f)
 		linearVelocity = Vector3();
@@ -146,7 +146,7 @@ void Player::Movement(float deltaTime)
 	g_debugDrawMgr.AddLine(position, Vector3(0.0f, 10.0f, 0.0), Vector3(1.0f, 0.0f, 0.0f), 1.0f, false);
 }
 
-void Player::RecordPosition(float currentRaceTime)
+void PlayerShip::RecordPosition(float currentRaceTime)
 {
 	if (recordRace)
 	{
@@ -163,7 +163,7 @@ void Player::RecordPosition(float currentRaceTime)
 	}
 }
 
-void Player::WriteRecordedPositions()
+void PlayerShip::WriteRecordedPositions()
 {
 	std::ofstream ghostRacerFile;
 	ghostRacerFile.open("Ghost_Racer.txt");
@@ -185,7 +185,7 @@ void Player::WriteRecordedPositions()
 	ghostRacerFile.close();
 }
 
-void Player::Spawn()
+void PlayerShip::Spawn()
 {
 	position = Vector3();
 	orientation = Quaternion();
@@ -201,7 +201,7 @@ void Player::Spawn()
 	frictionToApply = 0.003f;
 }
 
-void Player::Render(GLsizei screenWidth, GLsizei screenHeight)
+void PlayerShip::Render(GLsizei screenWidth, GLsizei screenHeight)
 {
 	shaderModel->Use();
 	Matrix4 modelMatrix = Matrix4();
@@ -218,7 +218,7 @@ void Player::Render(GLsizei screenWidth, GLsizei screenHeight)
 	model->Draw(*shaderModel);
 }
 
-void Player::Reflection(GLsizei screenWidth, GLsizei screenHeight)
+void PlayerShip::Reflection(GLsizei screenWidth, GLsizei screenHeight)
 {
 	shaderModel->Use();
 	Matrix4 modelMatrix = Matrix4();
@@ -238,7 +238,7 @@ void Player::Reflection(GLsizei screenWidth, GLsizei screenHeight)
 	model->Draw(*shaderModel);
 }
 
-float Player::GetSpeed()
+float PlayerShip::GetSpeed()
 {
 	return linearVelocity.Magnitude();
 }
