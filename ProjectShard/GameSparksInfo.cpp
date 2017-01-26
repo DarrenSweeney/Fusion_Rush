@@ -11,6 +11,7 @@ bool GameSparksInfo::available;
 bool GameSparksInfo::logRaceTimeEvent;
 CurrentPlayer GameSparksInfo::currentPlayer;
 float GameSparksInfo::worldRaceRecord;
+float GameSparksInfo::logEventFinishTime;
 GameSparks::Optional::t_StringOptional GameSparksInfo::raceSeedUrl;
 int GameSparksInfo::raceTrackSeed;
 GS GameSparksInfo::gs;
@@ -239,7 +240,9 @@ void GameSparksAvailable(GameSparks::Core::GS& gsInstance, bool available)
 		{
 			LogEventRequest logEventRequest(gsInstance);
 			logEventRequest.SetEventKey("RaceTime_Rank");
-			logEventRequest.SetEventAttribute("TIME", 0);
+			std::stringstream ss;
+			ss << GameSparksInfo::logEventFinishTime;
+			logEventRequest.SetEventAttribute("TIME", ss.str());
 			logEventRequest.Send(LogEventRequest_Response);
 			GameSparksInfo::logRaceTimeEvent = false;
 		}

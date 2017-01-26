@@ -82,8 +82,7 @@ void RacingScene::UpdateScene(float deltaTime)
 	}
 
 	racingTrack.Update(deltaTime);
-	//if(finishedRace)
-		player.Update(deltaTime, currentTime);
+	player.Update(deltaTime, currentTime);
 	ghostRacer.Update(currentTime);
 
 	if (player.position.z > racingTrack.startRacePosition.z)
@@ -111,6 +110,8 @@ void RacingScene::UpdateScene(float deltaTime)
 		soundEffect.Play2D("Resources/Sounds/Gameplay/FinishRace.wav");
 
 		GameSparksInfo::logRaceTimeEvent = true;
+		GameSparksInfo::logEventFinishTime = currentTime;
+		GameSparksInfo::InitGS();
 	}
 
 	if (finishedRace)
