@@ -109,6 +109,8 @@ void RacingScene::UpdateScene(float deltaTime)
 	{
 		finishedRace = true;
 		soundEffect.Play2D("Resources/Sounds/Gameplay/FinishRace.wav");
+
+		GameSparksInfo::logRaceTimeEvent = true;
 	}
 
 	if (finishedRace)

@@ -30,7 +30,6 @@ using namespace std;
 using namespace GameSparks::Core;
 using namespace GameSparks::Api::Responses;
 using namespace GameSparks::Api::Requests;
-using namespace GameSparks::Optional;
 using namespace GameSparks::Api::Types;
 
 struct LeaderboardEntry
@@ -60,6 +59,7 @@ public:
 	static std::string username, password;
 	static bool registerAccount, signInAccount;
 	static bool loginSuccessful;
+	static bool logRaceTimeEvent;
 	static float worldRaceRecord;
 	static GameSparks::Optional::t_StringOptional raceSeedUrl;
 	static int raceTrackSeed;

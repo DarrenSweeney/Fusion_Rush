@@ -1,11 +1,6 @@
 #include "GameSparksInfo.h"
 
-void AuthenticationRequest_Response(GameSparks::Core::GS&, const GameSparks::Api::Responses::AuthenticationResponse& response);
-void RegistrationRequest_Response(GS& gsInstance, const GameSparks::Api::Responses::RegistrationResponse& response);
-void LeaderboardDataRequest_Response(GS& gsInstance, const LeaderboardDataResponse& response);
 void GameSparksAvailable(GameSparks::Core::GS& gsInstance, bool available);
-void AroundMeLeaderboardRequest_Response(GS& gsInstance, const AroundMeLeaderboardResponse& response);
-void GetDownloadableRequest_Response(GS& gsInstance, const GetDownloadableResponse& response);
 
 std::vector<LeaderboardEntry> GameSparksInfo::leaderboardEntry;
 std::string GameSparksInfo::username, GameSparksInfo::password;
@@ -13,6 +8,7 @@ bool GameSparksInfo::loginSuccessful;
 bool GameSparksInfo::registerAccount;
 bool GameSparksInfo::signInAccount;
 bool GameSparksInfo::available;
+bool GameSparksInfo::logRaceTimeEvent;
 CurrentPlayer GameSparksInfo::currentPlayer;
 float GameSparksInfo::worldRaceRecord;
 GameSparks::Optional::t_StringOptional GameSparksInfo::raceSeedUrl;
@@ -94,6 +90,9 @@ void LeaderboardDataRequest_Response(GS& gsInstance, const LeaderboardDataRespon
 	else
 	{
 		gsstl::vector<LeaderboardData> data = response.GetData();
+
+		if (data.size() == 0)
+			return;
 
 		GameSparksInfo::worldRaceRecord = data.at(0).GetBaseData().GetLong("TIME").GetValue();
 
@@ -181,10 +180,24 @@ void GetDownloadableRequest_Response(GS& gsInstance, const GetDownloadableRespon
 			str >> GameSparksInfo::raceTrackSeed;
 
 			if (!str)
-				std::cout << "The conversion failed" << std::endl;
+				std::cout << "GameSparksInfo:: The conversion failed" << std::endl;
 		}
 
 		myReadFile.close();
+	}
+}
+
+void LogEventRequest_Response(GS& gsInstance, const LogEventResponse& response) 
+{
+	if (response.GetHasErrors())
+	{
+		std::cout << "something went wrong with log event request response" << std::endl;
+		std::cout << response.GetErrors().GetValue().GetJSON().c_str() << std::endl;
+	}
+	else
+	{
+		// TODO(Darren): What will i use this for?
+		GSData::t_Optional data = response.GetScriptData();
 	}
 }
 
@@ -220,6 +233,15 @@ void GameSparksAvailable(GameSparks::Core::GS& gsInstance, bool available)
 			req.SetDisplayName(GameSparksInfo::username);
 			req.Send(RegistrationRequest_Response);
 			GameSparksInfo::registerAccount = false;
+		}
+
+		if (GameSparksInfo::logRaceTimeEvent)
+		{
+			LogEventRequest logEventRequest(gsInstance);
+			logEventRequest.SetEventKey("RaceTime_Rank");
+			logEventRequest.SetEventAttribute("TIME", 0);
+			logEventRequest.Send(LogEventRequest_Response);
+			GameSparksInfo::logRaceTimeEvent = false;
 		}
 
 		LeaderboardDataRequest leaderboard(gsInstance);
