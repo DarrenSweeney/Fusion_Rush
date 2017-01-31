@@ -105,7 +105,8 @@ void LeaderboardDataRequest_Response(GS& gsInstance, const LeaderboardDataRespon
 			LeaderboardEntry dataEntry;
 			dataEntry.username = data.GetBaseData().GetString("userName").GetValue();
 			dataEntry.rank = data.GetBaseData().GetLong("rank").GetValue();
-			dataEntry.time = data.GetBaseData().GetLong("TIME").GetValue();
+			int timeAsInt = data.GetBaseData().GetLong("TIME").GetValue();
+			dataEntry.time = timeAsInt / pow(10, 3);
 
 			GameSparksInfo::leaderboardEntry.push_back(dataEntry);
 		}

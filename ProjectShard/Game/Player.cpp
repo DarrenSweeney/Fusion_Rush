@@ -48,8 +48,6 @@ void PlayerShip::Update(float deltaTime, float currentRaceTime)
 
 	currentTrackTime += deltaTime;
 
-	std::cout << frictionToApply << std::endl;
-
 	oldPosition = position;
 }
 

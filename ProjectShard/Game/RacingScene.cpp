@@ -110,6 +110,12 @@ void RacingScene::UpdateScene(float deltaTime)
 		soundEffect.Play2D("Resources/Sounds/Gameplay/FinishRace.wav");
 
 		GameSparksInfo::logRaceTimeEvent = true;
+		/*
+			Taking out the decimal point in the float point number because game sparks
+			doesn't support floating point numbers in leaderboard entries [*Sad_Face*]
+			Conver back later, the exponent will always be 10^3 (1000)
+		*/
+		int numberToLog = currentTime * pow(10, 3);
 		GameSparksInfo::logEventFinishTime = currentTime;
 		GameSparksInfo::InitGS();
 	}

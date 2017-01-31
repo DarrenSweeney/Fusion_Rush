@@ -4,7 +4,7 @@
 01. Only render blocks that are visible and their reflections
 02. Upload and download ghost racer file
 (03.) Record times on leaderboard
-(04). Add beter steering wheel support
+(04.) Add beter steering wheel support
 05. Append finish race position to ghost racer
 06. Finished race waits for leaderboard resource even when not online
 07. Record AI until a after they finish
