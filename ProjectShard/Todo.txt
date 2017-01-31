@@ -1,20 +1,19 @@
 
 # Darren's todo list for road to Games Fleadh:)
 
-**
-(02.) Only render blocks that are visible and their reflections <-- Get section ID?
-**
-04. Upload and download ghost racer file
-**
-06. Add sound for moving passed obstacles
-**
-08. Fix back of ship, re-model? Also stream exhaust(?)
-(09.) Record times on leaderboard
-10. Adjust UI based on resolution	<-- A must
-11. Add beter steering wheel support
-**
-**
-**
-15. Add sound for ship moving
-16. Add sound for ship rotation
-17. Append finish race position to ghost racer
+01. Only render blocks that are visible and their reflections
+02. Upload and download ghost racer file
+(03.) Record times on leaderboard
+(04). Add beter steering wheel support
+05. Append finish race position to ghost racer
+06. Finished race waits for leaderboard resource even when not online
+07. Record AI until a after they finish
+08. Release build for Game Executable
+
+// Libs (For relase build) <- needed for games fleadh
+	- Assimp	(need release build)
+	- GameSparks Include (different include in it's own headers)
+
+Freetype 2	(done)
+GLFW		(done)
+irrKlang	(done)

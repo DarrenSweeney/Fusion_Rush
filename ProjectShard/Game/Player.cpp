@@ -7,10 +7,6 @@ PlayerShip::PlayerShip()
 	model = g_resourceMgr.GetModel(SID("PlayerShip"));
 	shaderModel = g_resourceMgr.GetShader(SID("PlayerShader"));
 
-	// TODO(Darren): Create some user of yaw, roll pitch for camera angles.
-	//				 maybe set pitch etc.
-	//camera.Roll(140.0f);
-
 	shaderModel->Use();
 	glUniform1f(glGetUniformLocation(shaderModel->Program, "time"), 0.0f);
 }

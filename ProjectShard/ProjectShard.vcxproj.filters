@@ -102,9 +102,6 @@
     <ClCompile Include="Game\Barriers.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameSparksAll.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -130,6 +127,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Game\GhostRacer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSparksAll.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -270,7 +270,6 @@
     <None Include="Shaders\Instancing.vert" />
     <None Include="Shaders\Skybox.frag" />
     <None Include="Shaders\Skybox.vert" />
-    <None Include="GameSparks\GSIosHelper.mm" />
     <None Include="Shaders\ExplodeGeometry.gs" />
     <None Include="Shaders\Player.vert" />
     <None Include="Shaders\Player.frag" />

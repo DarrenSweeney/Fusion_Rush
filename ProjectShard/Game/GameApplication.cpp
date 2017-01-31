@@ -144,6 +144,7 @@ void GameApplication::Update(GLfloat deltaTime)
 				currentGameState = GameState::finishedMenu;
 				racingScene->SetPlayerMovement(false);
 				racingScene->SetRenderUIState(false);
+
 				racingScene->player.recordRace = false;
 				finishedMenu.finishedLapTime = racingScene->currentTime;
 				mainMenu->startSoundTrack = true;

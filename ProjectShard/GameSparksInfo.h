@@ -1,10 +1,10 @@
 #ifndef GAME_SPARKS_INFO_H
 #define GAME_SPARKS_INFO_H
 
-#include <GameSparks\GS.h>
-#include <GameSparks\IGSPlatform.h>
-#include <GameSparks\generated/GSRequests.h>
-#include <GameSparks\generated\GSResponses.h>
+#include "GameSparks\GS.h"
+#include "GameSparks\IGSPlatform.h"
+#include "GameSparks\generated\GSRequests.h"
+#include "GameSparks\generated\GSResponses.h"
 #include "GameSparksConfiguration.h"
 #include "GameSparks\GSOptional.h"
 #include <fstream>
@@ -36,15 +36,13 @@ struct LeaderboardEntry
 {
 	GameSparks::Optional::t_StringOptional username;
 	GameSparks::Optional::t_LongOptional rank;
-	// TODO(Darren): May have to store this in milisecond and convert
-	GameSparks::Optional::t_LongOptional time;
+	GameSparks::Optional::t_FloatOptional time;
 };
 
 struct CurrentPlayer
 {
 	GameSparks::Optional::t_LongOptional rank;
-	// TODO(Darren): May have to store this in milisecond and convert
-	GameSparks::Optional::t_LongOptional time;
+	GameSparks::Optional::t_FloatOptional time;
 };
 
 class GameSparksInfo
