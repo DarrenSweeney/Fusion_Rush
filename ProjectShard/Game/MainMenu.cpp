@@ -41,7 +41,7 @@ MainMenu::MainMenu()
 
 	leaderboardTitle.position = Vector2(500.0f, 500.0f);
 	leaderboardTitle.text = "World Top 10";
-	leaderboardTitle.color = defaultColor;
+	leaderboardTitle.color = Vector3(1.0f, 0.2f, 0.3f);
 	leaderboardTitle.scale = 0.7f;
 
 	serverStatus.position = Vector2(700, 10);
@@ -563,7 +563,7 @@ void MainMenu::UpdateLable(MenuLabel &label)
 void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 {
 	float pannelHeight = screenHeight - playLabel.position.y;
-	leaderboardUIPos = Vector2(screenWidth - 430.0f, 30.0f);
+	leaderboardUIPos = Vector2(screenWidth - 500.0f, 30.0f);
 	exitPannelPosition = Vector2((screenWidth / 2) - 200.0f, (screenHeight / 2) - 70.0f);
 	exitAsk.position = exitPannelPosition + Vector2(150.0f, 90.0f);
 	exitNo.position = exitPannelPosition + Vector2(100.0f, 20.0f);
@@ -574,7 +574,7 @@ void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	loginLabel.position = signInOutPannelPos + Vector2(50.0f, -110.0f);
 	cancelLabel.position = signInOutPannelPos + Vector2(250.0f, -110.0f);
 	createAccountLabel.position = signInOutPannelPos + Vector2(100.0f, -160.0f);
-	leaderboardTitle.position = Vector2(screenWidth - 325.0f, screenHeight - 80.0f);
+	leaderboardTitle.position = Vector2(screenWidth - 380.0f, screenHeight - 80.0f);
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -594,10 +594,10 @@ void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	RenderLabel(currentPlayer, screenWidth, screenHeight);
 	if (GameSparksInfo::available)
 	{
-		spriteRenderer->Render(*UI_Pannal, *UI_Shader, leaderboardUIPos, Vector2(400.0f, 600.0f));
+		spriteRenderer->Render(*UI_Pannal, *UI_Shader, leaderboardUIPos, Vector2(450.0f, 600.0f));
 		RenderLabel(leaderboardTitle, screenWidth, screenHeight);
 		RenderLeaderboardEntry(screenWidth, screenHeight);
-	}
+	} 
 	serverStatus.position.x = screenWidth - 110;
 	RenderLabel(serverStatus, screenWidth, screenHeight);
 
@@ -682,19 +682,23 @@ void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 void MainMenu::RenderLeaderboardEntry(GLsizei screenWidth, GLsizei screenHeight)
 {
 	int index = 0;
-	float firstEntryHeight = (screenHeight - leaderboardUIPos.y) - 120.0f;
+	float firstEntryHeight = (screenHeight - leaderboardUIPos.y) - 150.0f;
 	float firstEntryWidth = (screenWidth - leaderboardUIPos.x) + 10.0f;
+
+	textRenderer.RenderText("Rank", Vector2(leaderboardUIPos.x + 10.0f, firstEntryHeight + (-50 * -1)), 0.6f, Vector3(0.0f, 1.0f, 0.0f), screenWidth, screenHeight);
+	textRenderer.RenderText("Player", Vector2(leaderboardUIPos.x + 160.0f, firstEntryHeight + (-50 * -1)), 0.6f, Vector3(0.0f, 1.0f, 0.0f), screenWidth, screenHeight);
+	textRenderer.RenderText("Time", Vector2(leaderboardUIPos.x + 375.0f, firstEntryHeight + (-50 * -1)), 0.6f, Vector3(0.0f, 1.0f, 0.0f), screenWidth, screenHeight);
 
 	for (std::vector<LeaderboardEntry>::iterator it = GameSparksInfo::leaderboardEntry.begin();
 		it != GameSparksInfo::leaderboardEntry.end(); it++, index++)
 	{
 		std::ostringstream oss;
 		oss << it->rank.GetValue();
-		textRenderer.RenderText(oss.str(), Vector2(leaderboardUIPos.x + 10.0f, firstEntryHeight + (-50 * index)), 0.6f, defaultColor, screenWidth, screenHeight);
-		textRenderer.RenderText(it->username.GetValue().c_str(), Vector2(leaderboardUIPos.x + 80.0f, firstEntryHeight + (-50 * index)), 0.6f, defaultColor, screenWidth, screenHeight);
+		textRenderer.RenderText(oss.str(), Vector2(leaderboardUIPos.x + 30.0f, firstEntryHeight + (-50 * index)), 0.6f, defaultColor, screenWidth, screenHeight);
+		textRenderer.RenderText(it->username.GetValue().c_str(), Vector2(leaderboardUIPos.x + 100.0f, firstEntryHeight + (-50 * index)), 0.6f, defaultColor, screenWidth, screenHeight);
 		oss.str("");
 		oss << it->time.GetValue();
-		textRenderer.RenderText(oss.str(), Vector2(leaderboardUIPos.x + 350.0f, firstEntryHeight + (-50 * index)), 0.6f, defaultColor, screenWidth, screenHeight);
+		textRenderer.RenderText(oss.str(), Vector2(leaderboardUIPos.x + 370.0f, firstEntryHeight + (-50 * index)), 0.6f, defaultColor, screenWidth, screenHeight);
 	}
 }
 

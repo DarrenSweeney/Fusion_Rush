@@ -12,8 +12,17 @@
 
 // Libs (For relase build) <- needed for games fleadh
 	- Assimp	(need release build)
-	- GameSparks Include (different include in it's own headers)
 
-Freetype 2	(done)
-GLFW		(done)
-irrKlang	(done)
+GameSparks Include	(done)
+Freetype 2			(done)
+GLFW				(done)
+irrKlang			(done)
+
+
+// -> Game Names
+
+	* Zero Edge Racer
+	* Fusion Racer
+	* Neon Racer
+	* Decimate Racer
+	* Globe Racers
