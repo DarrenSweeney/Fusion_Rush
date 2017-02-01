@@ -60,7 +60,7 @@ public:
 	static bool logRaceTimeEvent;
 	static float worldRaceRecord;
 	static GameSparks::Optional::t_StringOptional raceSeedUrl;
-	static float logEventFinishTime;
+	static int logEventFinishTime;
 	static int raceTrackSeed;
 
 	static void Update();

@@ -574,7 +574,7 @@ void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	loginLabel.position = signInOutPannelPos + Vector2(50.0f, -110.0f);
 	cancelLabel.position = signInOutPannelPos + Vector2(250.0f, -110.0f);
 	createAccountLabel.position = signInOutPannelPos + Vector2(100.0f, -160.0f);
-	leaderboardTitle.position = Vector2(screenWidth - 380.0f, screenHeight - 80.0f);
+	leaderboardTitle.position = Vector2(screenWidth - 370.0f, screenHeight - 80.0f);
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -594,7 +594,7 @@ void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	RenderLabel(currentPlayer, screenWidth, screenHeight);
 	if (GameSparksInfo::available)
 	{
-		spriteRenderer->Render(*UI_Pannal, *UI_Shader, leaderboardUIPos, Vector2(450.0f, 600.0f));
+		spriteRenderer->Render(*UI_Pannal, *UI_Shader, leaderboardUIPos, Vector2(470.0f, 600.0f));
 		RenderLabel(leaderboardTitle, screenWidth, screenHeight);
 		RenderLeaderboardEntry(screenWidth, screenHeight);
 	} 
@@ -687,7 +687,7 @@ void MainMenu::RenderLeaderboardEntry(GLsizei screenWidth, GLsizei screenHeight)
 
 	textRenderer.RenderText("Rank", Vector2(leaderboardUIPos.x + 10.0f, firstEntryHeight + (-50 * -1)), 0.6f, Vector3(0.0f, 1.0f, 0.0f), screenWidth, screenHeight);
 	textRenderer.RenderText("Player", Vector2(leaderboardUIPos.x + 160.0f, firstEntryHeight + (-50 * -1)), 0.6f, Vector3(0.0f, 1.0f, 0.0f), screenWidth, screenHeight);
-	textRenderer.RenderText("Time", Vector2(leaderboardUIPos.x + 375.0f, firstEntryHeight + (-50 * -1)), 0.6f, Vector3(0.0f, 1.0f, 0.0f), screenWidth, screenHeight);
+	textRenderer.RenderText("Time", Vector2(leaderboardUIPos.x + 380.0f, firstEntryHeight + (-50 * -1)), 0.6f, Vector3(0.0f, 1.0f, 0.0f), screenWidth, screenHeight);
 
 	for (std::vector<LeaderboardEntry>::iterator it = GameSparksInfo::leaderboardEntry.begin();
 		it != GameSparksInfo::leaderboardEntry.end(); it++, index++)

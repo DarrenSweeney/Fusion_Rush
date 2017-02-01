@@ -116,7 +116,7 @@ void RacingScene::UpdateScene(float deltaTime)
 			Conver back later, the exponent will always be 10^3 (1000)
 		*/
 		int numberToLog = currentTime * pow(10, 3);
-		GameSparksInfo::logEventFinishTime = currentTime;
+		GameSparksInfo::logEventFinishTime = numberToLog;
 		GameSparksInfo::InitGS();
 	}
 

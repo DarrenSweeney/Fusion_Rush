@@ -11,7 +11,7 @@ bool GameSparksInfo::available;
 bool GameSparksInfo::logRaceTimeEvent;
 CurrentPlayer GameSparksInfo::currentPlayer;
 float GameSparksInfo::worldRaceRecord;
-float GameSparksInfo::logEventFinishTime;
+int GameSparksInfo::logEventFinishTime;
 GameSparks::Optional::t_StringOptional GameSparksInfo::raceSeedUrl;
 int GameSparksInfo::raceTrackSeed;
 GS GameSparksInfo::gs;
