@@ -132,7 +132,8 @@ void AroundMeLeaderboardRequest_Response(GS& gsInstance, const AroundMeLeaderboa
 			if (GameSparksInfo::username == data.GetBaseData().GetString("userName").GetValue())
 			{
 				GameSparksInfo::currentPlayer.rank = data.GetBaseData().GetLong("rank").GetValue();
-				GameSparksInfo::currentPlayer.time = data.GetBaseData().GetLong("TIME").GetValue();
+				int timeAsInt = data.GetBaseData().GetLong("TIME").GetValue();
+				GameSparksInfo::currentPlayer.time = timeAsInt / pow(10, 3);
 			}
 		}
 	}

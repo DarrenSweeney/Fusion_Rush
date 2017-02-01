@@ -516,8 +516,8 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 		bestRecordTime.text = recordTime.c_str();
 	}
 
-	bestRecordTime.position = Vector2(200.0f, 10.0f);
-	worldRankLabel.position = Vector2(10.0f, 10.0f);
+	bestRecordTime.position = Vector2(260.0f, 10.0f);
+	worldRankLabel.position = Vector2(50.0f, 10.0f);
 	currentPlayer.position = Vector2(50.0f, 60.0f);
 }
 
@@ -598,7 +598,7 @@ void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 		RenderLabel(leaderboardTitle, screenWidth, screenHeight);
 		RenderLeaderboardEntry(screenWidth, screenHeight);
 	} 
-	serverStatus.position.x = screenWidth - 110;
+	serverStatus.position.x = screenWidth - 140;
 	RenderLabel(serverStatus, screenWidth, screenHeight);
 
 	//spriteRenderer->Render(*UI_Pannal, *UI_Shader, selectPosition, Vector2(800.0f, 40.0f));
