@@ -95,7 +95,8 @@ void LeaderboardDataRequest_Response(GS& gsInstance, const LeaderboardDataRespon
 		if (data.size() == 0)
 			return;
 
-		GameSparksInfo::worldRaceRecord = data.at(0).GetBaseData().GetLong("TIME").GetValue();
+		int timeAsInt = data.at(0).GetBaseData().GetLong("TIME").GetValue();
+		GameSparksInfo::worldRaceRecord = timeAsInt / pow(10, 3);
 
 		GameSparksInfo::leaderboardEntry.clear();
 		for (gsstl::vector<LeaderboardData>::iterator it = data.begin(); it != data.end(); ++it)
@@ -105,7 +106,7 @@ void LeaderboardDataRequest_Response(GS& gsInstance, const LeaderboardDataRespon
 			LeaderboardEntry dataEntry;
 			dataEntry.username = data.GetBaseData().GetString("userName").GetValue();
 			dataEntry.rank = data.GetBaseData().GetLong("rank").GetValue();
-			int timeAsInt = data.GetBaseData().GetLong("TIME").GetValue();
+			timeAsInt = data.GetBaseData().GetLong("TIME").GetValue();
 			dataEntry.time = timeAsInt / pow(10, 3);
 
 			GameSparksInfo::leaderboardEntry.push_back(dataEntry);
