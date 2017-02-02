@@ -107,7 +107,8 @@ bool RacingTrack::ObstacleCollision(CollisionBox &playerBoundingBox)
 	{
 		if (trackBlock[i].boundingBox.Intersects(playerBoundingBox))
 		{
-			return true;
+			//return true;
+			return false;
 		}
 	}
 

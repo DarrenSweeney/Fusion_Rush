@@ -25,6 +25,11 @@ int main(int argc, char* argv[])
 	GameApplication gameApp(window.GetWidth(), window.GetHeight());
 	gameApp.Init();
 
+	if(glfwJoystickPresent(CONTROLLER_ONE))
+		InputManager::GetInstance().SetControllerIndex(CONTROLLER_ONE);
+	else
+		InputManager::GetInstance().SetControllerIndex(NO_CONTROLLER_CONNTECTED);
+
 	while (!window.CloseState())
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -35,11 +40,6 @@ int main(int argc, char* argv[])
 
 		window.PollEvents();
 		window.UpdateViewport();
-
-		/*if(glfwJoystickPresent(CONTROLLER_ONE))
-			InputManager::GetInstance().SetControllerIndex(CONTROLLER_ONE);
-		else
-			InputManager::GetInstance().SetControllerIndex(NO_CONTROLLER_CONNTECTED);*/
 
 		if (gameApp.GetCloseState())
 			window.SetCloseState(GL_TRUE);

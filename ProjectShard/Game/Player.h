@@ -56,7 +56,8 @@ private:
 	std::vector<Vector3> recordPositions;
 	std::vector<Quaternion> recordOrientation;
 
-	void Movement(float deltaTime);
+	void KeyboardMovement(float deltaTime);
+	void SteeringWheelMovement(float deltaTime);
 	void RecordPosition(float currentRaceTime);
 	void PlayExplodeAnimation(float deltaTime);
 };

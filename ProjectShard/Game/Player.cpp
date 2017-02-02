@@ -19,7 +19,10 @@ PlayerShip::~PlayerShip()
 
 void PlayerShip::Update(float deltaTime, float currentRaceTime)
 {
-	Movement(deltaTime);
+	if (InputManager::GetInstance().controllerIndex == -1)
+		KeyboardMovement(deltaTime);
+	else
+		SteeringWheelMovement(deltaTime);
 
 	if (shipDestroyed)
 	{
@@ -84,7 +87,7 @@ void PlayerShip::PlayExplodeAnimation(float deltaTime)
 	}
 }
 
-void PlayerShip::Movement(float deltaTime)
+void PlayerShip::KeyboardMovement(float deltaTime)
 {
 	if (linearVelocity.Magnitude() < 0.5f)
 		linearVelocity = Vector3();
@@ -135,9 +138,64 @@ void PlayerShip::Movement(float deltaTime)
 		linearVelocity -= i * frictionToApply;
 	}
 
+#if DEBUG
 	Vector3 direction = linearVelocity;
 	direction.normalise();
 	g_debugDrawMgr.AddLine(position, Vector3(0.0f, 10.0f, 0.0), Vector3(1.0f, 0.0f, 0.0f), 1.0f, false);
+#endif
+}
+
+void PlayerShip::SteeringWheelMovement(float deltaTime)
+{
+	if (linearVelocity.Magnitude() < 0.5f)
+		linearVelocity = Vector3();
+
+	position += linearVelocity * deltaTime;
+	speed = 2.0f;
+
+	if (updateMovement && !shipDestroyed)
+	{
+		Quaternion targetRotation = Quaternion();
+		Quaternion initalRotation = Quaternion();
+
+		if (InputManager::GetInstance().GetRightTrigger() > -0.1f)
+		{
+			linearVelocity.z -= speed + (abs(InputManager::GetInstance().GetLeftTrigger()) * 1.2f);
+		}
+
+		if (InputManager::GetInstance().GetLeftTrigger() < -0.2f)
+		{
+			linearVelocity.z += speed * 3.0f + (abs(InputManager::GetInstance().GetLeftTrigger()) * 1.2f);
+		}
+
+		std::cout << "Linear Velocity -> z: " << InputManager::GetInstance().GetLeftTrigger() << std::endl;
+
+		if (InputManager::GetInstance().GetLeftJoyStick().x < -JOYSTICK_DEAD_ZONE)
+		{
+			linearVelocity.x -= speed * 1.1f; // *(-input * 2.0f);
+
+			targetRotation = targetRotation.RotateZ(MathHelper::DegressToRadians(90.0f));
+			orientation = orientation.Slerp(orientation, targetRotation, deltaTime * rotationSpeed);
+		}
+		else
+			orientation = orientation.Slerp(orientation, initalRotation, deltaTime * rotationSpeed);
+
+		if (InputManager::GetInstance().GetLeftJoyStick().x > JOYSTICK_DEAD_ZONE)
+		{
+			linearVelocity.x += speed * 1.1f; // *(-input * 2.0f);
+
+			targetRotation = targetRotation.RotateZ(MathHelper::DegressToRadians(-90.0f));
+			orientation = orientation.Slerp(orientation, targetRotation, deltaTime * rotationSpeed);
+		}
+		else
+			orientation = orientation.Slerp(orientation, initalRotation, deltaTime * rotationSpeed);
+	}
+
+	if (!(linearVelocity == Vector3()))
+	{
+		Vector3 i = linearVelocity;
+		linearVelocity -= i * frictionToApply;
+	}
 }
 
 void PlayerShip::RecordPosition(float currentRaceTime)

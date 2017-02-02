@@ -70,7 +70,6 @@ private:
 	InputManager();
 	const float *axis;
 	int count;
-	unsigned int controllerIndex = -1;
 
 public:
 	static const int MAX_KEYS = 1024;
@@ -81,7 +80,7 @@ public:
 	XboxControllerState currentControllerState;
 	XboxControllerState previousControllerState;
 	const float DPAD_THRESHHOLD = 0.2f;
-
+	unsigned int controllerIndex = -1;
 	void SetControllerIndex(unsigned int controllerIndex);
 	static InputManager &GetInstance();
 	bool IsKeyPressed(int key);
