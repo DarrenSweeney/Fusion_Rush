@@ -1,23 +1,9 @@
 
 # Darren's todo list for road to Games Fleadh:)
 
-01. Only render blocks that are visible and their reflections
 02. Upload and download ghost racer file
-**
-(04.) Add beter steering wheel support
-05. Append finish race position to ghost racer
-06. Finished race waits for leaderboard resource even when not online
-07. Record AI until a after they finish
-08. Release build for Game Executable
-
-// Libs (For relase build) <- needed for games fleadh
-	- Assimp	(need release build)
-
-GameSparks Include	(done)
-Freetype 2			(done)
-GLFW				(done)
-irrKlang			(done)
-
+(03.) Add beter steering wheel support
+(04). Record AI until a after they finish
 
 // -> Game Names
 

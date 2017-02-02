@@ -205,6 +205,12 @@ void LogEventRequest_Response(GS& gsInstance, const LogEventResponse& response)
 	}
 }
 
+void GetUploadUrlRequest_Response(GS& gsInstance, const GetUploadUrlResponse& response) 
+{
+	GSData::t_Optional scriptData = response.GetScriptData();
+	GameSparks::Optional::t_StringOptional url = response.GetUrl();
+}
+
 void GameSparksAvailable(GameSparks::Core::GS& gsInstance, bool available)
 {
 	std::cout << "\nGameSparks is " << (available ? "available" : "not available") << std::endl;
@@ -258,6 +264,13 @@ void GameSparksAvailable(GameSparks::Core::GS& gsInstance, bool available)
 		GetDownloadableRequest requestRaceSeed(gsInstance);
 		requestRaceSeed.SetShortCode("Race_Seed");
 		requestRaceSeed.Send(GetDownloadableRequest_Response);
+
+		// NOTE(Darren): Testing upload of ghost racer data
+	/*	GetUploadUrlRequest request(gsInstance);
+		GameSparks::Core::GSRequestData uploadData;
+		uploadData.GetJSON();
+		request.SetUploadData(uploadData);
+		request.Send(GetUploadUrlRequest_Response);*/
 	}
 	else
 		GameSparksInfo::available = false;
