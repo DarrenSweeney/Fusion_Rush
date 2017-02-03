@@ -1,9 +1,9 @@
 
 # Darren's todo list for road to Games Fleadh:)
 
-02. Upload and download ghost racer file
-(03.) Add beter steering wheel support
-(04). Record AI until a after they finish
+01	Add beter steering wheel support
+02.	Record AI until a after they finish
+03.	Add in game name
 
 // -> Game Names
 
