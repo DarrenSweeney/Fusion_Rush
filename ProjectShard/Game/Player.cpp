@@ -215,10 +215,12 @@ void PlayerShip::RecordPosition(float currentRaceTime)
 	}
 }
 
-void PlayerShip::WriteRecordedPositions()
+void PlayerShip::WriteRecordedGhostData(float raceTime)
 {
 	std::ofstream ghostRacerFile;
 	ghostRacerFile.open("Ghost_Racer.txt");
+	ghostRacerFile << raceTime << "\n";
+	ghostRacerFile << "Positions" << "\n";
 	// Add the starting position
 	ghostRacerFile << 0 << " " << 0 << " " << 0 << "\n";
 	for (std::vector<Vector3>::iterator it = recordPositions.begin(); it != recordPositions.end(); it++)
@@ -226,7 +228,7 @@ void PlayerShip::WriteRecordedPositions()
 		ghostRacerFile << it->x << " " << it->y << " " << it->z << "\n";
 	}
 
-	ghostRacerFile << "#" << "\n";
+	ghostRacerFile << "Orientations" << "\n";
 
 	// Add the starting orientation
 	ghostRacerFile << 1 << " " << 0 << " " << 0 << " " << 0 << "\n";

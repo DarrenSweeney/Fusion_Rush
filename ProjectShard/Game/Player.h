@@ -25,7 +25,7 @@ public:
 	void Render(GLsizei screenWidth, GLsizei screenHeight);
 	void Reflection(GLsizei screenWidth, GLsizei screenHeight);
 	float GetSpeed();
-	void WriteRecordedPositions();
+	void WriteRecordedGhostData(float raceTime);
 
 	Camera camera;
 	CollisionBox boundingBox;

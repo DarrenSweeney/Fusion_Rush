@@ -27,9 +27,10 @@ void GhostRacer::ReadRecordedPositions()
 	Quaternion orientation;
 
 	std::string line;
-	std::string word = "#";
+	std::string word = "Positions";
 
-	bool readPos = true;
+	bool readTime = true;
+	bool readPos = false;
 	bool readOri = false;
 
 	if (ghostRacerFile.is_open())
@@ -38,14 +39,26 @@ void GhostRacer::ReadRecordedPositions()
 		{
 			std::size_t found = line.find(word);
 
-			if (found != std::string::npos && readPos)
+			if (found != std::string::npos && readTime)
 			{
-				readOri = true;
+				readPos = true;
+				readTime = false;
+				word = "Orientations";
+				continue;
+			}
+			else if (found != std::string::npos && readPos)
+			{
 				readPos = false;
+				readOri = true;
 				continue;
 			}
 
-			if (readPos)
+			if (readTime)
+			{
+				std::stringstream stream(line);
+				stream >> raceTime;
+			}
+			else if (readPos)
 			{
 				std::stringstream stream(line);
 				stream >> position.x >> position.y >> position.z;

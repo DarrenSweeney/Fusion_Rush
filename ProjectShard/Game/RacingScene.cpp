@@ -107,6 +107,7 @@ void RacingScene::UpdateScene(float deltaTime)
 	if (player.position.z < racingTrack.finishRacePosition.z && !finishedRace)
 	{
 		finishedRace = true;
+		finishedRaceTime = currentTime;
 		soundEffect.Play2D("Resources/Sounds/Gameplay/FinishRace.wav");
 
 		GameSparksInfo::logRaceTimeEvent = true;
@@ -123,7 +124,16 @@ void RacingScene::UpdateScene(float deltaTime)
 	if (finishedRace)
 	{
 		player.FinishedAnimation(deltaTime, racingTrack.finishRacePosition);
+
+		// Check if the player beat their record and if so write a new ghost racer data to disk
+		if (finishedRaceTime < bestTime || bestTime == 0.0f)
+		{
+			player.WriteRecordedGhostData(finishedRaceTime);
+			ghostRacer.ReadRecordedPositions();
+		}
 	}
+
+	std::cout << "CurrentTime: " << currentTime << std::endl;
 
 	if (racingTrack.BarrierCollision(player.boundingBox, player.position) && !player.shipDestroyed)
 	{
@@ -207,7 +217,7 @@ void RacingScene::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 		textRenderer->RenderText(ss.str(), Vector2(screenWidth - 210.0f, (screenHeight - 250.0f) - 80.0f), 1.0f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
 		spriteRenderer->Render(*currentTimeUI, *UI_Shader, Vector2(screenWidth - 220.0f, 250.0f), Vector2(220.0f, 40.0f));
 		ss.str("");
-		ss << bestTime;
+		ss << ghostRacer.raceTime;
 		textRenderer->RenderText(ss.str(), Vector2(screenWidth - 210.0f, (screenHeight - 100.0f) - 80.0f), 1.0f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
 		spriteRenderer->Render(*bestTimeUI, *UI_Shader, Vector2(screenWidth - 220.0f, 100.0f), Vector2(220.0f, 40.0f));
 		glDisable(GL_BLEND);

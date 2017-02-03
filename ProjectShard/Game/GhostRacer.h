@@ -13,6 +13,7 @@ public:
 	~GhostRacer();
 
 	Vector3 position;
+	float raceTime;
 
 	void ReadRecordedPositions();
 	void RestGhostRacer();

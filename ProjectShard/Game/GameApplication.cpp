@@ -23,8 +23,9 @@ void GameApplication::Init()
 	mainMenu->InitScene();
 	finishedMenu.Init();
 
-	GLfloat quadVertices[] = {   // Vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
-								 // Positions   // TexCoords
+	// Vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
+	GLfloat quadVertices[] = {   
+		// Positions   // TexCoords
 		-1.0f,  1.0f,  0.0f, 1.0f,
 		-1.0f, -1.0f,  0.0f, 0.0f,
 		1.0f, -1.0f,  1.0f, 0.0f,
@@ -163,7 +164,6 @@ void GameApplication::Update(GLfloat deltaTime)
 				finishedMenu.selectedMainMenu = false;
 				// TODO(Darren): Refactor this, bit messy, i should but this in ResetScene()
 				racingScene->finishedRace = false;
-				racingScene->player.WriteRecordedPositions();
 				racingScene->bestTime = finishedMenu.personalBestTime;
 				racingScene->ResetScene();
 				racingScene->stopSoundTrack = true;
@@ -176,7 +176,6 @@ void GameApplication::Update(GLfloat deltaTime)
 				racingScene->finishedRace = false;
 				racingScene->SetRenderUIState(true);
 				finishedMenu.selectedPlayAgain = false;
-				racingScene->player.WriteRecordedPositions();
 				racingScene->bestTime = finishedMenu.personalBestTime;
 				racingScene->ResetScene();
 			}

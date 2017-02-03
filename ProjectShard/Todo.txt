@@ -1,9 +1,9 @@
 
 # Darren's todo list for road to Games Fleadh:)
 
-01	Add beter steering wheel support
-02.	Record AI until a after they finish
-03.	Add in game name
+(01.)	Add beter steering wheel support
+ 02.	Reload the racer file if record is broken
+ 03.	Add the game title
 
 // -> Game Names
 
