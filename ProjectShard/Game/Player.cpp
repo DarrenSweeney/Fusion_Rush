@@ -1,7 +1,7 @@
 #include "Player.h"
 
 PlayerShip::PlayerShip()
-	: rotationSpeed(2.0f), camera(Vector3(3.0f, 2.0f, 8.0f)), position(Vector3(0.0f, 0.0f, 0.0f)), 
+	: rotationSpeed(2.5f), camera(Vector3(3.0f, 2.0f, 8.0f)), position(Vector3(0.0f, 0.0f, 0.0f)), 
 	speed(2.5f), recordRace(false), lastTime(0.0f), frictionToApply(0.003f)
 {
 	model = g_resourceMgr.GetModel(SID("PlayerShip"));
@@ -160,21 +160,23 @@ void PlayerShip::SteeringWheelMovement(float deltaTime)
 
 		if (InputManager::GetInstance().GetRightTrigger() > -0.1f)
 		{
-			linearVelocity.z -= speed + (abs(InputManager::GetInstance().GetLeftTrigger()) * 1.2f);
+			linearVelocity.z -= speed + (abs(InputManager::GetInstance().GetLeftTrigger()) * speed);
 		}
-
-		std::cout << "Left trigger " << InputManager::GetInstance().GetLeftTrigger() << std::endl;
 
 		if (InputManager::GetInstance().GetLeftTrigger() < -0.3f)
 		{
-			linearVelocity.z += speed * 3.0f + (abs(InputManager::GetInstance().GetLeftTrigger()) * 1.2f);
+			linearVelocity.z += speed + (abs(InputManager::GetInstance().GetLeftTrigger()) * speed * 5.0f);
 		}
 
 		//std::cout << "Left joystick -> x: " << InputManager::GetInstance().GetLeftJoyStick().x << std::endl;
+		std::cout << "Rotation Speed: " << rotationSpeed << std::endl;
 
 		if (InputManager::GetInstance().GetLeftJoyStick().x < -JOYSTICK_DEAD_ZONE)
 		{
-			linearVelocity.x -= speed * 1.1f; // *(-input * 2.0f);
+			linearVelocity.x -= speed + (abs(InputManager::GetInstance().GetLeftJoyStick().x) * speed);
+			//rotationSpeed *= (abs(InputManager::GetInstance().GetLeftJoyStick().x) * 3.0f);
+			/*if(rotationSpeed <= 3.0f)
+				rotationSpeed += 0.01f;*/
 
 			targetRotation = targetRotation.RotateZ(MathHelper::DegressToRadians(90.0f));
 			orientation = orientation.Slerp(orientation, targetRotation, deltaTime * rotationSpeed);
@@ -184,7 +186,9 @@ void PlayerShip::SteeringWheelMovement(float deltaTime)
 
 		if (InputManager::GetInstance().GetLeftJoyStick().x > JOYSTICK_DEAD_ZONE)
 		{
-			linearVelocity.x += speed * 1.1f; // *(-input * 2.0f);
+			linearVelocity.x += speed + (abs(InputManager::GetInstance().GetLeftJoyStick().x) * speed);
+			//if (rotationSpeed <= 3.0f)
+			//	rotationSpeed += 0.01f;// (abs(InputManager::GetInstance().GetLeftJoyStick().x) * 3.0f);
 
 			targetRotation = targetRotation.RotateZ(MathHelper::DegressToRadians(-90.0f));
 			orientation = orientation.Slerp(orientation, targetRotation, deltaTime * rotationSpeed);
