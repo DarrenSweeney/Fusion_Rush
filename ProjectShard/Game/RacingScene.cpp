@@ -133,8 +133,6 @@ void RacingScene::UpdateScene(float deltaTime)
 		}
 	}
 
-	std::cout << "CurrentTime: " << currentTime << std::endl;
-
 	if (racingTrack.BarrierCollision(player.boundingBox, player.position) && !player.shipDestroyed)
 	{
 		player.linearVelocity.x *= -1.0f;

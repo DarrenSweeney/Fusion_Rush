@@ -163,12 +163,14 @@ void PlayerShip::SteeringWheelMovement(float deltaTime)
 			linearVelocity.z -= speed + (abs(InputManager::GetInstance().GetLeftTrigger()) * 1.2f);
 		}
 
-		if (InputManager::GetInstance().GetLeftTrigger() < -0.2f)
+		std::cout << "Left trigger " << InputManager::GetInstance().GetLeftTrigger() << std::endl;
+
+		if (InputManager::GetInstance().GetLeftTrigger() < -0.3f)
 		{
 			linearVelocity.z += speed * 3.0f + (abs(InputManager::GetInstance().GetLeftTrigger()) * 1.2f);
 		}
 
-		std::cout << "Linear Velocity -> z: " << InputManager::GetInstance().GetLeftTrigger() << std::endl;
+		//std::cout << "Left joystick -> x: " << InputManager::GetInstance().GetLeftJoyStick().x << std::endl;
 
 		if (InputManager::GetInstance().GetLeftJoyStick().x < -JOYSTICK_DEAD_ZONE)
 		{

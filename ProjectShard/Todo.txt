@@ -4,11 +4,5 @@
 (01.)	Add beter steering wheel support
  02.	Reload the racer file if record is broken
  03.	Add the game title
-
-// -> Game Names
-
-	* Zero Edge Racer
-	* Fusion Racer
-	* Neon Racer
-	* Decimate Racer
-	* Globe Racers
+ 04.	Create a daily challenge on game sparks instead of downloading the seed
+ 05.	Fix jittering of ghost racer
