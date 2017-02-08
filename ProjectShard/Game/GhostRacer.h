@@ -27,6 +27,7 @@ private:
 	Quaternion orientation;
 	std::vector<Vector3> ghostRacerPositions;
 	std::vector<Quaternion> ghostRacerOrientations;
+	bool ghostRacerExists;
 };
 
 #endif

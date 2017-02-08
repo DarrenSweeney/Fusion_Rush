@@ -23,6 +23,11 @@ void GhostRacer::ReadRecordedPositions()
 	std::ifstream ghostRacerFile;
 	ghostRacerFile.open("Ghost_Racer.txt");
 
+	if (ghostRacerFile.is_open())
+		ghostRacerExists = true;
+	else
+		ghostRacerExists = false;
+
 	Vector3 position;
 	Quaternion orientation;
 
@@ -82,33 +87,39 @@ void GhostRacer::ReadRecordedPositions()
 
 void GhostRacer::Update(float currentTrackTime)
 {
-	if ((int)lastTime < ghostRacerPositions.size() - 2 && ghostRacerPositions.size() > 0)
+	if (ghostRacerExists)
 	{
-		float interpolate = currentTrackTime - lastTime;
-		if (interpolate >= 1.0f)
+		if ((int)lastTime < ghostRacerPositions.size() - 2 && ghostRacerPositions.size() > 0)
 		{
-			lastTime += 1.0;
-			interpolate = 1.0f;
-		}
+			float interpolate = currentTrackTime - lastTime;
+			if (interpolate >= 1.0f)
+			{
+				lastTime += 1.0;
+				interpolate = 1.0f;
+			}
 
-		position = position.Lerp(ghostRacerPositions.at((int)lastTime), ghostRacerPositions.at((int)(lastTime + 1)), interpolate);
-		orientation = orientation.Slerp(ghostRacerOrientations.at((int)lastTime), ghostRacerOrientations.at((int)(lastTime + 1)), interpolate);
+			position = position.Lerp(ghostRacerPositions.at((int)lastTime), ghostRacerPositions.at((int)(lastTime + 1)), interpolate);
+			orientation = orientation.Slerp(ghostRacerOrientations.at((int)lastTime), ghostRacerOrientations.at((int)(lastTime + 1)), interpolate);
+		}
 	}
 }
 
 void GhostRacer::Render(GLsizei screenWidth, GLsizei screenHeight, Camera &camera)
 {
-	ghostRacerShader->Use();
-	Matrix4 modelMatrix = Matrix4();
-	Matrix4 viewMatrix = camera.GetViewMatrix();
-	Matrix4 projection = camera.GetProjectionMatrix(screenWidth, screenHeight);
-	Matrix4 modelRotate = Matrix4();
-	modelRotate = modelRotate.QuaternionToMatrix4(orientation);
-	Matrix4 modelTranslate = Matrix4();
-	modelTranslate = modelTranslate.translate(position);
-	modelMatrix = modelRotate * modelTranslate;
-	glUniformMatrix4fv(glGetUniformLocation(ghostRacerShader->Program, "model"), 1, GL_FALSE, &modelMatrix.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(ghostRacerShader->Program, "view"), 1, GL_FALSE, &viewMatrix.data[0]);
-	glUniformMatrix4fv(glGetUniformLocation(ghostRacerShader->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
-	ghostRacerModel->Draw(*ghostRacerShader);
+	if (ghostRacerExists)
+	{
+		ghostRacerShader->Use();
+		Matrix4 modelMatrix = Matrix4();
+		Matrix4 viewMatrix = camera.GetViewMatrix();
+		Matrix4 projection = camera.GetProjectionMatrix(screenWidth, screenHeight);
+		Matrix4 modelRotate = Matrix4();
+		modelRotate = modelRotate.QuaternionToMatrix4(orientation);
+		Matrix4 modelTranslate = Matrix4();
+		modelTranslate = modelTranslate.translate(position);
+		modelMatrix = modelRotate * modelTranslate;
+		glUniformMatrix4fv(glGetUniformLocation(ghostRacerShader->Program, "model"), 1, GL_FALSE, &modelMatrix.data[0]);
+		glUniformMatrix4fv(glGetUniformLocation(ghostRacerShader->Program, "view"), 1, GL_FALSE, &viewMatrix.data[0]);
+		glUniformMatrix4fv(glGetUniformLocation(ghostRacerShader->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
+		ghostRacerModel->Draw(*ghostRacerShader);
+	}
 }
