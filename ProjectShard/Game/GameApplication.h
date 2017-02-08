@@ -34,6 +34,7 @@ private:
 	GameState currentGameState = GameState::splashScreen;
 
 	void SetUpBuffers(GLsizei screenWidth, GLsizei screenHeight);
+	void reset();
 
 public:
 	GameApplication(GLsizei screenWidth, GLsizei screenHeight);

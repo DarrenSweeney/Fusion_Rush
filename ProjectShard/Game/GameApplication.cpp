@@ -80,6 +80,11 @@ void GameApplication::SetUpBuffers(GLsizei screenWidth, GLsizei screenHeight)
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
+void GameApplication::reset()
+{
+
+}
+
 void GameApplication::Update(GLfloat deltaTime)
 {
 	GameSparksInfo::Update();
@@ -136,8 +141,8 @@ void GameApplication::Update(GLfloat deltaTime)
 				racingScene->SetPlayerMovement(false);
 				racingScene->SetRenderUIState(false);
 				racingScene->player.recordRace = false;
-				mainMenu->startSoundTrack = true;
 				racingScene->stopSoundTrack = true;
+				mainMenu->startSoundTrack = true;
 			}
 
 			if (racingScene->finishedRace)
@@ -146,8 +151,8 @@ void GameApplication::Update(GLfloat deltaTime)
 				racingScene->SetPlayerMovement(false);
 				racingScene->SetRenderUIState(false);
 				finishedMenu.finishedLapTime = racingScene->currentTime;
-				mainMenu->startSoundTrack = true;
 				finishedMenu.SetWorldRecord(GameSparksInfo::worldRaceRecord);
+				mainMenu->startSoundTrack = true;
 			}
 
 			racingScene->UpdateScene(deltaTime);
@@ -160,24 +165,27 @@ void GameApplication::Update(GLfloat deltaTime)
 			if (finishedMenu.selectedMainMenu)
 			{
 				currentGameState = GameState::mainMenu;
-				racingScene->player.Spawn();
 				finishedMenu.selectedMainMenu = false;
-				// TODO(Darren): Refactor this, bit messy, i should but this in ResetScene()
-				racingScene->finishedRace = false;
-				racingScene->bestTime = finishedMenu.personalBestTime;
+
+				racingScene->player.Spawn();
 				racingScene->ResetScene();
+				racingScene->finishedRace = false;
+
 				racingScene->stopSoundTrack = true;
+				racingScene->bestTime = finishedMenu.personalBestTime;
 			}
 			else if (finishedMenu.selectedPlayAgain)
 			{
 				currentGameState = GameState::inGame;
-				racingScene->player.Spawn();
-				racingScene->SetPlayerMovement(true);
-				racingScene->finishedRace = false;
-				racingScene->SetRenderUIState(true);
 				finishedMenu.selectedPlayAgain = false;
-				racingScene->bestTime = finishedMenu.personalBestTime;
+
+				racingScene->player.Spawn();
 				racingScene->ResetScene();
+				racingScene->finishedRace = false;
+
+				racingScene->SetPlayerMovement(true);
+				racingScene->SetRenderUIState(true);
+				racingScene->bestTime = finishedMenu.personalBestTime;
 			}
 
 			racingScene->UpdateScene(deltaTime);
