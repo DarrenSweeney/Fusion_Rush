@@ -2,7 +2,7 @@
 
 PlayerShip::PlayerShip()
 	: rotationSpeed(2.5f), camera(Vector3(3.0f, 2.0f, 8.0f)), position(Vector3(0.0f, 0.0f, 0.0f)), 
-	speed(2.5f), recordRace(false), lastTime(0.0f), frictionToApply(0.003f)
+	speed(2.0f), recordRace(false), lastTime(0.0f), frictionToApply(0.003f)
 {
 	model = g_resourceMgr.GetModel(SID("PlayerShip"));
 	shaderModel = g_resourceMgr.GetShader(SID("PlayerShader"));
@@ -151,32 +151,24 @@ void PlayerShip::SteeringWheelMovement(float deltaTime)
 		linearVelocity = Vector3();
 
 	position += linearVelocity * deltaTime;
-	speed = 2.0f;
 
 	if (updateMovement && !shipDestroyed)
 	{
 		Quaternion targetRotation = Quaternion();
 		Quaternion initalRotation = Quaternion();
 
-		if (InputManager::GetInstance().GetRightTrigger() > -0.1f)
-		{
-			linearVelocity.z -= speed + (abs(InputManager::GetInstance().GetLeftTrigger()) * speed);
-		}
-
 		if (InputManager::GetInstance().GetLeftTrigger() < -0.3f)
 		{
 			linearVelocity.z += speed + (abs(InputManager::GetInstance().GetLeftTrigger()) * speed * 5.0f);
 		}
-
-		//std::cout << "Left joystick -> x: " << InputManager::GetInstance().GetLeftJoyStick().x << std::endl;
-		std::cout << "Rotation Speed: " << rotationSpeed << std::endl;
+		else if (InputManager::GetInstance().GetRightTrigger() > -0.1f)
+		{
+			linearVelocity.z -= speed + (abs(InputManager::GetInstance().GetLeftTrigger()) * speed);
+		}
 
 		if (InputManager::GetInstance().GetLeftJoyStick().x < -JOYSTICK_DEAD_ZONE)
 		{
 			linearVelocity.x -= speed + (abs(InputManager::GetInstance().GetLeftJoyStick().x) * speed);
-			//rotationSpeed *= (abs(InputManager::GetInstance().GetLeftJoyStick().x) * 3.0f);
-			/*if(rotationSpeed <= 3.0f)
-				rotationSpeed += 0.01f;*/
 
 			targetRotation = targetRotation.RotateZ(MathHelper::DegressToRadians(90.0f));
 			orientation = orientation.Slerp(orientation, targetRotation, deltaTime * rotationSpeed);

@@ -96,6 +96,7 @@ void ResourceManager::LoadSceneTextures()
 	LoadTexture("Gauge_Arrow_UI", "Resources/UI/Speed_Pointer.png");
 	LoadTexture("Engine_Logo", "Resources/Engine_Logo/Engine_Logo.png");
 	LoadTexture("Speed_Box_UI", "Resources/UI/Speed_Box_UI.png");
+	LoadTexture("Game_Logo", "Resources/GameLogo/GameTitle.png");
 }
 
 void ResourceManager::PrintShaderTable()

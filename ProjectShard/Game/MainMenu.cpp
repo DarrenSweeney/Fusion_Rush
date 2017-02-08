@@ -72,6 +72,7 @@ MainMenu::MainMenu()
 	UI_Pannal = g_resourceMgr.GetTexture(SID("Menu_UI"));
 	UI_Enter = g_resourceMgr.GetTexture(SID("Enter_UI"));
 	typeElement = g_resourceMgr.GetTexture(SID("TypeElement"));
+	gameTitle = g_resourceMgr.GetTexture(SID("Game_Logo"));
 
 	spriteRenderer = new SpriteRenderer();
 
@@ -583,6 +584,7 @@ void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	projection = projection.orthographicProjection(0.0f, screenWidth, screenHeight, 0.0f, -1.0f, 1.0f);
 	UI_Shader->Use();
 	glUniformMatrix4fv(glGetUniformLocation(UI_Shader->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
+	spriteRenderer->Render(*gameTitle, *UI_Shader, Vector2(250.0f, 50.0f), Vector2(550.0f, 250.0f));
 	spriteRenderer->Render(*UI_Bottom, *UI_Shader, Vector2(0.0f, screenHeight - 100.0f), Vector2(screenWidth + 40.0f, 100.0f));
 	spriteRenderer->Render(*UI_Pannal, *UI_Shader, Vector2(-5.0f, pannelHeight - 80.0f), Vector2(300.0f, 220.0f));
 

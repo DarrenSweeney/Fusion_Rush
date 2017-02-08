@@ -54,6 +54,7 @@ private:
 	Texture *UI_Bottom;
 	Texture *UI_Pannal;
 	Texture *UI_Enter;
+	Texture *gameTitle;
 	Texture *typeElement;
 	Vector2 typeElementPos;
 	SpriteRenderer *spriteRenderer;
