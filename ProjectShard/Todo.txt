@@ -1,8 +1,8 @@
 
 # Darren's todo list for road to Games Fleadh:)
 
-**
- 02.	Reload the racer file if record is broken
+ **
+ **
  **
  04.	Create a daily challenge on game sparks instead of downloading the seed
  05.	Fix jittering of ghost racer

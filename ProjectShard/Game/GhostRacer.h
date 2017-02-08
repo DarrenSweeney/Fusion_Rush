@@ -14,6 +14,7 @@ public:
 
 	Vector3 position;
 	float raceTime;
+	bool ghostRacerExists;
 
 	void ReadRecordedPositions();
 	void RestGhostRacer();
@@ -27,7 +28,6 @@ private:
 	Quaternion orientation;
 	std::vector<Vector3> ghostRacerPositions;
 	std::vector<Quaternion> ghostRacerOrientations;
-	bool ghostRacerExists;
 };
 
 #endif

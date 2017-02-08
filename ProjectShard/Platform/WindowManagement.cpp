@@ -52,7 +52,7 @@ void WindowManagement::PollEvents()
 
 void WindowManagement::StartUp()
 {
-	std::cout << "DARREN_SWEENEY::Project Shard..." << std::endl;
+	std::cout << "----- FUSION RUSH -----" << std::endl;
 
 	if (!glfwInit())
 	{
@@ -67,8 +67,8 @@ void WindowManagement::StartUp()
 	// Get the desktop resolution.
 	GLFWmonitor *monitor = glfwGetPrimaryMonitor();
 	const GLFWvidmode* vidMode = glfwGetVideoMode(monitor);
-	width = vidMode->width; //1600
-	height = vidMode->height;	//800
+	width = vidMode->width;		// 1600
+	height = vidMode->height;	// 800
 
 	window = glfwCreateWindow(width, height, "Project Shard", FULLSCREEN ? glfwGetPrimaryMonitor() : NULL, NULL);
 	glfwSetKeyCallback(window, key_callback);

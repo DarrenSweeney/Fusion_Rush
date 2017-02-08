@@ -201,7 +201,8 @@ void RacingScene::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 		UI_Shader->Use();
 		glUniformMatrix4fv(glGetUniformLocation(UI_Shader->Program, "projection"), 1, GL_FALSE, &UI_projection.data[0]);
 		spriteRenderer->Render(*arrowUI, *UI_Shader, arrowPos, Vector2(15.0f, 15.0f), 0.0f, Vector3(1.0f, 0.0f, 0.0f));
-		spriteRenderer->Render(*arrowUI, *UI_Shader, ghostArrowPos, Vector2(15.0f, 15.0f), 0.0f, Vector3(1.0f, 0.0f, 1.0f));
+		if(ghostRacer.ghostRacerExists)
+			spriteRenderer->Render(*arrowUI, *UI_Shader, ghostArrowPos, Vector2(15.0f, 15.0f), 0.0f, Vector3(1.0f, 0.0f, 1.0f));
 		spriteRenderer->Render(*barUI, *UI_Shader, Vector2(40.0f, 50.0f), Vector2(50.0f, screenHeight - 100.0f));
 		spriteRenderer->Render(*guageSpeedUI, *UI_Shader, Vector2(screenWidth - 300.0f, screenHeight - 240.0f), Vector2(300.0f, 300.0f));
 		spriteRenderer->Render(*guageArrowUI, *UI_Shader, Vector2(screenWidth - 250.0f, screenHeight - 200.0f), Vector2(200.0f, 200.0f),

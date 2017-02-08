@@ -247,10 +247,11 @@ void PlayerShip::Spawn()
 	explodeMagnitude = 0.0f;
 	glUniform1f(glGetUniformLocation(shaderModel->Program, "magnitude"), explodeMagnitude);
 	shipDestroyed = false;
-	//recordPositions.clear();
-	//recordOrientation.clear();
+	recordPositions.clear();
+	recordOrientation.clear();
 	finishedCameraInterpolation = 0.0f;
 	frictionToApply = 0.003f;
+	lastTime = 0.0f;
 }
 
 void PlayerShip::Render(GLsizei screenWidth, GLsizei screenHeight)
