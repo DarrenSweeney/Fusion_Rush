@@ -77,7 +77,8 @@ void RacingScene::UpdateScene(float deltaTime)
 
 	if (stopSoundTrack)
 	{
-		raceSoundtrack.soundEngine->stopAllSounds();
+		if(raceSoundtrack.soundEngine != NULL)
+			raceSoundtrack.soundEngine->stopAllSounds();
 		stopSoundTrack = false;
 	}
 

@@ -89,6 +89,9 @@ void GhostRacer::Update(float currentTrackTime)
 {
 	if (ghostRacerExists)
 	{
+		// NOTE(Darren): For Debug
+		//position += Vector3(0.0f, 0.0f, -1.0f);
+
 		if ((int)lastTime < ghostRacerPositions.size() - 2 && ghostRacerPositions.size() > 0)
 		{
 			float interpolate = currentTrackTime - lastTime;

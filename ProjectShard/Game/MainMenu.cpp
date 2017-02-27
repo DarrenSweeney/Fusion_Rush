@@ -28,7 +28,7 @@ MainMenu::MainMenu()
 	worldRankLabel.text = "World Rank: NA";
 	worldRankLabel.color = defaultColor;
 	worldRankLabel.scale = 0.5f;
-
+	
 	bestRecordTime.position = Vector2();
 	bestRecordTime.text = "Best Time: NA";
 	bestRecordTime.color = defaultColor;
@@ -75,8 +75,6 @@ MainMenu::MainMenu()
 	gameTitle = g_resourceMgr.GetTexture(SID("Game_Logo"));
 
 	spriteRenderer = new SpriteRenderer();
-
-	//menuSound.soundEngine->setSoundVolume(0.2f);
 }
 
 MainMenu::~MainMenu()
@@ -101,7 +99,8 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 	if (startSoundTrack)
 	{
 		menuSoundTrack.Play2D("Resources/Music/Menu_Music.wav");
-		menuSoundTrack.soundEngine->setSoundVolume(1.0f);
+		if (menuSoundTrack.soundEngine != NULL)
+			menuSoundTrack.soundEngine->setSoundVolume(1.0f);
 		startSoundTrack = false;
 	}
 
@@ -146,9 +145,8 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 				playGame = true;
 				playLabel.labelSelected = false;
 
-				menuSoundTrack.soundEngine->stopAllSounds();
-				// TODO(Darren): Might fade out soundtrack here
-				//menuSoundTrack.soundEngine->setSoundVolume(0.0f);
+				if(menuSoundTrack.soundEngine != NULL)
+					menuSoundTrack.soundEngine->stopAllSounds();
 			}
 			else
 				playGame = false;

@@ -30,7 +30,8 @@ void SplashScreen::Update(GLfloat dt)
 	{
 		// Change scene
 		changeScene = true;
-		sound.soundEngine->stopAllSounds();
+		if(sound.soundEngine != NULL)
+			sound.soundEngine->stopAllSounds();
 	}
 }
 

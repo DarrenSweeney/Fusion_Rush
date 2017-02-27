@@ -9,7 +9,8 @@ SoundEngine::SoundEngine()
 
 SoundEngine::~SoundEngine()
 {
-	engine->drop();
+	if(engine != NULL)
+		engine->drop();
 }
 
 irrklang::ISoundEngine* SoundEngine::GetSoundEngine()

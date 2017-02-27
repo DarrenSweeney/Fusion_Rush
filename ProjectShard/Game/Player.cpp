@@ -99,20 +99,15 @@ void PlayerShip::KeyboardMovement(float deltaTime)
 		Quaternion targetRotation = Quaternion();
 		Quaternion initalRotation = Quaternion();
 
-		if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_UP)
-			|| InputManager::GetInstance().IsControllerButtonDown(XBOX360_RB)
-			|| InputManager::GetInstance().GetRightTrigger() > 0.4f)
+		if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_UP))
 			linearVelocity.z -= speed;
 
-		if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_DOWN)
-			|| InputManager::GetInstance().IsControllerButtonDown(XBOX360_LB)
-			|| InputManager::GetInstance().GetLeftTrigger() < -0.4f)
+		if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_DOWN))
 			linearVelocity.z += speed * 2.0f;
 
-		if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_LEFT)
-			|| InputManager::GetInstance().GetLeftJoyStick().x < -JOYSTICK_DEAD_ZONE)
+		if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_LEFT))
 		{
-			linearVelocity.x -= speed * 1.1f; // *(-input * 2.0f);
+			linearVelocity.x -= speed * 1.1f;
 
 			targetRotation = targetRotation.RotateZ(MathHelper::DegressToRadians(90.0f));
 			orientation = orientation.Slerp(orientation, targetRotation, deltaTime * rotationSpeed);
@@ -120,10 +115,9 @@ void PlayerShip::KeyboardMovement(float deltaTime)
 		else
 			orientation = orientation.Slerp(orientation, initalRotation, deltaTime * rotationSpeed);
 
-		if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_RIGHT)
-			|| InputManager::GetInstance().GetLeftJoyStick().x > JOYSTICK_DEAD_ZONE)
+		if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_RIGHT))
 		{
-			linearVelocity.x += speed * 1.1f; // *(-input * 2.0f);
+			linearVelocity.x += speed * 1.1f;
 
 			targetRotation = targetRotation.RotateZ(MathHelper::DegressToRadians(-90.0f));
 			orientation = orientation.Slerp(orientation, targetRotation, deltaTime * rotationSpeed);

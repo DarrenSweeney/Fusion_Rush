@@ -200,12 +200,12 @@ void GameApplication::Render(bool windowResized)
 {
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	stringstream ss;
-	ss << "ms per frame: " << msPerFrame;
-	msPerFrameText.RenderText(ss.str(), Vector2(10.0f, screenHeight - 30.0f), 0.4f, Vector3(0.0, 1.0f, 0.0f), screenWidth, screenHeight);
-	glDisable(GL_BLEND);
+	//glEnable(GL_BLEND);
+	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	//stringstream ss;
+	//ss << "ms per frame: " << msPerFrame;
+	//msPerFrameText.RenderText(ss.str(), Vector2(10.0f, screenHeight - 30.0f), 0.4f, Vector3(0.0, 1.0f, 0.0f), screenWidth, screenHeight);
+	//glDisable(GL_BLEND);
 
 	if (windowResized)
 		SetUpBuffers(screenWidth, screenHeight);
@@ -218,12 +218,12 @@ void GameApplication::Render(bool windowResized)
 		{
 			splashScreen.Render(screenWidth, screenHeight);
 
-			glEnable(GL_BLEND);
+			/*glEnable(GL_BLEND);
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 			msPerFrameText.RenderText("***Booting System... Copyright Right Sweeney_Systems 1976***", Vector2(10.0f, screenHeight - 30.0f), 0.4f, Vector3(0.0, 1.0f, 0.0f), screenWidth, screenHeight);
 			msPerFrameText.RenderText("***Initalizing System***", Vector2(10.0f, screenHeight - 50.0f), 0.4f, Vector3(0.0, 1.0f, 0.0f), screenWidth, screenHeight);
 			msPerFrameText.RenderText("***Running...***", Vector2(10.0f, screenHeight - 70.0f), 0.4f, Vector3(0.0, 1.0f, 0.0f), screenWidth, screenHeight);
-			glDisable(GL_BLEND);
+			glDisable(GL_BLEND);*/
 
 			break;
 		}

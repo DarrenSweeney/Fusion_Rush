@@ -96,12 +96,12 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(GLFW)\include;$(ASSIMP_SDK)\include;$(FREE_TYPE)\include;$(IRRKLANG)\include;$(GAME_SPARKS);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\Libraries\GLFW\include;$(ProjectDir)..\Libraries\assimp\include;$(ProjectDir)..\Libraries\freetype\include;$(ProjectDir)..\Libraries\irrKlang\include;$(GAME_SPARKS);$(ProjectDir)..\Libraries\GL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(GLFW)\lib;$(ASSIMP_SDK)\lib;$(FREE_TYPE)\lib;$(IRRKLANG)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\Libraries\GLFW\lib;$(ProjectDir)..\Libraries\assimp\lib;$(ProjectDir)..\Libraries\freetype\lib;$(ProjectDir)..\Libraries\irrKlang\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;freetype.lib;irrKlang.lib;assimpd.lib;urlmon.lib;Wininet.lib;legacy_stdio_definitions.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

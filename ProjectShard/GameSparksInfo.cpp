@@ -139,6 +139,12 @@ void AroundMeLeaderboardRequest_Response(GS& gsInstance, const AroundMeLeaderboa
 	}
 }
 
+/*
+	TODO(Darren): If a race file exsists is "Race_Seed_11_FEB_2017" then don't re-download
+				  Need to looks at gamesparks chanlenge stuff
+
+	Upload a binaray data file with a lot of data content of 4 digits 
+*/
 void GetDownloadableRequest_Response(GS& gsInstance, const GetDownloadableResponse& response) 
 {
 	if (response.GetHasErrors())
@@ -200,7 +206,6 @@ void LogEventRequest_Response(GS& gsInstance, const LogEventResponse& response)
 	}
 	else
 	{
-		// TODO(Darren): What will i use this for?
 		GSData::t_Optional data = response.GetScriptData();
 	}
 }
@@ -264,13 +269,6 @@ void GameSparksAvailable(GameSparks::Core::GS& gsInstance, bool available)
 		GetDownloadableRequest requestRaceSeed(gsInstance);
 		requestRaceSeed.SetShortCode("Race_Seed");
 		requestRaceSeed.Send(GetDownloadableRequest_Response);
-
-		// NOTE(Darren): Testing upload of ghost racer data
-	/*	GetUploadUrlRequest request(gsInstance);
-		GameSparks::Core::GSRequestData uploadData;
-		uploadData.GetJSON();
-		request.SetUploadData(uploadData);
-		request.Send(GetUploadUrlRequest_Response);*/
 	}
 	else
 		GameSparksInfo::available = false;

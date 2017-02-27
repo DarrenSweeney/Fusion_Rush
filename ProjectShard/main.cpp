@@ -4,6 +4,7 @@
 #include "Input\InputManager.h"
 #include "Game\GameApplication.h"
 
+// TODO(Darren): Clean up main
 int main(int argc, char* argv[])
 {
 	WindowManagement window;

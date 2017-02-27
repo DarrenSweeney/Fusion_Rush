@@ -59,7 +59,8 @@ void FinishedMenu::Init()
 
 	playAgainButton.rect.SetRectangle(playAgainButton.position, 30, 10);
 
-	sound.soundEngine->setSoundVolume(0.2f);
+	if(sound.soundEngine != NULL)
+		sound.soundEngine->setSoundVolume(0.2f);
 }
 
 void FinishedMenu::Update()
