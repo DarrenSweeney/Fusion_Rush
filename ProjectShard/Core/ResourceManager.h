@@ -18,12 +18,10 @@ public:
 	void LoadCubeMap(const char* assetName, std::vector<const char *> faces);
 	Texture* GetTexture(HashID hashID);
 
-	// TODO(Darren): Will need to change this to a batch system.
 	void LoadSceneShaders();
 	void LoadSceneModels();
 	void LoadSceneTextures();
 	
-	// TODO(Darren): Need to add this in or take it out.
 	void PrintShaderTable();
 
 private:

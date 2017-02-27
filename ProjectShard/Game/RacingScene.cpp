@@ -26,7 +26,6 @@ RacingScene::RacingScene()
 	block = g_resourceMgr.GetModel(SID("Block"));
 
 	spriteRenderer = new SpriteRenderer();
-	// TODO(Darren): May have to refactor Text class.
 	textRenderer = new Text();
 
 	ghostRacer.ReadRecordedPositions();
@@ -59,7 +58,6 @@ void RacingScene::InitalizeScene(GLsizei screenWidth, GLsizei screenHeight, int 
 	racingTrack.Init(raceTrackSeed);
 	g_debugDrawMgr.Init();
 
-	// TODO(Darren): May refactor so i'm not loading font more than once.
 	textRenderer->Load("Resources/Fonts/arial.ttf");
 
 	bestTimeFile.open("Race_Record.txt");

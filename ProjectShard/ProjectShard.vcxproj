@@ -96,7 +96,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\Libraries\GLFW\include;$(ProjectDir)..\Libraries\assimp\include;$(ProjectDir)..\Libraries\freetype\include;$(ProjectDir)..\Libraries\irrKlang\include;$(GAME_SPARKS);$(ProjectDir)..\Libraries\GL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\Libraries\GLFW\include;$(ProjectDir)..\Libraries\assimp\include;$(ProjectDir)..\Libraries\freetype\include;$(ProjectDir)..\Libraries\irrKlang\include;$(ProjectDir)..\Libraries\GameSparks\base\include;$(ProjectDir)..\Libraries\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -162,11 +162,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\Desktop\imgui-master\imgui-master\examples\libs\gl3w\GL\gl3w.c" />
     <ClCompile Include="GameSparksAll.cpp" />
     <ClCompile Include="Game\FinishedMenu.cpp" />
     <ClCompile Include="GameSparksInfo.cpp" />
     <ClCompile Include="Game\GhostRacer.cpp" />
+    <ClCompile Include="gl3w.c" />
     <ClCompile Include="Math\CollisionRectangle.cpp" />
     <ClCompile Include="Game\Barriers.cpp" />
     <ClCompile Include="Game\Buildings.cpp" />
