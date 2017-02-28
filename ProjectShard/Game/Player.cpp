@@ -173,8 +173,6 @@ void PlayerShip::SteeringWheelMovement(float deltaTime)
 		if (InputManager::GetInstance().GetLeftJoyStick().x > JOYSTICK_DEAD_ZONE)
 		{
 			linearVelocity.x += speed + (abs(InputManager::GetInstance().GetLeftJoyStick().x) * speed);
-			//if (rotationSpeed <= 3.0f)
-			//	rotationSpeed += 0.01f;// (abs(InputManager::GetInstance().GetLeftJoyStick().x) * 3.0f);
 
 			targetRotation = targetRotation.RotateZ(MathHelper::DegressToRadians(-90.0f));
 			orientation = orientation.Slerp(orientation, targetRotation, deltaTime * rotationSpeed);

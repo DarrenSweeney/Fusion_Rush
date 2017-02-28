@@ -31,7 +31,6 @@ int CollisionBox::Intersects(CollisionBox &collisionBox)
 			R.data[i][j] = a.u[i].DotProduct(b.u[j]);
 
 	// Check for identity rotation matrix in a's frame.
-	//if(a.u[0] == Vector3(1.0f, 0.0f, 0.0f) && a.u[1] == Vector3(0.0f, 1.0f, 0.0f) && a.u[2] == Vector3(0.0f, 0.0f, 1.0f))
 	{
 		if (std::abs(a.c[0] - b.c[0]) >(a.e[0] + b.e[0])) return 0;
 		if (std::abs(a.c[1] - b.c[1]) >(a.e[1] + b.e[1])) return 0;
@@ -48,7 +47,7 @@ int CollisionBox::Intersects(CollisionBox &collisionBox)
 	// their cross product is (near) null (see text for details)
 	for (int i = 0; i < 3; i++)
 		for (int j = 0; j < 3; j++)
-			AbsR.data[i][j] = std::abs(R.data[i][j]);// +EPSILON;
+			AbsR.data[i][j] = std::abs(R.data[i][j]);
 	// Test axes L = A0, L = A1, L = A2
 	for (int i = 0; i < 3; i++) {
 		ra = a.e[i];

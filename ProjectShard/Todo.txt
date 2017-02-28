@@ -1,19 +1,19 @@
 # Darren's todo list for road to Games Fleadh:)
 
 *
-2. Comment code where needed.
+*
 3. Refactor Buildings.h / .cpp
 4. Push out of box build
 5. NOTE: 	textRenderer.Load("Resources/Fonts/arial.ttf");
-6. GameApplication.cpp lisence
-7. TODO(Darren): Hide password when player types
+*
+*
 8. MainMenu.h / .cpp
 *
-10. Player.h / .cpp
+*
 11. Loop menu and game soundtrack.
-12. Create a mirror rotation matrix
-13. Generate a sector ID for checking of less collisions.
-14. CollisionBox.cpp
-15. Clean up main.cpp
+*
+*
+*
+*
 16. Clean up resources
 17. If a seed file is downloaded, don't download again.
