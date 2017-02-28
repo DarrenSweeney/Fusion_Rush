@@ -4,18 +4,17 @@
 #include "Input\InputManager.h"
 #include "Game\GameApplication.h"
 
-// TODO(Darren): Clean up main
 int main(int argc, char* argv[])
 {
 	WindowManagement window;
 	window.StartUp();
 
-	SoundEngine soundEngine;
-
-	GLfloat deltaTime = 0.0f;
-	GLfloat lastFrame = 0.0f;
-
 	InputManager::GetInstance().SetWindowContext(window.GetWindow());
+
+	if (glfwJoystickPresent(CONTROLLER_ONE))
+		InputManager::GetInstance().SetControllerIndex(CONTROLLER_ONE);
+	else
+		InputManager::GetInstance().SetControllerIndex(NO_CONTROLLER_CONNTECTED);
 
 	std::cout << "\n--- Start ResourceMgr ---" << std::endl;
 	g_resourceMgr.LoadSceneShaders();
@@ -26,10 +25,8 @@ int main(int argc, char* argv[])
 	GameApplication gameApp(window.GetWidth(), window.GetHeight());
 	gameApp.Init();
 
-	if(glfwJoystickPresent(CONTROLLER_ONE))
-		InputManager::GetInstance().SetControllerIndex(CONTROLLER_ONE);
-	else
-		InputManager::GetInstance().SetControllerIndex(NO_CONTROLLER_CONNTECTED);
+	GLfloat deltaTime = 0.0f;
+	GLfloat lastFrame = 0.0f;
 
 	while (!window.CloseState())
 	{

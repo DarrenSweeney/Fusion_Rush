@@ -1,12 +1,13 @@
 #include "GameApplication.h"
 
 GameApplication::GameApplication(GLsizei _screenWidth, GLsizei _screenHeight)
-	: screenWidth(_screenWidth), screenHeight(_screenHeight), nbFrames(0), finishedMenu(_screenWidth, _screenHeight)
+	: screenWidth(_screenWidth), screenHeight(_screenHeight), nbFrames(0)
 {
 	lastTime = glfwGetTime();
 
 	racingScene = new RacingScene();
 	mainMenu = new MainMenu();
+	finishedMenu = new FinishedMenu(1000, 800);
 }
 
 GameApplication::~GameApplication()
@@ -19,9 +20,10 @@ GameApplication::~GameApplication()
 void GameApplication::Init()
 {
 	GameSparksInfo::InitGS();
+
 	racingScene->InitalizeScene(screenWidth, screenHeight, GameSparksInfo::raceTrackSeed);
 	mainMenu->InitScene();
-	finishedMenu.Init();
+	finishedMenu->Init();
 
 	// Vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
 	GLfloat quadVertices[] = {   
@@ -150,8 +152,8 @@ void GameApplication::Update(GLfloat deltaTime)
 				currentGameState = GameState::finishedMenu;
 				racingScene->SetPlayerMovement(false);
 				racingScene->SetRenderUIState(false);
-				finishedMenu.finishedLapTime = racingScene->currentTime;
-				finishedMenu.SetWorldRecord(GameSparksInfo::worldRaceRecord);
+				finishedMenu->finishedLapTime = racingScene->currentTime;
+				finishedMenu->SetWorldRecord(GameSparksInfo::worldRaceRecord);
 				mainMenu->startSoundTrack = true;
 			}
 
@@ -162,22 +164,22 @@ void GameApplication::Update(GLfloat deltaTime)
 
 		case GameState::finishedMenu:
 		{
-			if (finishedMenu.selectedMainMenu)
+			if (finishedMenu->selectedMainMenu)
 			{
 				currentGameState = GameState::mainMenu;
-				finishedMenu.selectedMainMenu = false;
+				finishedMenu->selectedMainMenu = false;
 
 				racingScene->player.Spawn();
 				racingScene->ResetScene();
 				racingScene->finishedRace = false;
 
 				racingScene->stopSoundTrack = true;
-				racingScene->bestTime = finishedMenu.personalBestTime;
+				racingScene->bestTime = finishedMenu->personalBestTime;
 			}
-			else if (finishedMenu.selectedPlayAgain)
+			else if (finishedMenu->selectedPlayAgain)
 			{
 				currentGameState = GameState::inGame;
-				finishedMenu.selectedPlayAgain = false;
+				finishedMenu->selectedPlayAgain = false;
 
 				racingScene->player.Spawn();
 				racingScene->ResetScene();
@@ -185,11 +187,11 @@ void GameApplication::Update(GLfloat deltaTime)
 
 				racingScene->SetPlayerMovement(true);
 				racingScene->SetRenderUIState(true);
-				racingScene->bestTime = finishedMenu.personalBestTime;
+				racingScene->bestTime = finishedMenu->personalBestTime;
 			}
 
 			racingScene->UpdateScene(deltaTime);
-			finishedMenu.Update();
+			finishedMenu->Update();
 
 			break;
 		}
@@ -243,7 +245,7 @@ void GameApplication::Render(bool windowResized)
 
 		case GameState::finishedMenu:
 		{
-			finishedMenu.Render(screenWidth, screenHeight);
+			finishedMenu->Render(screenWidth, screenHeight);
 			racingScene->RenderScene(screenWidth, screenHeight);
 			break;
 		}

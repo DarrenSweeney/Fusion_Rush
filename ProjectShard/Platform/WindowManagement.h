@@ -1,5 +1,5 @@
 #ifndef WINDOW_MANAGEMENT_H
-#define WINDOW_MANAGEMETN_H
+#define WINDOW_MANAGEMENT_H
 
 #include <iostream>
 #include <GL\gl3w.h>

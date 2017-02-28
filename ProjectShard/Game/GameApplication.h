@@ -1,20 +1,21 @@
 #ifndef GAME_APPLICATION_H
 #define GAME_APPLICATION_H
 
-#include "..\Core\ResourceManager.h"
 #include "RacingScene.h"
 #include "MainMenu.h"
 #include "SplashScreen.h"
 #include "FinishedMenu.h"
-#include "../GameSparksInfo.h"
+#include "..\GameSparksInfo.h"
 
 class GameApplication
 {
 private:
+	SoundEngine soundEngine;
+
 	SplashScreen splashScreen;
 	MainMenu *mainMenu;
 	RacingScene *racingScene;
-	FinishedMenu finishedMenu;
+	FinishedMenu *finishedMenu;
 	Shader *crtShader;
 	GLuint framebuffer, quadVAO, texColorBuffer;
 
@@ -37,7 +38,7 @@ private:
 	void reset();
 
 public:
-	GameApplication(GLsizei screenWidth, GLsizei screenHeight);
+	GameApplication(GLsizei _screenWidth, GLsizei _screenHeight);
 	~GameApplication();
 
 	void Init();
