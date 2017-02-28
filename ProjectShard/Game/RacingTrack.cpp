@@ -90,7 +90,6 @@ void RacingTrack::Init(int raceTrackSeed)
 	Vector3 scaleVec = Vector3(3.0f, 5.0f, 60.0f);
 
 	finishRacePosition = Vector3(-0.4f, 0.0f, trackBlock[blockAmount - 1].position.z - 50.0f);
-	//finishRacePosition = Vector3(-0.4f, 0.0f, -100.0f);	// For testing
 }
 
 void RacingTrack::Update(float deltaTime)
@@ -108,7 +107,6 @@ bool RacingTrack::ObstacleCollision(CollisionBox &playerBoundingBox)
 		if (trackBlock[i].boundingBox.Intersects(playerBoundingBox))
 		{
 			return true;
-			//return false;	Turn off collision for testing
 		}
 	}
 
@@ -169,7 +167,6 @@ void RacingTrack::RenderTrackReflection(Camera &camera, GLsizei screenWidth, GLs
 	buildings.RenderReflection(camera, screenWidth, screenHeight); 
 	barriers.RenderReflection(camera, screenWidth, screenHeight);
 
-	// TODO(Darren): Big problem here, only render what is in range from racer to fog.
 	for (unsigned int i = 0; i < blockAmount; i++)
 		trackBlock[i].RenderReflection(camera, screenWidth, screenHeight);
 }

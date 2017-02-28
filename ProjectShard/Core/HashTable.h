@@ -41,7 +41,6 @@ HashTable<T>::HashTable()
 	{
 		hashTable[i] = new Item;
 		hashTable[i]->hashID.hashID = 0x00000000;
-		//hashTable[i]->value = 0;
 		hashTable[i]->next = NULL;
 	}
 }

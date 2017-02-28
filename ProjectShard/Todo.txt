@@ -1,26 +1,18 @@
-
 # Darren's todo list for road to Games Fleadh:)
 
- **
- **
- **
- 04.	Create a daily challenge on game sparks instead of downloading the seed
- 05.	Fix jittering of ghost racer
-
-
-
-
-
- # Clean up code after games fleadh and create build instructions
- 
- - Math classes finished
- - Input classes finished
- - Platform classes finished
-
-	* TODO *
- - Core
- - Game
- - Resources
- - Shaders
- - Renderer
- - All Game Sparks shit.
+1. Check each file and clean up code to best i can do right now.
+2. Comment code where needed.
+3. Refactor Buildings.h / .cpp
+4. Push out of box build
+5. NOTE: 	textRenderer.Load("Resources/Fonts/arial.ttf");
+6. GameApplication.cpp lisence
+7. TODO(Darren): Hide password when player types
+8. MainMenu.h / .cpp
+9. TODO(Darren): Rename menu button? MenuText.h
+10. Player.h / .cpp
+11. Loop menu and game soundtrack.
+12. Create a mirror rotation matrix
+13. Generate a sector ID for checking of less collisions.
+14. CollisionBox.cpp
+15. Clean up main.cpp
+16. Clean up resources

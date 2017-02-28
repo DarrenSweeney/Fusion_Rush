@@ -17,7 +17,8 @@ void Sound::Play2D(const char *soundFileName,
 	irrklang::E_STREAM_MODE streamMode,
 	bool enableSoundEffects)
 {
-	//soundEngine->play2D(soundFileName, playLooped, startPaused, track, streamMode, enableSoundEffects);
+	if(soundEngine != NULL)
+		soundEngine->play2D(soundFileName, playLooped, startPaused, track, streamMode, enableSoundEffects);
 }
 
 void Sound::Play3D(const char* soundFileName, irrklang::vec3df pos,
@@ -27,5 +28,6 @@ void Sound::Play3D(const char* soundFileName, irrklang::vec3df pos,
 	irrklang::E_STREAM_MODE streamMode,
 	bool enableSoundEffects)
 {
-	soundEngine->play3D(soundFileName, pos, playLooped, startPaused, track, streamMode, enableSoundEffects);
+	if (soundEngine != NULL)
+		soundEngine->play3D(soundFileName, pos, playLooped, startPaused, track, streamMode, enableSoundEffects);
 }

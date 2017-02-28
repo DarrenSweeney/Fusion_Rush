@@ -68,7 +68,6 @@ private:
 	MenuLabel loginLabel, cancelLabel, createAccountLabel;
 	CollisionRectangle usernameRect, passwordRect, reenterPasswordRec;
 	std::string signInUserName, signInPassword, signInReEnterPass;
-	// TODO(Darren): Hide password when player types
 	std::string signInPassDisplay;
 	std::string currentUserName, playerRank, recordTime;
 

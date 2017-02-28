@@ -13,7 +13,6 @@ struct MenuText
 	float scale = 1.0f;
 };
 
-// TODO(Darren): Rename menu button?
 struct MenuLabel : MenuText
 {
 	CollisionRectangle rect;

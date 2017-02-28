@@ -139,12 +139,6 @@ void AroundMeLeaderboardRequest_Response(GS& gsInstance, const AroundMeLeaderboa
 	}
 }
 
-/*
-	TODO(Darren): If a race file exsists is "Race_Seed_11_FEB_2017" then don't re-download
-				  Need to looks at gamesparks chanlenge stuff
-
-	Upload a binaray data file with a lot of data content of 4 digits 
-*/
 void GetDownloadableRequest_Response(GS& gsInstance, const GetDownloadableResponse& response) 
 {
 	if (response.GetHasErrors())

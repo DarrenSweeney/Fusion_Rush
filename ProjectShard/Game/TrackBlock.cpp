@@ -3,13 +3,8 @@
 TrackBlock::TrackBlock()
 	:	position(10.5f, 0.5f, -550.0f), scaleVec(7.0f, 7.0f, 7.0f)
 {
-	// TODO(Darren): Remove this
-	Vector3 skyColour(0.0f, 0.0f, 0.0f);
-
 	modelBlock = g_resourceMgr.GetModel("Block");
 	shaderBlock = g_resourceMgr.GetShader("ModelShader");
-	shaderBlock->Use();
-	glUniform3f(glGetUniformLocation(shaderBlock->Program, "skyColour"), skyColour.x, skyColour.y, skyColour.z);
 	rotate = Matrix4();
 }
 
@@ -38,11 +33,6 @@ void TrackBlock::Update(float deltaTime)
 		break;
 	}
 
-	//rotate = rotate.rotate(MathHelper::DegressToRadians(45.0f), Vector3(-0.9f, 0.2f, -0.5f));
-	//Vector3 scaleVec = Vector3(7.0f, 7.0f, 7.0f);
-
-	// Only update the collison if it's not moving in the scene
-	//if(!blockType == BlockType::stationary)		// TODO(Darren): Implement this
 	boundingBox.UpdateBoundingBox(position, rotate, scaleVec);
 }
 
@@ -137,9 +127,7 @@ void TrackBlock::RenderReflection(Camera &camera, GLsizei screenWidth, GLsizei s
 	translate = translate.translate(Vector3(position.x, -position.y - 5.0f, position.z));
 	scale = Matrix4();
 	scale = scale.scale(scaleVec);
-	// TODO(Darren): Create a rotation reflection (look into this)
 	model = scale * rotate * translate;
-	//model = mirror * model;
 	shaderBlock->Use();
 	glUniformMatrix4fv(glGetUniformLocation(shaderBlock->Program, "projection"), 1, GL_FALSE, &projection.data[0]);
 	glUniformMatrix4fv(glGetUniformLocation(shaderBlock->Program, "view"), 1, GL_FALSE, &view.data[0]);

@@ -51,7 +51,6 @@ FinishedMenu::~FinishedMenu()
 
 void FinishedMenu::Init()
 {
-	// TODO(Darren): Add font to resource manager
 	textRenderer.Load("Resources/Fonts/arial.ttf");
 
 	UI_Shader = g_resourceMgr.GetShader(SID("UI_Shader"));

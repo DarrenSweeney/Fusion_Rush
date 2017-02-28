@@ -55,8 +55,6 @@ vec4 crt(vec2 fragCoord)
             col *= 0.0;
 
 	col*=1.0-0.65*vec3(clamp((mod(fragCoord.x, 2.0)-1.0)*2.0,0.0,1.0));
-
-    //float comp = smoothstep( 0.1, 0.9, sin(time) );
 		
     return vec4(col,1.0);
 }
