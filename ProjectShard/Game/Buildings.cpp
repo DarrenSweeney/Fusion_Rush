@@ -9,8 +9,6 @@ Buildings::Buildings()
 	building_1.buildingModel = g_resourceMgr.GetModel(SID("Building"));
 	building_1.reflecBuildingModel = g_resourceMgr.GetModel(SID("BuildingReflection"));
 
-	//CreateBuilding(building_1);
-
 	building_2.refleModelMatrices = new Matrix4[amount];
 	building_2.modelMatrices = new Matrix4[amount];
 

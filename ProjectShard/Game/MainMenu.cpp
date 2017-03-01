@@ -179,7 +179,6 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 			passwordRect.SetRectangle(signInOutPannelPos + Vector2(30.0f, 160.0f), 200.0f, 30.0f);
 			createAccountPannelPos = signInOutPannelPos + Vector2(0.0f, -40.0f);
 
-			// TODO(Darren): Grrr very messy code, will refactor at a later stage.
 			loginLabel.rect.SetRectangle(Vector2(loginLabel.position.x, screenHeight - loginLabel.position.y), 30, 50);
 			cancelLabel.rect.SetRectangle(Vector2(cancelLabel.position.x, screenHeight - cancelLabel.position.y), 30, 50);
 			createAccountLabel.rect.SetRectangle(Vector2(createAccountLabel.position.x - 50.0f, screenHeight - (createAccountLabel.position.y - 150.0f)), 200.0f, 50);
@@ -195,7 +194,6 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 
 				typeElementPos = signInOutPannelPos + Vector2(40.0f + (21.0f * signInUserName.size()), 80.0f);
 
-				// NOTE(Darren): I could seperate this, duplicate. Could put with backspace check.
 				if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ENTER)
 					|| InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN)
 					|| InputManager::GetInstance().IsKeyPressed(GLFW_KEY_TAB)
@@ -216,10 +214,6 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 				}
 
 				typeElementPos = signInOutPannelPos + Vector2(40.0f + (21.0f * signInPassword.size()), 180.0f);
-
-				// TODO(Darren): Disguise input password with '*'
-				//signInPassDisplay = input;
-				//signInPassDisplay = signInPassDisplay.replace(signInPassDisplay.begin(), signInPassDisplay.begin() + 3, "*");
 
 				if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ENTER)
 					|| InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN)
@@ -324,7 +318,6 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 
 				typeElementPos = signInOutPannelPos + Vector2(40.0f + (21.0f * signInUserName.size()), 50.0f);
 
-				// NOTE(Darren): I could seperate this, duplicate. Could put with backspace check.
 				if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ENTER)
 					|| InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN)
 					|| InputManager::GetInstance().IsKeyPressed(GLFW_KEY_TAB)
@@ -415,7 +408,6 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 				}
 				else
 				{
-					// TODO(Darren): Render this string to menu screen
 					std::cout << "Password word does not match" << std::endl;
 					PlayMenuError();
 					passwordMatchError = true;
@@ -554,9 +546,6 @@ void MainMenu::UpdateLable(MenuLabel &label)
 		label.color = defaultColor;
 		label.labelSelected = false;
 	}
-
-	// TODO(Darren): Need to refactor main menu code, one part i could out the update
-	// of the collision rect in here.
 }
 
 void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
@@ -600,8 +589,6 @@ void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	} 
 	serverStatus.position.x = screenWidth - 140;
 	RenderLabel(serverStatus, screenWidth, screenHeight);
-
-	//spriteRenderer->Render(*UI_Pannal, *UI_Shader, selectPosition, Vector2(800.0f, 40.0f));
 
 	if (currentSelectState == SelectState::ExitSelected)
 	{
@@ -664,16 +651,6 @@ void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 			textRenderer.RenderText(signInPassword.c_str(), signInOutPannelPos + Vector2(40.0f, -30.0f), 0.8f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
 			textRenderer.RenderText(signInReEnterPass.c_str(), signInOutPannelPos + Vector2(40.0f, -130.0f), 0.8f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
 		}
-
-		/*if (accountSignInError)
-		{
-		textRenderer.RenderText("account details not correct", Vector2(500.0f, 10.0f), 0.6f, Vector3(1.0f, 0.0f, 0.0f), screenWidth, screenHeight);
-		}
-
-		if (notOnlineError)
-		{
-		textRenderer.RenderText("Not Online!", Vector2(620.0f, 10.0f), 0.6f, Vector3(1.0f, 0.0f, 0.0f), screenWidth, screenHeight);
-		}*/
 	}
 
 	glDisable(GL_BLEND);

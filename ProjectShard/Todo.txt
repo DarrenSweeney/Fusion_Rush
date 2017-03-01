@@ -2,12 +2,12 @@
 
 *
 *
-3. Refactor Buildings.h / .cpp
-*
-5. NOTE: 	textRenderer.Load("Resources/Fonts/arial.ttf");
 *
 *
-8. MainMenu.h / .cpp
+*
+*
+*
+8. MainMenu.cpp
 *
 *
 11. Loop menu and game soundtrack.
@@ -19,4 +19,5 @@
 17. If a seed file is downloaded, don't download again.
 *
 19. Rename ProjectShard folder to FusionRush.
-20. Remove certain GL files
+*
+21. Remove GL files and External from repositry
