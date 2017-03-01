@@ -5,7 +5,9 @@
 #include <iostream>
 #include <vector>
 #include <GL\gl3w.h>
-#include <GL\glext.h>
+
+#define GL_TEXTURE_MAX_ANISOTROPY_EXT		0x84FE
+#define GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT	0x84FF
 
 class Texture
 {

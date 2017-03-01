@@ -3,7 +3,7 @@
 *
 *
 3. Refactor Buildings.h / .cpp
-4. Push out of box build
+*
 5. NOTE: 	textRenderer.Load("Resources/Fonts/arial.ttf");
 *
 *
