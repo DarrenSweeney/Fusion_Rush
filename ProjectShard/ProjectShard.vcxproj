@@ -105,7 +105,7 @@
       <AdditionalDependencies>glfw3.lib;opengl32.lib;freetype.lib;irrKlang.lib;assimpd.lib;urlmon.lib;Wininet.lib;legacy_stdio_definitions.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
-      <Command>xcopy /y /d  "$(ProjectDir)External\*.dll" "$(OutputPath)"</Command>
+      <Command>xcopy /y /d  "$(SolutionDir)External\*.dll" "$(OutDir)"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
