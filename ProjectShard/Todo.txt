@@ -15,6 +15,6 @@
 *
 *
 *
-16. Clean up resources
+*
 17. If a seed file is downloaded, don't download again.
-18. Add reset
+*
