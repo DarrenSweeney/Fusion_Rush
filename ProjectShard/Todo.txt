@@ -18,3 +18,5 @@
 *
 17. If a seed file is downloaded, don't download again.
 *
+19. Rename ProjectShard folder to FusionRush.
+20. Remove certain GL files

@@ -104,6 +104,9 @@
       <AdditionalLibraryDirectories>$(ProjectDir)..\Libraries\GLFW\lib;$(ProjectDir)..\Libraries\assimp\lib;$(ProjectDir)..\Libraries\freetype\lib;$(ProjectDir)..\Libraries\irrKlang\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;freetype.lib;irrKlang.lib;assimpd.lib;urlmon.lib;Wininet.lib;legacy_stdio_definitions.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PreBuildEvent>
+      <Command>xcopy /y /d  "$(ProjectDir)External\*.dll" "$(OutputPath)"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
