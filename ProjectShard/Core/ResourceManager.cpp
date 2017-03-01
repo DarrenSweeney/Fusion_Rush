@@ -61,7 +61,7 @@ void ResourceManager::LoadSceneShaders()
 void ResourceManager::LoadSceneModels()
 {
 	LoadModel("PlayerShip", "Resources/Ship/Shard_Ship.obj");
-	LoadModel("RaceTrack", "Resources/Track_new/Race_Track.obj");
+	LoadModel("RaceTrack", "Resources/Track/Race_Track.obj");
 	LoadModel("Barrier", "Resources/Barrier/Barrier.obj");
 	LoadModel("BarrierReflection", "Resources/Barrier/Barrier.obj");
 	LoadModel("Building", "Resources/Buildings/Building/Building.obj");
@@ -101,7 +101,5 @@ void ResourceManager::LoadSceneTextures()
 
 void ResourceManager::PrintShaderTable()
 {
-	// TODO(Darren): May override the << operator for ouputting the name of the T type, 
-	// ie, shaders, models, textures.
-	//shaderResources.PrintTable();
+	shaderResources.PrintTable();
 }

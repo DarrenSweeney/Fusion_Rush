@@ -186,7 +186,8 @@ void HashTable<T>::PrintTable()
 		std::cout << "-----------------------\n" << std::endl;
 		std::cout << "Index: " << i << std::endl;
 		std::cout << "Hash ID: " << hashTable[i]->hashID.hashID << std::endl;
-		std::cout << "Hash Value: " << hashTable[i]->value << std::endl;
+		// NOTE(Darren): Need to overload << operator for template values
+		//std::cout << "Hash Value: " << hashTable[i]->value << std::endl;
 		std::cout << "# of items = " << number << std::endl;
 		std::cout << "-----------------------\n" << std::endl;
 	}

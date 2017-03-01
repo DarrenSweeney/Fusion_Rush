@@ -69,7 +69,7 @@ void RacingScene::UpdateScene(float deltaTime)
 {
 	if (startSoundTrack)
 	{
-		raceSoundtrack.Play2D("Resources/Music/Test_Speed_Frekas.wav");
+		raceSoundtrack.Play2D("Resources/Music/Game_Sound_Track.wav");
 		startSoundTrack = false;
 	}
 

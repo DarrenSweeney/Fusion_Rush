@@ -7,13 +7,14 @@ GameApplication::GameApplication(GLsizei _screenWidth, GLsizei _screenHeight)
 
 	racingScene = new RacingScene();
 	mainMenu = new MainMenu();
-	finishedMenu = new FinishedMenu(1000, 800);
+	finishedMenu = new FinishedMenu(_screenWidth, _screenHeight);
 }
 
 GameApplication::~GameApplication()
 {
 	delete racingScene;
 	delete mainMenu;
+	delete finishedMenu;
 	delete crtShader;
 }
 
@@ -80,11 +81,6 @@ void GameApplication::SetUpBuffers(GLsizei screenWidth, GLsizei screenHeight)
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 		cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << endl;
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-}
-
-void GameApplication::reset()
-{
-
 }
 
 void GameApplication::Update(GLfloat deltaTime)
@@ -203,12 +199,14 @@ void GameApplication::Render(bool windowResized)
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 
 	// NOTE(Darren): Output ms per frame for debugging.
-	//glEnable(GL_BLEND);
-	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	//stringstream ss;
-	//ss << "ms per frame: " << msPerFrame;
-	//msPerFrameText.RenderText(ss.str(), Vector2(10.0f, screenHeight - 30.0f), 0.4f, Vector3(0.0, 1.0f, 0.0f), screenWidth, screenHeight);
-	//glDisable(GL_BLEND);
+	{
+		//glEnable(GL_BLEND);
+		//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		//stringstream ss;
+		//ss << "ms per frame: " << msPerFrame;
+		//msPerFrameText.RenderText(ss.str(), Vector2(10.0f, screenHeight - 30.0f), 0.4f, Vector3(0.0, 1.0f, 0.0f), screenWidth, screenHeight);
+		//glDisable(GL_BLEND);
+	}
 
 	if (windowResized)
 		SetUpBuffers(screenWidth, screenHeight);
