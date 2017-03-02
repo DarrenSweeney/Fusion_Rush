@@ -148,10 +148,14 @@ void GetDownloadableRequest_Response(GS& gsInstance, const GetDownloadableRespon
 	}
 	else
 	{
+		const char *filePath = "Race_Seed.txt";
+		std::ifstream f(filePath);
+		if (f.good())
+			return;
+
 		GameSparksInfo::raceSeedUrl = response.GetUrl();
 
 		const char *raceSeedURL = GameSparksInfo::raceSeedUrl.GetValue().c_str();
-		const char *filePath = "Race_Seed.txt";
 
 		tcout << _T("GameSparksInfo:: Downloading   : ") << raceSeedURL << std::endl;
 		tcout << _T("GameSparksInfo:: To local file : ") << filePath << std::endl;
