@@ -69,7 +69,7 @@ void RacingScene::UpdateScene(float deltaTime)
 {
 	if (startSoundTrack)
 	{
-		raceSoundtrack.Play2D("Resources/Music/Game_Sound_Track.wav");
+		raceSoundtrack.Play2D("Resources/Music/Game_Sound_Track.wav", true);
 		startSoundTrack = false;
 	}
 

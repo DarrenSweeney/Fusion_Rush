@@ -7,10 +7,10 @@
 *
 *
 *
-8. MainMenu.cpp
 *
 *
-11. Loop menu and game soundtrack.
+*
+11. Loop menu and game soundtrack. (TEST)
 *
 *
 *
@@ -20,4 +20,4 @@
 *
 19. Rename ProjectShard folder to FusionRush.
 *
-21. Remove GL files and External from repositry
+*
