@@ -213,7 +213,7 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 					PlayKeyboardEnter();
 				}
 
-				typeElementPos = signInOutPannelPos + Vector2(40.0f + (21.0f * signInPassword.size()), 180.0f);
+				typeElementPos = signInOutPannelPos + Vector2(40.0f + (15.0f * signInPassword.size()), 180.0f);
 
 				if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ENTER)
 					|| InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN)
@@ -337,7 +337,7 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 					signInPassword = input;
 				}
 
-				typeElementPos = signInOutPannelPos + Vector2(40.0f + (21.0f * signInPassword.size()), 150.0f);
+				typeElementPos = signInOutPannelPos + Vector2(40.0f + (15.0f * signInPassword.size()), 150.0f);
 
 				if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ENTER)
 					|| InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN)
@@ -358,7 +358,7 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 					signInReEnterPass = input;
 				}
 
-				typeElementPos = signInOutPannelPos + Vector2(40.0f + (21.0f * signInReEnterPass.size()), 250.0f);
+				typeElementPos = signInOutPannelPos + Vector2(40.0f + (15.0f * signInReEnterPass.size()), 250.0f);
 
 				if (InputManager::GetInstance().IsKeyPressed(GLFW_KEY_ENTER)
 					|| InputManager::GetInstance().IsKeyPressed(GLFW_KEY_DOWN)
@@ -619,7 +619,8 @@ void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 			RenderLabel(createAccountLabel, screenWidth, screenHeight);
 
 			textRenderer.RenderText(signInUserName.c_str(), signInOutPannelPos + Vector2(40.0f, 40.0f), 0.8f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
-			textRenderer.RenderText(signInPassword.c_str(), signInOutPannelPos + Vector2(40.0f, -60.0f), 0.8f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
+			std::string hidePass(signInPassword.size(), '*');
+			textRenderer.RenderText(hidePass, signInOutPannelPos + Vector2(40.0f, -60.0f), 0.8f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
 		}
 		else if (currentMenuState == MenuState::CreateAccount)
 		{
@@ -648,8 +649,10 @@ void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 			RenderLabel(cancelLabel, screenWidth, screenHeight);
 
 			textRenderer.RenderText(signInUserName.c_str(), signInOutPannelPos + Vector2(40.0f, 70.0f), 0.8f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
-			textRenderer.RenderText(signInPassword.c_str(), signInOutPannelPos + Vector2(40.0f, -30.0f), 0.8f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
-			textRenderer.RenderText(signInReEnterPass.c_str(), signInOutPannelPos + Vector2(40.0f, -130.0f), 0.8f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
+			std::string hidePass(signInPassword.size(), '*');
+			textRenderer.RenderText(hidePass, signInOutPannelPos + Vector2(40.0f, -30.0f), 0.8f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
+			std::string hideReEnterPass(signInReEnterPass.size(), '*');
+			textRenderer.RenderText(hideReEnterPass, signInOutPannelPos + Vector2(40.0f, -130.0f), 0.8f, Vector3(1.0f, 1.0f, 1.0f), screenWidth, screenHeight);
 		}
 	}
 
