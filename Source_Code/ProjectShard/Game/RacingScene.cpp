@@ -96,7 +96,9 @@ void RacingScene::UpdateScene(float deltaTime)
 	ghostRaceProgress = ((ghostRacer.position.z * -1.0f) / ghostRaceProgress) * 100.0f;
 	ghostRaceProgress /= 100.0f;
 
-	if (racingTrack.ObstacleCollision(player.boundingBox) && !player.shipDestroyed)
+	if (racingTrack.ObstacleCollision(player.boundingBox) && !player.shipDestroyed
+		|| (InputManager::GetInstance().IsControllerButtonPressed(XBOX360_START)
+			|| InputManager::GetInstance().IsKeyPressed(GLFW_KEY_R)))
 	{
 		player.shipDestroyed = true;
 		player.linearVelocity = Vector3();

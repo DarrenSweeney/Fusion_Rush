@@ -267,6 +267,7 @@ void MainMenu::UpdateScene(float delatTime, GLsizei screenWidth, GLsizei screenH
 				selectPosition = createAccountPannelPos + Vector2(30.0f, 60.0f);
 				signInUserName.clear();
 				signInPassword.clear();
+				signInReEnterPass.clear();
 			}
 
 			if ((InputManager::GetInstance().IsKeyPressed(GLFW_KEY_UP) || InputManager::GetInstance().IsControllerButtonPressed(XBOX360_UP)) 

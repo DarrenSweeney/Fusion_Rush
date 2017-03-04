@@ -280,7 +280,6 @@
     <None Include="Shaders\EnviromentObject.vert" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Todo.txt" />
     <Text Include="Ghost_Racer.txt" />
     <Text Include="Race_Seed.txt" />
   </ItemGroup>

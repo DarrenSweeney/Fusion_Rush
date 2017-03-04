@@ -24,12 +24,6 @@ void PlayerShip::Update(float deltaTime, float currentRaceTime)
 	else
 		SteeringWheelMovement(deltaTime);
 
-	if (InputManager::GetInstance().IsControllerButtonPressed(XBOX360_START)
-		|| InputManager::GetInstance().IsKeyPressed(GLFW_KEY_R))
-	{
-		Spawn();
-	}
-
 	if (shipDestroyed)
 	{
 		PlayExplodeAnimation(deltaTime);
