@@ -162,20 +162,24 @@ void PlayerShip::SteeringWheelMovement(float deltaTime)
 
 		if (InputManager::GetInstance().GetLeftJoyStick().x < -JOYSTICK_DEAD_ZONE)
 		{
-			linearVelocity.x -= speed + (abs(InputManager::GetInstance().GetLeftJoyStick().x) * speed);
+			float input_value = abs(InputManager::GetInstance().GetLeftJoyStick().x);
+
+			linearVelocity.x -= speed + (input_value * speed);
 
 			targetRotation = targetRotation.RotateZ(MathHelper::DegressToRadians(90.0f));
-			orientation = orientation.Slerp(orientation, targetRotation, deltaTime * rotationSpeed);
+			orientation = orientation.Slerp(orientation, targetRotation, deltaTime * (rotationSpeed * (input_value * 3.0f)));
 		}
 		else
 			orientation = orientation.Slerp(orientation, initalRotation, deltaTime * rotationSpeed);
 
 		if (InputManager::GetInstance().GetLeftJoyStick().x > JOYSTICK_DEAD_ZONE)
 		{
-			linearVelocity.x += speed + (abs(InputManager::GetInstance().GetLeftJoyStick().x) * speed);
+			float input_value = abs(InputManager::GetInstance().GetLeftJoyStick().x);
+
+			linearVelocity.x += speed + (input_value * speed);
 
 			targetRotation = targetRotation.RotateZ(MathHelper::DegressToRadians(-90.0f));
-			orientation = orientation.Slerp(orientation, targetRotation, deltaTime * rotationSpeed);
+			orientation = orientation.Slerp(orientation, targetRotation, deltaTime * (rotationSpeed * (input_value * 3.0f)));
 		}
 		else
 			orientation = orientation.Slerp(orientation, initalRotation, deltaTime * rotationSpeed);
