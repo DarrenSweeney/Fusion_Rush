@@ -584,7 +584,7 @@ void MainMenu::RenderScene(GLsizei screenWidth, GLsizei screenHeight)
 	RenderLabel(currentPlayer, screenWidth, screenHeight);
 	if (GameSparksInfo::available)
 	{
-		spriteRenderer->Render(*UI_Pannal, *UI_Shader, leaderboardUIPos, Vector2(470.0f, 600.0f));
+		spriteRenderer->Render(*UI_Pannal, *UI_Shader, leaderboardUIPos, Vector2(470.0f, 620.0f));
 		RenderLabel(leaderboardTitle, screenWidth, screenHeight);
 		RenderLeaderboardEntry(screenWidth, screenHeight);
 	} 
