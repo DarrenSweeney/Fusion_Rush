@@ -153,9 +153,7 @@ void PlayerShip::SteeringWheelMovement(float deltaTime)
 
 		if (InputManager::GetInstance().GetLeftTrigger() < -0.3f)
 		{
-			std::cout << "Linear Velocity" << linearVelocity.z << std::endl;
-
-			linearVelocity.z += speed + (abs(InputManager::GetInstance().GetLeftTrigger()) * speed * 5.0f);
+			linearVelocity.z += speed + (abs(InputManager::GetInstance().GetLeftTrigger()) * speed * 0.5f);
 		}
 		else if (InputManager::GetInstance().GetRightTrigger() > -0.1f)
 		{
